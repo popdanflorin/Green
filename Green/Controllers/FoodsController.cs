@@ -1,4 +1,6 @@
-﻿using Green.Services;
+﻿using Green.Entities.Enums;
+using Green.Models;
+using Green.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,12 @@ namespace Green.Controllers
         private QueryService qService = new QueryService();
 
         // GET: Foods
-        public ActionResult Index()
+        public ActionResult List()
         {
-            var data = qService.GetFoods();
-            return View(data);
+            var model = new FoodModel();
+            model.Foods = qService.GetFoods();
+            model.FoodTypes = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new { Id = x, Description = x.ToString() }).ToList<object>();
+            return View(model);
         }
     }
 }

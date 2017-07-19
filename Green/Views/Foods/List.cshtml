@@ -1,0 +1,35 @@
+﻿@using Green.Entities
+@using Green.Models
+@{
+    ViewBag.Title = "Foods";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model FoodModel
+<div id="foods">
+    <h2>Foods</h2>
+    <input type="button" value="New" class="btn btn-default" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:Foods">
+            <tr>
+                <td class="col-md-1" data-bind="text:Name"></td>
+                <td class="col-md-1" data-bind="text:TypeDisplay"></td>
+                <td class="col-md-1">
+                    <input type="button" value="Details" class="btn btn-info" data-toggle="modal" data-target="#foodItem" data-bind="click:$parent.details" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @Html.Partial("Item")
+</div>
+<script>
+    $(function () {
+        var vm = new Foods(Model);
+        ko.applyBindings(vm, $("#foods").get(0));
+    });
+</script>
