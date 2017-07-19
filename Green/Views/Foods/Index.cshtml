@@ -1,0 +1,33 @@
+﻿@using Green.Entities
+@{
+    ViewBag.Title = "Foods";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Food>
+<h2>Foods</h2>
+<table id="foods" class="table" >
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach:Foods">
+        <tr>
+            <td class="col-md-1" data-bind="text:Name"></td>
+            <td class="col-md-1" data-bind="text:TypeDisplay"></td>
+            @*<td class="col-md-1">
+                <input type="button" value="Details" data-bind="click:$parent.details" />
+            </td>*@
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var vm = new Foods();
+        ko.applyBindings(vm, $("#foods").get(0));
+        var x = ko.mapping.fromJS(Model);
+        vm.init(x());
+    });
+</script>
