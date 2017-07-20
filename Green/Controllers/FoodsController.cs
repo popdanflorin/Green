@@ -1,9 +1,11 @@
-﻿using Green.Entities.Enums;
+﻿using Green.Entities;
+using Green.Entities.Enums;
 using Green.Models;
 using Green.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,6 +14,7 @@ namespace Green.Controllers
     public class FoodsController : Controller
     {
         private QueryService qService = new QueryService();
+        private CommandService cService = new CommandService();
 
         // GET: Foods
         public ActionResult List()
@@ -20,6 +23,13 @@ namespace Green.Controllers
             model.Foods = qService.GetFoods();
             model.FoodTypes = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new { Id = x, Description = x.ToString() }).ToList<object>();
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult Save(Food food)
+        {
+            var message  = cService.SaveFood(food);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Green
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/viewModels").Include(
-                      "~/Scripts/ViewModels/ViewFoods.js"));
+                      "~/Scripts/ViewModels/Foods.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-blue.css",
