@@ -31,5 +31,12 @@ namespace Green.Controllers
             var message  = cService.SaveFood(food);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
+
+        [HttpPost]
+        public JsonResult Delete(string foodId)
+        {
+            var message = cService.DeleteFood(foodId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
     }
 }
