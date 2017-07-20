@@ -25,6 +25,13 @@ namespace Green.Controllers
             return View(model);
         }
 
+        public JsonResult ListRefresh()
+        {
+            var foods = qService.GetFoods();
+            var foodTypes = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new { Id = x, Description = x.ToString() }).ToList<object>();
+            return new JsonResult() { Data = new { Foods = foods , FoodTypes = foodTypes }, ContentEncoding = Encoding.UTF8 };
+        }
+
         [HttpPost]
         public JsonResult Save(Food food)
         {
