@@ -9,6 +9,8 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/overlay")
     @Scripts.Render("~/bundles/viewModels")
     <script>
         var Model = JSON.parse('@(Html.Raw(Html.JsonStringify((object)Model)))');

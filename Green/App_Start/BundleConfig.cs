@@ -21,13 +21,17 @@ namespace Green
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/knockout-3.4.2.js",
-                      "~/Scripts/knockout.mapping-latest.js"
-                      ));
+                      "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                     "~/Scripts/knockout-3.4.2.js",
+                     "~/Scripts/knockout.mapping-latest.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/viewModels").Include(
                       "~/Scripts/ViewModels/Foods.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/overlay").Include(
+                      "~/Scripts/overlay.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-blue.css",

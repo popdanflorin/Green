@@ -5,7 +5,7 @@
     self.Id = ko.observable();
     self.Name = ko.observable();
     self.Type = ko.observable();
-    self.showLoading = ko.observable(false);
+    self.loadingPanel = new LoadingOverlay();
 
     self.details = function (data) {
         self.Id(data.Id);
@@ -59,12 +59,12 @@
     };
     self.refresh = function () {
         var url = '/Foods/ListRefresh';
-        self.showLoading(true);
+        self.loadingPanel.show();
         $.ajax(url, {
             type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                self.showLoading(false);
+                self.loadingPanel.hide();
                 console.log(data);
                 self.Foods(data.Foods);
                 self.Types(data.FoodTypes);
