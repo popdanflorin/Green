@@ -29,13 +29,13 @@ namespace Green.Controllers
         {
             var foods = qService.GetFoods();
             var foodTypes = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new { Id = x, Description = x.ToString() }).ToList<object>();
-            return new JsonResult() { Data = new { Foods = foods , FoodTypes = foodTypes }, ContentEncoding = Encoding.UTF8 };
+            return new JsonResult() { Data = new { Foods = foods, FoodTypes = foodTypes }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
         public JsonResult Save(Food food)
         {
-            var message  = cService.SaveFood(food);
+            var message = cService.SaveFood(food);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
 

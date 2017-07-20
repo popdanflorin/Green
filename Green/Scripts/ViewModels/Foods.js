@@ -31,6 +31,7 @@
             data: food,
             success: function (data) {
                 console.log(data);
+                self.refresh();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -49,6 +50,22 @@
             data: food,
             success: function (data) {
                 console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    };
+    self.refresh = function () {
+        var url = '/Foods/ListRefresh';
+        $.ajax(url, {
+            type: "get",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log(data);
+                self.Foods(data.Foods);
+                self.Types(data.FoodTypes);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
