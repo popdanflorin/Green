@@ -1,11 +1,11 @@
-﻿function Foods(data)
-{
+﻿function Foods() {
     var self = this;
-    self.Foods = ko.observableArray(data.Foods);
-    self.Types = ko.observableArray(data.FoodTypes);
+    self.Foods = ko.observableArray();
+    self.Types = ko.observableArray();
     self.Id = ko.observable();
     self.Name = ko.observable();
     self.Type = ko.observable();
+    self.showLoading = ko.observable(false);
 
     self.details = function (data) {
         self.Id(data.Id);
@@ -59,10 +59,12 @@
     };
     self.refresh = function () {
         var url = '/Foods/ListRefresh';
+        self.showLoading(true);
         $.ajax(url, {
             type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                self.showLoading(false);
                 console.log(data);
                 self.Foods(data.Foods);
                 self.Types(data.FoodTypes);

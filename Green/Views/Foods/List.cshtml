@@ -3,10 +3,10 @@
     ViewBag.Title = "Foods";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model FoodModel
 <div id="foods">
     <h2>Foods</h2>
     <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
+    <div data-bind="visible: showLoading">Loading...</div>
     <table class="table">
         <thead>
             <tr>
@@ -31,7 +31,8 @@
 </div>
 <script>
     $(function () {
-        var vm = new Foods(Model);
+        var vm = new Foods();
+        vm.refresh();
         ko.applyBindings(vm, $("#foods").get(0));
     });
 </script>

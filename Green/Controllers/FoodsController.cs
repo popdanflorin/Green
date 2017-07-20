@@ -19,10 +19,7 @@ namespace Green.Controllers
         // GET: Foods
         public ActionResult List()
         {
-            var model = new FoodModel();
-            model.Foods = qService.GetFoods();
-            model.FoodTypes = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new { Id = x, Description = x.ToString() }).ToList<object>();
-            return View(model);
+            return View();
         }
 
         public JsonResult ListRefresh()
