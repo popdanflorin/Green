@@ -22,7 +22,7 @@ namespace Green.Controllers
         public JsonResult ListRefresh()
         {
             var foods = qService.GetFoods();
-            var foodTypes = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new { Id = x, Description = x.ToString() }).ToList<object>();
+            var foodTypes = qService.GetFoodTypes();
             return new JsonResult() { Data = new { Foods = foods, FoodTypes = foodTypes }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
