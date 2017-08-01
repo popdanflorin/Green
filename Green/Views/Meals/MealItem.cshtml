@@ -1,0 +1,28 @@
+﻿<div id="mealItem" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Manage meal</h4>
+            </div>
+            <div class="modal-body">
+                <label for="MealType">Type</label>
+                <select id ="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
+                <label for="MealDetails">Details</label>
+                <input id="MealDetails" type="text" class="form-control" data-bind="value: Details">
+                <label for="MealPreparationDetails">Preparation details</label>
+                <input id="MealPreparationDetails" type="text" class="form-control" data-bind="value: PreparationDetails">
+                <label for="MealStatus">Status</label>
+                <select id="MealStatus" class="form-control" data-bind="options:Statuses, optionsText: 'Description', optionsValue: 'Id', value: Status, optionsCaption: 'Choose...'"></select>
+                <label for="MealRating">Rating</label>
+                <select id="MealRating" class="form-control" data-bind="options:Ratings, optionsText: 'Description', optionsValue: 'Id', value: Rating, optionsCaption: 'Choose...'"></select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:save">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

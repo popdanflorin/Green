@@ -28,7 +28,8 @@ namespace Green
                      "~/Scripts/knockout.mapping-latest.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/viewModels").Include(
-                      "~/Scripts/ViewModels/Foods.js"));
+                      "~/Scripts/ViewModels/Foods.js",
+                      "~/Scripts/ViewModels/Meals.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overlay").Include(
                       "~/Scripts/overlay.js"));

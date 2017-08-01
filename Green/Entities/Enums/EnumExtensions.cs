@@ -22,5 +22,41 @@ namespace Green.Entities.Enums
                 default:return String.Empty;
             }
         }
+
+        public static string ToString(this MealType mealType)
+        {
+            switch (mealType)
+            {
+                case MealType.Breakfast: return "Breakfast";
+                case MealType.Lunch: return "Lunch";
+                case MealType.Dinner: return "Dinner";
+                case MealType.Snack: return "Snack";
+                default: return String.Empty;
+            }
+        }
+
+        public static string ToString(this MealStatus mealStatus)
+        {
+            switch (mealStatus)
+            {
+                case MealStatus.Planned: return "Planned";
+                case MealStatus.InProgress: return "In progress";
+                case MealStatus.Finished: return "Finished";
+                default: return String.Empty;
+            }
+        }
+
+        public static string ToString(this MealRating mealRating)
+        {
+            switch (mealRating)
+            {
+                case MealRating.Bad: return "Bad";
+                case MealRating.Decent: return "Decent";
+                case MealRating.Good: return "Good";
+                case MealRating.VeryGood: return "Very good";
+                case MealRating.Excellent: return "Excellent";
+                default: return String.Empty;
+            }
+        }
     }
 }

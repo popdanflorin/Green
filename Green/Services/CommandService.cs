@@ -56,5 +56,51 @@ namespace Green.Services
             }
         }
 
+        public string SaveMeal(Meal meal)
+        {
+            try
+            {
+                var oldMeal = ctx.Meals.FirstOrDefault(f => f.Id == meal.Id);
+                if (oldMeal == null)
+                {
+                    meal.Id = Guid.NewGuid().ToString();
+                    ctx.Meals.Add(meal);
+                }
+                else
+                {
+                    oldMeal.Details = meal.Details;
+                    oldMeal.PreparationDetails = meal.PreparationDetails;
+                    oldMeal.Type = meal.Type;
+                    oldMeal.Status = meal.Status;
+                    oldMeal.Rating = meal.Rating;
+                }
+
+                ctx.SaveChanges();
+                return SuccessMessage;
+            }
+            catch
+            {
+                return ErrorMessage;
+            }
+        }
+
+        public string DeleteMeal(string id)
+        {
+            try
+            {
+                var meal = ctx.Meals.FirstOrDefault(f => f.Id == id);
+                if (meal != null)
+                {
+                    ctx.Meals.Remove(meal);
+                    ctx.SaveChanges();
+                    return SuccessMessage;
+                }
+                return ItemNotFoundMessage;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage;
+            }
+        }
     }
 }

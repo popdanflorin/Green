@@ -10,8 +10,10 @@ namespace Green.Entities
         public string Id { get; set; }
         public string MealId { get; set; }
         public string FoodId { get; set; }
+
         public int ServingSizeInGrams { get; set; }
         public string ServingSizeDescription { get; set; }
+
         public int EstimatedCalories { get; set; }
     }
 }

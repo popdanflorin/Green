@@ -199,9 +199,12 @@
     <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MealsController.cs" />
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
+    <Compile Include="Entities\Enums\EnumItem.cs" />
     <Compile Include="Entities\Enums\MealRating.cs" />
     <Compile Include="Entities\Enums\MealStatus.cs" />
+    <Compile Include="Entities\Enums\MealType.cs" />
     <Compile Include="Entities\Food.cs" />
     <Compile Include="Entities\FoodServing.cs" />
     <Compile Include="Entities\Enums\FoodType.cs" />
@@ -254,6 +257,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewModels\Foods.js" />
+    <Content Include="Scripts\ViewModels\Meals.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -289,6 +293,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Foods\List.cshtml" />
     <Content Include="Views\Foods\Item.cshtml" />
+    <Content Include="Views\Meals\List.cshtml" />
+    <Content Include="Views\Meals\MealItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

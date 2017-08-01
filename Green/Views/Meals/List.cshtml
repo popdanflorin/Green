@@ -1,0 +1,43 @@
+﻿@using Green.Models
+@{
+    ViewBag.Title = "Meals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="meals">
+    <h2>Meals</h2>
+    <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Details</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Rating</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:Meals">
+            <tr>
+                <td class="col-xs-5" data-bind="text:Name"></td>
+                <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
+                <td class="col-xs-5" data-bind="text:StatusDisplay"></td>
+                <td class="col-xs-5" data-bind="text:RatingDisplay"></td>
+                <td class="col-xs-1">
+                    <input type="button" value="Details" class="btn btn-info" data-toggle="modal" data-target="#mealItem" data-bind="click:$parent.details" />
+                </td>
+                <td class="col-xs-1">
+                    <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @Html.Partial("MealItem")
+</div>
+<script>
+    $(function () {
+        var vm = new Meals();
+        vm.refresh();
+        ko.applyBindings(vm, $("#meals").get(0));
+    });
+</script>
