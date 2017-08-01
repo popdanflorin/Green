@@ -56,7 +56,7 @@
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: food,
+            data: meal,
             success: function (data) {
                 console.log(data);
                 self.refresh();
@@ -68,14 +68,14 @@
     };
     self.delete = function (data) {
         var url = '/Meals/Delete';
-        var food = JSON.stringify({
-            foodId: data.Id
+        var meal = JSON.stringify({
+            mealId: data.Id
         });
         $.ajax(url, {
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: food,
+            data: meal,
             success: function (data) {
                 console.log(data);
                 self.refresh();

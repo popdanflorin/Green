@@ -64,6 +64,8 @@ namespace Green.Services
                 if (oldMeal == null)
                 {
                     meal.Id = Guid.NewGuid().ToString();
+                    meal.PlannedTime = DateTime.Now;
+                    meal.ActualTime = DateTime.Now;
                     ctx.Meals.Add(meal);
                 }
                 else

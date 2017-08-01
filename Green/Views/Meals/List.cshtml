@@ -5,7 +5,7 @@
 }
 <div id="meals">
     <h2>Meals</h2>
-    <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
+    <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#mealItem" data-bind="click:add" />
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +19,7 @@
         </thead>
         <tbody data-bind="foreach:Meals">
             <tr>
-                <td class="col-xs-5" data-bind="text:Name"></td>
+                <td class="col-xs-5" data-bind="text:Details"></td>
                 <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
                 <td class="col-xs-5" data-bind="text:StatusDisplay"></td>
                 <td class="col-xs-5" data-bind="text:RatingDisplay"></td>

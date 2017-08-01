@@ -33,7 +33,7 @@ namespace Green.Services
 
         public List<EnumItem> GetMealRatings()
         {
-            return Enum.GetValues(typeof(MealRating)).Cast<MealStatus>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
+            return Enum.GetValues(typeof(MealRating)).Cast<MealRating>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
         }
 
         public List<Meal> GetMeals()
