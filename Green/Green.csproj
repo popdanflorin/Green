@@ -201,6 +201,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MealsController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
+    <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
     <Compile Include="Entities\Enums\EnumItem.cs" />
     <Compile Include="Entities\Enums\MealRating.cs" />
@@ -297,6 +298,7 @@
     <Content Include="Views\Meals\List.cshtml" />
     <Content Include="Views\Meals\MealItem.cshtml" />
     <Content Include="Views\Reservations\List.cshtml" />
+    <Content Include="Views\Restaurants\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

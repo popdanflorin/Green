@@ -29,7 +29,7 @@ namespace Green.Models
         public DbSet<FoodServing> FoodServings { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-
+        public DbSet<Restaurant> Restaurants { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
