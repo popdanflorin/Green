@@ -1,7 +1,35 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Reservations";
 }
 
-<h2>List</h2>
+<div id="reservations">
+    <h2>Reservations</h2>
+    <input type="button" value="Book table" class="btn-default"/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Date</th>
+                <th>NumberOfSeats</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+    $(function (){
+        var vm = new Reservations();
+        vm.refresh();
+
+    })
+</script>
 

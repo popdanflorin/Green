@@ -29,6 +29,12 @@ namespace Green.Migrations
               new Food { Id = Guid.NewGuid().ToString(), Name = "Castravete", Type = FoodType.Vegetables },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Bere", Type = FoodType.Alcohol }
             );
+
+            context.Reservations.AddOrUpdate(
+                new Reservation { Id = Reservation.IdCounter, ClientName = "Popescu", ReservationDate = new DateTime(2017, 9, 12, 20, 30, 0), Seats = 4 },
+                new Reservation { Id = Reservation.IdCounter, ClientName = "Ionscu", ReservationDate = new DateTime(2018, 1, 25, 15, 0, 0), Seats = 1 },
+                new Reservation { Id = Reservation.IdCounter, ClientName = "Grigorescu", ReservationDate = new DateTime(2017, 10, 7, 21, 30, 0), Seats = 3 }
+            );
         }
     }
 }
