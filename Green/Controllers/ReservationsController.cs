@@ -18,9 +18,10 @@ namespace Green.Controllers
             return View();
         }
 
-        //public JsonResult ListRefresh()
-        //{
-
-        //}
+        public JsonResult ListRefresh()
+        {
+            var reservations = qService.GetFoods();
+            return new JsonResult { Data = new { Reservations = reservations } };
+        }
     }
 }
