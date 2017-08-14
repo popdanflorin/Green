@@ -1,0 +1,26 @@
+﻿<div id="restaurantItem" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Manage restaurant</h4>
+            </div>
+            <div class="modal-body">
+                <label for="Name">Name</label>
+                <input id="Name" type="text" class="form-control" data-bind="value: Name">
+                <label for="Address">Address</label>
+                <input id="Address" type="text" class="form-control" data-bind="value: Address">
+                <label for="Type">Type</label>
+                <select id="Type" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose type...'"></select>
+                <label for="MaxPrice">MaxPrice</label>
+                <input id="MaxPrices" type="text" class="form-control" data-bind="value: MaxPrice">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:save">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
