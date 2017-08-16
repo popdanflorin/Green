@@ -13,6 +13,7 @@ namespace Green.Entities
             set { IdCounter += value; }
         }
         public int Id { get; set; }
+        public string RestaurantName { get; set; }
         public string ClientName { get; set; }
         public DateTime ReservationDate { get; set; }
         public string ReservationDateDisplay
