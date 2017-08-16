@@ -2,5 +2,4 @@
 /Green/App_Data
 /Green/obj
 /Green/*.user
-.vs/Green/
-.vs/config/
+/.vs/config/applicationhost.config
