@@ -19,6 +19,6 @@ namespace Green.Entities
                 return ReservationDate.ToString("dd-MMM-yyyy HH:mm");
             }
         }
-        public int Seats { get; set; }
+        public string Seats { get; set; }
     }
 }
