@@ -299,6 +299,7 @@
     <Content Include="Views\Meals\MealItem.cshtml" />
     <Content Include="Views\Reservations\List.cshtml" />
     <Content Include="Views\Restaurants\List.cshtml" />
+    <Content Include="Views\Reservations\ReservationItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

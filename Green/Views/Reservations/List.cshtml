@@ -4,32 +4,55 @@
 
 <div id="reservations">
     <h2>Reservations</h2>
-    <input type="button" value="Book table" class="btn-default"/>
-    <table class="table">
+    <input id="reserveButton" type="button" class="btn btn-primary" value="Make Reservation" onclick="reserveButtonClicked()" data-toggle="modal" data-target="#reservationItem"/>
+    <input type="button" class="btn btn-danger" value="Date" onclick="window.alert(Date().toString())" />
+    <table class="table table-striped" align="right">
         <thead>
             <tr>
-                <th>Client</th>
-                <th>Date</th>
-                <th>NumberOfSeats</th>
+                <th>Client Name</th>
+                <th>Date and Time</th>
+                <th>Number Of Seats</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody data-bind="foreach:Reservations">
             <tr>
-
-
+                <td class="col-md-4" data-bind="text:ClientName"></td>
+                <td class="col-md-3" data-bind="text:ReservationDateDisplay"></td>
+                <td class="col-md-2" data-bind="text:Seats"></td>
+                <td class="col-md-3">
+                    <div class="btn-group-md" align="right">
+                        <button id="infoButton" class="btn btn-info" data-toggle="modal" data-target="#reservationItem">
+                            <span class="glyphicon glyphicon-info-sign"></span> Info
+                        </button>
+                        <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." onclick="cancelButtonClicked()">
+                            <span class="glyphicon glyphicon-remove-sign"></span> Cancel
+                        </button>
+                    </div>
+                </td>
             </tr>
-
         </tbody>
-
     </table>
-
+    @Html.Partial("ReservationItem")
 </div>
 
 <script>
-    $(function (){
+    $(function () {
         var vm = new Reservations();
         vm.refresh();
+        ko.applyBindings(vm, $("#reservations").get(0));
+    });
+</script>
 
-    })
+<script>
+    function reserveButtonClicked() {
+        document.getElementById("reserveButton").value = "Processing...";
+    }
+
+    function cancelButtonClicked() {
+        if (window.confirm("Are you sure you want to cancel your reservation?"))
+        {
+            window.alert("Reservation canceled!");
+        }
+    }
 </script>
 
