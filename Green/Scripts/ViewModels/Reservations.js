@@ -3,14 +3,14 @@
     self.Reservations = ko.observableArray();
     self.Id = ko.observable();
     self.ClientName = ko.observable();
-    self.Date = ko.observable();
+    self.ReservationDate = ko.observable();
     self.Seats = ko.observable();
     self.loadingPanel = new LoadingOverlay();
 
     self.details = function (data) {
         self.Id(data.Id);
         self.ClientName(data.ClientName);
-        self.Date(data.Date);
+        self.Date(data.ReservationDate);
         self.Seats(data.Seats);
     };
 

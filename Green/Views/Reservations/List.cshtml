@@ -5,7 +5,7 @@
 <div id="reservations">
     <h2>Reservations</h2>
     <input id="reserveButton" type="button" class="btn btn-primary" value="Make Reservation" onclick="reserveButtonClicked()" data-toggle="modal" data-target="#reservationItem"/>
-    <input type="button" class="btn btn-danger" value="Date" onclick="window.alert(Date().toString())" />
+    <input type="button" class="btn btn-danger" value="Date" onclick="window.alert(Date().toString())"/>
     <table class="table table-striped" align="right">
         <thead>
             <tr>
@@ -41,16 +41,13 @@
         vm.refresh();
         ko.applyBindings(vm, $("#reservations").get(0));
     });
-</script>
 
-<script>
     function reserveButtonClicked() {
-        document.getElementById("reserveButton").value = "Processing...";
+        $("#reserveButton").attr("value", "Processing...");
     }
 
     function cancelButtonClicked() {
-        if (window.confirm("Are you sure you want to cancel your reservation?"))
-        {
+        if (window.confirm("Are you sure you want to cancel your reservation?")) {
             window.alert("Reservation canceled!");
         }
     }
