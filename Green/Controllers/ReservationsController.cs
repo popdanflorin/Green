@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
 using System.Web.Mvc;
 using Green.Services;
 
@@ -20,8 +21,8 @@ namespace Green.Controllers
 
         public JsonResult ListRefresh()
         {
-            var reservations = qService.GetFoods();
-            return new JsonResult { Data = new { Reservations = reservations } };
+            var reservations = qService.GetReservations();
+            return new JsonResult { Data = new { Reservations = reservations }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }
