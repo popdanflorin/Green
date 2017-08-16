@@ -27,7 +27,7 @@
                 self.loadingPanel.hide();
                 console.log(data);
                 self.Restaurants(data.Restaurants);
-                self.Types(data.RestaurantsTypes);
+                self.Types(data.RestaurantTypes);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
