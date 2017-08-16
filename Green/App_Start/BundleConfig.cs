@@ -37,6 +37,13 @@ namespace Green
             bundles.Add(new ScriptBundle("~/bundles/overlay").Include(
                       "~/Scripts/overlay.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+                      "~/Scripts/moment-with-locales.js",
+                      "~/Scripts/moment-with-locales.min.js",
+                      "~/Scripts/moment.js",
+                      "~/Scripts/moment.min.js"
+                      ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-blue.css",
                       "~/Content/site.css"));

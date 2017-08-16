@@ -105,31 +105,5 @@ namespace Green.Services
             }
         }
 
-        public string SaveReservation(Reservation reservation)
-        {
-            try
-            {
-                var oldReservation = ctx.Reservations.First(r => r.Id == reservation.Id);
-                if (oldReservation == null)
-                {
-                    reservation.Id = Reservation.IdCounter;
-                    Reservation.IdCounter += 1;
-                    ctx.Reservations.Add(reservation);
-                }
-                else
-                {
-                    oldReservation.ClientName = reservation.ClientName;
-                    oldReservation.ReservationDate = reservation.ReservationDate;
-                    oldReservation.Seats = reservation.Seats;
-                }
-
-                ctx.SaveChanges();
-                return SuccessMessage;
-            }
-            catch (Exception)
-            {
-                return ErrorMessage;
-            }
-        }
     }
 }

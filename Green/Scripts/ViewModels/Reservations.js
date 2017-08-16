@@ -11,10 +11,64 @@
 
     self.details = function (data) {
         self.Id(data.Id);
+        self.RestaurantName(data.RestaurantName);
         self.ClientName(data.ClientName);
-        self.ReservationDate(data.ReservationDate);
+        self.ReservationDate(moment(data.ReservationDate).toDate());
         self.Seats(data.Seats);
     };
+
+    self.add = function () {
+        self.Id(0);
+        self.RestaurantName(null);
+        self.ClientName(null);
+        self.ReservationDate(null);
+        self.Seats(null);
+    }
+
+
+    self.delete = function (data) {
+        var url = '/Reservations/Delete';
+        var reservation = JSON.stringify({
+            reservationId: data.Id
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: reservation,
+            success: function (data) {
+                console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    };
+
+    self.save = function () {
+        var url = '/Reservations/Save';
+        var reservation = JSON.stringify({
+            Id: self.Id(),
+            RestaurantName: self.RestaurantName(),
+            ClientName: self.ClientName(),
+            ReservationDate: self.ReservationDate(),
+            Seats: self.Seats()
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: reservation,
+            success: function (data) {
+                console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    }
 
     self.refresh = function () {
         var url = '/Reservations/ListRefresh';
