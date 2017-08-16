@@ -19,7 +19,7 @@ namespace Green.Entities.Enums
                 case FoodType.Milk: return "Milk";
                 case FoodType.Sweets: return "Sweets";
                 case FoodType.Vegetables: return "Vegetables";
-                default:return String.Empty;
+                default: return String.Empty;
             }
         }
 
@@ -55,6 +55,19 @@ namespace Green.Entities.Enums
                 case MealRating.Good: return "Good";
                 case MealRating.VeryGood: return "Very good";
                 case MealRating.Excellent: return "Excellent";
+                default: return String.Empty;
+            }
+        }
+
+        public static string ToString(this RestaurantType restaurantType)
+        {
+            switch (restaurantType)
+            {
+                case RestaurantType.Backery: return "Backery";
+                case RestaurantType.Pastry: return "Pastry";
+                case RestaurantType.Traditional: return "Traditional";
+                case RestaurantType.Vegan: return "Vegan";
+                case RestaurantType.Vegetarian: return "Vegetarian";
                 default: return String.Empty;
             }
         }

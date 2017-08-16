@@ -15,12 +15,12 @@ namespace Green.Services
         {
             return ctx.Foods.ToList();
         }
-
+       
         public List<EnumItem> GetFoodTypes()
         {
             return Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
         }
-
+       
         public List<EnumItem> GetMealTypes()
         {
             return Enum.GetValues(typeof(MealType)).Cast<MealType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();

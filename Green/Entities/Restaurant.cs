@@ -13,6 +13,12 @@ namespace Green.Entities
         public string Address { get; set; }
         public Enums.RestaurantType Type { get; set; }
         public int MaxPrice { get; set; }
-
+        public string TypeDisplay
+        {
+            get
+            {
+                return Type.ToString();
+            }
+        }
     }
 }
