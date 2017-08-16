@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
 using System.Web.Mvc;
+using Green.Services;
 
 namespace Green.Controllers
 {
     public class ReservationsController : Controller
     {
+        private QueryService qService = new QueryService();
+        private CommandService cService = new CommandService();
+
         // GET: Reservations
         public ActionResult List()
         {
             return View();
+        }
+
+        public JsonResult ListRefresh()
+        {
+            var reservations = qService.GetReservations();
+            return new JsonResult { Data = new { Reservations = reservations }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

@@ -262,6 +262,7 @@
     <Content Include="Scripts\ViewModels\Foods.js" />
     <Content Include="Scripts\ViewModels\Meals.js" />
     <Content Include="Scripts\ViewModels\Restaurants.js" />
+    <Content Include="Scripts\ViewModels\Reservations.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -302,6 +303,7 @@
     <Content Include="Views\Reservations\List.cshtml" />
     <Content Include="Views\Restaurants\List.cshtml" />
     <Content Include="Views\Restaurants\Item.cshtml" />
+    <Content Include="Views\Reservations\ReservationItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

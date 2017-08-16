@@ -40,5 +40,10 @@ namespace Green.Services
         {
             return ctx.Meals.ToList();
         }
+
+        public List<Reservation> GetReservations()
+        {
+            return ctx.Reservations.ToList();
+        }
     }
 }

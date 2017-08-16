@@ -29,8 +29,10 @@ namespace Green
 
             bundles.Add(new ScriptBundle("~/bundles/viewModels").Include(
                       "~/Scripts/ViewModels/Foods.js",
-                      "~/Scripts/ViewModels/Meals.js",
+                      "~/Scripts/ViewModels/Meals.js"));
                       "~/Scripts/ViewModels/Restaurants.js"));
+                      "~/Scripts/ViewModels/Reservations.js",
+                      "~/Scripts/ViewModels/Meals.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/overlay").Include(
                       "~/Scripts/overlay.js"));
