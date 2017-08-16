@@ -17,46 +17,46 @@
         self.Name("");
         self.Type(null);
     };
-    self.save = function () {
-        var url = '/Foods/Save';
-        var food = JSON.stringify({
-            Id: self.Id(),
-            Name: self.Name(),
-            Type: self.Type()
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: food,
-            success: function (data) {
-                console.log(data);
-                self.refresh();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-    };
-    self.delete = function (data) {
-        var url = '/Foods/Delete';
-        var food = JSON.stringify({
-            foodId: data.Id
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: food,
-            success: function (data) {
-                console.log(data);
-                self.refresh();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-    };
+    //self.save = function () {
+    //    var url = '/Foods/Save';
+    //    var food = JSON.stringify({
+    //        Id: self.Id(),
+    //        Name: self.Name(),
+    //        Type: self.Type()
+    //    });
+    //    $.ajax(url, {
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: food,
+    //        success: function (data) {
+    //            console.log(data);
+    //            self.refresh();
+    //        },
+    //        error: function (jqXHR, textStatus, errorThrown) {
+    //            console.log(textStatus + ': ' + errorThrown);
+    //        }
+    //    });
+    //};
+    //self.delete = function (data) {
+    //    var url = '/Foods/Delete';
+    //    var food = JSON.stringify({
+    //        foodId: data.Id
+    //    });
+    //    $.ajax(url, {
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: food,
+    //        success: function (data) {
+    //            console.log(data);
+    //            self.refresh();
+    //        },
+    //        error: function (jqXHR, textStatus, errorThrown) {
+    //            console.log(textStatus + ': ' + errorThrown);
+    //        }
+    //    });
+    //};
     self.refresh = function () {
         var url = '/Foods/ListRefresh';
         self.loadingPanel.show();

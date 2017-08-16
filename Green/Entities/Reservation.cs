@@ -15,6 +15,13 @@ namespace Green.Entities
         public int Id { get; set; }
         public string ClientName { get; set; }
         public DateTime ReservationDate { get; set; }
+        public string ReservationDateDisplay
+        {
+            get
+            {
+                return ReservationDate.ToString("dd-MMM-yyyy HH:mm");
+            }
+        }
         public int Seats { get; set; }
     }
 }
