@@ -225,6 +225,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommandService.cs" />
     <Compile Include="Services\QueryService.cs" />
+    <Compile Include="Services\RestaurantCommandService.cs" />
+    <Compile Include="Services\RestaurantQueryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +261,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewModels\Foods.js" />
     <Content Include="Scripts\ViewModels\Meals.js" />
+    <Content Include="Scripts\ViewModels\Restaurants.js" />
     <Content Include="Scripts\ViewModels\Reservations.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -299,6 +302,7 @@
     <Content Include="Views\Meals\MealItem.cshtml" />
     <Content Include="Views\Reservations\List.cshtml" />
     <Content Include="Views\Restaurants\List.cshtml" />
+    <Content Include="Views\Restaurants\Item.cshtml" />
     <Content Include="Views\Reservations\ReservationItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
