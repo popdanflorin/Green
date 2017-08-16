@@ -25,5 +25,15 @@ namespace Green.Controllers
             var restaurantTypes = qService.GetRestaurantTypes();
             return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult Save(Restaurant restaurant)
+        {
+            var message = cService.SaveRestaurant(restaurant);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+        public JsonResult Delete(string restaurantId)
+        {
+            var message = cService.DeleteRestaurant(restaurantId);
+            return new JsonResult() {Data=message,ContentEncoding=Encoding.UTF8};
+        }
     }
 }

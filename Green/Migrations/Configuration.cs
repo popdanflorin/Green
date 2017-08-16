@@ -35,6 +35,13 @@ namespace Green.Migrations
                 new Reservation { Id = Reservation.IdCounter, ClientName = "Ionscu", ReservationDate = new DateTime(2018, 1, 25, 15, 0, 0), Seats = 1 },
                 new Reservation { Id = Reservation.IdCounter, ClientName = "Grigorescu", ReservationDate = new DateTime(2017, 10, 7, 21, 30, 0), Seats = 3 }
             );
+            context.Restaurants.AddOrUpdate(
+  
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, MaxPrice = 15 },
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Indigo", Address = "Observatorului,21,Cluj-Napoca", Type = RestaurantType.Traditional, MaxPrice = 50 },
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, MaxPrice = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, MaxPrice = 45 }
+            );
         }
     }
 }
