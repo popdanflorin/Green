@@ -2,5 +2,5 @@
 /Green/App_Data
 /Green/obj
 /Green/*.user
-/.vs/Green/
-/.vs/config/
+.vs/Green/
+.vs/config/
