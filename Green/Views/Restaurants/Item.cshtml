@@ -15,7 +15,7 @@
                 <label for="RestaurantTypes">Type</label>
                 <select id="RestaurantTypes" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose type...'"></select>
                 <label for="MaxPrices">MaxPrice</label>
-                <input id="MaxPrices" type="text" class="form-control" data-bind="value: MaxPrice">
+                <input id="MaxPrices" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: MaxPrice">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:save">Save</button>
