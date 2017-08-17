@@ -63,20 +63,13 @@
             // if the control changes.
             ko.utils.registerEventHandler(element, "change", function () {
                 var value = valueAccessor();
-                var target_date = element.valueAsDate;
-                var truncated = new Date(target_date.getFullYear(), target_date.getMonth(), target_date.getDate());
-                value(truncated);
+                value(moment(element.value).format());
             });
         },
         // Update the control whenever the view model changes
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var value = valueAccessor();
-            var unwrapped = ko.utils.unwrapObservable(value());
-            if (unwrapped === undefined || unwrapped === null) {
-                element.value = '';
-            } else {
-                element.valueAsDate = unwrapped;
-            }
+            element.value = moment(value()).format("YYYY-MM-DD");
         }
     };
 </script>
