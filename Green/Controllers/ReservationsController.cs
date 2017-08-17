@@ -26,12 +26,14 @@ namespace Green.Controllers
             return new JsonResult { Data = new { Reservations = reservations }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        [HttpPost]
         public JsonResult Save(Reservation reservation)
         {
             var message = cService.SaveReservation(reservation);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
 
+        [HttpPost]
         public JsonResult Delete(string reservationId)
         {
             var message = cService.DeleteReservation(reservationId);

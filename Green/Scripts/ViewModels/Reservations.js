@@ -13,7 +13,7 @@
         self.Id(data.Id);
         self.RestaurantName(data.RestaurantName);
         self.ClientName(data.ClientName);
-        self.ReservationDate(moment(data.ReservationDate).toDate());
+        self.ReservationDate(data.ReservationDate);
         self.Seats(data.Seats);
     };
 
