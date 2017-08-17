@@ -20,7 +20,7 @@
                     
                     <label for="Date">Date and Time:</label>
                     <div class="form-inline">
-                        <input id="Date" type="date" class="form-control" data-bind="datePicker : ReservationDate" />
+                        <input id="Date" type="datetime-local" class="form-control" data-bind="datePicker : ReservationDate" />
                         <label class="text-danger pull-right" data-bind="text:warningReservationDate"></label>
                     </div>
 
@@ -29,6 +29,7 @@
                         <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="onKeyPressSeats()" data-bind="value:Seats" />
                         <label id ="WarningSeats" class="text-danger pull-right" data-bind="text:warningSeats"></label>
                     </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <input id="OKButton" type="button" class="btn btn-primary" value="OK" data-dismiss="modal" data-toggle="tooltip" title="Apply changes." data-bind="click:save "/>
@@ -94,7 +95,7 @@
         // Update the control whenever the view model changes
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var value = valueAccessor();
-            element.value = moment(value()).format("YYYY-MM-DD");
+            element.value = moment(value()).format("YYYY-MM-DDTHH:mm");
         }
     };
 </script>

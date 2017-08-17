@@ -24,7 +24,7 @@
         self.Seats(data.Seats);
         self.warningRestaurantId(null);
         self.warningClientName(null);
-         self.warningReservationDate(null);
+        self.warningReservationDate(null);
         self.warningSeats(null);
     };
 
@@ -42,6 +42,10 @@
 
 
     self.delete = function (data) {
+        if (!window.confirm("Are you sure you want to cancel the reservation?")) {
+            return;
+        }
+
         var url = '/Reservations/Delete';
         var reservation = JSON.stringify({
             reservationId: data.Id
