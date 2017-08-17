@@ -8,7 +8,10 @@
     self.Address = ko.observable();
     self.MaxPrice = ko.observable();
     self.loadingPanel = new LoadingOverlay();
-
+    self.showWarningNameEmpty = ko.observable();
+    self.showWarningAddressEmpty = ko.observable();
+    self.showWarningTypeEmpty = ko.observable();
+    self.showWarningMaxPriceEmpty = ko.observable();
     self.details = function (data) {
         self.id(data.id);
         self.Name(data.Name);
@@ -43,27 +46,50 @@
         });
     };
     self.save = function () {
-        var url = '/Restaurants/Save';
-        var restaurant = JSON.stringify({
-            id: self.id(),
-            Name: self.Name(),
-            Address:self.Address(),
-            Type: self.Type(),
-            MaxPrice: self.MaxPrice()
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: restaurant,
-            success: function (data) {
-                console.log(data);
-                self.refresh();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
+        var isValid = true;
+        if (!$.trim($('#Name').val())) {
+            self.showWarningNameEmpty("Please insert a name!");
+            isValid = false;
+        }
+
+        if (!$.trim($('#Address').val())) {
+           self.showWarningAddressEmpty("Please insert an address!");
+            isValid = false;
+        }
+        if (!$('#RestaurantTypes').val()) {
+            self.showWarningTypeEmpty("Please select a type!");  
+            isValid = false;
+        }
+        if (!$.trim($('#MaxPrice').val())) {
+            self.showWarningMaxPriceEmpty("Please insert the max price!");       
+            isValid = false;
+        }
+        if (isValid == true) {
+            var url = '/Restaurants/Save';
+            var restaurant = JSON.stringify({
+                id: self.id(),
+                Name: self.Name(),
+                Address: self.Address(),
+                Type: self.Type(),
+                MaxPrice: self.MaxPrice()
+            });
+
+            $.ajax(url, {
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: restaurant,
+                success: function (data) {
+                    console.log(data);
+                    self.refresh();
+                    $('#restaurantItem').modal('hide');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+       
 
 
     };
