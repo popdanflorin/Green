@@ -7,7 +7,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="RestaurantName">Restaurant Name:</label>
-                    <select id="RestaurantName" class="form-control" onchange="validateRestaurant(this)" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'Name', value: RestaurantName, optionsCaption: 'Choose...'"></select>
+                    <select id="RestaurantName" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'Name', value: RestaurantName, optionsCaption: 'Choose...'"></select>
                     <label for="ClientName">Client Name:</label>
                     <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="value:ClientName" />
                     <label for="Date">Date and Time:</label>
@@ -28,15 +28,11 @@
     function validateRestaurant(selection) {
         var attrDataDismiss = document.createAttribute("data-dismiss");
         attrDataDismiss.value = "modal";
-        var attrDataBind = document.createAttribute("data-bind");
-        attrDataBind.value = "click:save";
         if (selection.value == "") {
             document.getElementById("OKButton").attributes.removeNamedItem("data-dismiss");
-            document.getElementById("OKButton").attributes.removeNamedItem("data-bind");
         }
         else {
             document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
-            document.getElementById("OKButton").attributes.setNamedItem(attrDataBind);
         }
     }
 
