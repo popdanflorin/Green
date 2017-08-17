@@ -1,0 +1,60 @@
+﻿<div id="reservationItem" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm" style="width:25%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reservation</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="RestaurantName">Restaurant Name:</label>
+                    <input id="RestaurantName" type="text" class="form-control" placeholder="Enter Restaurant Name" data-bind="value:RestaurantName" />
+                    <label for="ClientName">Client Name:</label>
+                    <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="value:ClientName" />
+                    <label for="Date">Date and Time:</label>
+                    <input id="Date" type="datetime-local" class="form-control" data-bind="value:ReservationDate" />
+                    <label for="Seats">Number of Seats:</label>
+                    <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="validateSeats()" data-bind="value:Seats"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input id="OKButton" type="button" class="btn btn-primary" value="OK" data-dismiss="modal" data-toggle="tooltip" title="Apply changes." data-bind="click:save"/>
+                <input type="button" class="btn btn-default" value="Cancel" data-dismiss="modal" data-toggle="tooltip" title="Revert changes."/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateSeats() {
+        if (window.event.keyCode < 48 || window.event.keyCode > 57) {
+            window.event.preventDefault();
+        }
+    }
+
+    //function validateAll() {
+    //    var message = "";
+    //    if (document.getElementById("ClientName").value == "") {
+    //        message += "Please Enter the Client's Name!\n";
+    //    }
+    //    if (!document.getElementById("Seats").value.length) {
+    //        message += "Please Enter the Number of Seats!\n";
+    //    }
+    //    if (message.length) {
+    //        window.alert(message);
+    //        return false;
+    //    }
+    //    return true;        
+    //}
+
+    //function OKButtonClicked() {
+    //    if (validateAll()) {
+    //        var attr = document.createAttribute("data-dismiss");
+    //        attr.value = "modal";
+    //        document.getElementById("OKButton").attributes.setNamedItem(attr);
+    //    }
+    //    else {
+    //        document.getElementById("OKButton").attributes.removeNamedItem("data-dismiss");
+    //    }
+    //}
+
+</script>
