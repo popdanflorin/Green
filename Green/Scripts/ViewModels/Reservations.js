@@ -2,10 +2,11 @@
     var self = this;
 
     self.Reservations = ko.observableArray();
+    self.Restaurants = ko.observableArray();
     self.Id = ko.observable();
     self.RestaurantName = ko.observable();
     self.ClientName = ko.observable();
-    self.ReservationDate = ko.observable();
+    self.ReservationDate = ko.observable(new Date())
     self.Seats = ko.observable();
     self.loadingPanel = new LoadingOverlay();
 
@@ -13,13 +14,8 @@
         self.Id(data.Id);
         self.RestaurantName(data.RestaurantName);
         self.ClientName(data.ClientName);
-<<<<<<< .mine
         self.ReservationDate(data.ReservationDate);
-=======
-
->>>>>>> .theirs
         self.Seats(data.Seats);
-        self.ReservationDate(data.ReservationDate);
     };
 
     self.add = function () {
@@ -85,6 +81,7 @@
                 self.loadingPanel.hide();
                 console.log(data);
                 self.Reservations(data.Reservations);
+                self.Restaurants(data.Restaurants);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
