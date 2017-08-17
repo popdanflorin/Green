@@ -225,8 +225,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommandService.cs" />
     <Compile Include="Services\QueryService.cs" />
-    <Compile Include="Services\ReservationCommandService.cs" />
     <Compile Include="Services\ReservationQueryService.cs" />
+    <Compile Include="Services\ReservationCommandService.cs" />
     <Compile Include="Services\RestaurantCommandService.cs" />
     <Compile Include="Services\RestaurantQueryService.cs" />
     <Compile Include="Startup.cs" />
