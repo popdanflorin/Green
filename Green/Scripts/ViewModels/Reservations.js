@@ -13,11 +13,7 @@
         self.Id(data.Id);
         self.RestaurantName(data.RestaurantName);
         self.ClientName(data.ClientName);
-<<<<<<< .mine
         self.ReservationDate(data.ReservationDate);
-=======
-
->>>>>>> .theirs
         self.Seats(data.Seats);
         self.ReservationDate(data.ReservationDate);
     };
