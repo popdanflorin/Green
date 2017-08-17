@@ -21,13 +21,13 @@
                     <label for="Date">Date and Time:</label>
                     <div class="form-inline">
                         <input id="Date" type="date" class="form-control" data-bind="datePicker : ReservationDate" />
-                        @*  <label class="text-danger pull-right" data-bind="text:warningReservationDate"></label>*@
+                        <label class="text-danger pull-right" data-bind="text:warningReservationDate"></label>
                     </div>
 
                     <label for="Seats">Number of Seats:</label>
                     <div class="form-inline">
-                        <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="validateSeats()" data-bind="value:Seats" />
-                        <label class="text-danger pull-right" data-bind="text:warningSeats"></label>
+                        <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="onKeyPressSeats()" data-bind="value:Seats" />
+                        <label id ="WarningSeats" class="text-danger pull-right" data-bind="text:warningSeats"></label>
                     </div>
             </div>
             <div class="modal-footer">
@@ -50,7 +50,7 @@
         }
     }
 
-    function validateSeats() {
+    function onKeyPressSeats() {
         if (window.event.keyCode < 48 || window.event.keyCode > 57) {
             window.event.preventDefault();
         }
