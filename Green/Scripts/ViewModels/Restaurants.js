@@ -49,20 +49,20 @@
         var isValid = true;
         if (!$.trim($('#Name').val())) {
             self.showWarningNameEmpty("Please insert a name!");
-            isValid = false;
+            //isValid = false;
         }
 
         if (!$.trim($('#Address').val())) {
            self.showWarningAddressEmpty("Please insert an address!");
-            isValid = false;
+           // isValid = false;
         }
         if (!$('#RestaurantTypes').val()) {
             self.showWarningTypeEmpty("Please select a type!");  
-            isValid = false;
+           // isValid = false;
         }
         if (!$.trim($('#MaxPrice').val())) {
             self.showWarningMaxPriceEmpty("Please insert the max price!");       
-            isValid = false;
+            //isValid = false;
         }
         if (isValid == true) {
             var url = '/Restaurants/Save';

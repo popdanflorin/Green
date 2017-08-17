@@ -10,6 +10,12 @@
     self.Seats = ko.observable();
     self.loadingPanel = new LoadingOverlay();
 
+    // validation warnings
+    self.warningRestaurantId = ko.observable();
+    self.warningClientName = ko.observable();
+   // self.warningReservationDate = ko.observable();
+    self.warningSeats = ko.observable();
+
     self.details = function (data) {
         self.Id(data.Id);
         self.RestaurantId(data.RestaurantId);
@@ -49,6 +55,26 @@
 
     self.save = function () {
         var url = '/Reservations/Save';
+        // validation
+        var valid = true;
+        if (self.RestaurantId._latestValue == null) {
+            self.warningRestaurantId("Please select a restaurant!\n");
+            valid = false;
+        }
+        if (self.ClientName._latestValue == null) {
+            self.warningClientName("Please enter your name!\n");
+            valid = false;
+        }
+        if (self.Seats._latestValue <= 0) {
+            self.warningSeats("Please select the number of seats!\n");
+            valid = false;
+        }
+       
+        if (!valid)
+            return;
+        self.warningRestaurantId("");
+        self.warningClientName("");
+        self.warningSeats("");
         var reservation = JSON.stringify({
             Id: self.Id(),
             RestaurantId: self.RestaurantId(),
@@ -56,16 +82,6 @@
             ReservationDate: self.ReservationDate(),
             Seats: self.Seats()
         });
-        var message = "";
-        if (self.ClientName._latestValue == null) {
-            message += "Please Enter the Client's Name!\n";
-        }
-        if (self.Seats._latestValue <= 0) {
-            message += "Please Enter the Number of Seats!\n";
-        }
-        //if (message.length) {
-            window.alert(message);
-       // }
         $.ajax(url, {
             type: "post",
             dataType: "json",
