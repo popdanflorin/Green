@@ -25,7 +25,7 @@ namespace Green.Services
                 }
                 else
                 {
-                    oldReservation.RestaurantName = reservation.RestaurantName;
+                    oldReservation.RestaurantId = reservation.RestaurantId;
                     oldReservation.ClientName = reservation.ClientName;
                     oldReservation.ReservationDate = reservation.ReservationDate;
                     oldReservation.Seats = reservation.Seats;

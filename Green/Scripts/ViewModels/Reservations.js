@@ -4,7 +4,7 @@
     self.Reservations = ko.observableArray();
     self.Restaurants = ko.observableArray();
     self.Id = ko.observable();
-    self.RestaurantName = ko.observable();
+    self.RestaurantId = ko.observable();
     self.ClientName = ko.observable();
     self.ReservationDate = ko.observable(new Date())
     self.Seats = ko.observable();
@@ -12,7 +12,7 @@
 
     self.details = function (data) {
         self.Id(data.Id);
-        self.RestaurantName(data.RestaurantName);
+        self.RestaurantId(data.RestaurantId);
         self.ClientName(data.ClientName);
         self.ReservationDate(data.ReservationDate);
         self.Seats(data.Seats);
@@ -20,7 +20,7 @@
 
     self.add = function () {
         self.Id(0);
-        self.RestaurantName(null);
+        self.RestaurantId(null);
         self.ClientName(null);
         self.ReservationDate(null);
         self.Seats(null);
@@ -51,11 +51,21 @@
         var url = '/Reservations/Save';
         var reservation = JSON.stringify({
             Id: self.Id(),
-            RestaurantName: self.RestaurantName(),
+            RestaurantId: self.RestaurantId(),
             ClientName: self.ClientName(),
             ReservationDate: self.ReservationDate(),
             Seats: self.Seats()
         });
+        var message = "";
+        if (self.ClientName._latestValue == null) {
+            message += "Please Enter the Client's Name!\n";
+        }
+        if (self.Seats._latestValue <= 0) {
+            message += "Please Enter the Number of Seats!\n";
+        }
+        //if (message.length) {
+            window.alert(message);
+       // }
         $.ajax(url, {
             type: "post",
             dataType: "json",

@@ -6,9 +6,9 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="RestaurantName">Restaurant Name:</label>
-                    <select id="RestaurantName" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'Name', value: RestaurantName, optionsCaption: 'Choose...'"></select>
-                    <label for="ClientName">Client Name:</label>
+                    <label for="RestaurantId">Restaurant:</label>
+                    <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId"></select>
+                    <label for="ClientName">Client:</label>
                     <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="value:ClientName" />
                     <label for="Date">Date and Time:</label>
                     <input id="Date" type="date" class="form-control" data-bind="datePicker : ReservationDate" />
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input id="OKButton" type="button" class="btn btn-primary" value="OK" data-dismiss="modal" data-toggle="tooltip" title="Apply changes." data-bind="click:save"/>
+                <input id="OKButton" type="button" class="btn btn-primary" value="OK" data-dismiss="modal" data-toggle="tooltip" title="Apply changes." data-bind="click:save "/>
                 <input type="button" class="btn btn-default" value="Cancel" data-dismiss="modal" data-toggle="tooltip" title="Revert changes."/>
             </div>
         </div>
