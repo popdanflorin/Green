@@ -5,7 +5,7 @@
     self.Id = ko.observable();
     self.RestaurantName = ko.observable();
     self.ClientName = ko.observable();
-    self.ReservationDate = ko.observable();
+    self.ReservationDate = ko.observable(new Date())
     self.Seats = ko.observable();
     self.loadingPanel = new LoadingOverlay();
 

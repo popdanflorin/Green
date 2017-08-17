@@ -34,7 +34,7 @@ namespace Green.Services
                 ctx.SaveChanges();
                 return SuccessMessage;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return ErrorMessage;
             }
