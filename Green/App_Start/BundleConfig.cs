@@ -45,7 +45,7 @@ namespace Green
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-blue.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }
     }

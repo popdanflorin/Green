@@ -7,41 +7,36 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Manage restaurant</h4>
             </div>
+
             <div class="modal-body">
+
                 <label for="Name">Name</label>
-                <input id="Name" type="text" class="form-control"  data-bind="value: Name" required>
+                <div class="form-inline">
+                    <input id="Name" type="text" class="form-control" data-bind="value: Name" required>
+                    <label id="NameWarning" class="text-danger pull-right" data-bind="text:showWarningNameEmpty"></label>
+                </div>
                 <label for="Address">Address</label>
-                <input id="Address" type="text" class="form-control" data-bind="value: Address" required>
-                <label for="RestaurantTypes">Type</label>
-                <select id="RestaurantTypes" class="form-control"  data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose type...'" ></select>
-                <label for="MaxPrices">MaxPrice</label>
-                <input id="MaxPrices" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: MaxPrice">
-            </div>
+                <div class="form-inline">
+                    <input id="Address" type="text" class="form-control" data-bind="value: Address" required>
+                    <label id="AddressWarning" class="text-danger pull-right" data-bind="text:showWarningAddressEmpty"></label>
+                </div>
+                
+                    <label for="RestaurantTypes">Type</label>
+                <div class="form-inline">
+                    <select id="RestaurantTypes" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose type...'"></select>
+                    <label id="TypeWarning" class="text-danger pull-right" data-bind="text:showWarningTypeEmpty"></label>
+                </div>
+                
+                    <label for="MaxPrices">MaxPrice</label>
+                <div class="form-inline">
+                    <input id="MaxPrices" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: MaxPrice">
+                    <label id="MaxPriceWarning" class="text-danger pull-right" data-bind="text:showWarningMaxPriceEmpty"></label>
+                </div>
+                </div>
             <div class="modal-footer">
-                <button id="SaveButton" type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:save">Save</button>
+                <button id="SaveButton" type="button" class="btn btn-success" data-bind="click:save">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#SaveButton').click(function () {
-            if (!$.trim($('#Name').val())) {
-                alert("Please insert a name!");
-            }
-            if (!$.trim($('#Address').val())) {
-                alert("Please insert an address!");
-            }
-            if (!$('#RestaurantTypes').val()) {
-                alert("Please select a type!");
-            }
-            if (!$.trim($('#MaxPrice').val())) {
-                alert("Please insert the max price!");
-            }
-
-        }
-        );
-    });
-
-</script>
