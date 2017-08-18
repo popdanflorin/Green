@@ -2,6 +2,9 @@ namespace Green.Migrations
 {
     using Green.Entities;
     using Green.Entities.Enums;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -36,6 +39,24 @@ namespace Green.Migrations
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, MaxPrice = 20 },
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, MaxPrice = 45 }
             );
+            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "AppAdmin" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "founder"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "founder", Email = "a@b.com" };
+
+                manager.Create(user, "ChangeItAsap!");
+                manager.AddToRole(user.Id, "AppAdmin");
+            }
         }
     }
 }
