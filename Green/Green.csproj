@@ -241,6 +241,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-confirmation.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -311,6 +312,7 @@
     <Content Include="Views\Restaurants\List.cshtml" />
     <Content Include="Views\Restaurants\Item.cshtml" />
     <Content Include="Views\Reservations\ReservationItem.cshtml" />
+    <Content Include="Views\Restaurants\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,11 +7,14 @@
     self.Type = ko.observable();
     self.Address = ko.observable();
     self.MaxPrice = ko.observable();
+    self.SeatsAvailable = ko.observable();
     self.loadingPanel = new LoadingOverlay();
     self.showWarningNameEmpty = ko.observable();
     self.showWarningAddressEmpty = ko.observable();
     self.showWarningTypeEmpty = ko.observable();
     self.showWarningMaxPriceEmpty = ko.observable();
+    self.showWarningSeatsEmpty = ko.observable();
+
     self.details = function (data) {
         self.id(data.id);
         self.Name(data.Name);
@@ -19,17 +22,21 @@
         self.Address(data.Address);
         self.MaxPrice(data.MaxPrice);
     };
+    self.manage = function (data) {
 
+    }
     self.add = function () {
         self.showWarningNameEmpty("");
         self.showWarningAddressEmpty("");
         self.showWarningTypeEmpty("");
         self.showWarningMaxPriceEmpty("");
+        self.showWarningSeatsEmpty("");
         self.id(0);
         self.Name("");
         self.Type(null);
         self.Address("");
         self.MaxPrice(0);
+        self.SeatsAvailable(0);
     };
 
     self.refresh = function () {
@@ -83,6 +90,14 @@
             self.showWarningMaxPriceEmpty("");
             isValid = true;
         }
+        if (!$.trim($('#SeatsAvailable').val())) {
+            self.showWarningSeatsEmpty("Please insert the number of seats!");
+            isValid = false;
+        }
+        else {
+            self.showWarningSeatsEmpty("");
+            isValid = true;
+        }
         if (isValid == true) {
             var url = '/Restaurants/Save';
             var restaurant = JSON.stringify({
@@ -90,7 +105,8 @@
                 Name: self.Name(),
                 Address: self.Address(),
                 Type: self.Type(),
-                MaxPrice: self.MaxPrice()
+                MaxPrice: self.MaxPrice(),
+                SeatsAvailable:self.SeatsAvailable()
             });
 
             $.ajax(url, {
@@ -113,6 +129,7 @@
 
     };
     self.delete = function (data) {
+       
         var url = '/Restaurants/Delete';
         var restaurant = JSON.stringify({
             restaurantId: data.id

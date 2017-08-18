@@ -34,10 +34,10 @@ namespace Green.Migrations
             );
             context.Restaurants.AddOrUpdate(
   
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, MaxPrice = 15 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Indigo", Address = "Observatorului,21,Cluj-Napoca", Type = RestaurantType.Traditional, MaxPrice = 50 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, MaxPrice = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, MaxPrice = 45 }
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, MaxPrice = 15,SeatsAvailable=20,Rating=5,MealId=null },
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Indigo", Address = "Observatorului,21,Cluj-Napoca", Type = RestaurantType.Traditional, MaxPrice = 50,SeatsAvailable = 30, Rating = 2, MealId = null },
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, MaxPrice = 20, SeatsAvailable = 25, Rating = 3, MealId = null },
+                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, MaxPrice = 45, SeatsAvailable = 10, Rating = 1, MealId = null }
             );
             if (!context.Roles.Any(r => r.Name == "AppAdmin"))
             {
@@ -48,13 +48,13 @@ namespace Green.Migrations
                 manager.Create(role);
             }
 
-            if (!context.Users.Any(u => u.UserName == "founder"))
+            if (!context.Users.Any(u => u.UserName == "founder@gmail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "founder", Email = "a@b.com" };
+                var user = new ApplicationUser { UserName = "founder@gmail.com", Email = "a@b.com" };
 
-                manager.Create(user, "ChangeItAsap!");
+                manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "AppAdmin");
             }
         }
