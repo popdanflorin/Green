@@ -4935,11 +4935,14 @@ a.list-group-item.active > .badge,
   line-height: 2.1428571435;
   color: inherit;
   background-color: #eeeeee;
+  background-image: url(../Content/images/vegetables-italian-pizza-restaurant.jpg);
+   background-position: center center;
+    background-size: cover;
 }
 
 .jumbotron h1 {
   line-height: 1;
-  color: inherit;
+  color: white;
 }
 
 .jumbotron p {

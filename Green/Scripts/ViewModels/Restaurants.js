@@ -21,6 +21,10 @@
     };
 
     self.add = function () {
+        self.showWarningNameEmpty("");
+        self.showWarningAddressEmpty("");
+        self.showWarningTypeEmpty("");
+        self.showWarningMaxPriceEmpty("");
         self.id(0);
         self.Name("");
         self.Type(null);
