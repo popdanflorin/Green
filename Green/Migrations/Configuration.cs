@@ -52,9 +52,9 @@ namespace Green.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "founder", Email = "a@b.com" };
+                var user = new ApplicationUser { UserName = "founder@google.com", Email = "founder@google.com" };
 
-                manager.Create(user, "ChangeItAsap!");
+                manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "AppAdmin");
             }
         }

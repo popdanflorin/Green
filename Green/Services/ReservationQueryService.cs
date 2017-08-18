@@ -12,8 +12,7 @@ namespace Green.Services
         private ApplicationDbContext ctx = new ApplicationDbContext();
         public List<Reservation> GetReservations()
         {
-            var reservations = ctx.Reservations.Include("Restaurant");
-          
+            var reservations = ctx.Reservations.Include("Restaurant").Include("User");
             return reservations.ToList();
         }
     }

@@ -12,9 +12,9 @@
                         <label class="text-danger pull-right" data-bind="text:warningRestaurantId"></label>
                     </div>
 
-                    <label for="ClientName">Client:</label>
-                    <div class="form-inline">
-                        <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="value:ClientName" />
+                    <label for="ClientName" data-bind="visible:isAdmin">Client:</label>
+                    <div class="form-inline" data-bind="visible:isAdmin">
+                        <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="value:UserName, visible:$root.isAdmin" />
                         <label class="text-danger pull-right" data-bind="text:warningClientName"></label>
                     </div>
                     

@@ -27,7 +27,8 @@ namespace Green.Controllers
         {
             var reservations = qReservationService.GetReservations();
             var restaurants = qRestaurantService.GetRestaurants();
-            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var isAdmin = User.IsInRole("AppAdmin");
+            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
