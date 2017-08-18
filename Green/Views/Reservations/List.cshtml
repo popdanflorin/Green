@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Restaurant Name</th>
-                <th>Client Name</th>
+                <th id="ClientNameHead">Client Name</th>
                 <th>Date and Time</th>
                 <th>Seats</th>
             </tr>
@@ -17,7 +17,7 @@
         <tbody data-bind="foreach:Reservations">
             <tr>
                 <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
-                <td class="col-md-3" data-bind="text:ClientName"></td>
+                <td id="ClientNameBody" class="col-md-3" data-bind="text:User.UserName, visible:$root.isAdmin"></td>
                 <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
                 <td class="col-md-1" data-bind="text:Seats"></td>
                 <td class="col-md-3">

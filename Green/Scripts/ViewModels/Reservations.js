@@ -5,9 +5,11 @@
     self.Restaurants = ko.observableArray();
     self.Id = ko.observable();
     self.RestaurantId = ko.observable();
-    self.ClientName = ko.observable();
+    self.ClientId = ko.observable();
     self.ReservationDate = ko.observable(new Date())
     self.Seats = ko.observable();
+    self.UserName = ko.observable();
+    self.isAdmin = ko.observable(false);
     self.loadingPanel = new LoadingOverlay();
 
     // validation warnings
@@ -19,9 +21,11 @@
     self.details = function (data) {
         self.Id(data.Id);
         self.RestaurantId(data.RestaurantId);
-        self.ClientName(data.ClientName);
+        self.ClientId(data.ClientId);
         self.ReservationDate(data.ReservationDate);
         self.Seats(data.Seats);
+        self.UserName(data.User.UserName);
+        self.isAdmin(data.isAdmin);
         self.warningRestaurantId(null);
         self.warningClientName(null);
         self.warningReservationDate(null);
@@ -31,9 +35,11 @@
     self.add = function () {
         self.Id(0);
         self.RestaurantId(null);
-        self.ClientName(null);
+        self.ClientId(null);
         self.ReservationDate(null);
         self.Seats(null);
+        self.UserName(null);
+        self.isAdmin(null);
         self.warningRestaurantId(null);
         self.warningClientName(null);
         self.warningReservationDate(null);
@@ -88,7 +94,7 @@
         var reservation = JSON.stringify({
             Id: self.Id(),
             RestaurantId: self.RestaurantId(),
-            ClientName: self.ClientName(),
+            ClientId: self.ClientId(),
             ReservationDate: self.ReservationDate(),
             Seats: self.Seats()
         });
@@ -118,11 +124,29 @@
                 console.log(data);
                 self.Reservations(data.Reservations);
                 self.Restaurants(data.Restaurants);
+                self.isAdmin(data.isAdmin);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+        var attrDataDismiss = document.createAttribute("hidden");
+        if (self.isAdmin._latestValue) {
+            try {
+                attrDataDismiss.value = false;
+             //   document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
+             //   document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
+            } catch (Exception) {
+            }
+        }
+        else {
+            try {
+                attrDataDismiss.value = true;
+               // document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
+               // document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
+            } catch (Exception) {
+            }
+        }
     };
 
     self.validate = function () {
@@ -135,7 +159,7 @@
             self.warningRestaurantId(null);
         }
 
-        if (self.nullOrEmpty(self.ClientName._latestValue)) {
+        if (self.nullOrEmpty(self.ClientId._latestValue)) {
             self.warningClientName("Please enter your name!\n");
             valid = false;
         }
