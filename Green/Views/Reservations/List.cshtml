@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Restaurant Name</th>
-                <th id="ClientNameHead">Client Name</th>
+                <th data-bind="allowAccess: isAdmin">Client Name</th>
                 <th>Date and Time</th>
                 <th>Seats</th>
             </tr>
@@ -17,7 +17,7 @@
         <tbody data-bind="foreach:Reservations">
             <tr>
                 <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
-                <td id="ClientNameBody" class="col-md-3" data-bind="text:User.UserName, visible:$root.isAdmin"></td>
+                <td id="ClientNameBody" class="col-md-3" data-bind="text:User.UserName, allowAccess: isAdmin"></td>
                 <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
                 <td class="col-md-1" data-bind="text:Seats"></td>
                 <td class="col-md-3">
@@ -45,6 +45,22 @@
 
     function reserveButtonClicked() {
         $("#reserveButton").attr("value", "Processing...");
-    }
+    };
+
+    //hides the element for non-admin users
+    ko.bindingHandlers.allowAccess = {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var value = ko.unwrap(valueAccessor());
+            // admin user
+            if (value) {
+                element.hidden = false;
+            }
+                // normal user
+            else
+                if (value == false) {
+                    element.hidden = true;
+                }
+        }
+    };
 </script>
 

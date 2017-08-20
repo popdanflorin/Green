@@ -38,7 +38,7 @@
         self.ClientId(null);
         self.ReservationDate(null);
         self.Seats(null);
-        self.UserName(null);
+        //self.UserName(null);
         self.isAdmin(null);
         self.warningRestaurantId(null);
         self.warningClientName(null);
@@ -111,7 +111,7 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-    }
+    };
 
     self.refresh = function () {
         var url = '/Reservations/ListRefresh';
@@ -130,23 +130,23 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-        var attrDataDismiss = document.createAttribute("hidden");
-        if (self.isAdmin._latestValue) {
-            try {
-                attrDataDismiss.value = false;
-             //   document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
-             //   document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
-            } catch (Exception) {
-            }
-        }
-        else {
-            try {
-                attrDataDismiss.value = true;
-               // document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
-               // document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
-            } catch (Exception) {
-            }
-        }
+        //var attrDataDismiss = document.createAttribute("hidden");
+        //if (self.isAdmin._latestValue) {
+        //    try {
+        //        attrDataDismiss.value = false;
+        //     //   document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
+        //     //   document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
+        //    } catch (Exception) {
+        //    }
+        //}
+        //else {
+        //    try {
+        //        attrDataDismiss.value = true;
+        //       // document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
+        //       // document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
+        //    } catch (Exception) {
+        //    }
+        //}
     };
 
     self.validate = function () {
@@ -184,12 +184,27 @@
         }
 
         return valid;
-    }
+    };
 
     self.nullOrEmpty = function (data) {
         if (data == null || data == "") {
             return true;
         }
         return false;
-    }
+    };
+
+    //hides the element for non-admin users
+    ko.bindingHandlers.allowAccess = {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var value = ko.unwrap(valueAccessor());
+            // admin user
+            if (value) {
+                element.hidden = false;
+            }
+                // normal user
+            else {
+                element.hidden = true;
+            }
+        }
+    };
 }
