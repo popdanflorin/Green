@@ -9,12 +9,12 @@
     self.ReservationDate = ko.observable(new Date())
     self.Seats = ko.observable();
     self.UserName = ko.observable();
+    self.UserId = ko.observable();
     self.isAdmin = ko.observable(false);
     self.loadingPanel = new LoadingOverlay();
 
     // validation warnings
     self.warningRestaurantId = ko.observable();
-    self.warningClientName = ko.observable();
     self.warningReservationDate = ko.observable();
     self.warningSeats = ko.observable();
 
@@ -25,9 +25,7 @@
         self.ReservationDate(data.ReservationDate);
         self.Seats(data.Seats);
         self.UserName(data.User.UserName);
-        self.isAdmin(data.isAdmin);
         self.warningRestaurantId(null);
-        self.warningClientName(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
     };
@@ -35,13 +33,9 @@
     self.add = function () {
         self.Id(0);
         self.RestaurantId(null);
-        self.ClientId(null);
         self.ReservationDate(null);
         self.Seats(null);
-        //self.UserName(null);
-        self.isAdmin(null);
         self.warningRestaurantId(null);
-        self.warningClientName(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
     }
@@ -88,7 +82,6 @@
 
         var url = '/Reservations/Save';
         self.warningRestaurantId(null);
-        self.warningClientName(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
         var reservation = JSON.stringify({
@@ -125,6 +118,7 @@
                 self.Reservations(data.Reservations);
                 self.Restaurants(data.Restaurants);
                 self.isAdmin(data.isAdmin);
+                self.UserId(data.UserId);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -159,14 +153,6 @@
             self.warningRestaurantId(null);
         }
 
-        if (self.nullOrEmpty(self.ClientId._latestValue)) {
-            self.warningClientName("Please enter your name!\n");
-            valid = false;
-        }
-        else {
-            self.warningClientName(null);
-        }
-
         if (self.nullOrEmpty(self.ReservationDate._latestValue) || self.ReservationDate._latestValue == "Invalid date" || self.ReservationDate._latestValue[0] == "/") {
             self.warningReservationDate("Please select the date!\n");
             valid = false;
@@ -196,7 +182,12 @@
     //hides the element for non-admin users
     ko.bindingHandlers.allowAccess = {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var value = ko.unwrap(valueAccessor());
+            try {
+                var value = ko.unwrap(valueAccessor());
+            }
+            catch (e) {
+                var value = valueAccessor();
+            }
             // admin user
             if (value) {
                 element.hidden = false;
