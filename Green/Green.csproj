@@ -211,6 +211,7 @@
     <Compile Include="Entities\Food.cs" />
     <Compile Include="Entities\FoodServing.cs" />
     <Compile Include="Entities\Enums\FoodType.cs" />
+    <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Meal.cs" />
     <Compile Include="Entities\Restaurant.cs" />
     <Compile Include="Entities\Reservation.cs" />
@@ -271,6 +272,7 @@
     <Content Include="Scripts\ViewModels\Meals.js" />
     <Content Include="Scripts\ViewModels\Restaurants.js" />
     <Content Include="Scripts\ViewModels\Reservations.js" />
+    <Content Include="Scripts\ViewModels\UserRestaurants.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -313,6 +315,7 @@
     <Content Include="Views\Restaurants\Item.cshtml" />
     <Content Include="Views\Reservations\ReservationItem.cshtml" />
     <Content Include="Views\Restaurants\Menu.cshtml" />
+    <Content Include="Views\Restaurants\UserRestaurants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

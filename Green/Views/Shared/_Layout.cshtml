@@ -34,7 +34,12 @@
                     <li>@Html.ActionLink("Foods", "List", "Foods")</li>
                     <li>@Html.ActionLink("Meals", "List", "Meals")</li>
                     <li>@Html.ActionLink("Reservations", "List", "Reservations")</li>
+                    <li>@Html.ActionLink("Restaurants", "UserRestaurants", "Restaurants")</li>
+                    @if (User.IsInRole("AppAdmin"))
+                    {
                     <li>@Html.ActionLink("Manage Restaurants", "List", "Restaurants")</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

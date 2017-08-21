@@ -9,6 +9,8 @@
     self.MaxPrice = ko.observable();
     self.SeatsAvailable = ko.observable();
     self.loadingPanel = new LoadingOverlay();
+
+
     self.showWarningNameEmpty = ko.observable();
     self.showWarningAddressEmpty = ko.observable();
     self.showWarningTypeEmpty = ko.observable();
@@ -82,7 +84,7 @@
             self.showWarningTypeEmpty("");
             isValid = true;
         }
-        if (!$.trim($('#MaxPrice').val())) {
+        if ($('#MaxPrice').valueOf()==null) {
             self.showWarningMaxPriceEmpty("Please insert the max price!");       
             isValid = false;
         }
@@ -90,7 +92,7 @@
             self.showWarningMaxPriceEmpty("");
             isValid = true;
         }
-        if (!$.trim($('#SeatsAvailable').val())) {
+        if ($('#SeatsAvailable').valueOf()==null){
             self.showWarningSeatsEmpty("Please insert the number of seats!");
             isValid = false;
         }
@@ -129,23 +131,26 @@
 
     };
     self.delete = function (data) {
-       
-        var url = '/Restaurants/Delete';
-        var restaurant = JSON.stringify({
-            restaurantId: data.id
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: restaurant,
-            success: function (data) {
-                console.log(data);
-                self.refresh();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-    };
+        if (confirm('Are you sure?')) {
+            var url = '/Restaurants/Delete';
+            var restaurant = JSON.stringify({
+                restaurantId: data.id
+            });
+            $.ajax(url, {
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: restaurant,
+                success: function (data) {
+                    console.log(data);
+                    self.refresh();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+
+     };
+    
 }

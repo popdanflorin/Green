@@ -16,6 +16,8 @@ namespace Green.Entities
         public int MaxPrice { get; set; }
         public int SeatsAvailable { get; set; }
         public int Rating { get; set; }
+        public int OpeningHour { get; set; }
+        public int ClosingHour { get; set; }
         public string TypeDisplay
         {
             get

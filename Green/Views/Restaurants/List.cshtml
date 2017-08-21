@@ -41,30 +41,15 @@
                     </button>
                 </td>
                 <td class="col-xs-1">
-                    <button type="button" class="btn btn-default" aria-label="Left Align" data-bind="click:$parent.delete" >
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true">
-                            <div class="popover fade top in" style="top: -44px; left: 72.0547px; display: block;">
-                                <div class="arrow"></div><h3 class="popover-title">
-                                    Are you sure?
-                                    <div class="popover-content text-center">
-                                        <div class="btn-group">
-                                            <a class="btn btn-small btn-primary" href="#" target="_self">
-                                                <i class="icon-ok-sign icon-white"></i> Yes
-                                            </a>
-                                            <a class="btn btn-small" data-dismiss="confirmation">
-                                                <i class="icon-remove-sign"></i> No
-                                            </a>
-                                        </div>
-                                    </div>
-                            </div>
-                        </span>
+                    <button  type="button" class="btn btn-default" aria-label="Left Align"  data-bind="click:$parent.delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
                     </button>
-                   
                 </td>
+          
             </tr>
         </tbody>
     </table>
-    @Html.Partial("Item")
+    @Html.Partial("Item") 
     @Html.Partial("Menu")
 </div>
 <script>
@@ -73,5 +58,6 @@
         vm.refresh();
         ko.applyBindings(vm, $("#restaurants").get(0));
     });
+ 
     
 </script>

@@ -21,6 +21,10 @@ namespace Green.Controllers
         {
             return View();
         }
+        public ActionResult UserRestaurants()
+        {
+            return View();
+        }
         public JsonResult ListRefresh()
         {
             var restaurants = qService.GetRestaurants();
