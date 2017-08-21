@@ -7,6 +7,8 @@ using Green.Entities;
 using Green.Entities.Enums;
 using Green.Services;
 using System.Text;
+using Green.Models;
+using System.IO;
 
 namespace Green.Controllers
 {
@@ -14,6 +16,7 @@ namespace Green.Controllers
     {
         private RestaurantQueryService qService = new RestaurantQueryService();
         private RestaurantCommandService cService = new RestaurantCommandService();
+        private const string ErrorMessage = "An application exception occured performing action.";
         // GET: Restaurants
 
         [Authorize (Roles = "AppAdmin")]
@@ -41,5 +44,31 @@ namespace Green.Controllers
             var message = cService.DeleteRestaurant(restaurantId);
             return new JsonResult() {Data=message,ContentEncoding=Encoding.UTF8};
         }
+        //upload images
+        public ActionResult Upload(HttpPostedFileBase file,string restaurantId)
+        {
+            if (file != null)
+            {
+                ApplicationDbContext db = new ApplicationDbContext();
+                string ImageName = System.IO.Path.GetFileName(file.FileName);
+                string physicalPath = Server.MapPath("~/images/" + ImageName);
+
+                // save image in folder
+                file.SaveAs(physicalPath);
+
+                //save new record in database
+                Image newRecord = new Image();
+                newRecord.Id = Guid.NewGuid().ToString();
+                newRecord.Name = ImageName;
+
+                newRecord.RestaurantId = restaurantId;
+                db.Images.Add(newRecord);
+                db.SaveChanges();
+
+            }
+            //Display records
+            return RedirectToAction("../Views/Restaurants/UserRestaurants/");
+        }
     }
+    
 }
