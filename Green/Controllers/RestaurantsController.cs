@@ -45,13 +45,14 @@ namespace Green.Controllers
             return new JsonResult() {Data=message,ContentEncoding=Encoding.UTF8};
         }
         //upload images
+        [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file,string restaurantId)
         {
             if (file != null)
             {
                 ApplicationDbContext db = new ApplicationDbContext();
                 string ImageName = System.IO.Path.GetFileName(file.FileName);
-                string physicalPath = Server.MapPath("~/images/" + ImageName);
+                string physicalPath = Server.MapPath("~/Content/images/" + ImageName);
 
                 // save image in folder
                 file.SaveAs(physicalPath);
@@ -67,7 +68,7 @@ namespace Green.Controllers
 
             }
             //Display records
-            return RedirectToAction("../Views/Restaurants/UserRestaurants/");
+            return RedirectToAction("UserRestaurants");
         }
     }
     

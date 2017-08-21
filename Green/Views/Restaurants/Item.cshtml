@@ -38,7 +38,7 @@
                     <input id="Seats" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: SeatsAvailable">
                     <label id="SeatsWarning" class="text-danger pull-right" data-bind="text:showWarningSeatsEmpty"></label>
                 </div>
-              @using (Html.BeginForm("Upload", "RestaurantsController", FormMethod.Post,new { enctype = "multipart/form-data" }))
+              @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post,new { enctype = "multipart/form-data" }))
                       {<div>
                            <label for="file">Image</label>
           
