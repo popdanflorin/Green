@@ -12,18 +12,26 @@ namespace Green.Services
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private ReservationQueryService reservationQService = new ReservationQueryService();
+        private RestaurantQueryService restaurantQService = new RestaurantQueryService();
 
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
         private const string SeatsUnavailableMessage = "There are not enough seats available.";
+        private const string TimeUnavailableMessage = "The selected time is not available.";
         public string SaveReservation(Reservation reservation)
         {
-            if (!ValidateReservation(reservation))
-                return SeatsUnavailableMessage;
+            string message = "";
+            if (!ValidateReservationHour(reservation))
+                message += TimeUnavailableMessage;
+            if (!ValidateReservationSeats(reservation))
+                message += SeatsUnavailableMessage;
+            if (message != "")
+                return message;
+
             try
             {
-                var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
+                var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);              
                 if (oldReservation == null)
                 {
                     reservation.Id = Guid.NewGuid().ToString();
@@ -63,9 +71,26 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
-        private bool ValidateReservation(Reservation reservation)
+        private bool ValidateReservationSeats(Reservation reservation)
         {
-            var reservations = reservationQService.GetReservations();
+            var reservations = reservationQService.GetReservations().Where(r => r.RestaurantId == reservation.RestaurantId && r.ReservationDate == reservation.ReservationDate);
+            var restaurant = restaurantQService.GetRestaurants().FirstOrDefault(r => r.id == reservation.RestaurantId);
+ 
+            var unavailableSeats = reservations.Sum(r => Int32.Parse(r.Seats));
+            var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
+            if (oldReservation != null)
+                unavailableSeats -= Int32.Parse(oldReservation.Seats);
+            if (restaurant.SeatsAvailable - unavailableSeats < Int32.Parse(reservation.Seats))
+                return false;
+            return true;
+        }
+
+        private bool ValidateReservationHour(Reservation reservation)
+        {
+            var restaurant = restaurantQService.GetRestaurants().FirstOrDefault(r => r.id == reservation.RestaurantId);
+            
+            if (reservation.ReservationDate.Hour < restaurant.OpeningHour || reservation.ReservationDate.Hour > restaurant.ClosingHour)
+                return false;
             return true;
         }
     }

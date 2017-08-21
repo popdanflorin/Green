@@ -25,6 +25,7 @@
         self.ReservationDate(data.ReservationDate);
         self.Seats(data.Seats);
         self.UserName(data.User.UserName);
+
         self.warningRestaurantId(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
@@ -65,20 +66,9 @@
     };
 
     self.save = function () {
-        var attrDataDismiss = document.createAttribute("data-dismiss");
-        attrDataDismiss.value = "modal";
         if (!self.validate()) {
-            try {
-                $("#OKButton").attributes.removeNamedItem("data-dismiss");
-            } catch (Exception) {
-                console.log(Exception);
-            }
+            self.setOKButton(false);
             return;
-        }
-        try {
-            $("#OKButton").attributes.setNamedItem(attrDataDismiss);
-        } catch (Exception) {
-            console.log(Exception);
         }
 
         var url = '/Reservations/Save';
@@ -104,29 +94,58 @@
             });
         }
         $.ajax(url, {
+            async: false,
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: reservation,
             success: function (data) {
-                if (data == "There are not enough seats available.") {
+                if (data.search(new String("The selected time is not available.").valueOf()) >= 0) {
                     try {
-                        $("#OKButton").attributes.removeNamedItem("data-dismiss");
-                        alert(data);
+                        self.warningReservationDate(data);
+                        self.setOKButton(false);
                     } catch (Exception) {
                         console.log(Exception);
                     }
                 }
-                else
-                    $("#OKButton").attributes.setNamedItem(attrDataDismiss);
-                console.log(data);
-                self.refresh();
+                else if (data.search(new String("There are not enough seats available.").valueOf()) >= 0) {
+                    try {
+                        self.warningSeats(data);
+                        self.setOKButton(false);
+                    } catch (Exception) {
+                        console.log(Exception);
+                    }
+                }
+                else {
+                    try {
+                        self.setOKButton(true);
+                        console.log(data);
+                        self.refresh();
+                    } catch (Exception) {
+                        console.log(Exception);
+                    }
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
     };
+
+    self.setOKButton = function(value) {
+        try {
+            if (value) {
+                var attrDataDismiss = document.createAttribute("data-dismiss");
+                attrDataDismiss.value = "modal";
+                document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
+            }
+            else
+                document.getElementById("OKButton").removeAttribute("data-dismiss");
+        }
+        catch (Exception) {
+            console.log(Exception);
+        }
+    }
 
     self.refresh = function () {
         var url = '/Reservations/ListRefresh';
@@ -146,7 +165,6 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-        self.UserIsClient = self.UserId == self.ClientId;
     };
 
     self.validate = function () {
@@ -204,4 +222,4 @@
             }
         }
     };
-}
+};

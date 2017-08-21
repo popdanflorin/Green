@@ -13,7 +13,7 @@ namespace Green.Services
         public List<Reservation> GetReservations()
         {
             var reservations = ctx.Reservations.Include("Restaurant").Include("User");
-            return reservations.ToList();
+            return reservations.OrderBy(r => r.Restaurant.Name).ToList();
         }
     }
 }
