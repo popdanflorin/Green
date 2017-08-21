@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Mvc;
 using Green.Services;
 using Green.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace Green.Controllers
 {
@@ -28,7 +29,8 @@ namespace Green.Controllers
             var reservations = qReservationService.GetReservations();
             var restaurants = qRestaurantService.GetRestaurants();
             var isAdmin = User.IsInRole("AppAdmin");
-            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var userId = User.Identity.GetUserId();
+            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
