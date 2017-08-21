@@ -24,7 +24,7 @@ namespace Green.Entities
         {
             get
             {
-                return ReservationDate.ToString("dd-MMM-yyyy HH:mm");
+                return ReservationDate.ToString("dd-MMM-yyyy HH:00");
             }
         }
         public string Seats { get; set; }

@@ -38,8 +38,7 @@
         self.warningRestaurantId(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
-    }
-
+    };
 
     self.delete = function (data) {
         if (!window.confirm("Are you sure you want to cancel the reservation?")) {
@@ -70,33 +69,56 @@
         attrDataDismiss.value = "modal";
         if (!self.validate()) {
             try {
-                document.getElementById("OKButton").attributes.removeNamedItem("data-dismiss");
+                $("#OKButton").attributes.removeNamedItem("data-dismiss");
             } catch (Exception) {
+                console.log(Exception);
             }
             return;
         }
         try {
-            document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
+            $("#OKButton").attributes.setNamedItem(attrDataDismiss);
         } catch (Exception) {
+            console.log(Exception);
         }
 
         var url = '/Reservations/Save';
         self.warningRestaurantId(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
-        var reservation = JSON.stringify({
-            Id: self.Id(),
-            RestaurantId: self.RestaurantId(),
-            ClientId: self.ClientId(),
-            ReservationDate: self.ReservationDate(),
-            Seats: self.Seats()
-        });
+        if (self.ClientId()) {
+            var reservation = JSON.stringify({
+                Id: self.Id(),
+                RestaurantId: self.RestaurantId(),
+                ClientId: self.ClientId(),
+                ReservationDate: self.ReservationDate(),
+                Seats: self.Seats()
+            });
+        }
+        else {
+            var reservation = JSON.stringify({
+                Id: self.Id(),
+                RestaurantId: self.RestaurantId(),
+                ClientId: self.UserId(),
+                ReservationDate: self.ReservationDate(),
+                Seats: self.Seats()
+            });
+        }
         $.ajax(url, {
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: reservation,
             success: function (data) {
+                if (data == "There are not enough seats available.") {
+                    try {
+                        $("#OKButton").attributes.removeNamedItem("data-dismiss");
+                        alert(data);
+                    } catch (Exception) {
+                        console.log(Exception);
+                    }
+                }
+                else
+                    $("#OKButton").attributes.setNamedItem(attrDataDismiss);
                 console.log(data);
                 self.refresh();
             },
@@ -124,23 +146,7 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-        //var attrDataDismiss = document.createAttribute("hidden");
-        //if (self.isAdmin._latestValue) {
-        //    try {
-        //        attrDataDismiss.value = false;
-        //     //   document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
-        //     //   document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
-        //    } catch (Exception) {
-        //    }
-        //}
-        //else {
-        //    try {
-        //        attrDataDismiss.value = true;
-        //       // document.getElementById("ClientNameHead").attributes.setNamedItem(attrDataDismiss);
-        //       // document.getElementById("ClientNameBody").attributes.setNamedItem(attrDataDismiss);
-        //    } catch (Exception) {
-        //    }
-        //}
+        self.UserIsClient = self.UserId == self.ClientId;
     };
 
     self.validate = function () {

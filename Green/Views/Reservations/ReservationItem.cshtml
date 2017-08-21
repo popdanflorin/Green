@@ -43,32 +43,6 @@
         }
     };
 
-    //function validateAll() {
-    //    var message = "";
-    //    if (document.getElementById("ClientName").value == "") {
-    //        message += "Please Enter the Client's Name!\n";
-    //    }
-    //    if (!document.getElementById("Seats").value.length) {
-    //        message += "Please Enter the Number of Seats!\n";
-    //    }
-    //    if (message.length) {
-    //        window.alert(message);
-    //        return false;
-    //    }
-    //    return true;        
-    //}
-
-    //function OKButtonClicked() {
-    //    if (validateAll()) {
-    //        var attr = document.createAttribute("data-dismiss");
-    //        attr.value = "modal";
-    //        document.getElementById("OKButton").attributes.setNamedItem(attr);
-    //    }
-    //    else {
-    //        document.getElementById("OKButton").attributes.removeNamedItem("data-dismiss");
-    //    }
-    //}
-
     ko.bindingHandlers.datePicker = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             // Register change callbacks to update the model
@@ -81,7 +55,7 @@
         // Update the control whenever the view model changes
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var value = valueAccessor();
-            element.value = moment(value()).format("YYYY-MM-DDTHH:mm");
+            element.value = moment(value()).format("YYYY-MM-DDTHH:mm:ss");
         }
     };
 </script>
