@@ -1,5 +1,6 @@
 ﻿using Green.Entities;
 using Green.Models;
+using Green.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,16 @@ namespace Green.Services
     public class ReservationCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
+        private ReservationQueryService reservationQService = new ReservationQueryService();
+
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
+        private const string SeatsUnavailableMessage = "There are not enough seats available.";
         public string SaveReservation(Reservation reservation)
         {
+            if (!ValidateReservation(reservation))
+                return SeatsUnavailableMessage;
             try
             {
                 var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
@@ -56,6 +62,11 @@ namespace Green.Services
             {
                 return ErrorMessage;
             }
+        }
+        private bool ValidateReservation(Reservation reservation)
+        {
+            var reservations = reservationQService.GetReservations();
+            return true;
         }
     }
 }

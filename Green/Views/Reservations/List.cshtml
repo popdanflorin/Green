@@ -12,14 +12,12 @@
                 <th data-bind="allowAccess: $root.isAdmin">Client Name</th>
                 <th>Date and Time</th>
                 <th>Seats</th>
-                <th></th>
-                <th></th>
             </tr>
         </thead>
-        <tbody data-bind="foreach:Reservations">
-            <tr>
-                <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
-                <td id="ClientNameBody" class="col-md-3" data-bind="text:User.UserName, visible: $root.isAdmin"></td>
+        <tbody data-bind="foreach:Reservations"> 
+            <tr>                                
+                <td class="col-md-3" data-bind="text:Restaurant.Name"></td>       
+                <td class="col-md-3" data-bind="text:User.UserName, visible: $root.isAdmin"></td>
                 <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
                 <td class="col-md-1" data-bind="text:Seats"></td>
                 <td class="col-md-3">
@@ -31,8 +29,8 @@
                             <span class="glyphicon glyphicon-remove-sign"></span> Cancel
                         </button>
                     </div>
-                </td>
-            </tr>
+                </td>            
+            </tr>          
         </tbody>
     </table>
     @Html.Partial("ReservationItem")
@@ -69,4 +67,3 @@
         }
     };
 </script>
-
