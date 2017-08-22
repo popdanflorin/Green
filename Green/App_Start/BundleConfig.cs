@@ -21,6 +21,7 @@ namespace Green
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                        "~/Scripts/agency.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
@@ -41,7 +42,8 @@ namespace Green
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-white.css",
+                       "~/Content/agency.css",
                       "~/Content/site.css"));
         }
     }
