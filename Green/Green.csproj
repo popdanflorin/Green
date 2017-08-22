@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MealsController.cs" />
+    <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Entities\Enums\FoodType.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Meal.cs" />
+    <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Restaurant.cs" />
     <Compile Include="Entities\Reservation.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
@@ -226,6 +228,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommandService.cs" />
     <Compile Include="Services\QueryService.cs" />
+    <Compile Include="Services\RatingCommandService.cs" />
+    <Compile Include="Services\RatingQueryService.cs" />
     <Compile Include="Services\ReservationQueryService.cs" />
     <Compile Include="Services\ReservationCommandService.cs" />
     <Compile Include="Services\RestaurantCommandService.cs" />
@@ -236,8 +240,11 @@
     <Content Include="Content\bootstrap-blue.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\delete.gif" />
     <Content Include="Content\images\vegetables-italian-pizza-restaurant.jpg" />
     <Content Include="Content\images\waiting.gif" />
+    <Content Include="Content\rateit.css" />
+    <Content Include="Content\star.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -249,8 +256,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-3.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery.rateit.js" />
+    <Content Include="Scripts\jquery.rateit.min.js" />
+    <Content Include="Scripts\jquery.rateit.min.js.map" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -270,6 +285,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewModels\Foods.js" />
     <Content Include="Scripts\ViewModels\Meals.js" />
+    <Content Include="Scripts\ViewModels\Ratings.js" />
     <Content Include="Scripts\ViewModels\Restaurants.js" />
     <Content Include="Scripts\ViewModels\Reservations.js" />
     <Content Include="Scripts\ViewModels\UserRestaurants.js" />
@@ -316,6 +332,7 @@
     <Content Include="Views\Reservations\ReservationItem.cshtml" />
     <Content Include="Views\Restaurants\Menu.cshtml" />
     <Content Include="Views\Restaurants\UserRestaurants.cshtml" />
+    <Content Include="Views\Ratings\Rating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -326,7 +343,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
