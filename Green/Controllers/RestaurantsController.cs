@@ -46,7 +46,7 @@ namespace Green.Controllers
         }
         //upload images
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file,string restaurantId)
+        public ActionResult Upload(HttpPostedFileBase file,string rid)
         {
             if (file != null)
             {
@@ -62,7 +62,7 @@ namespace Green.Controllers
                 newRecord.Id = Guid.NewGuid().ToString();
                 newRecord.Name = ImageName;
 
-                newRecord.RestaurantId = restaurantId;
+                newRecord.RestaurantId = rid;
                 db.Images.Add(newRecord);
                 db.SaveChanges();
 
