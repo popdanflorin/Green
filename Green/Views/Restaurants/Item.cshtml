@@ -1,4 +1,5 @@
-﻿<div id="restaurantItem" class="modal fade" role="dialog">
+﻿
+<div id="restaurantItem" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -38,10 +39,11 @@
                     <input id="Seats" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: SeatsAvailable">
                     <label id="SeatsWarning" class="text-danger pull-right" data-bind="text:showWarningSeatsEmpty"></label>
                 </div>
-              @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post,new { enctype = "multipart/form-data" }))
-                      {<div>
+              @using (Html.BeginForm("Upload", "Restaurants",FormMethod.Post,new { enctype = "multipart/form-data" }))
+              {
+                      <div>
                            <label for="file">Image</label>
-          
+                          <input name="rid" hidden="hidden" data-bind="value:id"/>
                           <input type = "file" name = "file" id = "file" style = "width: 100%;"/> 
 
                                  <input type = "submit" value = "Upload" class="submit"/>
