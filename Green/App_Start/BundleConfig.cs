@@ -41,10 +41,20 @@ namespace Green
                       "~/Scripts/moment.min.js"
                       ));
 
+            bundles.Add(new ScriptBundle("~/bundles/rateit").Include(
+                      "~/Scripts/jquery.rateit.js",
+                      "~/Scripts/jquery.rateit..min.js",
+                      "~/Scripts/jquery.rateit.min.js.map"
+                      ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-white.css",
                        "~/Content/agency.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/rateit.css",
+                      "~/Content/delete.gif",
+                      "~/Content/star.gif"
+                      ));
         }
     }
 }

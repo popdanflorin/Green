@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Reservations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div id="reservations">
@@ -41,6 +42,12 @@
         var vm = new Reservations();
         vm.refresh();
         ko.applyBindings(vm, $("#reservations").get(0));
+
+        var vmRatings = new Ratings();
+        vmRatings.set();
+        ko.applyBindings(vmRatings, $("#ratings").get(0));
+
+        $("#RestaurantId").bind("change", vm.RestaurantId, vmRatings.changeRestaurantId);
     });
 
     function reserveButtonClicked() {

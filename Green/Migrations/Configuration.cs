@@ -57,6 +57,26 @@ namespace Green.Migrations
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "AppAdmin");
             }
+
+
+            if (!context.Roles.Any(r => r.Name == "NormalUser"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "NormalUser" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "client"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "client@gmail.com", Email = "aa@b.com" };
+
+                manager.Create(user, "1Tecknoworker!");
+                manager.AddToRole(user.Id, "NormalUser");
+            }
         }
     }
 }
