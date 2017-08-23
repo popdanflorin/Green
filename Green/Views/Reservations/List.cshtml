@@ -23,7 +23,7 @@
                 <td class="col-md-1" data-bind="text:Seats"></td>
                 <td class="col-md-3">
                     <div class="btn-group-md" align="right">
-                        <button id="infoButton" class="btn btn-info" data-toggle="modal" data-target="#reservationItem" data-bind="click:$root.details">
+                        <button id="infoButton" class="btn btn-default" data-toggle="modal" data-target="#reservationItem" data-bind="click:$root.details">
                             <span class="glyphicon glyphicon-info-sign"></span> Info
                         </button>
                         <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." data-bind="click:$root.delete">
@@ -39,6 +39,7 @@
 
 <script>
     $(function () {
+        $('[data-toggle="popover"]').popover();
         var vm = new Reservations();
         vm.refresh();
         ko.applyBindings(vm, $("#reservations").get(0));

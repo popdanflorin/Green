@@ -42,13 +42,22 @@
 
     self.getRatings = function () {
         var url = '/Ratings/GetRatings';
-
-        var rating = JSON.stringify({
-            Id: self.Id(),
-            ClientId: self.UserId(),
-            RestaurantId: self.RestaurantId(),
-            Value: 0
-        });
+        try {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId(),
+                Value: 0
+            });
+        }
+        catch (e) {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId,
+                Value: 0
+            });
+        }
 
         $.ajax(url, {
             async: false,
@@ -75,12 +84,22 @@
     self.save = function () {
         var url = '/Ratings/Save';
         var value = $(this).rateit('value');
-        var rating = JSON.stringify({
-            Id: self.Id(),
-            ClientId: self.UserId(),
-            RestaurantId: self.RestaurantId(),
-            Value: value
-        });
+        try {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId(),
+                Value: value
+            });
+        }
+        catch (e) {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId,
+                Value: value
+            });
+        }
         $.ajax(url, {
             async: false,
             type: "post",
