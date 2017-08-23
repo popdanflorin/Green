@@ -31,11 +31,20 @@ namespace Green.Controllers
             var userId = User.Identity.GetUserId();
             return new JsonResult { Data = new { UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        
+
         public JsonResult GetUserRating(string RestaurantId)
         {
-            var value = qRatingService.GetUserRating(RestaurantId);
+            var userId = User.Identity.GetUserId();
+            var value = qRatingService.GetUserRating(userId, RestaurantId);
             return new JsonResult() { Data = value, ContentEncoding = Encoding.UTF8 };
+        }
+
+        public JsonResult GetRatings(string RestaurantId)
+        {
+            var userId = User.Identity.GetUserId();
+            var userRating = qRatingService.GetUserRating(userId, RestaurantId);
+            var totalRating = qRatingService.GetTotalRating(RestaurantId);
+            return new JsonResult() { Data = new { UserRating = userRating, TotalRating = totalRating },  ContentEncoding = Encoding.UTF8 };
         }
 
         public JsonResult Refresh()

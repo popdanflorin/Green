@@ -33,18 +33,15 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-    }
-
-    self.getRestaurantRating = function () {
-
-    }
+    };
     
     self.changeRestaurantId = function (RestaurantId) {
         self.RestaurantId = RestaurantId.data;
+        self.refresh();
     };
 
-    self.refresh = function () {
-        var url = '/Ratings/Refresh';
+    self.getRatings = function () {
+        var url = '/Ratings/GetRatings';
         self.loadingPanel.show();
 
         $.ajax(url, {
@@ -53,17 +50,21 @@
             success: function (data) {
                 self.loadingPanel.hide();
                 console.log(data);
-                self.UserId(data.UserId);
+                self.UserRating(data.UserRating);
+                self.TotalRating(data.TotalRating);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+    };
 
-        //if (self.UserRating == 0)
-        //    $(".rateit").rateit('value', self.UserRating);
-        //else
-        //    $(".rateit").rateit('value', self.TotalRating);
+    self.refresh = function () {
+        self.getRatings();
+        if (self.UserRating == 0)
+            $(".rateit").rateit('value', self.TotalRating);
+        else
+            $(".rateit").rateit('value', self.UserRating);
     };
 
     self.save = function () {

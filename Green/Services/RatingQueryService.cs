@@ -16,11 +16,14 @@ namespace Green.Services
             var ratings = ctx.Ratings;
             return ratings.ToList();
         }
-        
-        public int GetUserRating(string RestaurantId)
-        {
 
-            return 0;
+        public int GetUserRating(string UserId, string RestaurantId)
+        {
+            return ctx.Ratings.FirstOrDefault(r => r.ClientId == UserId && r.RestaurantId == RestaurantId).Value;
+        }
+        public int GetTotalRating(string RestaurantId)
+        {
+            return ctx.Ratings.Where(r => r.RestaurantId == RestaurantId).Sum(r => r.Value);
         }
 
     }
