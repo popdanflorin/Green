@@ -48,6 +48,7 @@
         ko.applyBindings(vmRatings, $("#ratings").get(0));
 
         $("#RestaurantId").bind("change", vm.RestaurantId, vmRatings.changeRestaurantId);
+        vmRatings.changeRestaurantId(vm.RestaurantId);
     });
 
     function reserveButtonClicked() {

@@ -39,11 +39,13 @@ namespace Green.Controllers
             return new JsonResult() { Data = value, ContentEncoding = Encoding.UTF8 };
         }
 
-        public JsonResult GetRatings(string RestaurantId)
+        [HttpPost]
+        public JsonResult GetRatings(Rating rating)
         {
+            var restaurantId = rating.RestaurantId;
             var userId = User.Identity.GetUserId();
-            var userRating = qRatingService.GetUserRating(userId, RestaurantId);
-            var totalRating = qRatingService.GetTotalRating(RestaurantId);
+            var userRating = qRatingService.GetUserRating(userId, restaurantId);
+            var totalRating = qRatingService.GetTotalRating(restaurantId);
             return new JsonResult() { Data = new { UserRating = userRating, TotalRating = totalRating },  ContentEncoding = Encoding.UTF8 };
         }
 

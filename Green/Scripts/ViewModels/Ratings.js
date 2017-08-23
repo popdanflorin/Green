@@ -42,13 +42,20 @@
 
     self.getRatings = function () {
         var url = '/Ratings/GetRatings';
-        self.loadingPanel.show();
+
+        var rating = JSON.stringify({
+            Id: self.Id(),
+            ClientId: self.UserId(),
+            RestaurantId: self.RestaurantId(),
+            Value: 0
+        });
 
         $.ajax(url, {
-            type: "get",
+            async: false,
+            type: "post",
             contentType: "application/json; charset=utf-8",
+            data: rating,
             success: function (data) {
-                self.loadingPanel.hide();
                 console.log(data);
                 self.UserRating(data.UserRating);
                 self.TotalRating(data.TotalRating);
@@ -61,10 +68,8 @@
 
     self.refresh = function () {
         self.getRatings();
-        if (self.UserRating == 0)
-            $(".rateit").rateit('value', self.TotalRating);
-        else
-            $(".rateit").rateit('value', self.UserRating);
+        $("#UserRating").text(self.UserRating() + "/5");
+        $(".rateit").rateit('value', self.TotalRating());
     };
 
     self.save = function () {
