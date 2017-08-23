@@ -203,6 +203,10 @@
         return false;
     };
 
+    self.restaurantInfo = function () {
+        //var url = '/Reservations/RestaurantInfo';
+    }
+
     //hides the element for non-admin users
     ko.bindingHandlers.allowAccess = {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

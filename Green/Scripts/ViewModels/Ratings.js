@@ -33,48 +33,73 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-    }
-
-    self.getRestaurantRating = function () {
-
-    }
+    };
     
     self.changeRestaurantId = function (RestaurantId) {
         self.RestaurantId = RestaurantId.data;
+        self.refresh();
     };
 
-    self.refresh = function () {
-        var url = '/Ratings/Refresh';
-        self.loadingPanel.show();
+    self.getRatings = function () {
+        var url = '/Ratings/GetRatings';
+        try {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId(),
+                Value: 0
+            });
+        }
+        catch (e) {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId,
+                Value: 0
+            });
+        }
 
         $.ajax(url, {
-            type: "get",
+            async: false,
+            type: "post",
             contentType: "application/json; charset=utf-8",
+            data: rating,
             success: function (data) {
-                self.loadingPanel.hide();
                 console.log(data);
-                self.UserId(data.UserId);
+                self.UserRating(data.UserRating);
+                self.TotalRating(data.TotalRating);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+    };
 
-        //if (self.UserRating == 0)
-        //    $(".rateit").rateit('value', self.UserRating);
-        //else
-        //    $(".rateit").rateit('value', self.TotalRating);
+    self.refresh = function () {
+        self.getRatings();
+        $("#UserRating").text(self.UserRating() + "/5");
+        $(".rateit").rateit('value', self.TotalRating());
     };
 
     self.save = function () {
         var url = '/Ratings/Save';
         var value = $(this).rateit('value');
-        var rating = JSON.stringify({
-            Id: self.Id(),
-            ClientId: self.UserId(),
-            RestaurantId: self.RestaurantId(),
-            Value: value
-        });
+        try {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId(),
+                Value: value
+            });
+        }
+        catch (e) {
+            var rating = JSON.stringify({
+                Id: self.Id(),
+                ClientId: self.UserId(),
+                RestaurantId: self.RestaurantId,
+                Value: value
+            });
+        }
         $.ajax(url, {
             async: false,
             type: "post",

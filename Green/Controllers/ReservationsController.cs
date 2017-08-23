@@ -36,6 +36,11 @@ namespace Green.Controllers
             return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        //public JsonResult RestaurantInfo(string restaurantId)
+        //{
+            
+        //}
+
         [HttpPost]
         public JsonResult Save(Reservation reservation)
         {
