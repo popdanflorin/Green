@@ -33,7 +33,7 @@ namespace Green.Migrations
               new Food { Id = Guid.NewGuid().ToString(), Name = "Bere", Type = FoodType.Alcohol }
             );
             context.Restaurants.AddOrUpdate(
-  
+              f=>f.Name,
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, MaxPrice = 15 },
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Indigo", Address = "Observatorului,21,Cluj-Napoca", Type = RestaurantType.Traditional, MaxPrice = 50 },
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, MaxPrice = 20 },

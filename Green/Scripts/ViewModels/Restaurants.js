@@ -9,7 +9,7 @@
     self.MaxPrice = ko.observable();
     self.SeatsAvailable = ko.observable();
     self.loadingPanel = new LoadingOverlay();
-
+    self.messageText = ko.observable();
 
     self.showWarningNameEmpty = ko.observable();
     self.showWarningAddressEmpty = ko.observable();
@@ -23,6 +23,7 @@
         self.Type(data.Type);
         self.Address(data.Address);
         self.MaxPrice(data.MaxPrice);
+        self.SeatsAvailable(data.SeatsAvailable);
     };
     self.manage = function (data) {
 
@@ -118,6 +119,7 @@
                 data: restaurant,
                 success: function (data) {
                     console.log(data);
+                    self.messageText(data.message);
                     self.refresh();
                     $('#restaurantItem').modal('hide');
                 },
@@ -130,11 +132,11 @@
 
 
     };
-    self.delete = function (data) {
-        if (confirm('Are you sure?')) {
+    self.deleteRestaurant = function (data) {
+        
             var url = '/Restaurants/Delete';
             var restaurant = JSON.stringify({
-                restaurantId: data.id
+                restaurantId: self.id()
             });
             $.ajax(url, {
                 type: "post",
@@ -149,8 +151,11 @@
                     console.log(textStatus + ': ' + errorThrown);
                 }
             });
-        }
+      
 
-     };
+    };
+    self.openDeleteDialog = function (data) {
+        self.id(data.id);
+    };
     
 }

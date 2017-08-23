@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add new restaurant</h4>
+                <h4 class="modal-title">Edit restaurant</h4>
             </div>
 
             <div class="modal-body">
@@ -39,12 +39,22 @@
                     <input id="Seats" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: SeatsAvailable">
                     <label id="SeatsWarning" class="text-danger pull-right" data-bind="text:showWarningSeatsEmpty"></label>
                 </div>
-              @using (Html.BeginForm("Upload", "Restaurants",FormMethod.Post,new { enctype = "multipart/form-data" }))
+              @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))
               {
+                <table>
+                    <tr>
+                        <td><font style="font-size: 3vh; color:grey">Select a picture: </td>
+                        <input name="rid" hidden="hidden" data-bind="value:id" />
+                        <td><input name="userfile" type="file" accept=".jpg, .png, .jpeg" /></font></td>
+
+                        <input type="submit" value="Upload" class="submit" />
+                    </tr>
+                </table>
                       <div>
                            <label for="file">Image</label>
+                          <br />
                           <input name="rid" hidden="hidden" data-bind="value:id"/>
-                          <input type = "file" name = "file" id = "file" style = "width: 100%;"/> 
+                          <input type = "file" align="center" name = "file" id = "file" style = "width: 100%;" /> 
 
                                  <input type = "submit" value = "Upload" class="submit"/>
                        </div> 
