@@ -9,7 +9,7 @@
                     <label for="RestaurantId">Restaurant:</label>
                     <div class="form-inline">
                         <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId, optionsCaption: 'Choose...'"></select>
-                        <button id="RestaurantInfo" class="btn btn-default" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId, restaurantInfo: RestaurantId">
+                        <button id="RestaurantInfo" class="btn btn-default" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId">
                             <span class="glyphicon glyphicon-info-sign"></span>
                         </button>
                         <label class="text-danger pull-right" data-bind="text:warningRestaurantId"></label>
@@ -46,22 +46,6 @@
     function onKeyPressSeats() {
         if (window.event.keyCode < 48 || window.event.keyCode > 57) {
             window.event.preventDefault();
-        }
-    };
-
-    ko.bindingHandlers.restaurantInfo = {
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            try {
-                //console.log(viewModel);
-                //var openingHour = bindingContext.ReservationDate;
-                //alert(openingHour);
-                //var content = "Opening hour: " ;
-                //element = $("#RestaurantInfo");
-                //element.attr("data-content", content);
-            }
-            catch (e) {
-                console.log(e);
-            }
         }
     };
 

@@ -49,6 +49,7 @@
         ko.applyBindings(vmRatings, $("#ratings").get(0));
 
         $("#RestaurantId").bind("change", vm.RestaurantId, vmRatings.changeRestaurantId);
+        $("#RestaurantId").bind("change", vm.restaurantInfo);
         vmRatings.changeRestaurantId(vm.RestaurantId);
     });
 
