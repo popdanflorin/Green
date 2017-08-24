@@ -9,7 +9,7 @@
                     <label for="RestaurantId">Restaurant:</label>
                     <div class="form-horizontal">
                         <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId, optionsCaption: 'Choose...'"></select>
-                        <button id="RestaurantInfo" class="btn btn-default" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId">
+                        <button id="RestaurantInfo" class="btn btn-default" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId" data-content="Waiting..." data-html="true">
                             <span class="glyphicon glyphicon-info-sign"></span>
                         </button>
                         <label class="text-danger pull-right" data-bind="text:warningRestaurantId"></label>

@@ -204,7 +204,25 @@
     };
 
     self.restaurantInfo = function () {
-        //var url = '/Reservations/RestaurantInfo';
+        var url = '/Reservations/RestaurantInfo';
+        var restaurant = JSON.stringify({ restaurantId: self.RestaurantId()});
+        var openingHour, closingHour;
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: restaurant,
+            success: function (data) {
+                openingHour = data.OpeningHour,
+                closingHour = data.ClosingHour
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+        var content = "Opening Hour: " + openingHour + "<br/>Closing Hour: " + closingHour;
+        $("#RestaurantInfo").attr('data-content', content);
     }
 
     //hides the element for non-admin users

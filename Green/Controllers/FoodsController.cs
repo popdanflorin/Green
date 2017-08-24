@@ -1,8 +1,5 @@
 ﻿using Green.Entities;
-using Green.Entities.Enums;
 using Green.Services;
-using System;
-using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
@@ -10,8 +7,8 @@ namespace Green.Controllers
 {
     public class FoodsController : Controller
     {
-        private QueryService qService = new QueryService();
-        private CommandService cService = new CommandService();
+        private FoodQueryService qService = new FoodQueryService();
+        private FoodCommandService cService = new FoodCommandService();
 
         // GET: Foods
         public ActionResult List()

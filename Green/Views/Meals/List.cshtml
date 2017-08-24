@@ -3,13 +3,50 @@
     ViewBag.Title = "Meals";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+input[type=search] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=search]:focus {
+    width: 100%;
+}
+</style>
+
 <div id="meals">
     <h2>Meals</h2>
-    <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#mealItem" data-bind="click:add" />
+    @if (User.IsInRole("AppAdmin"))
+    {
+        <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#mealItem" data-bind="click:add" />
+    }
+    <div class="form-inline">
+        <input type="search" id="searchBox" placeholder="Search...">
+        <button id="infoButton" class="btn btn-default" data-toggle="tooltip" title="Search" data-bind="click: search">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+    <div class="form-inline">
+        <input type="checkbox" id="SearchName" data-bind="checked: SearchName"/>
+        <label for="SearchName">Search in name</label>
+        <input type="checkbox" id="SearchIngredient"  data-bind="checked: SearchIngredient"/>
+        <label for="SearchIngredient">Search in ingredients</label>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
-                <th>Details</th>
+                <th>Description</th>
                 <th>Type</th>
                 <th>Status</th>
                 <th>Rating</th>
@@ -19,16 +56,18 @@
         </thead>
         <tbody data-bind="foreach:Meals">
             <tr>
-                <td class="col-xs-5" data-bind="text:Details"></td>
+                <td class="col-xs-5" data-bind="text:Description"></td>
                 <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
-                <td class="col-xs-5" data-bind="text:StatusDisplay"></td>
                 <td class="col-xs-5" data-bind="text:RatingDisplay"></td>
                 <td class="col-xs-1">
                     <input type="button" value="Details" class="btn btn-info" data-toggle="modal" data-target="#mealItem" data-bind="click:$parent.details" />
                 </td>
-                <td class="col-xs-1">
-                    <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
-                </td>
+                @if (User.IsInRole("AppAdmin"))
+                {
+                    <td class="col-xs-1">
+                        <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
+                    </td>
+                }
             </tr>
         </tbody>
     </table>
@@ -40,4 +79,7 @@
         vm.refresh();
         ko.applyBindings(vm, $("#meals").get(0));
     });
+
+    class SearchBox extends HTMLElement { }
+    window.customElements.define('search-box', SearchBox);
 </script>

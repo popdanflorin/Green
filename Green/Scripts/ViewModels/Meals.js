@@ -4,52 +4,42 @@
     //for list
     self.Meals = ko.observableArray();
     self.Types = ko.observableArray();
-    self.Statuses = ko.observableArray();
     self.Ratings = ko.observableArray();
 
     //for item
     self.Id = ko.observable();
-    self.UserId = ko.observable();
-    self.Details = ko.observable();
-    self.PreparationDetails = ko.observable();
-    self.PlannedTime = ko.observable();
-    self.ActualTime = ko.observable();
+    self.Name = ko.observable();
+    self.Description = ko.observable();
     self.Type = ko.observable();
-    self.Status = ko.observable();
     self.Rating = ko.observable();
+
+    //for search
+    self.SearchName = ko.observable(false);
+    self.SearchIngredient = ko.observable(false);
 
     self.loadingPanel = new LoadingOverlay();
 
     self.details = function (data) {
         self.Id(data.Id);
-        self.UserId(data.UserId);
-        self.Details(data.Details);
-        self.PreparationDetails(data.PreparationDetails);
-        self.PlannedTime(data.PlannedTime);
-        self.ActualTime(data.ActualTime);
+        self.Name(data.Details);
+        self.Description(data.Description);
         self.Type(data.Type);
-        self.Status(data.Status);
         self.Rating(data.Rating);
     };
     self.add = function () {
         self.Id(0);
         self.Type(null);
-        self.Details(null);
-        self.PreparationDetails(null);
-        self.Status(null);
+        self.Name(null);
+        self.Description(null);
         self.Rating(null);
     };
     self.save = function () {
         var url = '/Meals/Save';
         var meal = JSON.stringify({
             Id: self.Id(),
-            UserId: self.UserId(),
-            Details: self.Details(),
-            PreparationDetails: self.PreparationDetails(),
-            PlannedTime: self.PlannedTime(),
-            ActualTime: self.ActualTime(),
+            Name: self.Name(),
+            Description: self.Description(),
             Type: self.Type(),
-            Status: self.Status(),
             Rating: self.Rating(),
         });
         $.ajax(url, {
@@ -96,12 +86,15 @@
                 console.log(data);
                 self.Meals(data.Meals);
                 self.Types(data.Types);
-                self.Statuses(data.Statuses);
                 self.Ratings(data.Ratings);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+    };
+
+    self.search = function () {
+        alert("Searching..."); 
     };
 }

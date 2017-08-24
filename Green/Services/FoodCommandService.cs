@@ -1,12 +1,11 @@
 ﻿using Green.Entities;
 using Green.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Green.Services
 {
-    public class CommandService
+    public class FoodCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "Action sucessfully performed.";
@@ -55,55 +54,5 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
-
-        public string SaveMeal(Meal meal)
-        {
-            try
-            {
-                var oldMeal = ctx.Meals.FirstOrDefault(f => f.Id == meal.Id);
-                if (oldMeal == null)
-                {
-                    meal.Id = Guid.NewGuid().ToString();
-                    meal.PlannedTime = DateTime.Now;
-                    meal.ActualTime = DateTime.Now;
-                    ctx.Meals.Add(meal);
-                }
-                else
-                {
-                    oldMeal.Details = meal.Details;
-                    oldMeal.PreparationDetails = meal.PreparationDetails;
-                    oldMeal.Type = meal.Type;
-                    oldMeal.Status = meal.Status;
-                    oldMeal.Rating = meal.Rating;
-                }
-
-                ctx.SaveChanges();
-                return SuccessMessage;
-            }
-            catch
-            {
-                return ErrorMessage;
-            }
-        }
-
-        public string DeleteMeal(string id)
-        {
-            try
-            {
-                var meal = ctx.Meals.FirstOrDefault(f => f.Id == id);
-                if (meal != null)
-                {
-                    ctx.Meals.Remove(meal);
-                    ctx.SaveChanges();
-                    return SuccessMessage;
-                }
-                return ItemNotFoundMessage;
-            }
-            catch (Exception)
-            {
-                return ErrorMessage;
-            }
-        }
-
     }
 }

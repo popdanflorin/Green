@@ -206,7 +206,6 @@
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
     <Compile Include="Entities\Enums\EnumItem.cs" />
     <Compile Include="Entities\Enums\MealRating.cs" />
-    <Compile Include="Entities\Enums\MealStatus.cs" />
     <Compile Include="Entities\Enums\MealType.cs" />
     <Compile Include="Entities\Enums\RestaurantType.cs" />
     <Compile Include="Entities\Food.cs" />
@@ -226,8 +225,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CommandService.cs" />
-    <Compile Include="Services\QueryService.cs" />
+    <Compile Include="Services\FoodCommandService.cs" />
+    <Compile Include="Services\MealCommandService.cs" />
+    <Compile Include="Services\MealQueryService.cs" />
+    <Compile Include="Services\FoodQueryService.cs" />
     <Compile Include="Services\RatingCommandService.cs" />
     <Compile Include="Services\RatingQueryService.cs" />
     <Compile Include="Services\ReservationQueryService.cs" />

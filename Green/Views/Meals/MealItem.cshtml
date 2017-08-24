@@ -10,12 +10,13 @@
             <div class="modal-body">
                 <label for="MealType">Type</label>
                 <select id ="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
-                <label for="MealDetails">Details</label>
-                <input id="MealDetails" type="text" class="form-control" data-bind="value: Details">
-                <label for="MealPreparationDetails">Preparation details</label>
-                <input id="MealPreparationDetails" type="text" class="form-control" data-bind="value: PreparationDetails">
-                <label for="MealStatus">Status</label>
-                <select id="MealStatus" class="form-control" data-bind="options:Statuses, optionsText: 'Description', optionsValue: 'Id', value: Status, optionsCaption: 'Choose...'"></select>
+                
+                <label for="MealName">Name</label>
+                <input id="MealName" type="text" class="form-control" data-bind="value: Name">
+                
+                <label for="MealDescription">Description</label>
+                <input id="MealDescription" type="text" class="form-control" data-bind="value: Description">
+                
                 <label for="MealRating">Rating</label>
                 <select id="MealRating" class="form-control" data-bind="options:Ratings, optionsText: 'Description', optionsValue: 'Id', value: Rating, optionsCaption: 'Choose...'"></select>
             </div>

@@ -36,10 +36,20 @@ namespace Green.Controllers
             return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        //public JsonResult RestaurantInfo(string restaurantId)
-        //{
+        [HttpPost]
+        public JsonResult RestaurantInfo(string restaurantId)
+        {
+            var restaurant = qRestaurantService.GetRestaurants().FirstOrDefault(r => r.id == restaurantId);
+            var openingHour = -1;
+            var closingHour = -1;
+            if (restaurant != null)
+            {
+                openingHour = restaurant.OpeningHour;
+                closingHour = restaurant.ClosingHour;
+            }
             
-        //}
+            return new JsonResult { Data = new { OpeningHour = openingHour, ClosingHour = closingHour}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         [HttpPost]
         public JsonResult Save(Reservation reservation)
