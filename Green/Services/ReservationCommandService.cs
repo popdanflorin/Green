@@ -71,7 +71,7 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
-        private bool ValidateReservationSeats(Reservation reservation)
+        public bool ValidateReservationSeats(Reservation reservation)
         {
             var reservations = reservationQService.GetReservations().Where(r => r.RestaurantId == reservation.RestaurantId && r.ReservationDate == reservation.ReservationDate);
             var restaurant = restaurantQService.GetRestaurants().FirstOrDefault(r => r.id == reservation.RestaurantId);

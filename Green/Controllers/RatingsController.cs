@@ -46,7 +46,7 @@ namespace Green.Controllers
             var userId = User.Identity.GetUserId();
             var userRating = qRatingService.GetUserRating(userId, restaurantId);
             var totalRating = qRatingService.GetTotalRating(restaurantId);
-            return new JsonResult() { Data = new { UserRating = userRating, TotalRating = totalRating },  ContentEncoding = Encoding.UTF8 };
+            return new JsonResult() { Data = new { UserRating = userRating, TotalRating = totalRating }, ContentEncoding = Encoding.UTF8 };
         }
 
         public JsonResult Refresh()
