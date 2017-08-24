@@ -41,15 +41,7 @@
                 </div>
               @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))
               {
-                <table>
-                    <tr>
-                        <td><font style="font-size: 3vh; color:grey">Select a picture: </td>
-                        <input name="rid" hidden="hidden" data-bind="value:id" />
-                        <td><input name="userfile" type="file" accept=".jpg, .png, .jpeg" /></font></td>
-
-                        <input type="submit" value="Upload" class="submit" />
-                    </tr>
-                </table>
+             
                       <div>
                            <label for="file">Image</label>
                           <br />
