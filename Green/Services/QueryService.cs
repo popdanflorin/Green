@@ -20,25 +20,5 @@ namespace Green.Services
         {
             return Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
         }
-       
-        public List<EnumItem> GetMealTypes()
-        {
-            return Enum.GetValues(typeof(MealType)).Cast<MealType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
-        }
-
-        public List<EnumItem> GetMealStatuses()
-        {
-            return Enum.GetValues(typeof(MealStatus)).Cast<MealStatus>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
-        }
-
-        public List<EnumItem> GetMealRatings()
-        {
-            return Enum.GetValues(typeof(MealRating)).Cast<MealRating>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
-        }
-
-        public List<Meal> GetMeals()
-        {
-            return ctx.Meals.ToList();
-        }
     }
 }

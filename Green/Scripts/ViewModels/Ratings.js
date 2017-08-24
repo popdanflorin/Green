@@ -10,7 +10,7 @@
     self.loadingPanel = new LoadingOverlay();
 
     self.set = function () {
-        var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
+        var tooltipvalues = ['Bad', 'Decent', 'Good', 'Very good', 'Excellent'];
         $(".rateit").bind('over', function (event, value) { $(this).attr('title', tooltipvalues[value - 1]); });
         $(".rateit").bind('rated', self.save);
 

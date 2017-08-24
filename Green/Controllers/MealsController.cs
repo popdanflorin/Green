@@ -11,8 +11,8 @@ namespace Green.Controllers
 {
     public class MealsController : Controller
     {
-        private QueryService qService = new QueryService();
-        private CommandService cService = new CommandService();
+        private MealQueryService qMealService = new MealQueryService();
+        private MealCommandService cMealService = new MealCommandService();
 
         // GET: Foods
         public ActionResult List()
@@ -22,24 +22,23 @@ namespace Green.Controllers
 
         public JsonResult ListRefresh()
         {
-            var meals = qService.GetMeals();
-            var mealTypes = qService.GetMealTypes();
-            var mealStatuses = qService.GetMealStatuses();
-            var mealRatings = qService.GetMealRatings();
-            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Statuses = mealStatuses, Ratings = mealRatings }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var meals = qMealService.GetMeals();
+            var mealTypes = qMealService.GetMealTypes();
+            var mealRatings = qMealService.GetMealRatings();
+            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Ratings = mealRatings }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
         public JsonResult Save(Meal meal)
         {
-            var message = cService.SaveMeal(meal);
+            var message = cMealService.SaveMeal(meal);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
 
         [HttpPost]
         public JsonResult Delete(string mealId)
         {
-            var message = cService.DeleteMeal(mealId);
+            var message = cMealService.DeleteMeal(mealId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
     }

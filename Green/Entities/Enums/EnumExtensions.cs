@@ -35,17 +35,6 @@ namespace Green.Entities.Enums
             }
         }
 
-        public static string ToString(this MealStatus mealStatus)
-        {
-            switch (mealStatus)
-            {
-                case MealStatus.Planned: return "Planned";
-                case MealStatus.InProgress: return "In progress";
-                case MealStatus.Finished: return "Finished";
-                default: return String.Empty;
-            }
-        }
-
         public static string ToString(this MealRating mealRating)
         {
             switch (mealRating)

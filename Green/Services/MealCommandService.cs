@@ -1,33 +1,35 @@
-﻿using Green.Entities;
-using Green.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Web;
 using System.Linq;
+using Green.Entities;
+using Green.Models;
+using Green.Entities.Enums;
 
 namespace Green.Services
 {
-    public class CommandService
+    public class MealCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
-        public string SaveFood(Food food)
+        public string SaveMeal(Meal meal)
         {
             try
             {
-                var oldFood = ctx.Foods.FirstOrDefault(f => f.Id == food.Id);
-                if (oldFood == null)
+                var oldMeal = ctx.Meals.FirstOrDefault(f => f.Id == meal.Id);
+                if (oldMeal == null)
                 {
-                    food.Id = Guid.NewGuid().ToString();
-                    ctx.Foods.Add(food);
+                    meal.Id = Guid.NewGuid().ToString();
+                    ctx.Meals.Add(meal);
                 }
                 else
                 {
-                    oldFood.Name = food.Name;
-                    oldFood.Type = food.Type;
+                    oldMeal.Description = meal.Description;
+                    oldMeal.Type = meal.Type;
+                    oldMeal.Rating = meal.Rating;
                 }
-                
+
                 ctx.SaveChanges();
                 return SuccessMessage;
             }
@@ -37,14 +39,14 @@ namespace Green.Services
             }
         }
 
-        public string DeleteFood(string id)
+        public string DeleteMeal(string id)
         {
             try
             {
-                var food = ctx.Foods.FirstOrDefault(f => f.Id == id);
-                if (food != null)
+                var meal = ctx.Meals.FirstOrDefault(f => f.Id == id);
+                if (meal != null)
                 {
-                    ctx.Foods.Remove(food);
+                    ctx.Meals.Remove(meal);
                     ctx.SaveChanges();
                     return SuccessMessage;
                 }
@@ -55,5 +57,6 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
+
     }
 }

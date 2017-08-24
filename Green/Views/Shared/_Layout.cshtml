@@ -44,9 +44,7 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Meals", "List", "Meals")</li>
                         <li>@Html.ActionLink("Restaurants", "UserRestaurants", "Restaurants")</li>
-                        <li>@Html.ActionLink("Reservations", "List", "Reservations")</li>
-
-
+                        <li>@Html.ActionLink("Show Reservations", "List", "Reservations")</li>
                         @if (User.IsInRole("AppAdmin"))
                         {
                             <li>@Html.ActionLink("Manage Restaurants", "List", "Restaurants")</li>
