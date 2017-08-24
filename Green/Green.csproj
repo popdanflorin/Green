@@ -254,6 +254,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\coffee.jpg" />
     <Content Include="img\food.jpg" />
+    <Content Include="img\Salad.ico" />
     <Content Include="Scripts\agency.js" />
     <Content Include="Scripts\agency.min.js" />
     <Content Include="Scripts\bootstrap-confirmation.js" />

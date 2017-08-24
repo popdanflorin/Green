@@ -7,7 +7,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="RestaurantId">Restaurant:</label>
-                    <div class="form-inline">
+                    <div class="form-horizontal">
                         <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId, optionsCaption: 'Choose...'"></select>
                         <button id="RestaurantInfo" class="btn btn-default" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId">
                             <span class="glyphicon glyphicon-info-sign"></span>
@@ -19,13 +19,13 @@
                     <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="visible:isAdmin, value:UserName" readonly/>
                     
                     <label for="DateTime">Date and Time:</label>
-                    <div class="form-inline">
+                    <div class="form-horizontal">
                         <input id="DateTime" type="datetime-local" class="form-control" data-bind="datePicker : ReservationDate"/>
                         <label class="text-danger pull-right" data-bind="text:warningReservationDate"></label>
                     </div>
 
                     <label for="Seats">Number of Seats:</label>
-                    <div class="form-inline">
+                    <div class="form-horizontal">
                         <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="onKeyPressSeats()" data-bind="value:Seats" />
                         <label id ="WarningSeats" class="text-danger pull-right" data-bind="text:warningSeats"></label>
                     </div>

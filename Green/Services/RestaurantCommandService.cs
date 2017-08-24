@@ -61,6 +61,9 @@ namespace Green.Services
                     oldRestaurant.Type = restaurant.Type;
                     oldRestaurant.Address = restaurant.Address;
                     oldRestaurant.MaxPrice = restaurant.MaxPrice;
+                    oldRestaurant.SeatsAvailable = restaurant.SeatsAvailable;
+                    oldRestaurant.OpeningHour = restaurant.OpeningHour;
+                    oldRestaurant.ClosingHour = restaurant.ClosingHour;
 
                 }
 

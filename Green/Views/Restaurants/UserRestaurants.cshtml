@@ -1,15 +1,126 @@
-﻿
+﻿<style>
+    .jumbotron {
+        background-color: #92c671;
+    }
+
+        .jumbotron h1 {
+            font-size: 50px;
+        }
+
+    .lead text {
+    }
+
+    .dropdown-toggle {
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+</style>
+
 @{
-    ViewBag.Title = "UserRestaurants";
+    ViewBag.Title = "Restaurants";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@{ 
- 
+@{
+
 }
 <div id="userRestaurants">
-    <h2>Restaurants List</h2>
-     
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Restaurants</h1>
+            <p class="lead text">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <div id="custom-search-input ">
+                        <div class="input-group col-md-6">
+                            <input type="text" class="search-query form-control" placeholder="Search..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  
+                    <iframe width="500" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174852.23584788595!2d23.476429303457422!3d46.783300193014064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490c1f916c0b8b%3A0xbbc601c331f148b!2sCluj-Napoca!5e0!3m2!1sen!2sro!4v1503583199128"></iframe>">
+                 
+                </div>
+                <div class="col-md-4">
+                    <div class="dropdown">
+                        <button class="btn btn-danger dropdown-toggle col-md-3 pull-left" style="float:left" type="button" data-toggle="dropdown">
+                            Change the restaurant type
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Select type</li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#">Vegan</a></li>
+                            <li><a href="#">Vegetarian</a></li>
+                            <li><a href="#">Pastry</a></li>
+                            <li><a href="#">Traditional</a></li>
+                            <li><a href="#">Backery</a></li>
+
+                        </ul>
+                    </div>             
+                   </div>
+            </div>
+    
+                
+        </div>
+
+    </section>
+
+    <div class="album text-muted">
+        <div>
+            <div class="row">
+                <div class="card">
+                    <img data-src="img/coffee.jpg" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card">
+                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 
 </div>
-

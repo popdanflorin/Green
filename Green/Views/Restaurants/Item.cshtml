@@ -12,45 +12,53 @@
             <div class="modal-body">
 
                 <label for="Name">Name</label>
-                <div class="form-inline">
-                    <input id="Name" type="text" class="form-control" data-bind="value: Name" required>
+                <div class="form-horizontal">
+                    <input id="Name" type="text" class="form-control" placeholder="Insert name" data-bind="value: Name" required>
                     <label id="NameWarning" class="text-danger pull-right" data-bind="text:showWarningNameEmpty"></label>
                 </div>
                 <label for="Address">Address</label>
-                <div class="form-inline">
-                    <input id="Address" type="text" class="form-control" data-bind="value: Address" required>
+                <div class="form-horizontal">
+                    <input id="Address" type="text" class="form-control" placeholder="Insert address" data-bind="value: Address" required>
                     <label id="AddressWarning" class="text-danger pull-right" data-bind="text:showWarningAddressEmpty"></label>
                 </div>
 
                 <label for="RestaurantTypes">Type</label>
-                <div class="form-inline">
+                <div class="form-horizontal">
                     <select id="RestaurantTypes" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose type...'"></select>
                     <label id="TypeWarning" class="text-danger pull-right" data-bind="text:showWarningTypeEmpty"></label>
                 </div>
 
-                <label for="MaxPrices">MaxPrice</label>
-                <div class="form-inline">
-                    <input id="MaxPrices" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: MaxPrice">
+                <label for="MaxPrice">MaxPrice</label>
+                <div class="form-horizontal ">
+                    <input id="MaxPrice" type="number" onkeypress="return event.charCode >=48" min="0" placeholder="Insert the max price" class="form-control" data-bind="value: MaxPrice">
                     <label id="MaxPriceWarning" class="text-danger pull-right" data-bind="text:showWarningMaxPriceEmpty"></label>
                 </div>
 
                 <label for="Seats">Seats</label>
-                <div class="form-inline">
-                    <input id="Seats" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" data-bind="value: SeatsAvailable">
+                <div class="form-horizontal">
+                    <input id="Seats" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" placeholder="Insert the seats available" data-bind="value: SeatsAvailable">
                     <label id="SeatsWarning" class="text-danger pull-right" data-bind="text:showWarningSeatsEmpty"></label>
                 </div>
-              @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))
-              {
-             
-                      <div>
-                           <label for="file">Image</label>
-                          <br />
-                          <input name="rid" hidden="hidden" data-bind="value:id"/>
-                          <input type = "file" align="center" name = "file" id = "file" style = "width: 100%;" /> 
-
-                                 <input type = "submit" value = "Upload" class="submit"/>
-                       </div> 
-              }
+                <label for="OpeningHour">Opening Hour</label>
+                <div class="form-horizontal">
+                    <input id="OpeningHour" type="number" onkeypress="return event.charCode >=48" min="0" placeholder="Insert opening hour" class="form-control" data-bind="value: OpeningHour">
+                    <label id="OpeningHourWarning" class="text-danger pull-right" data-bind="text:showWarningOpeningHourEmpty"></label>
+                </div>
+                <label for="ClosingHour">Closing Hour</label>
+                <div class="form-horizontal">
+                    <input id="ClosingHour" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" placeholder="Insert closing hour" data-bind="value: ClosingHour">
+                    <label id="ClosingHourWarning" class="text-danger pull-right" data-bind="text:showWarningClosingHourEmpty"></label>
+                </div>
+                @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        <label for="file">Image</label>
+                        <br />
+                        <input name="rid" hidden="hidden" data-bind="value:id" />
+                        <input type="file" align="center" name="file" id="file" style="width: 100%;" />
+                        <input type="submit" value="Upload" class="btn btn-success" style="position: relative;left:28px;margin-bottom:1px;margin-left:-520px" />
+                    </div>
+                }
             </div>
 
             <div class="modal-footer">

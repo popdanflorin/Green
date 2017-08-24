@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Restaurants";
+    ViewBag.Title = "Manage Restaurants";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -42,6 +42,8 @@
                 <th>Address</th>
                 <th>Max Price</th>
                 <th>Seats Available</th>
+                <th>Opening Hour</th>
+                <th>Closing Hour</th>
                 <th>Menu</th>
                 <th></th>
                 <th></th>
@@ -51,9 +53,11 @@
             <tr>
                 <td class="col-xs-2" data-bind="text:Name"></td>
                 <td class="col-xs-2" data-bind="text:TypeDisplay"></td>
-                <td class="col-xs-3" data-bind="text:Address"></td>
+                <td class="col-xs-2" data-bind="text:Address"></td>
                 <td class="col-xs-2" data-bind="text:MaxPrice"></td>
                 <td class="col-xs-2" data-bind="text:SeatsAvailable"></td>
+                <td class="col-xs-1" data-bind="text:OpeningHour"></td>
+                <td class="col-xs-1" data-bind="text:ClosingHour"></td>
 
                 <td class="col-xs-1">
                     <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#menuItem" data-bind="click:$parent.manage">
