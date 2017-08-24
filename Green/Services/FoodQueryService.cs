@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Green.Services
 {
-    public class QueryService
+    public class FoodQueryService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 

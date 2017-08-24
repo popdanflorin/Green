@@ -1,12 +1,11 @@
 ﻿using Green.Entities;
 using Green.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Green.Services
 {
-    public class CommandService
+    public class FoodCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "Action sucessfully performed.";
