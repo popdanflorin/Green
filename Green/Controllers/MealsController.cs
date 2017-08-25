@@ -14,6 +14,9 @@ namespace Green.Controllers
         private MealQueryService qMealService = new MealQueryService();
         private MealCommandService cMealService = new MealCommandService();
 
+        private FoodQueryService qFoodService = new FoodQueryService();
+        private FoodCommandService cFoodService = new FoodCommandService();
+
         // GET: Foods
         public ActionResult List()
         {
@@ -24,8 +27,9 @@ namespace Green.Controllers
         {
             var meals = qMealService.GetMeals();
             var mealTypes = qMealService.GetMealTypes();
+            var foods = qFoodService.GetFoods();
             var mealRatings = qMealService.GetMealRatings();
-            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Ratings = mealRatings }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Foods = foods, Ratings = mealRatings }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]

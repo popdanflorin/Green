@@ -4,6 +4,7 @@
     //for list
     self.Meals = ko.observableArray();
     self.Types = ko.observableArray();
+    self.Foods = ko.observableArray();
     self.Ratings = ko.observableArray();
 
     //for item
@@ -12,6 +13,7 @@
     self.Description = ko.observable();
     self.Type = ko.observable();
     self.Rating = ko.observable();
+    self.Ingredient = ko.observable();
 
     //for search
     self.SearchName = ko.observable(false);
@@ -109,6 +111,7 @@
                 console.log(data);
                 self.Meals(data.Meals);
                 self.Types(data.Types);
+                self.Foods(data.Foods);
                 self.Ratings(data.Ratings);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -116,6 +119,10 @@
             }
         });
     };
+
+    self.addIngredient = function () {
+        
+    }
 
     self.search = function () {
         alert("Searching..."); 
@@ -170,5 +177,5 @@
             return true;
         }
         return false;
-    };
+    }
 }
