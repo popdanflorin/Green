@@ -32,7 +32,8 @@ namespace Green.Controllers
         {
             var restaurants = qService.GetRestaurants();
             var restaurantTypes = qService.GetRestaurantTypes();
-            return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var images = qService.GetImages();
+            return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes ,Images=images}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult Save(Restaurant restaurant)
         {
@@ -68,7 +69,7 @@ namespace Green.Controllers
 
             }
             //Display records
-            return RedirectToAction("UserRestaurants");
+            return RedirectToAction("List");
         }
     }
     

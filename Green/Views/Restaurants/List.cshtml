@@ -47,6 +47,7 @@
                 <th>Menu</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody data-bind="foreach:Restaurants">
@@ -74,6 +75,11 @@
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </td>
+                <td class="col-xs-1">
+                    <button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#imageItem" data-bind="click:$parent.openShowImage">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </td>
                
             </tr>
         </tbody>
@@ -81,6 +87,7 @@
    
     @Html.Partial("Item")
     @Html.Partial("Menu")
+    @Html.Partial("Image")
 </div>
 <script>
     $(function () {

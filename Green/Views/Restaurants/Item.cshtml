@@ -41,12 +41,12 @@
                 </div>
                 <label for="OpeningHour">Opening Hour</label>
                 <div class="form-horizontal">
-                    <input id="OpeningHour" type="number" onkeypress="return event.charCode >=48" min="0" placeholder="Insert opening hour" class="form-control" data-bind="value: OpeningHour">
+                    <input id="OpeningHour" type="number" onkeypress="return event.charCode >=48" min="0" max="24" placeholder="Insert opening hour" class="form-control" data-bind="value: OpeningHour">
                     <label id="OpeningHourWarning" class="text-danger pull-right" data-bind="text:showWarningOpeningHourEmpty"></label>
                 </div>
                 <label for="ClosingHour">Closing Hour</label>
                 <div class="form-horizontal">
-                    <input id="ClosingHour" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" placeholder="Insert closing hour" data-bind="value: ClosingHour">
+                    <input id="ClosingHour" type="number" onkeypress="return event.charCode >=48" min="0" max="24" class="form-control" placeholder="Insert closing hour" data-bind="value: ClosingHour">
                     <label id="ClosingHourWarning" class="text-danger pull-right" data-bind="text:showWarningClosingHourEmpty"></label>
                 </div>
                 @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))

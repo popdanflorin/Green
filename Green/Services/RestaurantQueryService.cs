@@ -20,5 +20,9 @@ namespace Green.Services
         {
             return Enum.GetValues(typeof(RestaurantType)).Cast<RestaurantType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
         }
+        public List<Image> GetImages()
+        {
+            return ctx.Images.ToList();
+        }
     }
 }

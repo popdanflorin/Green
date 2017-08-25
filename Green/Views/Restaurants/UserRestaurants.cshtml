@@ -1,6 +1,6 @@
 ﻿<style>
     .jumbotron {
-        background-color: #92c671;
+        background-color: #F6BB42;
     }
 
         .jumbotron h1 {
@@ -16,6 +16,26 @@
         padding-left: 15px;
         padding-right: 15px;
     }
+
+    .input-group {
+        padding-top: 5px;
+        padding-bottom: 25px;
+        padding-left: 100px;
+        border-top: 1px;
+        border-bottom: 200px;
+        border-left: 100px;
+        text-align: center;
+    }
+
+    .dropdown {
+        padding-top: 5px;
+        padding-bottom: 35px;
+        padding-left: 108px;
+        border-top: 1px;
+        border-bottom: 200px;
+        border-left: 100px;
+        text-align: center;
+    }
 </style>
 
 @{
@@ -27,100 +47,143 @@
 
 }
 <div id="userRestaurants">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h2>
+                        Search the perfect restaurant for you!
+                    </h2>
+                    <p style="color:darkred">
+                        This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+                    </p>
 
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Restaurants</h1>
-            <p class="lead text">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-            <div class="row text-center">
-                <div class="col-md-6">
-                    <div id="custom-search-input ">
-                        <div class="input-group col-md-6">
-                            <input type="text" class="search-query form-control" placeholder="Search..." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger" type="button">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row-fluid">
+            <div class="col-md-4">
+
+                <div id="custom-search-input" style="position: relative">
+                    <div class="input-group ">
+                        <input type="text" class="search-query form-control" placeholder="Search..." />
+                        <span class="input-group-btn col-md-offset-1">
+                            <button class="btn btn-danger" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn btn-danger dropdown-toggle " style="float:left" type="button" data-toggle="dropdown">
+                        Change the restaurant type
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Select type</li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#">Vegan</a></li>
+                        <li><a href="#">Vegetarian</a></li>
+                        <li><a href="#">Pastry</a></li>
+                        <li><a href="#">Traditional</a></li>
+                        <li><a href="#">Backery</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <iframe width="500" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174852.23584788595!2d23.476429303457422!3d46.783300193014064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490c1f916c0b8b%3A0xbbc601c331f148b!2sCluj-Napoca!5e0!3m2!1sen!2sro!4v1503583199128"></iframe>
+
+            </div>
+        </div>
+        <p></p>
+        <hr />
+        <p></p>
+        <p></p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <hr />
+                    <div class="col-md-4">
+
+                        <div class="thumbnail">
+                            <img alt="Bootstrap Thumbnail First" src="http://lorempixel.com/output/people-q-c-600-200-1.jpg" />
+                            <div class="caption">
+                                <h3>
+                                    Thumbnail label
+                                </h3>
+                                <p>
+                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                </p>
+                                <p>
+                                    <a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img alt="Bootstrap Thumbnail Second" src="http://lorempixel.com/output/city-q-c-600-200-1.jpg" />
+                            <div class="caption">
+                                <h3>
+                                    Thumbnail label
+                                </h3>
+                                <p>
+                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                </p>
+                                <p>
+                                    <a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img alt="Bootstrap Thumbnail Third" src="http://lorempixel.com/output/sports-q-c-600-200-1.jpg" />
+                            <div class="caption">
+                                <h3>
+                                    Thumbnail label
+                                </h3>
+                                <p>
+                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                </p>
+                                <p>
+                                    <a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                  
-                    <iframe width="500" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174852.23584788595!2d23.476429303457422!3d46.783300193014064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490c1f916c0b8b%3A0xbbc601c331f148b!2sCluj-Napoca!5e0!3m2!1sen!2sro!4v1503583199128"></iframe>">
-                 
-                </div>
-                <div class="col-md-4">
-                    <div class="dropdown">
-                        <button class="btn btn-danger dropdown-toggle col-md-3 pull-left" style="float:left" type="button" data-toggle="dropdown">
-                            Change the restaurant type
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Select type</li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#">Vegan</a></li>
-                            <li><a href="#">Vegetarian</a></li>
-                            <li><a href="#">Pastry</a></li>
-                            <li><a href="#">Traditional</a></li>
-                            <li><a href="#">Backery</a></li>
-
-                        </ul>
-                    </div>             
-                   </div>
+                <ul class="pagination">
+                    <li>
+                        <a href="#">Prev</a>
+                    </li>
+                    <li>
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">4</a>
+                    </li>
+                    <li>
+                        <a href="#">5</a>
+                    </li>
+                    <li>
+                        <a href="#">Next</a>
+                    </li>
+                </ul>
             </div>
-    
-                
-        </div>
-
-    </section>
-
-    <div class="album text-muted">
-        <div>
-            <div class="row">
-                <div class="card">
-                    <img data-src="img/coffee.jpg" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-            </div>
-
         </div>
     </div>
 
 
-
 </div>
+
