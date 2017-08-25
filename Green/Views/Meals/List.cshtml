@@ -21,6 +21,12 @@ input[type=search] {
 
 input[type=search]:focus {
     width: 100%;
+
+    .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
 }
 </style>
 
@@ -36,41 +42,25 @@ input[type=search]:focus {
             <span class="glyphicon glyphicon-search"></span>
         </button>
     </div>
-    <div class="form-inline">
-        <input type="checkbox" id="SearchName" data-bind="checked: SearchName"/>
-        <label for="SearchName">Search in name</label>
-        <input type="checkbox" id="SearchIngredient"  data-bind="checked: SearchIngredient"/>
-        <label for="SearchIngredient">Search in ingredients</label>
+
+    <div class="container">
+        <div class="form-inline">
+            <input type="checkbox" id="SearchName" data-bind="checked: SearchName" />
+            <label for="SearchName">Search in name</label>
+            <input type="checkbox" id="SearchIngredient" data-bind="checked: SearchIngredient" />
+            <label for="SearchIngredient">Search in ingredients</label>
+        </div>
     </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Rating</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach:Meals">
-            <tr>
-                <td class="col-xs-5" data-bind="text:Description"></td>
-                <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
-                <td class="col-xs-5" data-bind="text:RatingDisplay"></td>
-                <td class="col-xs-1">
-                    <input type="button" value="Details" class="btn btn-info" data-toggle="modal" data-target="#mealItem" data-bind="click:$parent.details" />
-                </td>
-                @if (User.IsInRole("AppAdmin"))
-                {
-                    <td class="col-xs-1">
-                        <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
-                    </td>
-                }
-            </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid">
+        <div class="row" data-bind="foreach:Meals" style="padding-left:8%; padding-right:8%; align-content:center; align-items:center">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="box-shadow: 0 5px 18px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px; margin-top:0.5%; margin-bottom:0.5%;">
+                <h5 data-bind="text:Name"></h5>
+                <p data-bind="text:Description"></p>
+            </div>
+        </div>
+    </div>
+    
     @Html.Partial("MealItem")
 </div>
 <script>
@@ -78,8 +68,6 @@ input[type=search]:focus {
         var vm = new Meals();
         vm.refresh();
         ko.applyBindings(vm, $("#meals").get(0));
-    });
 
-    class SearchBox extends HTMLElement { }
-    window.customElements.define('search-box', SearchBox);
+    });
 </script>

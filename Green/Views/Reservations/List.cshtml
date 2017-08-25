@@ -53,10 +53,6 @@
         vmRatings.changeRestaurantId(vm.RestaurantId);
     });
 
-    function reserveButtonClicked() {
-        $("#reserveButton").attr("value", "Processing...");
-    };
-
     //hides the element for non-admin users
     ko.bindingHandlers.allowAccess = {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

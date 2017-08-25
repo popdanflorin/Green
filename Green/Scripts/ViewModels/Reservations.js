@@ -170,7 +170,7 @@
     self.validate = function () {
         var valid = true;
         if (self.nullOrEmpty(self.RestaurantId._latestValue)) {
-            self.warningRestaurantId("Please select a restaurant!\n");
+            self.warningRestaurantId("Please select a restaurant!");
             valid = false;
         }
         else {
@@ -178,7 +178,7 @@
         }
 
         if (self.nullOrEmpty(self.ReservationDate._latestValue) || self.ReservationDate._latestValue == "Invalid date" || self.ReservationDate._latestValue[0] == "/") {
-            self.warningReservationDate("Please select the date!\n");
+            self.warningReservationDate("Please select the date!");
             valid = false;
         }
         else {
@@ -186,7 +186,7 @@
         }
 
         if (self.nullOrEmpty(self.Seats._latestValue) || self.Seats._latestValue <= 0) {
-            self.warningSeats("Please select the number of seats!\n");
+            self.warningSeats("Please select the number of seats!");
             valid = false;
         }
         else {
