@@ -2,9 +2,11 @@
     var self = this;
     self.Restaurants = ko.observableArray();
     self.Types = ko.observableArray();
+    self.Images = ko.observableArray();
     self.id = ko.observable();
     self.Name = ko.observable();
     self.Type = ko.observable();
+    self.ImageName = ko.observable();
     self.Address = ko.observable();
     self.MaxPrice = ko.observable();
     self.OpeningHour = ko.observable();
@@ -20,7 +22,7 @@
     self.showWarningSeatsEmpty = ko.observable();
     self.showWarningOpeningHourEmpty = ko.observable();
     self.showWarningClosingHourEmpty = ko.observable();
-    
+
     self.details = function (data) {
         self.id(data.id);
         self.Name(data.Name);
@@ -40,6 +42,16 @@
     };
     self.manage = function (data) {
 
+    }
+    self.openShowImage = function (data) {
+
+        var rows = self.Images().length;
+        for (var i = 0; i < rows; i++) {
+            if (self.Images()[i].RestaurantId == data.id) {
+                self.ImageName(self.Images()[i].Name);
+                break;
+            }
+        }
     }
     self.add = function () {
         self.showWarningNameEmpty("");
@@ -68,6 +80,7 @@
                 console.log(data);
                 self.Restaurants(data.Restaurants);
                 self.Types(data.RestaurantTypes);
+                self.Images(data.Images);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -82,55 +95,67 @@
         }
         else {
             self.showWarningNameEmpty("");
-            isValid = true;
+
         }
         if (!$.trim($('#Address').val())) {
-           self.showWarningAddressEmpty("Please insert an address!");
+            self.showWarningAddressEmpty("Please insert an address!");
             isValid = false;
         }
         else {
             self.showWarningAddressEmpty("");
-            isValid = true;
+
         }
         if (!$('#RestaurantTypes').val()) {
-            self.showWarningTypeEmpty("Please select a type!");  
+            self.showWarningTypeEmpty("Please select a type!");
             isValid = false;
         }
         else {
             self.showWarningTypeEmpty("");
-            isValid = true;
+
         }
-        if (isNaN($('#MaxPrice'))|| $('#MaxPrice')==0) {
-            self.showWarningMaxPriceEmpty("Please insert the max price!");       
+        var maxPrice = $('#MaxPrice').val();
+        if (isNaN(maxPrice) || maxPrice == 0) {
+            self.showWarningMaxPriceEmpty("Please insert the max price!");
             isValid = false;
         }
         else {
             self.showWarningMaxPriceEmpty("");
-            isValid = true;
+
         }
-        if (isNaN($('#Seats')) || $('#Seats') == 0) {
+        var seats = $('#Seats').val();
+        if (isNaN(seats) || seats == 0) {
             self.showWarningSeatsEmpty("Please insert the number of seats!");
             isValid = false;
         }
         else {
             self.showWarningSeatsEmpty("");
-            isValid = true;
+
         }
-        if (isNaN($('#OpeningHour')) || $('#OpeningHour') == 0) {
+        var openingHour = $('#OpeningHour').val();
+        var closingHour = $('#ClosingHour').val();
+        if (isNaN(openingHour) || openingHour > 24 || openingHour < 0) {
             self.showWarningOpeningHourEmpty("Please insert the opening hour!");
             isValid = false;
         }
         else {
             self.showWarningOpeningHourEmpty("");
-            isValid = true;
+
         }
-        if (isNaN($('#ClosingHour')) || $('#ClosingHour') == 0) {
+        if (isNaN(closingHour) || closingHour > 24 || closingHour < 0) {
             self.showWarningClosingHourEmpty("Please insert the closing hour!");
             isValid = false;
         }
         else {
             self.showWarningClosingHourEmpty("");
-            isValid = true;
+
+        }
+        if (closingHour < openingHour) {
+            self.showWarningClosingHourEmpty("Please review the opening and closing hours!");
+            isValid = false;
+        }
+        else {
+            self.showWarningClosingHourEmpty("");
+
         }
         if (isValid == true) {
             var url = '/Restaurants/Save';
@@ -142,9 +167,8 @@
                 MaxPrice: self.MaxPrice(),
                 SeatsAvailable: self.SeatsAvailable(),
                 OpeningHour: self.OpeningHour(),
-                ClosingHour:self.ClosingHour()
+                ClosingHour: self.ClosingHour()
             });
-
             $.ajax(url, {
                 type: "post",
                 dataType: "json",
@@ -161,34 +185,32 @@
                 }
             });
         }
-       
-
 
     };
     self.deleteRestaurant = function (data) {
-        
-            var url = '/Restaurants/Delete';
-            var restaurant = JSON.stringify({
-                restaurantId: self.id()
-            });
-            $.ajax(url, {
-                type: "post",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: restaurant,
-                success: function (data) {
-                    console.log(data);
-                    self.refresh();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus + ': ' + errorThrown);
-                }
-            });
-      
+
+        var url = '/Restaurants/Delete';
+        var restaurant = JSON.stringify({
+            restaurantId: self.id()
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: restaurant,
+            success: function (data) {
+                console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
 
     };
     self.openDeleteDialog = function (data) {
         self.id(data.id);
     };
-    
+
 }
