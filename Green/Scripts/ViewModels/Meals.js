@@ -17,6 +17,11 @@
     self.SearchName = ko.observable(false);
     self.SearchIngredient = ko.observable(false);
 
+    //validation warnings
+    self.warningName = ko.observable(null);
+    self.warningDescription = ko.observable(null);
+    self.warningType = ko.observable(null);
+
     self.loadingPanel = new LoadingOverlay();
 
     self.details = function (data) {
@@ -25,15 +30,31 @@
         self.Description(data.Description);
         self.Type(data.Type);
         self.Rating(data.Rating);
+
+        self.warningName(null);
+        self.warningDescription(null);
+        self.warningType(null);
     };
+
     self.add = function () {
         self.Id(0);
         self.Type(null);
         self.Name(null);
         self.Description(null);
         self.Rating(null);
+
+        self.warningName(null);
+        self.warningDescription(null);
+        self.warningType(null);
     };
+
     self.save = function () {
+        if (!self.validate()) {
+            self.setOKButton(false);
+            return;
+        }
+        self.setOKButton(true);
+
         var url = '/Meals/Save';
         var meal = JSON.stringify({
             Id: self.Id(),
@@ -56,6 +77,7 @@
             }
         });
     };
+
     self.delete = function (data) {
         var url = '/Meals/Delete';
         var meal = JSON.stringify({
@@ -75,6 +97,7 @@
             }
         });
     };
+
     self.refresh = function () {
         var url = '/Meals/ListRefresh';
         self.loadingPanel.show();
@@ -96,5 +119,56 @@
 
     self.search = function () {
         alert("Searching..."); 
+    };
+
+    self.setOKButton = function (value) {
+        try {
+            if (value) {
+                var attrDataDismiss = document.createAttribute("data-dismiss");
+                attrDataDismiss.value = "modal";
+                document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
+            }
+            else
+                document.getElementById("OKButton").removeAttribute("data-dismiss");
+        }
+        catch (Exception) {
+            console.log(Exception);
+        }
+    }
+
+    self.validate = function () {
+        var valid = true;
+        if (self.nullOrEmpty(self.Name._latestValue)) {
+            self.warningName("Please enter a name!");
+            valid = false;
+        }
+        else {
+            self.warningName(null);
+        }
+
+        if (self.nullOrEmpty(self.Description._latestValue)) {
+            self.warningDescription("Please enter a description!");
+            valid = false;
+        }
+        else {
+            self.warningDescription(null);
+        }
+
+        if (self.Type._latestValue != 0 && self.nullOrEmpty(self.Type._latestValue)) {
+            self.warningType("Please select the type!");
+            valid = false;
+        }
+        else {
+            self.warningType(null);
+        }
+
+        return valid;
+    };
+
+    self.nullOrEmpty = function (data) {
+        if (data == null || data == "") {
+            return true;
+        }
+        return false;
     };
 }
