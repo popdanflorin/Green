@@ -45,5 +45,12 @@ namespace Green.Controllers
             var message = cMealService.DeleteMeal(mealId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
+
+        [HttpPost]
+        public JsonResult AddIngredient(List<String> ingredientsId)
+        {
+            var message = qFoodService.GetNamesById(ingredientsId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
     }
 }

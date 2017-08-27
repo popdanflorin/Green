@@ -28,6 +28,7 @@ namespace Green.Services
                     oldMeal.Description = meal.Description;
                     oldMeal.Type = meal.Type;
                     oldMeal.Rating = meal.Rating;
+                    oldMeal.Ingredients = meal.Ingredients;
                 }
 
                 ctx.SaveChanges();

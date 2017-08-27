@@ -20,5 +20,16 @@ namespace Green.Services
         {
             return Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
         }
+
+        public String GetNamesById(List<String> idList)
+        {
+            var foods = ctx.Foods.Where(f => idList.FirstOrDefault(id => id == f.Id) != null).Select(f => f.Name).ToList();
+            foods.Sort();
+            String nameList = "";
+            foods.ForEach(f => nameList += f + ", ");
+            if (nameList.Length >= 2)
+                return nameList.Substring(0, nameList.Length - 2);
+            return nameList;
+        }
     }
 }

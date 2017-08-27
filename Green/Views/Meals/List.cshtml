@@ -21,12 +21,6 @@ input[type=search] {
 
 input[type=search]:focus {
     width: 100%;
-
-    .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: auto;
-    text-align: center;
 }
 </style>
 
@@ -59,7 +53,10 @@ input[type=search]:focus {
                 <p data-bind="text:Description"></p>
                 @if (User.IsInRole("AppAdmin"))
                 {
-                    <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." data-bind="click:$root.delete" style="width:100%;">Delete</button>
+                    <div class="form-horizontal">
+                        <buttod id="detailsButton" class="btn btn-success" data-toggle="modal" data-target="#mealItem"  data-bind="click: $root.details" style="width:40%;">Details</buttod>
+                        <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Delete." data-bind="click:$root.delete" style="width:40%;">Delete</button>
+                    </div>
                 }
             </div>
         </div>
@@ -72,6 +69,5 @@ input[type=search]:focus {
         var vm = new Meals();
         vm.refresh();
         ko.applyBindings(vm, $("#meals").get(0));
-
-    });
+    });   
 </script>
