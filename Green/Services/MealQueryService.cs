@@ -16,7 +16,7 @@ namespace Green.Services
         {
             return Enum.GetValues(typeof(MealType)).Cast<MealType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
         }
-        
+
         public List<Meal> GetMeals()
         {
             return ctx.Meals.ToList();
@@ -29,7 +29,7 @@ namespace Green.Services
 
         public List<MealIngredient> GetMealIngredientsForMeal(string mealId)
         {
-            return GetMealIngredients().Where(e => e.MealId== mealId).ToList();
+            return GetMealIngredients().Where(e => e.MealId == mealId).ToList();
         }
 
         public List<Food> GetIngredientsForMeal(string mealId)

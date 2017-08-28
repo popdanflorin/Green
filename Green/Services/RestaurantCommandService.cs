@@ -44,7 +44,7 @@ namespace Green.Services
         {
             try
             {
-                if (restaurant.Name == null || restaurant.Address == null )
+                if (restaurant.Name == null || restaurant.Address == null)
                 {
                     return EmptyInputMessage;
                 }

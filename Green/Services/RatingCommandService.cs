@@ -17,7 +17,7 @@ namespace Green.Services
         private const string ItemNotFoundMessage = "The item was not found.";
 
         public string SaveRating(Rating rating)
-        { 
+        {
             try
             {
                 var oldRating = ctx.Ratings.FirstOrDefault(r => r.ClientId == rating.ClientId && r.RestaurantId == rating.RestaurantId);

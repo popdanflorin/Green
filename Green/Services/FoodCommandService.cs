@@ -26,7 +26,7 @@ namespace Green.Services
                     oldFood.Name = food.Name;
                     oldFood.Type = food.Type;
                 }
-                
+
                 ctx.SaveChanges();
                 return SuccessMessage;
             }

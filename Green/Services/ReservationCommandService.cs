@@ -31,7 +31,7 @@ namespace Green.Services
 
             try
             {
-                var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);              
+                var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
                 if (oldReservation == null)
                 {
                     reservation.Id = Guid.NewGuid().ToString();
@@ -62,7 +62,7 @@ namespace Green.Services
                 {
                     ctx.Reservations.Remove(reservation);
                     ctx.SaveChanges();
-                    return SuccessMessage; 
+                    return SuccessMessage;
                 }
                 return ItemNotFoundMessage;
             }
@@ -75,7 +75,7 @@ namespace Green.Services
         {
             var reservations = reservationQService.GetReservations().Where(r => r.RestaurantId == reservation.RestaurantId && r.ReservationDate == reservation.ReservationDate);
             var restaurant = restaurantQService.GetRestaurants().FirstOrDefault(r => r.id == reservation.RestaurantId);
- 
+
             var unavailableSeats = reservations.Sum(r => Int32.Parse(r.Seats));
             var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
             if (oldReservation != null)
@@ -88,7 +88,7 @@ namespace Green.Services
         private bool ValidateReservationHour(Reservation reservation)
         {
             var restaurant = restaurantQService.GetRestaurants().FirstOrDefault(r => r.id == reservation.RestaurantId);
-            
+
             if (reservation.ReservationDate.Hour < restaurant.OpeningHour || reservation.ReservationDate.Hour > restaurant.ClosingHour)
                 return false;
             return true;
