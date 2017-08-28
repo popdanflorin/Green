@@ -27,18 +27,16 @@
                     <label class="text-danger pull-right" data-bind="text:warningDescription"></label>
                 </div>
 
-                <label for="MealIngredient">Ingredients</label>
+                @*<label for="MealIngredient">Ingredients</label>
                 <div class="form-horizontal">
                     <div class="form-inline">
                         <select id="MealIngredient" class="form-control pull-left" data-bind="options:Foods, optionsText: 'Name', optionsValue: 'Id', value: Ingredient, optionsCaption: 'Choose...'"></select>
-                        <button id="AddButton" data-bind="click: addIngredient">Add</button>
+                        <button id="AddIngredientButton" data-bind="click: addIngredient">Add</button>
+                        <button id="DeleteIngredientButton" data-bind="click: deleteIngredient">Delete</button>
                         <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
                     </div>
                 </div>
-                <input id="MealIngredientsList" type="text" placeholder="Ingredients list" data-bind="value: $root.IngredientsName"/>
-
-                <label for="MealRating">Rating</label>
-                <select id="MealRating" class="form-control" data-bind="options:Ratings, optionsText: 'Description', optionsValue: 'Id', value: Rating, optionsCaption: 'Choose...'"></select>
+                <input id="MealIngredientsList" type="text" placeholder="Ingredients list" data-bind="value: $root.IngredientsName" readonly/>*@
             </div>
 
             <div class="modal-footer">

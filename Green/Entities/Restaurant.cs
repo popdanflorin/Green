@@ -13,9 +13,7 @@ namespace Green.Entities
         public string Name { get; set; }
         public string Address { get; set; }
         public Enums.RestaurantType Type { get; set; }
-        public int MaxPrice { get; set; }
         public int SeatsAvailable { get; set; }
-        public int Rating { get; set; }
         public int OpeningHour { get; set; }
         public int ClosingHour { get; set; }
         public string TypeDisplay
@@ -25,8 +23,5 @@ namespace Green.Entities
                 return Type.ToString();
             }
         }
-        public string  MealId { get; set; }
-        [ForeignKey("MealId")]
-        public virtual Meal Meal { get; set; }
     }
 }

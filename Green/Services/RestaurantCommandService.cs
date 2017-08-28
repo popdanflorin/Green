@@ -44,7 +44,7 @@ namespace Green.Services
         {
             try
             {
-                if (restaurant.Name == null || restaurant.Address == null || restaurant.MaxPrice == 0)
+                if (restaurant.Name == null || restaurant.Address == null )
                 {
                     return EmptyInputMessage;
                 }
@@ -60,7 +60,6 @@ namespace Green.Services
                     oldRestaurant.Name = restaurant.Name;
                     oldRestaurant.Type = restaurant.Type;
                     oldRestaurant.Address = restaurant.Address;
-                    oldRestaurant.MaxPrice = restaurant.MaxPrice;
                     oldRestaurant.SeatsAvailable = restaurant.SeatsAvailable;
                     oldRestaurant.OpeningHour = restaurant.OpeningHour;
                     oldRestaurant.ClosingHour = restaurant.ClosingHour;

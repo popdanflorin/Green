@@ -35,19 +35,6 @@ namespace Green.Entities.Enums
             }
         }
 
-        public static string ToString(this MealRating mealRating)
-        {
-            switch (mealRating)
-            {
-                case MealRating.Bad: return "Bad";
-                case MealRating.Decent: return "Decent";
-                case MealRating.Good: return "Good";
-                case MealRating.VeryGood: return "Very good";
-                case MealRating.Excellent: return "Excellent";
-                default: return String.Empty;
-            }
-        }
-
         public static string ToString(this RestaurantType restaurantType)
         {
             switch (restaurantType)

@@ -10,24 +10,14 @@ namespace Green.Entities
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Ingredients { get; set; }
-    
+        public string Description { get; set; }    
         public MealType Type { get; set; }
-        public MealRating Rating { get; set; }
         
         public string TypeDisplay
         {
             get
             {
                 return Type.ToString();
-            }
-        }
-        public string RatingDisplay
-        {
-            get
-            {
-                return Rating.ToString();
             }
         }
     }

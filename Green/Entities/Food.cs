@@ -11,6 +11,7 @@ namespace Green.Entities
         public string Id { get; set; }
         public string Name { get; set; }
         public FoodType Type { get; set; }
+
         public string TypeDisplay
         {
             get

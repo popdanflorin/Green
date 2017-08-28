@@ -37,14 +37,17 @@
         self.Rating(data.Rating);
 
         self.IngredientsId = [];
+        self.IngredientsName(null);
         if (data.Ingredients != null) {
             var tmp = data.Ingredients.split(",");
+            tmp.sort();
             tmp.forEach(function (ingredient) {
                 self.Ingredient = ingredient;
-                self.addIngredient();
+                self.IngredientsId.push(self.Ingredient);
             });
         }
-        self.Ingredient = "";
+        self.getIngredientsName();
+        self.Ingredient = null;
 
         self.warningName(null);
         self.warningDescription(null);
@@ -58,7 +61,7 @@
         self.Name(null);
         self.Description(null);
         self.Rating(null);
-        self.Ingredient = ""
+        self.Ingredient = null;
         self.IngredientsId = [];
         self.IngredientsName(null);
 
@@ -156,17 +159,43 @@
         if (!self.validateIngredient())
             return;
 
-        //$("#MealIngredientsList").attr('readonly', false);
+        var index = self.IngredientsId.findIndex(function (element) {
+            return element.valueOf() == self.Ingredient.valueOf();
+        });
+        if (index != -1) {
+            self.warningIngredient("Selected ingredient already exists in this meal!");
+            return;
+        }
 
+        self.warningIngredient(null);
         self.IngredientsId.push(self.Ingredient);
-        self.IngredientsId.sort();
+        self.getIngredientsName();
+    };
 
-        var url = '/Meals/AddIngredient';
+    self.deleteIngredient = function () {
+        if (!self.validateIngredient())
+            return;
+
+        var index = self.IngredientsId.findIndex(function (element) {
+            return element.valueOf() == self.Ingredient.valueOf();
+        });
+        if (index == -1) {
+            self.warningIngredient("Selected ingredient does not exist in this meal!");
+            return;
+        }
+
+        self.warningIngredient(null);
+        self.IngredientsId.splice(index, 1);
+        self.getIngredientsName();
+    }
+
+    self.getIngredientsName = function () {
+        var url = '/Meals/GetIngredientsName';
         var foods = "";
         try {
             foods = JSON.stringify({
                 ingredientsId: ko.toJS(self.IngredientsId())
-            }); 
+            });
         }
         catch (e) {
             foods = JSON.stringify({
@@ -188,9 +217,7 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-
-        //$("#MealIngredientsList").attr('readonly', true);
-    };
+    }
 
     self.search = function () {
         alert("Searching...");

@@ -205,11 +205,10 @@
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
     <Compile Include="Entities\Enums\EnumItem.cs" />
-    <Compile Include="Entities\Enums\MealRating.cs" />
     <Compile Include="Entities\Enums\MealType.cs" />
     <Compile Include="Entities\Enums\RestaurantType.cs" />
     <Compile Include="Entities\Food.cs" />
-    <Compile Include="Entities\FoodServing.cs" />
+    <Compile Include="Entities\MealIngredient.cs" />
     <Compile Include="Entities\Enums\FoodType.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Meal.cs" />

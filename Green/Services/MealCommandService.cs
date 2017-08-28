@@ -13,6 +13,7 @@ namespace Green.Services
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
+
         public string SaveMeal(Meal meal)
         {
             try
@@ -27,8 +28,6 @@ namespace Green.Services
                 {
                     oldMeal.Description = meal.Description;
                     oldMeal.Type = meal.Type;
-                    oldMeal.Rating = meal.Rating;
-                    oldMeal.Ingredients = meal.Ingredients;
                 }
 
                 ctx.SaveChanges();

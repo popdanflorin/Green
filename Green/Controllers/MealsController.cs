@@ -28,8 +28,7 @@ namespace Green.Controllers
             var meals = qMealService.GetMeals();
             var mealTypes = qMealService.GetMealTypes();
             var foods = qFoodService.GetFoods();
-            var mealRatings = qMealService.GetMealRatings();
-            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Foods = foods, Ratings = mealRatings }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Foods = foods }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
@@ -47,7 +46,7 @@ namespace Green.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddIngredient(List<String> ingredientsId)
+        public JsonResult GetIngredientsName(List<String> ingredientsId)
         {
             var message = qFoodService.GetNamesById(ingredientsId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };

@@ -8,7 +8,6 @@
     self.Type = ko.observable();
     self.ImageName = ko.observable();
     self.Address = ko.observable();
-    self.MaxPrice = ko.observable();
     self.OpeningHour = ko.observable();
     self.ClosingHour = ko.observable();
     self.SeatsAvailable = ko.observable();
@@ -18,7 +17,6 @@
     self.showWarningNameEmpty = ko.observable();
     self.showWarningAddressEmpty = ko.observable();
     self.showWarningTypeEmpty = ko.observable();
-    self.showWarningMaxPriceEmpty = ko.observable();
     self.showWarningSeatsEmpty = ko.observable();
     self.showWarningOpeningHourEmpty = ko.observable();
     self.showWarningClosingHourEmpty = ko.observable();
@@ -28,13 +26,11 @@
         self.Name(data.Name);
         self.Type(data.Type);
         self.Address(data.Address);
-        self.MaxPrice(data.MaxPrice);
         self.SeatsAvailable(data.SeatsAvailable);
         self.OpeningHour(data.OpeningHour);
         self.ClosingHour(data.ClosingHour);
         self.showWarningNameEmpty("");
         self.showWarningAddressEmpty("");
-        self.showWarningMaxPriceEmpty("");
         self.showWarningTypeEmpty("");
         self.showWarningSeatsEmpty("");
         self.showWarningOpeningHourEmpty("");
@@ -63,7 +59,6 @@
         self.Name("");
         self.Type(null);
         self.Address("");
-        self.MaxPrice(0);
         self.SeatsAvailable(0);
         self.OpeningHour(0);
         self.ClosingHour(0);
@@ -113,15 +108,6 @@
             self.showWarningTypeEmpty("");
 
         }
-        var maxPrice = $('#MaxPrice').val();
-        if (isNaN(maxPrice) || maxPrice == 0) {
-            self.showWarningMaxPriceEmpty("Please insert the max price!");
-            isValid = false;
-        }
-        else {
-            self.showWarningMaxPriceEmpty("");
-
-        }
         var seats = $('#Seats').val();
         if (isNaN(seats) || seats == 0) {
             self.showWarningSeatsEmpty("Please insert the number of seats!");
@@ -164,7 +150,6 @@
                 Name: self.Name(),
                 Address: self.Address(),
                 Type: self.Type(),
-                MaxPrice: self.MaxPrice(),
                 SeatsAvailable: self.SeatsAvailable(),
                 OpeningHour: self.OpeningHour(),
                 ClosingHour: self.ClosingHour()

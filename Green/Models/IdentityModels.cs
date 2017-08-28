@@ -26,7 +26,7 @@ namespace Green.Models
         {
         }
         public DbSet<Food> Foods { get; set; }
-        public DbSet<FoodServing> FoodServings { get; set; }
+        public DbSet<MealIngredient> FoodServings { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
