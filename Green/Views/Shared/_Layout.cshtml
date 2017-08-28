@@ -43,6 +43,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        @if (User.IsInRole("AppAdmin"))
+                        {
+                            <li>@Html.ActionLink("Foods", "List", "Foods")</li>
+                        }
                         <li>@Html.ActionLink("Meals", "List", "Meals")</li>
                         <li>@Html.ActionLink("Restaurants", "UserRestaurants", "Restaurants")</li>
                         <li>@Html.ActionLink("Show Reservations", "List", "Reservations")</li>

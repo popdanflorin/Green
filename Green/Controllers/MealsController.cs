@@ -32,6 +32,13 @@ namespace Green.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetIngredients(string mealId)
+        {
+            var message = qMealService.GetIngredientsForMeal(mealId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+
+        [HttpPost]
         public JsonResult Save(Meal meal)
         {
             var message = cMealService.SaveMeal(meal);
@@ -42,13 +49,6 @@ namespace Green.Controllers
         public JsonResult Delete(string mealId)
         {
             var message = cMealService.DeleteMeal(mealId);
-            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
-        }
-
-        [HttpPost]
-        public JsonResult GetIngredientsName(List<String> ingredientsId)
-        {
-            var message = qFoodService.GetNamesById(ingredientsId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
     }

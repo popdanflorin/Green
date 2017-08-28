@@ -21,5 +21,20 @@ namespace Green.Services
         {
             return ctx.Meals.ToList();
         }
+
+        public List<MealIngredient> GetMealIngredients()
+        {
+            return ctx.MealIngredients.Include("Meal").Include("Food").ToList();
+        }
+
+        public List<MealIngredient> GetMealIngredientsForMeal(string mealId)
+        {
+            return GetMealIngredients().Where(e => e.MealId== mealId).ToList();
+        }
+
+        public List<Food> GetIngredientsForMeal(string mealId)
+        {
+            return GetMealIngredientsForMeal(mealId).Select(e => e.Food).ToList();
+        }
     }
 }

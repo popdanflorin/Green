@@ -12,7 +12,7 @@ namespace Green.Entities
         public string Name { get; set; }
         public string Description { get; set; }    
         public MealType Type { get; set; }
-        
+
         public string TypeDisplay
         {
             get
