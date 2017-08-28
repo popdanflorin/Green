@@ -45,6 +45,7 @@ namespace Green.Controllers
             var message = cService.DeleteRestaurant(restaurantId);
             return new JsonResult() {Data=message,ContentEncoding=Encoding.UTF8};
         }
+
         //upload images
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file,string rid)
