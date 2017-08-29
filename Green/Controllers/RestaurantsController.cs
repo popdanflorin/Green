@@ -19,7 +19,7 @@ namespace Green.Controllers
         private const string ErrorMessage = "An application exception occured performing action.";
         // GET: Restaurants
 
-        [Authorize (Roles = "AppAdmin")]
+        [Authorize(Roles = "AppAdmin")]
         public ActionResult List()
         {
             return View();
@@ -33,7 +33,7 @@ namespace Green.Controllers
             var restaurants = qService.GetRestaurants();
             var restaurantTypes = qService.GetRestaurantTypes();
             var images = qService.GetImages();
-            return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes ,Images=images}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes, Images = images }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult Save(Restaurant restaurant)
         {
@@ -43,12 +43,22 @@ namespace Green.Controllers
         public JsonResult Delete(string restaurantId)
         {
             var message = cService.DeleteRestaurant(restaurantId);
-            return new JsonResult() {Data=message,ContentEncoding=Encoding.UTF8};
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
+        public JsonResult UserRestaurantsRefresh()
+        {
+            var userRestaurants = qService.GetUserRestaurants();
+            return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+        }
+        public JsonResult UserRestaurantsSearch(string name)
+        {
+            var userRestaurants = qService.GetUserRestaurants(name);
+            return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         //upload images
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file,string rid)
+        public ActionResult Upload(HttpPostedFileBase file, string rid)
         {
             if (file != null)
             {
@@ -73,5 +83,5 @@ namespace Green.Controllers
             return RedirectToAction("List");
         }
     }
-    
+
 }

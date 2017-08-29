@@ -36,9 +36,7 @@
         self.showWarningOpeningHourEmpty("");
         self.showWarningClosingHourEmpty("");
     };
-    self.manage = function (data) {
-
-    }
+    
     self.openShowImage = function (data) {
 
         var rows = self.Images().length;

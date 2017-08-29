@@ -7,9 +7,6 @@
             font-size: 50px;
         }
 
-    .lead text {
-    }
-
     .dropdown-toggle {
         margin-right: auto;
         margin-left: auto;
@@ -36,19 +33,24 @@
         border-left: 100px;
         text-align: center;
     }
-    .dropdown-menu{
-         left:auto;
-        right:auto;
-    
-         padding-top: 5px;
+
+    .dropdown-menu {
+        left: auto;
+        right: auto;
+        padding-top: 5px;
         padding-bottom: 10px;
         padding-left: 10px;
         border-top: 1px;
         border-bottom: 200px;
         border-left: 100px;
         text-align: left;
+    }
 
-
+    .divv {
+        display: -webkit-flex; /* Safari */
+        -webkit-align-items: center; /* Safari 7.0+ */
+        display: flex;
+        align-items: center;
     }
 </style>
 
@@ -57,9 +59,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@{
 
-}
 <div id="userRestaurants">
     <div class="container-fluid">
         <div class="row">
@@ -69,7 +69,7 @@
                         Search the perfect restaurant for you!
                     </h2>
                     <p style="color: brown; font-weight:bold; font-style:italic; font-size: medium">
-                        This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+                        “One cannot think well, love well, sleep well, if one has not dined well.”
                     </p>
 
                 </div>
@@ -95,7 +95,7 @@
                         Change the restaurant type
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" >
+                    <ul class="dropdown-menu">
                         <li class="dropdown-header">Select type</li>
                         <li><a href="#"></a></li>
                         <li><a href="#">Vegan</a></li>
@@ -108,52 +108,49 @@
                 </div>
                 <br />
                 <div class="text">
-                    <p style="padding-left: 100px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac metus sit amet diam dignissim consequat eget et magna. Etiam eu pulvinar lectus. Nam quis viverra quam, sed auctor massa. Ut et aliquet lorem</p>
+                    <p style="padding-left: 110px;text-align:left">Here you can search for your favorite restaurant. You can search after a restaurant by its name or by its type.</p>
                 </div>
-             </div>
+            </div>
             <div class="col-md-8">
-                <iframe width="500" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174852.23584788595!2d23.476429303457422!3d46.783300193014064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490c1f916c0b8b%3A0xbbc601c331f148b!2sCluj-Napoca!5e0!3m2!1sen!2sro!4v1503583199128"></iframe>
+                <img src="../img/res.png" width="500" height="350" />
 
             </div>
         </div>
-        <p></p>
+
         <hr />
-        <p></p>
-        <p></p>
         <div class="row">
+
             <div class="col-md-12">
-                <div class="row">
-                    <hr />
+                <hr />
+                <div class="row" data-bind="foreach:UserRestaurants">
+
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/500x300" alt="">
+                            <img data-bind="attr: {src: '../Content/images/'+ ImageName}" style="width:500px;height:300px">
                             <div class="caption">
-                                <h4>Thumbnail label</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                                <p><a href="#" class="btn btn-info btn-xs" role="button">Button</a>
+                                <h2 data-bind="text:Name" style="color:cornflowerblue"></h2>
+                                <hr />
+                                <div style="margin-right:20px;margin-bottom:10px">
+                                    <text style="text-align:left;color:black;font-weight:bold;">Address:</text>
+                                    <text data-bind="text:Address"></text>
+                                </div>
+
+
+                                <div style="margin-right:20px;margin-bottom:10px">
+                                    <text style="text-align:left;color:black;font-weight:bold;">Type:</text>
+                                    <text data-bind="text:TypeDisplay"></text>
+                                </div>
+                                <div class="rateit" data-rateit-resetable="false" data-bind="enable:$parent.getRating"></div>
+
+                                <div style="display:inline-block;margin-bottom:5px">
+                                    <button class="btn btn-info" style="margin-right:135px;" data-toggle="modal" data-target="#detailsItem">Details</button>
+                                    <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-heart-empty"></span> Add to favorites</a>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/500x300" alt="">
-                            <div class="caption">
-                                <h4>Thumbnail label</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                                <p><a href="#" class="btn btn-info btn-xs" role="button">Button</a> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/500x300" alt="">
-                            <div class="caption">
-                                <h4>Thumbnail label</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                                <p><a href="#" class="btn btn-info btn-xs" role="button">Button</a>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <ul class="pagination">
                     <li>
@@ -181,7 +178,15 @@
             </div>
         </div>
     </div>
-
+    @Html.Partial("Details")
 
 </div>
+<script>
+    $(function () {
+        var vm = new UserRestaurants();
+        vm.refresh();
+        ko.applyBindings(vm, $("#userRestaurants").get(0));
+    });
+
+</script>
 
