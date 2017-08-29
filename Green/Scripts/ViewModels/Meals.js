@@ -19,7 +19,7 @@
         if (!self.IngredientId())
             return null;
 
-        var tmp = "";
+        var tmp = null;
         ko.utils.arrayForEach(self.Foods(), function (element) {
             if (element.Id.valueOf() == self.IngredientId().valueOf()) {
                 tmp = element;
@@ -36,7 +36,7 @@
         ko.utils.arrayForEach(self.Ingredients(), function (i) {
             tmp += i.Name + ", ";
         });
-        if (tmp.length)
+        if (tmp)
             tmp = tmp.slice(0, tmp.length - 2);
         return tmp;
     });
@@ -75,8 +75,7 @@
         self.Description(null);
         self.Rating(null);
         self.IngredientId(null);
-        self.Ingredients(null);
-        self.TemporaryIngredients(null);
+        self.Ingredients([]);
 
         self.warningName(null);
         self.warningDescription(null);
@@ -164,13 +163,17 @@
         if (!self.validateIngredientId())
             return;
 
-        var index = self.Ingredients().findIndex(function (element) {
-            return element.Id.valueOf() == self.IngredientId().valueOf();
-        });
-        if (index != -1) {
-            self.warningIngredient("Selected ingredient already exists in this meal!");
-            return;
+        if (self.Ingredients()) {
+            var index = self.Ingredients().findIndex(function (element) {
+                return element.Id.valueOf() == self.IngredientId().valueOf();
+            });
+            if (index != -1) {
+                self.warningIngredient("Selected ingredient already exists in this meal!");
+                return;
+            }
         }
+
+        self.Ingredients
         self.Ingredients.push(self.Ingredient());
     };
 

@@ -32,7 +32,8 @@ namespace Green.Services
                     DeleteAllIngredients(meal.Id);
                 }
 
-                SaveIngredients(meal.Id, ingredients);
+                if (ingredients != null)
+                    SaveIngredients(meal.Id, ingredients);
                 ctx.SaveChanges();
                 return SuccessMessage;
             }
@@ -42,13 +43,14 @@ namespace Green.Services
             }
         }
 
-        public string DeleteMeal(string id)
+        public string DeleteMeal(string mealId)
         {
             try
             {
-                var meal = ctx.Meals.FirstOrDefault(f => f.Id == id);
+                var meal = ctx.Meals.FirstOrDefault(f => f.Id == mealId);
                 if (meal != null)
                 {
+                    DeleteAllIngredients(mealId);
                     ctx.Meals.Remove(meal);
                     ctx.SaveChanges();
                     return SuccessMessage;
