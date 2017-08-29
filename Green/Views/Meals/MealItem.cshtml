@@ -4,7 +4,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-bind="click: $('#mealItem').modal('hide')">&times;</button>
                 <h4 class="modal-title">Manage meal</h4>
             </div>
 
@@ -29,20 +29,21 @@
 
                 <label for="MealIngredient">Ingredients</label>
                 <div class="form-horizontal">
-                    <div class="form-inline">
-                        <select id="MealIngredient" class="form-control pull-left" data-bind="options:Foods, optionsText: 'Name', optionsValue: 'Id', value: IngredientId, optionsCaption: 'Choose...'"></select>
-                        <button id="AddIngredientButton" data-bind="click: addIngredient">Add</button>
-                        <button id="DeleteIngredientButton" data-bind="click: deleteIngredient">Delete</button>
-                        <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
-                    </div>
+                    <select id="MealIngredient" class="form-control pull-left" data-bind="options:Foods, optionsText: 'Name', optionsValue: 'Id', value: IngredientId, optionsCaption: 'Choose...'"></select>
+                    <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
+                    <button id="AddIngredientButton" class="btn btn-default" data-bind="click: addIngredient">Add</button>
+                    <button id="DeleteIngredientButton" class="btn btn-default" data-bind="click: deleteIngredient">Delete</button>
                 </div>
                 <input id="MealIngredientsList" type="text" placeholder="Ingredients list" data-bind="value: IngredientsName" readonly />
+                <button id="NewIngredientButton" class="btn btn-default" data-toggle="modal" data-target="#foodItem" data-bind="">Add new ingredient</button>
+
+                @Html.Partial("../Foods/Item")
             </div>
 
             <div class="modal-footer">
                 <button id="OKButton" type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:save">Save</button>
                 <button id="DeleteButton" type="button" class="btn btn-danger" data-dismiss="modal" data-bind="click:$root.deleteModal">Delete</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-bind="click: $('#mealItem').modal('hide')">Close</button>
             </div>
         </div>
     </div>
