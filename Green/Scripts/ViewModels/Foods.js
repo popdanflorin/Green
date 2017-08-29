@@ -35,10 +35,8 @@
 
     self.save = function () {
         if (!self.validate()) {
-            self.setOKButton(false);
             return;
         }
-        self.setOKButton(true);
 
         var url = '/Foods/Save';
         var food = JSON.stringify({
@@ -47,6 +45,7 @@
             Type: self.Type()
         });
         $.ajax(url, {
+            async: false,
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -54,6 +53,7 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                $("#foodItem").modal("hide");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -82,23 +82,9 @@
     };
 
     self.deleteModal = function () {
-        var url = '/Foods/Delete';
-        var food = JSON.stringify({
-            foodId: self.Id()
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: food,
-            success: function (data) {
-                console.log(data);
-                self.refresh();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
+        var data = { Id: self.Id() };
+        self.delete(data);
+        $("#foodItem").modal("hide");
     }
 
     self.refresh = function () {
@@ -139,20 +125,5 @@
         }
 
         return valid;
-    };
-
-    self.setOKButton = function (value) {
-        try {
-            if (value) {
-                var attrDataDismiss = document.createAttribute("data-dismiss");
-                attrDataDismiss.value = "modal";
-                document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
-            }
-            else
-                document.getElementById("OKButton").removeAttribute("data-dismiss");
-        }
-        catch (Exception) {
-            console.log(Exception);
-        }
     };
 }

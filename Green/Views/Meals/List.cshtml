@@ -5,23 +5,23 @@
 }
 
 <style>
-input[type=search] {
-    width: 130px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    background-position: 10px 10px; 
-    background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
+    input[type=search] {
+        width: 130px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
 
-input[type=search]:focus {
-    width: 100%;
-}
+        input[type=search]:focus {
+            width: 100%;
+        }
 </style>
 
 <div id="meals">
@@ -54,20 +54,26 @@ input[type=search]:focus {
                 @if (User.IsInRole("AppAdmin"))
                 {
                     <div class="form-horizontal">
-                        <buttod id="detailsButton" class="btn btn-success" data-toggle="modal" data-target="#mealItem"  data-bind="click: $root.details" style="width:40%;">Details</buttod>
+                        <buttod id="detailsButton" class="btn btn-success" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details" style="width:40%;">Details</buttod>
                         <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Delete." data-bind="click:$root.delete" style="width:40%;">Delete</button>
                     </div>
                 }
             </div>
         </div>
     </div>
-    
+
     @Html.Partial("MealItem")
 </div>
 <script>
     $(function () {
-        var vm = new Meals();
-        vm.refresh();
-        ko.applyBindings(vm, $("#meals").get(0));
-    });   
+        ko.cleanNode($("#meals")[0]);
+        var vmMeals = new Meals();
+        vmMeals.refresh();
+        ko.applyBindings(vmMeals, $("#meals").get(0));
+
+        ko.cleanNode($("#foodItem")[0]);
+        var vmFoods = new Foods();
+        vmFoods.refresh();
+        ko.applyBindings(vmFoods, $("#foodItem").get(0));
+    });
 </script>

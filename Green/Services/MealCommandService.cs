@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Linq;
+using System.Collections.Generic;
 using Green.Entities;
 using Green.Models;
 using Green.Entities.Enums;
@@ -14,7 +15,7 @@ namespace Green.Services
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
 
-        public string SaveMeal(Meal meal)
+        public string SaveMeal(Meal meal, List<Food> ingredients)
         {
             try
             {
@@ -28,8 +29,11 @@ namespace Green.Services
                 {
                     oldMeal.Description = meal.Description;
                     oldMeal.Type = meal.Type;
+                    DeleteAllIngredients(meal.Id);
                 }
 
+                if (ingredients != null)
+                    SaveIngredients(meal.Id, ingredients);
                 ctx.SaveChanges();
                 return SuccessMessage;
             }
@@ -39,13 +43,14 @@ namespace Green.Services
             }
         }
 
-        public string DeleteMeal(string id)
+        public string DeleteMeal(string mealId)
         {
             try
             {
-                var meal = ctx.Meals.FirstOrDefault(f => f.Id == id);
+                var meal = ctx.Meals.FirstOrDefault(f => f.Id == mealId);
                 if (meal != null)
                 {
+                    DeleteAllIngredients(mealId);
                     ctx.Meals.Remove(meal);
                     ctx.SaveChanges();
                     return SuccessMessage;
@@ -57,6 +62,17 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
+        
+        public void SaveIngredients(string mealId, List<Food> ingredients)
+        {
+            var pairs = ingredients.Select(i => new MealIngredient(Guid.NewGuid().ToString(), mealId, i.Id)).ToList();
+            pairs.ForEach(p => ctx.MealIngredients.Add(p));
+        }
 
+        public void DeleteAllIngredients(string mealId)
+        {
+            var pairs = ctx.MealIngredients.Where(e => e.MealId == mealId).ToList();
+            pairs.ForEach(p => ctx.MealIngredients.Remove(p));
+        }
     }
 }
