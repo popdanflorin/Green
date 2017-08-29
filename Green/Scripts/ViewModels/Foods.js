@@ -82,23 +82,8 @@
     };
 
     self.deleteModal = function () {
-        var url = '/Foods/Delete';
-        var food = JSON.stringify({
-            foodId: self.Id()
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: food,
-            success: function (data) {
-                console.log(data);
-                self.refresh();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
+        var data = { Id: self.Id() };
+        self.delete(data);
     }
 
     self.refresh = function () {

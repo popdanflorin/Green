@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Manage meal</h4>
             </div>
-            
+
             <div class="modal-body">
                 <label for="MealType">Type</label>
                 <div class="form-horizontal">
@@ -30,13 +30,13 @@
                 <label for="MealIngredient">Ingredients</label>
                 <div class="form-horizontal">
                     <div class="form-inline">
-                        <select id="MealIngredient" class="form-control pull-left" data-bind="options:Foods, optionsText: 'Name', optionsValue: 'Id', value: Ingredient, optionsCaption: 'Choose...'"></select>
+                        <select id="MealIngredient" class="form-control pull-left" data-bind="options:Foods, optionsText: 'Name', optionsValue: 'Id', value: IngredientId, optionsCaption: 'Choose...'"></select>
                         <button id="AddIngredientButton" data-bind="click: addIngredient">Add</button>
                         <button id="DeleteIngredientButton" data-bind="click: deleteIngredient">Delete</button>
                         <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
                     </div>
                 </div>
-                <input id="MealIngredientsList" type="text" placeholder="Ingredients list" data-bind="value: $root.IngredientsName" readonly/>
+                <input id="MealIngredientsList" type="text" placeholder="Ingredients list" data-bind="value: IngredientsName" readonly />
             </div>
 
             <div class="modal-footer">
