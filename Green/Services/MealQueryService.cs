@@ -34,7 +34,9 @@ namespace Green.Services
 
         public List<Food> GetIngredientsForMeal(string mealId)
         {
-            return GetMealIngredientsForMeal(mealId).Select(e => e.Food).ToList();
+            var tmp = GetMealIngredientsForMeal(mealId).Select(e => e.Food).ToList();
+            tmp.Sort((e1, e2) => e1.Name.CompareTo(e2.Name));
+            return tmp;
         }
     }
 }
