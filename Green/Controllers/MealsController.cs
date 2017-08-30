@@ -1,5 +1,6 @@
 ﻿using Green.Entities;
 using Green.Services;
+using Green.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,6 @@ namespace Green.Controllers
         private FoodQueryService qFoodService = new FoodQueryService();
         private FoodCommandService cFoodService = new FoodCommandService();
 
-        // GET: Foods
         public ActionResult List()
         {
             return View();
@@ -39,9 +39,16 @@ namespace Green.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetImage(string mealId)
+        {
+            var message = qMealService.GetMealImage(mealId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+
+        [HttpPost]
         public JsonResult Save(Meal meal, List<Food> ingredients)
         {
-            var message =  cMealService.SaveMeal(meal, ingredients);
+            var message = cMealService.SaveMeal(meal, ingredients);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
 
@@ -50,6 +57,34 @@ namespace Green.Controllers
         {
             var message = cMealService.DeleteMeal(mealId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file, string mealId)
+        {
+            if (file != null)
+            {
+                string physicalPath;
+
+                // delete old image from database and folder (if exists)
+                var oldImageName = cMealService.DeleteImage(mealId);
+                if (oldImageName != null)
+                {
+                    physicalPath = Server.MapPath("~/Content/images/" + oldImageName);
+                    System.IO.File.Delete(physicalPath);
+                }
+
+                string ImageName = System.IO.Path.GetFileName(file.FileName);
+                physicalPath = Server.MapPath("~/Content/images/" + ImageName);
+
+                // save image in folder
+                file.SaveAs(physicalPath);
+
+                //save new record in database
+                cMealService.SaveImage(ImageName, mealId);
+            }
+            //Display records
+            return RedirectToAction("List");
         }
     }
 }

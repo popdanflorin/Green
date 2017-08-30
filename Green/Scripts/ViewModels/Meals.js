@@ -14,6 +14,30 @@
     self.Type = ko.observable();
     self.Rating = ko.observable();
 
+    self.ImageName = ko.computed(function () {
+        var url = '/Meals/GetImage';
+        var meal = JSON.stringify({
+            mealId: self.Id()
+        });
+
+        var image = null;
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: meal,
+            success: function (data) {
+                image = data;
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+        return image;
+    });
+
     self.IngredientId = ko.observable();
     self.Ingredient = ko.computed(function () {
         if (!self.IngredientId())
@@ -54,6 +78,7 @@
     self.loadingPanel = new LoadingOverlay();
 
     self.details = function (data) {
+        self.Id(null);
         self.Id(data.Id);
         self.Name(data.Name);
         self.Description(data.Description);
@@ -173,7 +198,6 @@
             }
         }
 
-        self.Ingredients
         self.Ingredients.push(self.Ingredient());
     };
 

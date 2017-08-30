@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using Green.Entities;
 using Green.Models;
 using Green.Entities.Enums;
+using System.Web.Mvc;
+using Green.Services;
+using System.Text;
+using System.IO;
 
 namespace Green.Services
 {
@@ -63,16 +67,39 @@ namespace Green.Services
             }
         }
         
-        public void SaveIngredients(string mealId, List<Food> ingredients)
+        private void SaveIngredients(string mealId, List<Food> ingredients)
         {
             var pairs = ingredients.Select(i => new MealIngredient(Guid.NewGuid().ToString(), mealId, i.Id)).ToList();
             pairs.ForEach(p => ctx.MealIngredients.Add(p));
         }
 
-        public void DeleteAllIngredients(string mealId)
+        private void DeleteAllIngredients(string mealId)
         {
             var pairs = ctx.MealIngredients.Where(e => e.MealId == mealId).ToList();
             pairs.ForEach(p => ctx.MealIngredients.Remove(p));
+        }
+
+        public void SaveImage(string ImageName, string mealId)
+        {
+            Image newRecord = new Image();
+            newRecord.Id = Guid.NewGuid().ToString();
+            newRecord.Name = ImageName;
+
+            newRecord.MealId = mealId;
+            ctx.Images.Add(newRecord);
+            ctx.SaveChanges();
+        }
+
+        public string DeleteImage(string mealId)
+        {
+            var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
+            if (image != null)
+            {
+                var imageName = image.Name;
+                ctx.Images.Remove(image);
+                return imageName;
+            }
+            return null;
         }
     }
 }

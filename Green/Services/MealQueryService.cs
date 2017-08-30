@@ -21,6 +21,18 @@ namespace Green.Services
         {
             return ctx.Meals.ToList();
         }
+        public List<Image> GetImages()
+        {
+            return ctx.Images.ToList();
+        }
+
+        public String GetMealImage(string mealId)
+        {
+            var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
+            if (image != null)
+                return image.Name;
+            return null;
+        }
 
         public List<MealIngredient> GetMealIngredients()
         {
