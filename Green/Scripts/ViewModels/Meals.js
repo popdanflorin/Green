@@ -19,7 +19,7 @@
         var meal = JSON.stringify({
             mealId: self.Id()
         });
-
+        
         var image = null;
         $.ajax(url, {
             async: false,
@@ -197,7 +197,6 @@
                 return;
             }
         }
-
         self.Ingredients.push(self.Ingredient());
     };
 

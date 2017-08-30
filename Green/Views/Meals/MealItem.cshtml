@@ -8,6 +8,12 @@
                 <h4 class="modal-title">Manage meal</h4>
             </div>
 
+            <div class="modal-body">
+                <label for="MealType">Type</label>
+                <div class="form-horizontal">
+                    <select id="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
+                    <label class="text-danger pull-right" data-bind="text:warningType"></label>
+                </div>
 
             <div class="modal-body">
                 <img data-bind="attr: {src: '../Content/images/'+ ImageName()}" alt="Image Not Found!">
