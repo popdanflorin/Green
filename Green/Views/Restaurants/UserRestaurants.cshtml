@@ -46,12 +46,6 @@
         text-align: left;
     }
 
-    .divv {
-        display: -webkit-flex; /* Safari */
-        -webkit-align-items: center; /* Safari 7.0+ */
-        display: flex;
-        align-items: center;
-    }
 </style>
 
 @{
@@ -81,9 +75,9 @@
 
                 <div id="custom-search-input" style="position: relative">
                     <div class="input-group ">
-                        <input type="text" class="search-query form-control" placeholder="Search..." />
-                        <span class="input-group-btn col-md-offset-1">
-                            <button class="btn btn-danger" type="button">
+                        <input type="text" class="search-query form-control" placeholder="Search..." name="value" />
+                        <span class="input-group-btn col-md-offset-1" >
+                            <button class="btn btn-danger" type="button" data-bind="click:search">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>

@@ -3,7 +3,7 @@
     self.UserRestaurants = ko.observableArray();
     self.loadingPanel = new LoadingOverlay();
     self.RatingValue = ko.observable();
-
+    self.Name = ko.observable();
     self.getRating = function (data) {
         var tooltipvalues = ['Bad', 'Decent', 'Good', 'Very good', 'Excellent'];
         var rows = self.UserRestaurants().length;
@@ -23,6 +23,28 @@
         $.ajax(url, {
             type: "get",
             contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.UserRestaurants(data.UserRestaurants);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    };
+    self.search = function (data) {
+        var url = '/Restaurants/UserRestaurantsSearch';
+        self.Name(data.UserRestaurants().Name());
+        var restaurantName = JSON.stringify({
+            name: self.Name
+        });
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "get",
+            contentType: "application/json; charset=utf-8",
+            data: restaurantName,
             success: function (data) {
                 self.loadingPanel.hide();
                 console.log(data);
