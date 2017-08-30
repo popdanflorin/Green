@@ -2,15 +2,18 @@
 using Green.Models;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Green.Services
 {
     public class FoodCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
+
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
+
         public string SaveFood(Food food)
         {
             try
@@ -36,13 +39,14 @@ namespace Green.Services
             }
         }
 
-        public string DeleteFood(string id)
+        public string DeleteFood(string foodId)
         {
             try
             {
-                var food = ctx.Foods.FirstOrDefault(f => f.Id == id);
+                var food = ctx.Foods.FirstOrDefault(f => f.Id == foodId);
                 if (food != null)
                 {
+                    DeleteFromMeals(foodId);
                     ctx.Foods.Remove(food);
                     ctx.SaveChanges();
                     return SuccessMessage;
@@ -53,6 +57,12 @@ namespace Green.Services
             {
                 return ErrorMessage;
             }
+        }
+
+        private void DeleteFromMeals(string foodId)
+        {
+            var pairs = ctx.MealIngredients.Where(e => e.FoodId == foodId).ToList();
+            pairs.ForEach(p => ctx.MealIngredients.Remove(p));
         }
     }
 }

@@ -21,6 +21,18 @@ namespace Green.Services
         {
             return ctx.Meals.ToList();
         }
+        public List<Image> GetImages()
+        {
+            return ctx.Images.ToList();
+        }
+
+        public String GetMealImage(string mealId)
+        {
+            var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
+            if (image != null)
+                return image.Name;
+            return null;
+        }
 
         public List<MealIngredient> GetMealIngredients()
         {
@@ -34,7 +46,9 @@ namespace Green.Services
 
         public List<Food> GetIngredientsForMeal(string mealId)
         {
-            return GetMealIngredientsForMeal(mealId).Select(e => e.Food).ToList();
+            var tmp = GetMealIngredientsForMeal(mealId).Select(e => e.Food).ToList();
+            tmp.Sort((e1, e2) => e1.Name.CompareTo(e2.Name));
+            return tmp;
         }
     }
 }
