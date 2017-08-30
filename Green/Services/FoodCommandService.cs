@@ -59,7 +59,7 @@ namespace Green.Services
             }
         }
 
-        public void DeleteFromMeals(string foodId)
+        private void DeleteFromMeals(string foodId)
         {
             var pairs = ctx.MealIngredients.Where(e => e.FoodId == foodId).ToList();
             pairs.ForEach(p => ctx.MealIngredients.Remove(p));

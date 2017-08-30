@@ -344,7 +344,7 @@
     <Content Include="Views\Restaurants\Menu.cshtml" />
     <Content Include="Views\Restaurants\UserRestaurants.cshtml" />
     <Content Include="Views\Ratings\Rating.cshtml" />
-    <Content Include="Views\Restaurants\Image.cshtml" />
+    <Content Include="Views\Shared\Image.cshtml" />
     <Content Include="Views\Restaurants\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
