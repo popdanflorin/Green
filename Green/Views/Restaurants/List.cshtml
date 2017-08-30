@@ -9,7 +9,7 @@
     <h2>Restaurants List</h2>
     <div class="form-inline">
         <input type="button" value="Add new restaurant" class="btn btn-primary" data-toggle="modal" data-trigger="focus" data-target="#restaurantItem" data-bind="click:add" />
-        <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You can add new restaurants or edit existing ones."  aria-describedby="popover354581">
+        <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You can add new restaurants or edit existing ones." aria-describedby="popover354581">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
         </button>
     </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" data-bind="click:deleteRestaurant" >Delete</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" data-bind="click:deleteRestaurant">Delete</button>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                     </button>
                 </td>
                 <td class="col-xs-1">
-                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="modal" data-target="#warningModal" data-bind="click:$parent.openDeleteDialog" >
+                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="modal" data-target="#warningModal" data-bind="click:$parent.openDeleteDialog">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -78,11 +78,11 @@
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     </button>
                 </td>
-               
+
             </tr>
         </tbody>
     </table>
-   
+
     @Html.Partial("Item")
     @Html.Partial("Menu")
     @Html.Partial("../Shared/Image")
