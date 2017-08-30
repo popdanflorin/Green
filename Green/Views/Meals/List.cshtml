@@ -75,5 +75,9 @@
         var vmFoods = new Foods();
         vmFoods.refresh();
         ko.applyBindings(vmFoods, $("#foodItem").get(0));
+
+        $('#foodItem').on('hidden.bs.modal', function () {
+            vmMeals.refresh();
+        });
     });
-</script>
+</script>       
