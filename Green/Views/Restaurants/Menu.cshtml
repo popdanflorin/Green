@@ -4,10 +4,20 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-bind="click: $('#mealItem').modal('hide')">&times;</button>
                 <h4 class="modal-title">Manage the menu</h4>
             </div>
 
+            <div class="modal-body">
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="OKButton" type="button" class="btn btn-success">Save</button>
+                <button id="DeleteButton" type="button" class="btn btn-danger" style="display: none;">Delete</button>
+                <button type="button" class="btn btn-default" data-bind="click: $('#menuItem').modal('hide')">Close</button>
+            </div>
         </div>
     </div>
 </div>

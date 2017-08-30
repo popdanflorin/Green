@@ -19,7 +19,7 @@
         var meal = JSON.stringify({
             mealId: self.Id()
         });
-        
+
         var image = null;
         $.ajax(url, {
             async: false,
@@ -78,7 +78,7 @@
     self.loadingPanel = new LoadingOverlay();
 
     self.details = function (data) {
-        self.Id(null);
+        self.Id(0);
         self.Id(data.Id);
         self.Name(data.Name);
         self.Description(data.Description);
@@ -91,6 +91,8 @@
         self.warningDescription(null);
         self.warningType(null);
         self.warningIngredient(null);
+
+        $("#MealDeleteButton").show();
     };
 
     self.add = function () {
@@ -106,14 +108,14 @@
         self.warningDescription(null);
         self.warningType(null);
         self.warningIngredient(null);
+
+        $("#MealDeleteButton").hide();
     };
 
     self.save = function () {
         if (!self.validate()) {
-            self.setOKButton(false);
             return;
         }
-        self.setOKButton(true);
 
         var url = '/Meals/Save';
         var meal = JSON.stringify({
@@ -132,6 +134,7 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                $("#mealItem").modal("hide");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -162,6 +165,7 @@
     self.deleteModal = function () {
         var data = { Id: self.Id() };
         self.delete(data);
+        $("#foodItem").modal("hide");
     };
 
     self.refresh = function () {
@@ -239,20 +243,20 @@
         alert("Searching...");
     };
 
-    self.setOKButton = function (value) {
-        try {
-            if (value) {
-                var attrDataDismiss = document.createAttribute("data-dismiss");
-                attrDataDismiss.value = "modal";
-                document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
-            }
-            else
-                document.getElementById("OKButton").removeAttribute("data-dismiss");
-        }
-        catch (Exception) {
-            console.log(Exception);
-        }
-    };
+    //self.setOKButton = function (value) {
+    //    try {
+    //        if (value) {
+    //            var attrDataDismiss = document.createAttribute("data-dismiss");
+    //            attrDataDismiss.value = "modal";
+    //            document.getElementById("MealOKButton").attributes.setNamedItem(attrDataDismiss);
+    //        }
+    //        else
+    //            document.getElementById("MealOKButton").removeAttribute("data-dismiss");
+    //    }
+    //    catch (Exception) {
+    //        console.log(Exception);
+    //    }
+    //};
 
     self.validate = function () {
         var valid = true;

@@ -92,6 +92,15 @@
         var vm = new Restaurants();
         vm.refresh();
         ko.applyBindings(vm, $("#restaurants").get(0));
+
+        ko.cleanNode($("#menuItem")[0]);
+        var vmMenus = new Menus();
+        vmMenus.refresh();
+        ko.applyBindings(vmMenus, $("#menuItem").get(0));
+
+        $('#menuItem').on('hidden.bs.modal', function () {
+            vmMeals.refresh();
+        });
     });
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();

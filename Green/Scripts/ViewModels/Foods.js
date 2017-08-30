@@ -19,7 +19,7 @@
         self.warningName(null);
         self.warningType(null);
 
-        $("#DeleteButton").show();
+        $("#FoodDeleteButton").show();
     };
 
     self.add = function () {
@@ -30,7 +30,7 @@
         self.warningName(null);
         self.warningType(null);
 
-        $("#DeleteButton").hide();
+        $("#FoodDeleteButton").hide();
     };
 
     self.save = function () {

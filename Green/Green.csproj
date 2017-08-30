@@ -296,6 +296,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewModels\Foods.js" />
     <Content Include="Scripts\ViewModels\Meals.js" />
+    <Content Include="Scripts\ViewModels\Menus.js" />
     <Content Include="Scripts\ViewModels\Ratings.js" />
     <Content Include="Scripts\ViewModels\Restaurants.js" />
     <Content Include="Scripts\ViewModels\Reservations.js" />
