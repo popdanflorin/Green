@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MealsController.cs" />
+    <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Entities\Enums\FoodType.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Meal.cs" />
+    <Compile Include="Entities\Menu.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Restaurant.cs" />
     <Compile Include="Entities\Reservation.cs" />
@@ -229,6 +231,8 @@
     <Compile Include="Services\MealCommandService.cs" />
     <Compile Include="Services\MealQueryService.cs" />
     <Compile Include="Services\FoodQueryService.cs" />
+    <Compile Include="Services\MenuCommandService.cs" />
+    <Compile Include="Services\MenuQueryService.cs" />
     <Compile Include="Services\RatingCommandService.cs" />
     <Compile Include="Services\RatingQueryService.cs" />
     <Compile Include="Services\ReservationQueryService.cs" />
@@ -342,11 +346,12 @@
     <Content Include="Views\Restaurants\List.cshtml" />
     <Content Include="Views\Restaurants\Item.cshtml" />
     <Content Include="Views\Reservations\ReservationItem.cshtml" />
-    <Content Include="Views\Restaurants\Menu.cshtml" />
+    <Content Include="Views\Menus\MenuItem.cshtml" />
     <Content Include="Views\Restaurants\UserRestaurants.cshtml" />
     <Content Include="Views\Ratings\Rating.cshtml" />
     <Content Include="Views\Shared\Image.cshtml" />
     <Content Include="Views\Restaurants\Details.cshtml" />
+    <Content Include="Views\Menus\MenuList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

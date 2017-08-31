@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Manage Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="menus">
+    @Html.Partial("MenuItem")
+</div>
+
+<script>
+    $(function () {
+        ko.cleanNode($("#menuItem")[0]);
+        var vmMenus = new Menus();
+        vmMenus.refresh();
+        ko.applyBindings(vmMenus, $("#menuItem").get(0));
+
+        alert("Menu!!!!!");
+    });
+</script>      

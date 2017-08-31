@@ -32,6 +32,7 @@ namespace Green.Models
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Menu> Menus { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

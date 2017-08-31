@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Manage Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="menuItem" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 data-bind="text: $root.RestaurantNameDisplay"></h4>
+            </div>
+
+            <div class="modal-body">
+                <label for="MenuStartDate">Start Date</label>
+                <div class="form-horizontal">
+                    <input id="MenuStartDate" type="datetime-local" class="form-control" data-bind="value: $root.StartDateDisplay">
+                    <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
+                </div>
+
+                <label for="MenuEndDate">End Date</label>
+                <div class="form-horizontal">
+                    <input id="MenuEndDate" type="text" class="form-control" data-bind="value: $root.EndDate">
+                    <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="MenuOKButton" class="btn btn-success" data-bind="click:save">Save</button>
+                <button id="MenuDeleteButton" class="btn btn-danger" style="display: none;" data-bind="click:$root.delete">Delete</button>
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

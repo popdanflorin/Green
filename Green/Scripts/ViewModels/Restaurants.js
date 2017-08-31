@@ -13,7 +13,13 @@
     self.SeatsAvailable = ko.observable();
     self.loadingPanel = new LoadingOverlay();
     self.messageText = ko.observable();
+    
+    // for Menu
+    self.Restaurant = ko.computed( function() {
+        return { Id: self.id, Name: self.Name};
+    });
 
+    // validation warnings
     self.showWarningNameEmpty = ko.observable();
     self.showWarningAddressEmpty = ko.observable();
     self.showWarningTypeEmpty = ko.observable();
@@ -196,4 +202,8 @@
         self.id(data.id);
     };
 
+    self.getRestaurant = function (data) {
+        self.id(data.id);
+        self.Name(data.Name);
+    }
 }
