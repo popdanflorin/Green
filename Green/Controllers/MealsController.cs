@@ -28,7 +28,8 @@ namespace Green.Controllers
             var meals = qMealService.GetMeals();
             var mealTypes = qMealService.GetMealTypes();
             var foods = qFoodService.GetFoods();
-            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Foods = foods }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var foodTypes = qFoodService.GetFoodTypes();
+            return new JsonResult() { Data = new { Meals = meals, Types = mealTypes, Foods = foods, FoodTypes = foodTypes }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]

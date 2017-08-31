@@ -4,15 +4,14 @@
     //for list
     self.Meals = ko.observableArray();
     self.Types = ko.observableArray();
-    self.Foods = ko.observableArray();
-    self.Ratings = ko.observableArray();
 
     //for item
     self.Id = ko.observable();
     self.Name = ko.observable();
     self.Description = ko.observable();
     self.Type = ko.observable();
-    self.Rating = ko.observable();
+    self.Foods = ko.observableArray();
+    self.FoodTypes = ko.observableArray();
 
     self.ImageName = ko.computed(function () {
         var url = '/Meals/GetImage';
@@ -83,7 +82,6 @@
         self.Name(data.Name);
         self.Description(data.Description);
         self.Type(data.Type);
-        self.Rating(data.Rating);
         self.IngredientId(null);
         self.getIngredients();
 
@@ -100,7 +98,6 @@
         self.Type(null);
         self.Name(null);
         self.Description(null);
-        self.Rating(null);
         self.IngredientId(null);
         self.Ingredients([]);
 
@@ -123,7 +120,6 @@
             Name: self.Name(),
             Description: self.Description(),
             Type: self.Type(),
-            Rating: self.Rating(),
             ingredients: self.Ingredients()
         });
         $.ajax(url, {
@@ -180,7 +176,7 @@
                 self.Meals(data.Meals);
                 self.Types(data.Types);
                 self.Foods(data.Foods);
-                self.Ratings(data.Ratings);
+                self.FoodTypes(data.FoodTypes);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -288,6 +284,7 @@
     };
 
     self.validateIngredientId = function () {
+        self.IngredientId($('select[id=MealIngredient]').val());
         if (self.IngredientId() != 0 && self.nullOrEmpty(self.IngredientId())) {
             self.warningIngredient("No ingredient choosen!");
             return false;
