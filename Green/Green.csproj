@@ -207,6 +207,7 @@
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
     <Compile Include="Entities\Enums\EnumItem.cs" />
     <Compile Include="Entities\Enums\MealType.cs" />
+    <Compile Include="Entities\MenuMeal.cs" />
     <Compile Include="Entities\Enums\RestaurantType.cs" />
     <Compile Include="Entities\Food.cs" />
     <Compile Include="Entities\MealIngredient.cs" />

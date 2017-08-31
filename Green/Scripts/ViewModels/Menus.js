@@ -2,12 +2,13 @@
     var self = this;
 
     self.Menus = ko.observableArray();
-    self.Restaurants = ko.observableArray();
+    self.Meals = ko.observableArray();
 
     self.RestaurantId = ko.observable();
     self.RestaurantName = ko.observable();
     self.StartDate = ko.observable();
     self.EndDate = ko.observable();
+    self.RestaurantMeals = ko.observable();
     self.loadingPanel = new LoadingOverlay();
 
     self.RestaurantNameDisplay = ko.computed(function () {
@@ -28,7 +29,6 @@
 
     self.refresh = function () {
         self.loadingPanel.show();
-       // alert("Menu Refresh");
         self.loadingPanel.hide();
 
     };
@@ -36,6 +36,8 @@
     self.details = function (data) {
         self.RestaurantId(data.id);
         self.RestaurantName(data.Name);
+
+        // get meals
     };
 
     self.save = function () {
@@ -43,6 +45,10 @@
     };
 
     self.delete = function () {
+
+    };
+
+    self.validate = function () {
 
     };
 };

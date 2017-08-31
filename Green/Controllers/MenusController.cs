@@ -25,5 +25,30 @@ namespace Green.Controllers
             var menus = qMenuService.GetMenus();
             return new JsonResult() { Data = new { Menus = menus }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        [HttpPost]
+        public JsonResult Save(Menu menu, List<Meal> meals)
+        {
+            var message = cMenuService.SaveMenu(menu, meals);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+
+        [HttpPost]
+        public JsonResult Delete(string menuId)
+        {
+            var message = cMenuService.DeleteMenu(menuId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+
+        public JsonResult GetMeals()
+        {
+            var meals = qMenuService.GetAllMeals();
+            return new JsonResult() { Data = new { Meals = meals }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult GetMealsForMenu(string menuId)
+        {
+            var meals = qMenuService.GetMealsForMenu(menuId);
+            return new JsonResult() { Data = new { Meals = meals }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }
