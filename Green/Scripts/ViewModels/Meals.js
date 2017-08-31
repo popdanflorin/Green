@@ -239,6 +239,11 @@
         alert("Searching...");
     };
 
+    self.onSelectIngredient = function () {
+        self.IngredientId($("#MealIngredient").val());
+        console.log($("#MealIngredient").val());
+    }
+
     //self.setOKButton = function (value) {
     //    try {
     //        if (value) {
