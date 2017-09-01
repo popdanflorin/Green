@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Green.Services
 {
@@ -94,5 +95,15 @@ namespace Green.Services
             }
         }
 
+        public List<String> DeleteImages(string restaurantId)
+        {
+            var images = ctx.Images.Where(i => i.RestaurantId == restaurantId).ToList();
+            if (images.Any())
+            {
+                var imagesName = images.Select(i => i.Name).ToList();
+                return imagesName;
+            }
+            return null;
+        }
     }
 }

@@ -42,6 +42,16 @@ namespace Green.Controllers
         }
         public JsonResult Delete(string restaurantId)
         {
+            // delete images from database and folder (if exists)
+            string physicalPath;
+            var images = cService.DeleteImages(restaurantId);
+            if (images.Any())
+                images.ForEach(i =>
+                {
+                    physicalPath = Server.MapPath("~/Content/images/" + i);
+                    System.IO.File.Delete(physicalPath);
+                });
+
             var message = cService.DeleteRestaurant(restaurantId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
