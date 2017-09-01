@@ -16,6 +16,19 @@ namespace Green.Services
             return ctx.Menus.ToList();
         }
 
+        public Menu GetMenu(string restaurantId)
+        {
+            Menu menu = ctx.Menus.FirstOrDefault(m => m.RestaurantId == restaurantId);
+            if (menu == null)
+            {
+                menu = new Menu();
+                menu.Id = null;
+                menu.StartDate = new DateTime();
+                menu.EndDate = new DateTime();
+            }
+            return menu;
+        }
+
         public List<Meal> GetAllMeals()
         {
             var menuMeals = ctx.MenuMeals.ToList();

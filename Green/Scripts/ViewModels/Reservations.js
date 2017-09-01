@@ -31,6 +31,10 @@
         self.warningSeats(null);
     };
 
+    self.getMenu = function (data) {
+
+    }
+
     self.add = function () {
         self.Id(0);
         self.RestaurantId(null);
