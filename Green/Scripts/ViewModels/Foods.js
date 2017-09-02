@@ -7,6 +7,8 @@
     self.Type = ko.observable();
     self.loadingPanel = new LoadingOverlay();
 
+    self.SelectedItems = ko.observableArray();
+
     //validation warnings
     self.warningName = ko.observable();
     self.warningType = ko.observable();
@@ -125,5 +127,19 @@
         }
 
         return valid;
+    };
+
+    self.sort = function (key) {
+        switch (key) {
+            case "Name":
+                break;
+            case "Type":
+                break;
+
+        }
+    };
+
+    self.check = function (data) {
+        
     };
 }
