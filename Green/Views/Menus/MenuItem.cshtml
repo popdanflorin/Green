@@ -16,16 +16,31 @@
             <div class="modal-body">
                 <label for="MenuStartDate">Start Date</label>
                 <div class="form-horizontal">
-                    <input id="MenuStartDate" type="datetime-local" class="form-control" data-bind="value: $root.StartDateDisplay">
+                    <input id="MenuStartDate" type="date" class="form-control" data-bind="text: $root.StartDateDisplay">
                     <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
                 </div>
 
                 <label for="MenuEndDate">End Date</label>
                 <div class="form-horizontal">
-                    <input id="MenuEndDate" type="text" class="form-control" data-bind="value: $root.EndDate">
+                    <input id="MenuEndDate" type="date" class="form-control">
                     <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
                 </div>
 
+                <label for="MenuMeals">Meals</label>
+                <div class="form-horizontal">
+                    <select id="MenuMeals" class="form-control" data-bind="options: $root.Meals, optionsText: 'Name', optionsValue: 'Id', value: $root.SelectedMealId, optionsCaption: 'Choose...'"></select>
+                    @*<select id="MenuMeals" class="form-control pull-left" data-bind="foreach: $root.Meals">*@
+                        @*<optgroup data-bind="attr: {label: Description}, foreach: $parent.Meals">
+                            @*<!-- ko if: TypeDisplay == $parent.Description -->*@
+                        @*<option>1</option>*@
+                            @*<option data-bind="text: Description, value: Description"></option>*@
+                            @*<!-- /ko -->*@
+                        @*</optgroup>*@
+                    @*</select>*@
+                    @*<label class="text-danger pull-right" data-bind="text:warningMeal"></label>
+                    <button id="AddMealButton" class="btn btn-default" data-bind="click: addMeal">Add</button>
+                    <button id="DeleteMealButton" class="btn btn-default" data-bind="click: deleteMeal">Delete</button>*@
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -36,3 +51,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    ko.bindingHandlers.datePicker = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            // Register change callbacks to update the model
+            // if the control changes.
+            ko.utils.registerEventHandler(element, "change", function () {
+                var value = valueAccessor();
+                value(moment(element.value).format());
+            });
+        },
+        // Update the control whenever the view model changes
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var value = valueAccessor();
+            element.value = moment(value).format("YYYY-MM-DDTHH:mm:ss");
+        }
+    };
+</script>

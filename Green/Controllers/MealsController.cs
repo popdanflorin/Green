@@ -56,6 +56,12 @@ namespace Green.Controllers
         [HttpPost]
         public JsonResult Delete(string mealId)
         {
+            var image = cMealService.DeleteImage(mealId);
+            if (image != null)
+            {
+                var physicalPath = Server.MapPath("~/Content/images/" + image);
+                System.IO.File.Delete(physicalPath);
+            }
             var message = cMealService.DeleteMeal(mealId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }

@@ -33,6 +33,7 @@ namespace Green.Services
                 {
                     oldMeal.Description = meal.Description;
                     oldMeal.Type = meal.Type;
+                    oldMeal.ImageName = meal.ImageName;
                     DeleteAllIngredients(meal.Id);
                 }
 
@@ -84,6 +85,9 @@ namespace Green.Services
             Image newRecord = new Image();
             newRecord.Id = Guid.NewGuid().ToString();
             newRecord.Name = ImageName;
+
+            var meal = ctx.Meals.FirstOrDefault(m => m.Id == mealId);
+            meal.ImageName = ImageName;
 
             newRecord.MealId = mealId;
             ctx.Images.Add(newRecord);
