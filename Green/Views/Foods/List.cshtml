@@ -6,18 +6,19 @@
 
 <style>
     .form-group {
-        position:relative;
+        position: relative;
     }
-    .form-group .btn {
-        width:120px;  
-    }
+
+        .form-group .btn {
+            width: 120px;
+        }
 </style>
 
 <div id="foods">
     <h2>Foods</h2>
     <div class="form-group">
         <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
-        <input id="DeleteFoodsButton" type="button" value="Delete" class="btn btn-primary" disabled/>
+        <input id="DeleteFoodsButton" type="button" value="Delete" class="btn btn-primary" disabled />
     </div>
     <table class="table table-hover table-responsive">
         <thead>
@@ -39,7 +40,7 @@
                 <td class="col-xs-1">
                     <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
                 </td>
-                <td class="col-xs-1"><input type="checkbox" onclick="checkboxClick(Name)"/></td>
+                <td class="col-xs-1"><input type="checkbox" onclick="checkboxClick(Name)" /></td>
             </tr>
         </tbody>
     </table>

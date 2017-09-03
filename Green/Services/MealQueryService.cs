@@ -21,14 +21,11 @@ namespace Green.Services
         {
             return ctx.Meals.ToList();
         }
-        public List<Image> GetImages()
-        {
-            return ctx.Images.ToList();
-        }
 
         public String GetMealImage(string mealId)
         {
-            var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
+            var image = ctx.Meals.FirstOrDefault(m => m.Id == mealId);
+            //var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
             if (image != null)
                 return image.Name;
             return null;

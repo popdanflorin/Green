@@ -1,4 +1,28 @@
-﻿<div id="mealItem" class="modal fade" role="dialog">
+﻿<style>
+    .modal-body {
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto;
+        width: inherit;
+        object-fit: cover;
+        border-radius: inherit;
+        overflow: hidden;
+    }
+
+    .modal-dialog {
+        overflow: hidden;
+    }
+
+    .modal-body .image {
+        height: 50px;
+        width: auto;
+        position: relative;
+        left: 90px;
+    }
+</style>
+
+<div id="mealItem" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -9,8 +33,6 @@
             </div>
 
             <div class="modal-body">
-                <img data-bind="attr: {src: '../Content/images/'+ ImageName}" alt="Image Not Found!">
-
                 <label for="MealType">Type</label>
                 <div class="form-horizontal">
                     <select id="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
@@ -52,7 +74,11 @@
                         <br />
                         <input name="mealId" hidden="hidden" data-bind="value:Id" />
                         <input type="file" align="center" name="file" id="file" style="width: 100%;" />
-                        <input type="submit" value="Upload" class="btn btn-success" style="position: relative;left:28px;margin-bottom:1px;margin-left:-520px" />
+                        <div class="form-inline pull-left">
+                            <input type="submit" value="Upload" class="btn btn-success pull-left" style="position: fixed;" />
+                            @*<img data-bind="style: {'background-image': ImageUrl}; opacity: 0.5" />*@
+                            <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName()}" alt="Image Not Found!">
+                        </div>
                     </div>
                 }
 

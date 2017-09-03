@@ -82,25 +82,35 @@ namespace Green.Services
 
         public void SaveImage(string ImageName, string mealId)
         {
-            Image newRecord = new Image();
-            newRecord.Id = Guid.NewGuid().ToString();
-            newRecord.Name = ImageName;
+            //Image newRecord = new Image();
+            //newRecord.Id = Guid.NewGuid().ToString();
+            //newRecord.Name = ImageName;
 
             var meal = ctx.Meals.FirstOrDefault(m => m.Id == mealId);
             meal.ImageName = ImageName;
 
-            newRecord.MealId = mealId;
-            ctx.Images.Add(newRecord);
+            //newRecord.MealId = mealId;
+            //ctx.Images.Add(newRecord);
             ctx.SaveChanges();
         }
 
         public string DeleteImage(string mealId)
         {
-            var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
-            if (image != null)
+            //var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
+            //if (image != null)
+            //{
+            //    var imageName = image.Name;
+            //    ctx.Images.Remove(image);
+            //    return imageName;
+            //}
+            //return null;
+
+            var meal = ctx.Meals.FirstOrDefault(m => m.Id == mealId);
+            if (meal.ImageName != null)
             {
-                var imageName = image.Name;
-                ctx.Images.Remove(image);
+                var imageName = meal.ImageName;
+                meal.ImageName = null;
+                ctx.SaveChanges();
                 return imageName;
             }
             return null;
