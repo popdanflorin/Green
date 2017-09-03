@@ -10,32 +10,37 @@
     self.Name = ko.observable();
     self.Description = ko.observable();
     self.Type = ko.observable();
+    self.ImageName = ko.observable();
     self.Foods = ko.observableArray();
     self.FoodTypes = ko.observableArray();
 
-    self.ImageName = ko.computed(function () {
-        var url = '/Meals/GetImage';
-        var meal = JSON.stringify({
-            mealId: self.Id()
-        });
-
-        var image = null;
-        $.ajax(url, {
-            async: false,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: meal,
-            success: function (data) {
-                image = data;
-                console.log(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-        return image;
+    self.ImageUrl = ko.computed(function () {
+        return "url('../Content/images/" + self.ImageName() + "')";
     });
+
+    //self.ImageName = ko.computed(function () {
+    //    var url = '/Meals/GetImage';
+    //    var meal = JSON.stringify({
+    //        mealId: self.Id()
+    //    });
+
+    //    var image = null;
+    //    $.ajax(url, {
+    //        async: false,
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: meal,
+    //        success: function (data) {
+    //            image = data;
+    //            console.log(data);
+    //        },
+    //        error: function (jqXHR, textStatus, errorThrown) {
+    //            console.log(textStatus + ': ' + errorThrown);
+    //        }
+    //    });
+    //    return image;
+    //});
 
     self.IngredientId = ko.observable();
     self.Ingredient = ko.computed(function () {
@@ -82,6 +87,7 @@
         self.Name(data.Name);
         self.Description(data.Description);
         self.Type(data.Type);
+        self.ImageName(data.ImageName);
         self.IngredientId(null);
         self.getIngredients();
 
@@ -98,6 +104,7 @@
         self.Type(null);
         self.Name(null);
         self.Description(null);
+        self.ImageName(null);
         self.IngredientId(null);
         self.Ingredients([]);
 
@@ -120,6 +127,7 @@
             Name: self.Name(),
             Description: self.Description(),
             Type: self.Type(),
+            ImageName: self.ImageName(),
             ingredients: self.Ingredients()
         });
         $.ajax(url, {

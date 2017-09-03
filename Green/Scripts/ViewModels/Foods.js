@@ -140,6 +140,6 @@
     };
 
     self.check = function (data) {
-        
+
     };
 }
