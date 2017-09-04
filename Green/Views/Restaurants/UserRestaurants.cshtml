@@ -16,10 +16,10 @@
 
     .input-group {
         padding-top: 5px;
-        padding-bottom: 25px;
+        padding-bottom: 60px;
         padding-left: 100px;
         border-top: 1px;
-        border-bottom: 200px;
+        border-bottom: 100px;
         border-left: 100px;
         text-align: center;
     }
@@ -45,7 +45,6 @@
         border-left: 100px;
         text-align: left;
     }
-
 </style>
 
 @{
@@ -75,12 +74,18 @@
 
                 <div id="custom-search-input" style="position: relative">
                     <div class="input-group ">
-                        <input type="text" class="search-query form-control" placeholder="Search..." name="value" />
-                        <span class="input-group-btn col-md-offset-1" >
+
+                        <input name="Name" id="Name" type="text" class="search-query form-control" placeholder="Search..." data-bind="value:RestaurantName" />
+
+
+                        <span class="input-group-btn col-md-offset-2">
                             <button class="btn btn-danger" type="button" data-bind="click:search">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
+
+
+
                     </div>
                 </div>
 
@@ -109,6 +114,7 @@
                 <img src="../img/res.png" width="500" height="350" />
 
             </div>
+           
         </div>
 
         <hr />
@@ -181,6 +187,7 @@
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
     });
+  
 
 </script>
 

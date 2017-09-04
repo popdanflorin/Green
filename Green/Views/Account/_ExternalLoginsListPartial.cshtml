@@ -1,7 +1,19 @@
 ﻿@model Green.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
-
-<h4>Use another service to log in.</h4>
+<style>
+    .head {
+        position: absolute;
+        margin-top: 20px;
+        margin-bottom:10px;
+        padding-bottom:10px;
+        top: -20px;
+        right: 0;
+        left: 0;
+        bottom:20px;
+    }
+  
+</style>
+<h4 class="head">Use another service to log in.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();

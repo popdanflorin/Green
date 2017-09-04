@@ -58,12 +58,12 @@ namespace Green.Controllers
         public JsonResult UserRestaurantsRefresh()
         {
             var userRestaurants = qService.GetUserRestaurants();
-            return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = new { UserRestaurants = userRestaurants}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public JsonResult UserRestaurantsSearch(string name)
+        public JsonResult UserRestaurantsSearch(string restaurantName)
         {
-            var userRestaurants = qService.GetUserRestaurants(name);
+            var userRestaurants = qService.GetUserRestaurants(restaurantName);
             return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         //upload images
