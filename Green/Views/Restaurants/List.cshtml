@@ -7,7 +7,7 @@
 
 <div id="restaurants">
     <h2>Restaurants List</h2>
-    <div class="form-inline">
+    <div class="form-inline btn-group">
         <input type="button" value="Add new restaurant" class="btn btn-primary" data-toggle="modal" data-trigger="focus" data-target="#restaurantItem" data-bind="click:add" />
         <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You can add new restaurants or edit existing ones." aria-describedby="popover354581">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -59,7 +59,7 @@
                 <td class="col-xs-1" data-bind="text:ClosingHour"></td>
 
                 <td class="col-xs-1">
-                    <button id="ShowMenuButton" type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#menuItem" data-bind="click: MenuButtonClicked">
+                    <button id="ShowMenuButton" type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#menus" data-bind="click: MenuButtonClicked">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -86,7 +86,7 @@
     @Html.Partial("Item")
     @Html.Partial("../Shared/Image")
     @*Html.ActionLink("", "MenuItem", "Menus")*@
-    @Html.Partial("../Menus/MenuItem", "Menus")
+    @Html.Partial("../Menus/MenuList", "Menus")
 </div>
 <script>
     $(function () {
@@ -94,10 +94,10 @@
         vm.refresh();
         ko.applyBindings(vm, $("#restaurants").get(0));
 
-        ko.cleanNode($("#menuItem")[0]);
+        ko.cleanNode($("#menuList")[0]);
         vmMenus = new Menus();
         vmMenus.refresh();
-        ko.applyBindings(vmMenus, $("#menuItem").get(0));
+        ko.applyBindings(vmMenus, $("#menuList").get(0));
 
         //$("#ShowMenuButton").bind("onclick", vm.getRestaurantId);
         //$("#ShowMenuButton").bind("onclick", vm.id, vmMenus.details);

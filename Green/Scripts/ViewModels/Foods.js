@@ -138,8 +138,4 @@
 
         }
     };
-
-    self.check = function (data) {
-
-    };
 }

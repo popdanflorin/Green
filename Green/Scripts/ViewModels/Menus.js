@@ -4,31 +4,57 @@
     self.loadingPanel = new LoadingOverlay();
     self.Meals = ko.observableArray();
     self.MealTypes = ko.observableArray();
-    self.Test = ko.observableArray();
 
     self.Id = ko.observable();
     self.RestaurantId = ko.observable();
     self.RestaurantName = ko.observable();
     self.StartDate = ko.observable();
     self.EndDate = ko.observable();
-    self.RestaurantMeals = ko.observable();
-    self.SelectedMealOd = ko.observable();
 
     self.RestaurantNameDisplay = ko.computed(function () {
         if (!self.RestaurantName())
             return "Error";
         return self.RestaurantName() + "'s Menu";
-    })
+    });
 
     self.StartDateDisplay = ko.computed(function () {
         if (!self.StartDate())
             return moment(Date(), "MM/DD/YYYY", false).format();
         return moment(self.StartDate(), "MM/DD/YYYY", false).format();
-    })
+    });
+
+    // for meals
+    self.MealId = ko.observable();
+    self.Meal = ko.computed(function () {
+        if (!self.MealId())
+            return null;
+
+        var tmp = null;
+        ko.utils.arrayForEach(self.Meals(), function (element) {
+            if (element.Id.valueOf() == self.MealId().valueOf()) {
+                tmp = element;
+                return;
+            }
+        });
+        return tmp;
+    });
+    self.RestaurantMeals = ko.observableArray();
+    //self.RestaurantMealsName = ko.computed(function () {
+    //    var tmp = "";
+    //    if (self.RestaurantMeals() == null)
+    //        return;
+    //    ko.utils.arrayForEach(self.RestaurantMeals(), function (i) {
+    //        tmp += i.Name + ", ";
+    //    });
+    //    if (tmp)
+    //        tmp = tmp.slice(0, tmp.length - 2);
+    //    return tmp;
+    //});
 
     // validation warning
     self.warningStartDate = ko.observable();
     self.warningEndDate = ko.observable();
+    self.warningMeal = ko.observable();
 
     self.refresh = function () {
         var url = '/Menus/ListRefresh';
@@ -52,7 +78,7 @@
         self.RestaurantId(data.id);
         self.RestaurantName(data.Name);
 
-        self.getMenu();
+        //self.getMenu();
 
         self.warningStartDate(null);
         self.warningEndDate(null);
@@ -62,10 +88,9 @@
         var url = '/Menus/GetMenu';
 
         var restaurant = JSON.stringify({
-            RestaurantId: self.RestaurantId(),
+            restaurantId: self.RestaurantId(),
         });
         $.ajax(url, {
-            async: false,
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -81,7 +106,10 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-
+        if (self.Id() == null) {
+            self.Id(0);
+            self.RestaurantMeals([]);
+        }
     };
 
     self.save = function () {
@@ -116,13 +144,29 @@
 
     };
 
-    self.addMeal = function (data) {
+    self.addMeal = function () {
+        if (!self.validateMealId())
+            return;
 
+        if (self.RestaurantMeals()) {
+            var index = self.RestaurantMeals().findIndex(function (element) {
+                return element.Id.valueOf() == self.MealId().valueOf();
+            });
+            if (index != -1) {
+                self.warningMeal("Selected meal already exists in this menu!");
+                return;
+            }
+        }
+        self.RestaurantMeals.push(self.Meal());
     };
 
     self.deleteMeal = function (data) {
 
     };
+
+    self.onSelectMeal = function () {
+        self.MealId($("#MealIngredient").val());
+    }
 
     self.validate = function () {
         var valid = true;
@@ -144,6 +188,16 @@
         }
 
         return valid;
+    };
+
+    self.validateMealId = function () {
+        self.MealId($('select[id=MenuMeals]').val());
+        if (self.MealId() != 0 && self.nullOrEmpty(self.MealId())) {
+            self.warningMeal("No meal choosen!");
+            return false;
+        }
+        self.warningMeal(null);
+        return true;
     };
 
     self.nullOrEmpty = function (data) {

@@ -13,10 +13,13 @@
     self.SeatsAvailable = ko.observable();
     self.loadingPanel = new LoadingOverlay();
     self.messageText = ko.observable();
-    
+
+    //for Image SlideShow
+    self.RestaurantImages = ko.observableArray();
+
     // for Menu
-    self.Restaurant = ko.computed( function() {
-        return { Id: self.id, Name: self.Name};
+    self.Restaurant = ko.computed(function () {
+        return { Id: self.id, Name: self.Name };
     });
 
     // validation warnings
@@ -42,16 +45,25 @@
         self.showWarningOpeningHourEmpty("");
         self.showWarningClosingHourEmpty("");
     };
-    
-    self.openShowImage = function (data) {
 
-        var rows = self.Images().length;
-        for (var i = 0; i < rows; i++) {
-            if (self.Images()[i].RestaurantId == data.id) {
-                self.ImageName(self.Images()[i].Name);
-                break;
+    self.openShowImage = function (data) {
+        var url = '/Restaurants/GetRestaurantImages';
+        var restaurant = JSON.stringify({
+            restaurantId: data.id
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: restaurant,
+            success: function (data2) {
+                self.RestaurantImages(data2.Images);
+                console.log(data2);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
             }
-        }
+        });
     }
     self.add = function () {
         self.showWarningNameEmpty("");
@@ -72,6 +84,7 @@
         var url = '/Restaurants/ListRefresh';
         self.loadingPanel.show();
         $.ajax(url, {
+            async: false,
             type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (data) {

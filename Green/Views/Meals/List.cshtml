@@ -92,13 +92,13 @@
 
     .row .thumbnail {
         border: 0;
-        box-shadow: 0 5px 18px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2);
         background: transparent;
         max-width: 100%;
         background-color: #fff;
         border: 1px solid #fff;
-        margin-right: 5px;
-        margin: 5px;
+        /*margin-right: 5px;*/
+        /*margin: 5px;*/
         transition: 0.3s;
         border-radius: 10px;
         margin-top: 0.5%;
@@ -132,7 +132,7 @@
         <div class="row" data-bind="foreach:Meals">
             @if (User.IsInRole("AppAdmin"))
             {
-                <div id="thumbnail" class="thumbnail col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div id="thumbnail" class="thumbnail col-xs-6 col-sm-6 col-md-3 col-lg-3">
                     <div class="wrapper">
                         <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName}" alt="Image Not Found!">
                         <div class="overlay">
