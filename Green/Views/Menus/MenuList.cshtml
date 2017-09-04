@@ -1,19 +1,41 @@
 ﻿@{
     ViewBag.Title = "Manage Menu";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="menus">
-    @Html.Partial("MenuItem")
+<div id="menuList">
+    <div id="menus" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 data-bind="text: $root.RestaurantNameDisplay"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <label for="MenuStartDate">Start Date</label>
+                    <div class="form-horizontal">
+                        <input id="MenuStartDate" type="date" class="form-control" data-bind="text: $root.StartDateDisplay">
+                        <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
+                    </div>
+
+                    <label for="MenuEndDate">End Date</label>
+                    <div class="form-horizontal">
+                        <input id="MenuEndDate" type="date" class="form-control">
+                        <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
+                    </div>
+
+                    <input type="button" class="btn btn-default" value="Edit menu" data-toggle="modal" data-target="#menuItem" data-bind="click: $root.getMenu" />
+                </div>
+
+                <div class="modal-footer">
+                    <button id="MenuOKButton" class="btn btn-success" data-bind="click:save">Save</button>
+                    <button id="MenuDeleteButton" class="btn btn-danger" style="display: none;" data-bind="click:$root.delete">Delete</button>
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+        @Html.Partial("../Menus/MenuItem")
+    </div>
 </div>
-
-<script>
-    $(function () {
-        ko.cleanNode($("#menuItem")[0]);
-        var vmMenus = new Menus();
-        vmMenus.refresh();
-        ko.applyBindings(vmMenus, $("#menuItem").get(0));
-
-        alert("Menu!!!!!");
-    });
-</script>      

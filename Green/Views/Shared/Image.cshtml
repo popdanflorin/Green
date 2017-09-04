@@ -1,18 +1,151 @@
-﻿<div id="imageItem" class="modal fade" role="dialog">
+﻿<style>
+    #imageItem * {
+        box-sizing: border-box;
+    }
+
+    #imageItem .mySlides {
+        display: none;
+    }
+
+    /* Slideshow container */
+    #imageItem .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+
+    /* Next & previous buttons */
+    #imageItem .prev, #imageItem .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+    }
+
+    /* Position the "next button" to the right */
+    #imageItem .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a black background color with a little bit see-through */
+        #imageItem .prev:hover, #imageItem .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+    /* Caption text */
+    #imageItem .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Number text (1/3 etc) */
+    #imageItem .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* The dots/bullets/indicators */
+    #imageItem .dot {
+        cursor: pointer;
+        height: 13px;
+        width: 13px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+        #imageItem .active, #imageItem .dot:hover {
+            background-color: #717171;
+        }
+</style>
+
+<div id="imageItem" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-bind="click: $('#imageItem').modal('hide')">&times;</button>
-                <h4 class="modal-title">Image</h4>
+                <h4 class="modal-title">Images</h4>
             </div>
-            <div>
-                <img data-bind="attr: {src: '../Content/images/'+ImageName()}" style="width:304px;height:228px;">
+
+            <div class="modal-body">
+                <div class="slideshow-container" data-bind="foreach: RestaurantImages()">
+                    @*<div class="mySlides">*@
+                    <div class="numbertext" data-bind="text: ($index() + 1) + '/' + $parent.RestaurantImages().length"></div>
+                    <img data-bind="attr: {src: '../Content/images/'+ $data}" style="width:100%">
+                    @*</div>*@
+
+                    @*<div class="mySlides">
+                        <div class="numbertext">1 / 3</div>
+                        <img src='../Content/images/restaurant1.jpg' style="width:100%">
+                        <div class="text">Caption Text</div>
+                        </div>*@
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                </div>
+                <br>
+
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-bind="click: $('#imageItem').modal('hide')">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        //var i;
+        //var slides = document.getElementsByClassName("mySlides");
+        //var dots = document.getElementsByClassName("dot");
+        //if (n > slides.length) { slideIndex = 1 }
+        //if (n < 1) { slideIndex = slides.length }
+        //for (i = 0; i < slides.length; i++) {
+        //    slides[i].style.display = "none";
+        //}
+        //for (i = 0; i < dots.length; i++) {
+        //    dots[i].className = dots[i].className.replace(" active", "");
+        //}
+        //slides[slideIndex - 1].style.display = "block";
+        //dots[slideIndex - 1].className += " active";
+    }
+</script>

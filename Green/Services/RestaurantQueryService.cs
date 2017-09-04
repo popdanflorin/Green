@@ -28,6 +28,13 @@ namespace Green.Services
         {
             return ctx.Ratings.ToList();
         }
+        public List<string> GetRestaurantImages(string restaurantId)
+        {
+            var images = ctx.Images.Where(i => i.RestaurantId == restaurantId);
+            if (images.Any())
+                return images.Select(i => i.Name).ToList();
+            return null;
+        }
         public List<UserRestaurant> GetUserRestaurants()
         {
             List<Restaurant> listRestaurants = GetRestaurants();

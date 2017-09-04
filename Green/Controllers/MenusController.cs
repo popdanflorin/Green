@@ -48,7 +48,7 @@ namespace Green.Controllers
         {
             var menu = qMenuService.GetMenu(restaurantId);
             var restaurantMeals = qMenuService.GetMealsForMenu(menu.Id);
-            return new JsonResult() { Data = new { Id = menu.Id, StartDate = menu.StartDate.Date, EndDate = menu.EndDate.Date, RestaurantMeals =  restaurantMeals }, ContentEncoding = Encoding.UTF8 };
+            return new JsonResult() { Data = new { Id = menu.Id, StartDate = menu.StartDate.Date, EndDate = menu.EndDate.Date, RestaurantMeals = restaurantMeals }, ContentEncoding = Encoding.UTF8 };
         }
 
         public JsonResult GetMeals()
