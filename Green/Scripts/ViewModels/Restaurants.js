@@ -218,5 +218,48 @@
     self.getRestaurant = function (data) {
         self.id(data.id);
         self.Name(data.Name);
+    };
+
+    // Images
+    self.setCoverImage = function () {
+        var i, iamgeId, isCover = false;
+        var checkboxes = document.getElementsByClassName("checkbox");
+        for (i = 0; i < checkboxes.length && !isCover; ++i) {
+            imageId = checkboxes[i].value;
+            isCover = checkboxes[i].checked;
+        }
+
+        var url = '/Restaurants/SetCoverImage';
+        var ids = JSON.stringify({
+            restaurantId: self.id(),
+            imageId: imageId
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: ids,
+            success: function (data) {
+                console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        click: $('#imageItem').modal('hide');
+    };
+
+    self.disableOthers = function (data) {
+        $("#ApplyCoverChangeButton").prop('disabled', false);
+        var imageId = data.Id;
+        var isCover = data.isCover;
+        var checkboxes = document.getElementsByClassName("checkbox");
+        for (i = 0; i < checkboxes.length; ++i) 
+            if (checkboxes[i].value != imageId) {
+                checkboxes[i].checked = false;
+            }
+        return true;
     }
 }

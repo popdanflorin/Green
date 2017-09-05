@@ -76,6 +76,27 @@ namespace Green.Services
             }
         }
 
+        public string SetCoverImage(string restaurantId, string imageId)
+        {
+            try
+            {
+                var images = ctx.Images;
+                foreach (var i in images)
+                {
+                    if (i.Id == imageId)
+                        i.isCover = true;
+                    else
+                        i.isCover = false;
+                }
+                ctx.SaveChanges();
+                return SuccessMessage;
+            }
+            catch
+            {
+                return ErrorMessage;
+            }
+        }
+
         public string DeleteRestaurant(string id)
         {
             try

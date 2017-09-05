@@ -55,6 +55,11 @@ namespace Green.Controllers
             var message = cService.DeleteRestaurant(restaurantId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
+        public JsonResult SetCoverImage(string restaurantId, string imageId)
+        {
+            var message = cService.SetCoverImage(restaurantId, imageId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
         public JsonResult GetRestaurantImages(string restaurantId)
         {
             var images = qService.GetRestaurantImages(restaurantId);

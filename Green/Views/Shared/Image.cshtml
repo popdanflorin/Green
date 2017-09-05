@@ -28,7 +28,7 @@
         transition: 0.6s ease;
         border-radius: 0 3px 3px 0;
     }
-    
+
     /* Position the "prev button" to the left */
     #imageItem .prev {
         left: 0;
@@ -42,7 +42,7 @@
     }
 
         /* On hover, add a black background color with a little bit see-through */
-        #imageItem .prev:hover, #imageItem .next:hover {
+        #imageItem .prev:hover, #imageItem .next:hover, #imageItem .slideshow-container .glyphicon:hover {
             background-color: rgba(0,0,0,0.8);
         }
 
@@ -80,6 +80,40 @@
 
         #imageItem .active, #imageItem .dot:hover {
             background-color: #717171;
+            opacity: 1;
+        }
+
+    #imageItem .checkbox {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    /* Control slideshow */
+    #imageItem #SlideshowController {
+        margin-bottom: 10px;
+        bottom: 0;
+        border-radius: 3px 0 0 3px;
+        cursor: pointer;
+        position: absolute;
+        width: auto;
+        transition: 0.6s ease;
+        position: absolute;
+        align-content: center;
+        align-items: center;
+        align-self: center;
+    }
+
+        #imageItem #SlideshowController .glyphicon {
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            width: auto;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            /*margin-left: 10px;
+            margin-right: 10px;*/
         }
 </style>
 
@@ -94,27 +128,45 @@
             </div>
 
             <div class="modal-body">
+                <!-- Slideshow -->
                 <div class="slideshow-container" data-bind="foreach: RestaurantImages()">
                     <div class="mySlides">
                         <div class="numbertext" data-bind="text: ($index() + 1) + '/' + $parent.RestaurantImages().length"></div>
-                        <img data-bind="attr: {src: '../Content/images/'+ $data}" style="width:100%">
+                        <img data-bind="attr: {src: '../Content/images/'+ $data.Name}" style="width:100%">
+                        @if (User.IsInRole("AppAdmin"))
+                        {
+                            <input id="CoverImage" type="checkbox" class="checkbox" data-bind="checked: isCover, value: Id, click: $root.disableOthers" />
+                        }
                     </div>
 
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
-                </div>
-                <br>
-
-                <div style="text-align:center">
-                    <div data-bind="foreach: RestaurantImages()">
-                        <span class="dot" data-bind="click: currentSlide($index() + 1)"></span>
+                    <div id="SlideshowController" class="btn-group">
+                        <span id="PlaySlideshow" class="glyphicon glyphicon-play" onclick="startSlideshow()"></span>
+                        <span id="StopSlideshow" class="glyphicon glyphicon-stop" onclick="stopSlideshow()"></span>
                     </div>
                 </div>
+
+                <!-- Slideshow index -->
+                <div style="text-align:center;">
+                    <div data-bind="foreach: RestaurantImages">
+                        <span class="dot" data-bind="click: function() {currentSlide($index() + 1)}"></span>
+                    </div>
+                </div>
+                <br />
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-bind="click: $('#imageItem').modal('hide')">Close</button>
+                @if (User.IsInRole("AppAdmin"))
+                {
+                    <button id="ApplyCoverChangeButton" type="button" class="btn btn-success" data-bind="click: $root.setCoverImage" disabled>Apply</button>
+                    <button type="button" class="btn btn-default" data-bind="click: $('#imageItem').modal('hide')">Close</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default" data-bind="click: $('#imageItem').modal('hide')">Close</button>
+                }
             </div>
         </div>
     </div>
@@ -122,30 +174,48 @@
 
 
 <script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
+    var slideIndex = 3;
+    var timeout = setTimeout(plusSlides, 1, 1);
+    var automaticPlay = true;
+
+    function startSlideshow() {
+        automaticPlay = true;
+        timeout = setTimeout(plusSlides, 2000, 1);
+    }
+
+    function stopSlideshow() {
+        automaticPlay = false;
+        clearTimeout(timeout);
+    }
 
     function plusSlides(n) {
+        clearTimeout(timeout);
         showSlides(slideIndex += n);
     }
 
     function currentSlide(n) {
+        clearTimeout(timeout);
         showSlides(slideIndex = n);
     }
 
     function showSlides(n) {
         var i;
         var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+        if (slides.length) {
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
         }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
+
+        if (automaticPlay == true)
+            timeout = setTimeout(plusSlides, 2000, 1);
     }
 </script>
