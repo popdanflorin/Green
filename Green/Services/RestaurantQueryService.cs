@@ -24,6 +24,16 @@ namespace Green.Services
         {
             return ctx.Images.ToList();
         }
+        public List<string> GetRestaurantTypesString()
+        {
+            List<string> StringTypes = new List<string>();
+            List<EnumItem> Types = Enum.GetValues(typeof(RestaurantType)).Cast<RestaurantType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
+            foreach (var item in Types)
+            {
+                StringTypes.Add(item.Description);
+            }
+            return StringTypes;
+        }
         public List<Rating> GetRatings()
         {
             return ctx.Ratings.ToList();
@@ -36,7 +46,16 @@ namespace Green.Services
                 return null;
             return images.OrderByDescending(i => i.isCover).ToList();
         }
-        public Image GetRestaurantCover(string restaurantId)
+        public int GetTotalRating(string RestaurantId)
+        {
+            var ratings = ctx.Ratings.Where(r => r.RestaurantId == RestaurantId);
+            if (ratings.Any())
+            {
+                return ratings.Sum(r => r.Value) / ratings.Count();
+            }
+            return 0;
+        }
+  public Image GetRestaurantCover(string restaurantId)
         {
             var images = ctx.Images.Where(i => i.RestaurantId == restaurantId);
             if (!images.Any())
@@ -45,13 +64,12 @@ namespace Green.Services
             if (cover != null)
                 return cover;
             return images.First();
-        }
-        public List<UserRestaurant> GetUserRestaurants()
+        }        public List<UserRestaurant> GetUserRestaurants()
         {
             List<Restaurant> listRestaurants = GetRestaurants();
             List<Image> listImages = GetImages();
             List<UserRestaurant> listUserRestaurants = new List<UserRestaurant>();
-            //  List<Rating> listRatings = GetRatings();
+            List<Rating> listRatings = GetRatings();
             foreach (var item in listRestaurants)
             {
                 var userRestaurant = new UserRestaurant();
@@ -59,12 +77,9 @@ namespace Green.Services
                 userRestaurant.Name = item.Name;
                 userRestaurant.Address = item.Address;
                 userRestaurant.Type = item.Type;
-                //   var rating = listRatings.FirstOrDefault(x => x.RestaurantId == item.id);
-                var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
+             //   var rating = listRatings.FirstOrDefault(x => x.RestaurantId == item.id);                var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
                 if (image != null)
                     userRestaurant.ImageName = image.Name;
-                // if (rating != null)
-                //    userRestaurant.Rating = rating.Value;
                 listUserRestaurants.Add(userRestaurant);
 
             }

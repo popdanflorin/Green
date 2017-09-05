@@ -2,24 +2,30 @@
     var self = this;
     self.UserRestaurants = ko.observableArray();
     self.Types = ko.observableArray();
+
     self.loadingPanel = new LoadingOverlay();
-    self.RatingValue = ko.observable();
+    self.TotalRating = ko.observable();
     self.RestaurantName = ko.observable();
     self.RestaurantType = ko.observable();
-
+    self.RestaurantId = ko.observable();
     self.showWarningInputEmpty = ko.observable();
 
-    self.getRating = function (data) {
-        var tooltipvalues = ['Bad', 'Decent', 'Good', 'Very good', 'Excellent'];
-        var rows = self.UserRestaurants().length;
-        for (var i = 0; i < rows; i++) {
-            if (self.UserRestaurants()[i].RestaurantId == data.id) {
-                self.RatingValue(self.UserRestaurants()[i].RatingValue);
-                break;
+    self.getRatings = function (data) {
+        var url = '/Restaurants/GetRatings';
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            data: { restaurantId: data.id },
+            success: function (data) {
+                console.log(data);
+                self.TotalRating(data.TotalRating);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
             }
-        }
-        $(".rateit").bind('over', function (event, value) { $(this).attr('title', tooltipvalues[value - 1]); });
-        $(".rateit").bind('rated', self.RatingValue);
+        });
+        $(".rateit").rateit('value', TotalRating);
     };
    
     self.refresh = function () {
@@ -32,7 +38,7 @@
                 self.loadingPanel.hide();
                 console.log(data);
                 self.UserRestaurants(data.UserRestaurants);
-              
+                self.Types(data.Types);
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -47,7 +53,7 @@
             isValid = false;
         }
         else {
-            self.showWarningNameEmpty("lalala");
+            self.showWarningInputEmpty("lalala");
 
         }
         if (isValid == true) {
