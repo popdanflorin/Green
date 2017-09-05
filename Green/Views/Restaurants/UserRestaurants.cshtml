@@ -7,6 +7,10 @@
             font-size: 50px;
         }
 
+    .popover {
+        width: 200px;
+    }
+
     .dropdown-toggle {
         margin-right: auto;
         margin-left: auto;
@@ -16,7 +20,7 @@
 
     .input-group {
         padding-top: 5px;
-        padding-bottom: 60px;
+        padding-bottom: 30px;
         padding-left: 100px;
         border-top: 1px;
         border-bottom: 100px;
@@ -45,6 +49,26 @@
         border-left: 100px;
         text-align: left;
     }
+
+    .dropdwn {
+        left: auto;
+        right: auto;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        padding-right: 70px;
+        text-align: justify;
+    }
+
+    span.stars, span.stars span {
+        display: block;
+        background: url(stars.png) 0 -16px repeat-x;
+        width: 80px;
+        height: 16px;
+    }
+
+        span.stars span {
+            background-position: 0 0;
+        }
 </style>
 
 @{
@@ -79,7 +103,7 @@
 
 
                         <span class="input-group-btn col-md-offset-2">
-                            <button class="btn btn-danger" type="button" data-bind="click:search">
+                            <button id="search" class="btn btn-danger" type="button" data-bind="click:search">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
@@ -88,33 +112,24 @@
 
                     </div>
                 </div>
-
-                <div class="dropdown">
-                    <button class="btn btn-danger dropdown-toggle " style="float:left" type="button" data-toggle="dropdown">
-                        Change the restaurant type
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">Select type</li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#">Vegan</a></li>
-                        <li><a href="#">Vegetarian</a></li>
-                        <li><a href="#">Pastry</a></li>
-                        <li><a href="#">Traditional</a></li>
-                        <li><a href="#">Backery</a></li>
-
-                    </ul>
+                <div class="text">
+                    <p style="padding-left: 110px;text-align:left"><span class="glyphicon" style="color: dodgerblue;font-size: 20px ">&#xe086;</span> Here you can search for your favorite restaurant. You can search for a restaurant by its name or by its type.</p>
                 </div>
                 <br />
-                <div class="text">
-                    <p style="padding-left: 110px;text-align:left">Here you can search for your favorite restaurant. You can search after a restaurant by its name or by its type.</p>
-                </div>
+
+                <p>
+                    <select class="dropdwn" id="selectmenu1" name="" data-theme="c"
+                            data-bind="options: Types,
+                            optionsCaption: 'Choose type...'"></select>
+                </p>
+
+
             </div>
             <div class="col-md-8">
                 <img src="../img/res.png" width="500" height="350" />
 
             </div>
-           
+
         </div>
 
         <hr />
@@ -140,8 +155,10 @@
                                     <text style="text-align:left;color:black;font-weight:bold;">Type:</text>
                                     <text data-bind="text:TypeDisplay"></text>
                                 </div>
-                                <div class="rateit" data-rateit-resetable="false" data-bind="enable:$parent.getRating"></div>
-
+                                <div>
+                                        <div class="rateit" data-rateit-step="1" data-rateit-resetable="false"></div>
+                                </div>
+                               
                                 <div style="display:inline-block;margin-bottom:5px">
                                     <button class="btn btn-info" style="margin-right:135px;" data-toggle="modal" data-target="#detailsItem">Details</button>
                                     <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-heart-empty"></span> Add to favorites</a>
@@ -186,8 +203,19 @@
         var vm = new UserRestaurants();
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
+      
     });
-  
+    $('#search').click(function () {
+        if (!$('#Name').val()) {
+            $('#Name').popover({
+                title: 'Warning!',
+                content: 'Please insert a name!',
+                placement: 'top'
+            }).popover('show');
+        } else {
+            $('#Name').popover('destroy');
+        }
+    });
 
 </script>
 
