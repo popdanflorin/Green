@@ -5,13 +5,27 @@
 }
 
 <style>
-    .form-group {
+    #foods .form-group {
         position: relative;
     }
 
-        .form-group .btn {
+        #foods .form-group .btn {
             width: 120px;
         }
+
+    #foods #FoodsDisplay .btn {
+        text-align: left;
+        background-color: lightblue;
+        margin-left: 10%;
+        position:relative;
+    }
+
+    #foods div[id^='ToggleFoods'] {
+        width: 100%;
+        padding: 50px 0;
+        text-align: center;
+        margin-top: 20px;
+    }
 </style>
 
 <div id="foods">
@@ -19,6 +33,14 @@
     <div class="form-group">
         <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
     </div>
+    @*<div id="FoodsDisplay" class="form-group" data-bind="foreach: Types">
+        <button class="btn pull-left" data-bind="click: myFunction($index()), text: $data.Description"></button>
+        <div data-bind="attr: { id: 'ToggleFoods' + $index() }">
+            Foods
+        </div>
+        <br />
+    </div>*@
+
     <table class="table table-hover table-responsive">
         <thead>
             <tr>
@@ -43,12 +65,23 @@
     </table>
     @Html.Partial("Item")
 </div>
+
 <script>
     $(function () {
         ko.cleanNode($("#foods")[0]);
         vm = new Foods();
         vm.refresh();
         ko.applyBindings(vm, $("#foods").get(0));
-
     });
+
+    function myFunction(data) {
+        var x = document.getElementById('ToggleFoods' + data);
+        if (x == null)
+            return;
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    }
 </script>
