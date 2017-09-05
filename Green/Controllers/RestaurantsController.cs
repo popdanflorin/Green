@@ -63,8 +63,15 @@ namespace Green.Controllers
         public JsonResult UserRestaurantsRefresh()
         {
             var userRestaurants = qService.GetUserRestaurants();
-            return new JsonResult() { Data = new { UserRestaurants = userRestaurants}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var types = qService.GetRestaurantTypesString();
+            return new JsonResult() { Data = new { UserRestaurants = userRestaurants,Types=types}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+        }
+        [HttpPost]
+        public JsonResult GetRatings(string restaurantId)
+        {
+            var totalRating = qService.GetTotalRating(restaurantId);
+            return new JsonResult() { Data = new { TotalRating = totalRating }, ContentEncoding = Encoding.UTF8 };
         }
         public JsonResult UserRestaurantsSearch(string restaurantName)
         {

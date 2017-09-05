@@ -15,6 +15,6 @@
             }
         }
         public string ImageName { get; set; }
-        public int Rating { get; set; }
+        public float Rating { get; set; }
     }
 }
