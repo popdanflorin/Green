@@ -11,9 +11,7 @@ namespace Green.Entities
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public string MealId { get; set; }
-        [ForeignKey("MealId")]
-        public virtual Meal Meal { get; set; }
+        public bool isCover { get; set; }
         public string RestaurantId { get; set; }
         [ForeignKey("RestaurantId")]
         public virtual Restaurant Restaurant { get; set; }

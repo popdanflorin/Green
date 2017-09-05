@@ -28,6 +28,12 @@
         transition: 0.6s ease;
         border-radius: 0 3px 3px 0;
     }
+    
+    /* Position the "prev button" to the left */
+    #imageItem .prev {
+        left: 0;
+        border-radius: 3px 0 0 3px;
+    }
 
     /* Position the "next button" to the right */
     #imageItem .next {
@@ -89,16 +95,10 @@
 
             <div class="modal-body">
                 <div class="slideshow-container" data-bind="foreach: RestaurantImages()">
-                    @*<div class="mySlides">*@
-                    <div class="numbertext" data-bind="text: ($index() + 1) + '/' + $parent.RestaurantImages().length"></div>
-                    <img data-bind="attr: {src: '../Content/images/'+ $data}" style="width:100%">
-                    @*</div>*@
-
-                    @*<div class="mySlides">
-                        <div class="numbertext">1 / 3</div>
-                        <img src='../Content/images/restaurant1.jpg' style="width:100%">
-                        <div class="text">Caption Text</div>
-                        </div>*@
+                    <div class="mySlides">
+                        <div class="numbertext" data-bind="text: ($index() + 1) + '/' + $parent.RestaurantImages().length"></div>
+                        <img data-bind="attr: {src: '../Content/images/'+ $data}" style="width:100%">
+                    </div>
 
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -107,9 +107,9 @@
                 <br>
 
                 <div style="text-align:center">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <div data-bind="foreach: RestaurantImages()">
+                        <span class="dot" data-bind="click: currentSlide($index() + 1)"></span>
+                    </div>
                 </div>
             </div>
 
@@ -134,18 +134,18 @@
     }
 
     function showSlides(n) {
-        //var i;
-        //var slides = document.getElementsByClassName("mySlides");
-        //var dots = document.getElementsByClassName("dot");
-        //if (n > slides.length) { slideIndex = 1 }
-        //if (n < 1) { slideIndex = slides.length }
-        //for (i = 0; i < slides.length; i++) {
-        //    slides[i].style.display = "none";
-        //}
-        //for (i = 0; i < dots.length; i++) {
-        //    dots[i].className = dots[i].className.replace(" active", "");
-        //}
-        //slides[slideIndex - 1].style.display = "block";
-        //dots[slideIndex - 1].className += " active";
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
     }
 </script>
