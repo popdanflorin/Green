@@ -5,26 +5,74 @@
 }
 
 <style>
-    #foods .form-group {
-        position: relative;
+    #foods .wrap {
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
     }
 
-        #foods .form-group .btn {
-            width: 120px;
+    #foods a:focus,
+    #foods a:hover,
+    #foods a:active {
+        outline: 0;
+        text-decoration: none;
+    }
+
+    #foods .panel {
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: #fff;
+        background: none;
+        box-shadow: none;
+    }
+
+        #foods .panel:last-child {
+            border-bottom: none;
         }
 
-    #foods #FoodsDisplay .btn {
-        text-align: left;
-        background-color: lightblue;
-        margin-left: 10%;
-        position:relative;
+    #foods .panel-group > .panel:first-child .panel-heading {
+        border-radius: 4px 4px 0 0;
     }
 
-    #foods div[id^='ToggleFoods'] {
-        width: 100%;
-        padding: 50px 0;
-        text-align: center;
-        margin-top: 20px;
+    #foods .panel-group .panel {
+        border-radius: 0;
+    }
+
+        #foods .panel-group .panel + .panel {
+            margin-top: 0;
+        }
+
+    #foods .panel-heading {
+        background-color: #fed136;
+        border: none;
+        padding: 0;
+        border-radius: 0 0 4px 4px;
+        transition: border-radius 0.3s linear 0.2s;
+        height: auto;
+    }
+
+    #foods .panel-title a {
+        font-weight: 700;
+        color: white;
+        border-color: #fed136;
+        background-color: #fed136;
+        font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+        display: block;
+        padding: 5px;
+        position: relative;
+        font-size: 16px;
+    }
+
+    #foods .panel-body {
+        background: #fff;
+    }
+
+    #foods .panel:last-child .panel-body {
+        border-radius: 0 0 4px 4px;
+    }
+
+    #foods .list-group-item:hover {
+        cursor: pointer;
     }
 </style>
 
@@ -33,36 +81,51 @@
     <div class="form-group">
         <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
     </div>
-    @*<div id="FoodsDisplay" class="form-group" data-bind="foreach: Types">
-        <button class="btn pull-left" data-bind="click: myFunction($index()), text: $data.Description"></button>
-        <div data-bind="attr: { id: 'ToggleFoods' + $index() }">
-            Foods
-        </div>
-        <br />
-    </div>*@
 
-    <table class="table table-hover table-responsive">
-        <thead>
-            <tr>
-                <th data-bind="click: sort('Name')">Name</th>
-                <th data-bind="click: sort('Type')">Type</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach:Foods">
-            <tr>
-                <td class="col-xs-5" data-bind="text:Name"></td>
-                <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
-                <td class="col-xs-1">
-                    <input type="button" value="Edit" class="btn btn-info" data-toggle="modal" data-target="#foodItem" data-bind="click:$parent.details" />
-                </td>
-                <td class="col-xs-1">
-                    <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="Categories" class="container container-fluid" data-bind="foreach: Types" style="padding-left:25%; padding-right:25%; align-content:center; align-items:center">
+        <div class="panel-group wrap" role="tablist">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-bind="text: Description, attr: { href: '#FoodList' + $index() }, click: $root.setCategoryState"></a>
+                    </h4>
+                </div>
+                <div role="tabpanel" data-bind="attr: { id: 'FoodList' + $index() }, css: { 'panel-collapse collapse' : true, 'in':  $root.categoriesState[$index()] == true }">
+                    <ul class="list-group" data-bind="foreach:$root.Foods">
+                        <!-- ko if: TypeDisplay == $parent.Description -->
+                        <li class="list-group-item" data-bind="click: $root.details" data-toggle="modal" data-target="#foodItem">
+                            <button class="close" data-bind="click: $root.delete, clickBubble: false">&times;</button>
+                            <text data-bind="text: Name, value: Id"></text>
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th data-bind="click: sort('Name')">Name</th>
+                    <th data-bind="click: sort('Type')">Type</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:Foods">
+                <tr>
+                    <td class="col-xs-5" data-bind="text:Name"></td>
+                    <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
+                    <td class="col-xs-1">
+                        <input type="button" value="Edit" class="btn btn-info" data-toggle="modal" data-target="#foodItem" data-bind="click:$parent.details" />
+                    </td>
+                    <td class="col-xs-1">
+                        <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>*@
     @Html.Partial("Item")
 </div>
 

@@ -9,9 +9,11 @@
 
     self.SelectedItems = ko.observableArray();
 
-    //validation warnings
+    // validation warnings
     self.warningName = ko.observable();
     self.warningType = ko.observable();
+
+    self.categoriesState = ko.observableArray();
 
     self.details = function (data) {
         self.Id(data.Id);
@@ -107,6 +109,14 @@
         });
     };
 
+    self.setCategoryState = function (data, event) {
+        var id = event.currentTarget.hash;
+        var category = $(id)['0'];
+        var isActive = (category.className.search("in") == -1);
+        var index = parseInt(category.id.match("[0-9]*$")[0]);
+        self.categoriesState[index] = isActive;
+    };
+
     self.validate = function () {
         var valid = true;
 
@@ -135,7 +145,6 @@
                 break;
             case "Type":
                 break;
-
         }
     };
 }
