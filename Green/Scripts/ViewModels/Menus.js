@@ -2,15 +2,16 @@
     var self = this;
 
     self.loadingPanel = new LoadingOverlay();
-    self.Meals = ko.observableArray();
-    self.MealTypes = ko.observableArray();
+    self.Meals = ko.observableArray(null);
+    self.MealTypes = ko.observableArray(null);
 
-    self.Id = ko.observable();
-    self.RestaurantId = ko.observable();
-    self.RestaurantName = ko.observable();
-    self.StartDate = ko.observable();
-    self.EndDate = ko.observable();
+    self.Id = ko.observable(null);
+    self.RestaurantId = ko.observable(null);
+    self.RestaurantName = ko.observable(null);
+    self.StartDate = ko.observable(null);
+    self.EndDate = ko.observable(null);
 
+    // displays
     self.RestaurantNameDisplay = ko.computed(function () {
         if (!self.RestaurantName())
             return "Error";
@@ -56,10 +57,18 @@
     self.warningEndDate = ko.observable();
     self.warningMeal = ko.observable();
 
+    self.open = function (data) {
+        self.RestaurantId(data.id);
+        self.RestaurantName(data.Name);
+        self.refresh();
+        self.details();
+    };
+
     self.refresh = function () {
         var url = '/Menus/ListRefresh';
         self.loadingPanel.show();
         $.ajax(url, {
+            async: false,
             type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
@@ -75,10 +84,7 @@
     };
 
     self.details = function (data) {
-        self.RestaurantId(data.id);
-        self.RestaurantName(data.Name);
-
-        //self.getMenu();
+        self.getMenu();
 
         self.warningStartDate(null);
         self.warningEndDate(null);
@@ -108,7 +114,7 @@
         });
         if (self.Id() == null) {
             self.Id(0);
-            self.RestaurantMeals([]);
+            self.RestaurantMeals(null);
         }
     };
 
@@ -156,11 +162,14 @@
                 self.warningMeal("Selected meal already exists in this menu!");
                 return;
             }
+            self.RestaurantMeals.push(self.Meal());
         }
-        self.RestaurantMeals.push(self.Meal());
+        else
+            self.RestaurantMeals(new Array(self.Meal()));
     };
 
     self.deleteMeal = function (data) {
+        id = data.MealId;
 
     };
 

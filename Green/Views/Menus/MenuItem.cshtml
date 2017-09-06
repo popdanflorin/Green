@@ -2,7 +2,7 @@
     ViewBag.Title = "Manage Menu";
 }
 
-<div id="menuItem" class="modal fade" role="dialog" >
+<div id="menuItem" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -13,25 +13,7 @@
             </div>
 
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <select id="MenuMeals" class="form-control" data-bind="options: $data.Meals, optionsText: 'Name', optionsValue: 'Id', value: $root.MealId, optionsCaption: 'Choose...'"></select>
-                    @*<select id="MenuMeals" class="form-control pull-left" data-bind="foreach: $root.Meals">*@
-                    @*<optgroup data-bind="attr: {label: Description}, foreach: $parent.Meals">
-                        @*<!-- ko if: TypeDisplay == $parent.Description -->*@
-                    @*<option>1</option>*@
-                    @*<option data-bind="text: Description, value: Description"></option>*@
-                    @*<!-- /ko -->*@
-                    @*</optgroup>*@
-                    @*</select>*@
-                    @*<label class="text-danger pull-right" data-bind="text:warningMeal"></label>
-                        <button id="AddMealButton" class="btn btn-default" data-bind="click: addMeal">Add</button>
-                        <button id="DeleteMealButton" class="btn btn-default" data-bind="click: deleteMeal">Delete</button>*@
-                    <label class="text-danger pull-right" data-bind="text:$root.warningMeal"></label>
-                    <div class="btn-group btn-group-justified">
-                        <button id="AddMealButton" class="btn btn-default" data-bind="click: $root.addMeal">Add</button>
-                        <button id="DeleteMealButton" class="btn btn-default" data-bind="click: $root.deleteMeal">Delete</button>
-                    </div>
-                </div>
+                
             </div>
 
             <div class="modal-footer">

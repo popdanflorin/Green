@@ -59,7 +59,7 @@
                 <td class="col-xs-1" data-bind="text:ClosingHour"></td>
 
                 <td class="col-xs-1">
-                    <button id="ShowMenuButton" type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#menus" data-bind="click: MenuButtonClicked">
+                    <button id="ShowMenuButton" type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#menuList" data-bind="click: MenuButtonClicked">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -86,15 +86,16 @@
     @Html.Partial("Item")
     @Html.Partial("../Shared/Image")
     @*Html.ActionLink("", "MenuItem", "Menus")*@
-    @Html.Partial("../Menus/MenuList", "Menus")
+    @Html.Partial("../Menus/MenuList")
 </div>
 <script>
     $(function () {
+    //    ko.cleanNode($("#restaurants")[0]);
         vm = new Restaurants();
         vm.refresh();
         ko.applyBindings(vm, $("#restaurants").get(0));
 
-        ko.cleanNode($("#menuList")[0]);
+        //ko.cleanNode($("#menuList")[0]);
         vmMenus = new Menus();
         vmMenus.refresh();
         ko.applyBindings(vmMenus, $("#menuList").get(0));
@@ -107,7 +108,7 @@
     });
 
     function MenuButtonClicked(data) {
-        vmMenus.details(data);
+        vmMenus.open(data);
     };
 
 </script>

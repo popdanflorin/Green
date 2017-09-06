@@ -2,8 +2,80 @@
     ViewBag.Title = "Manage Menu";
 }
 
-<div id="menuList">
-    <div id="menus" class="modal fade" role="dialog">
+<style>
+    #RestaurantMenuDisplay {
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+    }
+
+        #RestaurantMenuDisplay a:focus,
+        #RestaurantMenuDisplay a:hover,
+        #RestaurantMenuDisplay a:active {
+            outline: 0;
+            text-decoration: none;
+        }
+
+        #RestaurantMenuDisplay .panel {
+            border-width: 0 0 1px 0;
+            border-style: solid;
+            border-color: #fff;
+            background: none;
+            box-shadow: none;
+        }
+
+            #RestaurantMenuDisplay .panel:last-child {
+                border-bottom: none;
+            }
+
+        #RestaurantMenuDisplay > .panel:first-child .panel-heading {
+            border-radius: 4px 4px 0 0;
+        }
+
+        #RestaurantMenuDisplay .panel {
+            border-radius: 0;
+        }
+
+            #RestaurantMenuDisplay .panel + .panel {
+                margin-top: 0;
+            }
+
+        #RestaurantMenuDisplay .panel-heading {
+            background-color: #fed136;
+            border: none;
+            padding: 0;
+            border-radius: 0 0 4px 4px;
+            transition: border-radius 0.3s linear 0.2s;
+            height: auto;
+        }
+
+        #RestaurantMenuDisplay .panel-title a {
+            font-weight: 700;
+            color: white;
+            border-color: #fed136;
+            background-color: #fed136;
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            display: block;
+            padding: 5px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        #RestaurantMenuDisplay .panel-body {
+            background: #fff;
+        }
+
+        #RestaurantMenuDisplay .panel:last-child .panel-body {
+            border-radius: 0 0 4px 4px;
+        }
+
+        #RestaurantMenuDisplay .list-group-item .btn:hover {
+            cursor: pointer;
+        }
+</style>
+
+<div id="menus">
+    <div id="menuList" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -13,6 +85,7 @@
                 </div>
 
                 <div class="modal-body">
+                    <!-- Menu Date -->
                     <label for="MenuStartDate">Start Date</label>
                     <div class="form-horizontal">
                         <input id="MenuStartDate" type="date" class="form-control" data-bind="text: $root.StartDateDisplay">
@@ -24,8 +97,46 @@
                         <input id="MenuEndDate" type="date" class="form-control">
                         <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
                     </div>
+                    <br />
 
-                    <input type="button" class="btn btn-default" value="Edit menu" data-toggle="modal" data-target="#menuItem" data-bind="click: $root.getMenu" />
+                    <!-- Menu Content Edit -->
+                    <div class="form-horizontal">
+                        <select id="MenuMeals" class="form-control pull-left" data-bind="foreach: $root.MealTypes">
+                            <optgroup data-bind="attr: {label: $data.Description}, foreach: $parent.Meals">
+                                <!-- ko if: TypeDisplay == $parent.Description -->
+                                <option data-bind="text: Name, value: Id"></option>
+                                <!-- /ko -->
+                            </optgroup>
+                        </select>
+                        @*<label class="text-danger pull-right" data-bind="text:warningMeal"></label>
+                            <button id="AddMealButton" class="btn btn-default" data-bind="click: addMeal">Add</button>
+                            <button id="DeleteMealButton" class="btn btn-default" data-bind="click: deleteMeal">Delete</button>*@
+                        <label class="text-danger pull-right" data-bind="text:$root.warningMeal"></label>
+                        <div class="btn-group">
+                            <button id="AddMealButton" class="btn btn-default" data-bind="click: $root.addMeal">Add</button>
+                            <button id="DeleteMealButton" class="btn btn-default" data-bind="click: $root.deleteMeal">Delete</button>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Menu Content Display -->
+                    <div id="RestaurantMenuDisplay" class="panel-group wrap" role="tablist">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse">Show Menu</a>
+                                </h4>
+                            </div>
+                            <div role="tabpanel">
+                                <ul class="list-group" data-bind="foreach:$root.RestaurantMeals">
+                                    <li class="list-group-item">
+                                        <button class="close" data-bind="click: $root.deleteMeal, clickBubble: false">&times;</button>
+                                        <text data-bind="text: Name"></text>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -34,8 +145,15 @@
                     <button class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
         </div>
-        @Html.Partial("../Menus/MenuItem")
     </div>
 </div>
+
+<script>
+    $(function () {
+        //    ko.cleanNode($("#menuList")[0]);
+        vmMenus = new Menus();
+        vmMenus.refresh();
+        ko.applyBindings(vmMenus, $("#menus").get(0));
+    });
+</script>

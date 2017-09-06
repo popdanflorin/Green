@@ -84,7 +84,6 @@
         var url = '/Restaurants/ListRefresh';
         self.loadingPanel.show();
         $.ajax(url, {
-            async: false,
             type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
