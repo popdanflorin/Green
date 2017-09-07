@@ -76,6 +76,37 @@
     #DisplayCaseButtons .btn {
         width: auto;
     }
+
+    /*#menus #MealSearchBox {
+        width: 130px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+        font-family: "Glyphicons Halflings";
+        content: "\e080";
+    }*/
+
+    #menus .left-inner-addon {
+        position: relative;
+    }
+
+        #menus .left-inner-addon input {
+            padding-left: 30px;
+        }
+
+        #menus .left-inner-addon i {
+            padding-left: 10px;
+            position: absolute;
+            padding: 10px 12px;
+            pointer-events: none;
+        }
 </style>
 
 <div id="menus">
@@ -91,17 +122,16 @@
                 <div class="modal-body">
                     <!-- Menu Date -->
                     <label for="MenuStartDate">Start Date</label>
-                    <div class="form-horizontal">
+                    <div class="form-horizontal form-group">
                         <input id="MenuStartDate" type="date" class="form-control" data-bind="text: $root.StartDateDisplay">
                         <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
                     </div>
 
                     <label for="MenuEndDate">End Date</label>
-                    <div class="form-horizontal">
+                    <div class="form-group form-horizontal">
                         <input id="MenuEndDate" type="date" class="form-control">
                         <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
                     </div>
-                    <br />
 
                     <!-- Menu Content Edit -->
                     @*<div class="form-horizontal">
@@ -120,13 +150,33 @@
                         </div>
                         <br />*@
 
+                    <!-- Search Meal -->
+                    <div class="form-inline">
+                        <div class="inner-addon left-addon pull-left" style="width: 100%">
+                            @*<i class="glyphicon glyphicon-search"></i>*@
+                            <input id="MealSearchBox" type="text" class="form-control" role="search" placeholder="Search meal..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
+                        </div>
+                        @*<div class="dropdown pull-right">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                Search by:
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Name</a></li>
+                                <li><a href="#">Type</a></li>
+                                <li><a href="#">Ingredient</a></li>
+                            </ul>
+                        </div>*@
+                    </div>
+                    <br />
+
                     <!-- Menu Content Display -->
                     <div id="DisplayCaseButtons" class="btn-group">
                         <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" />
                         <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" />
                         <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" />
-
                     </div>
+                    <br />
                     <br />
 
                     <div id="RestaurantMenuDisplay" class="panel-group wrap" role="tablist">
@@ -145,6 +195,7 @@
                             </div>
                         </div>
                     </div>
+                    <label><input id="MultipleSelectionButton" type="checkbox" class="pull-right right" data-bind="click: $root.SelectAll" value="" />Select all</label>
                 </div>
 
                 <div class="modal-footer">
@@ -168,5 +219,5 @@
     function ToggleMenuVisibility() {
         var button = $("#MenuVisibilityButton");
         button.text(button.text() == "Show Menu" ? "Hide Menu" : "Show Menu");
-    }
+    };
 </script>

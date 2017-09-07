@@ -55,6 +55,8 @@
     self.DisplayCase = ko.observable(0);
     self.DisplayedMeals = ko.computed(function () {
         switch (self.DisplayCase()) {
+            case -1:
+                return null;
             case 0:
                 return self.Meals();
             case 1:
@@ -66,15 +68,19 @@
                     return meal.isSelected == false;
                 });
             default:
-                return null;
+                return self.Meals().filter(function (meal) {
+                    return meal.Name.search(self.DisplayCase()) != -1;
+                });
         }
     });
+    self.SearchText = ko.observable();
 
     // validation warning
     self.warningStartDate = ko.observable();
     self.warningEndDate = ko.observable();
     self.warningMeal = ko.observable();
 
+    // functions
     self.open = function (data) {
         self.RestaurantId(data.id);
         self.RestaurantName(data.Name);
@@ -166,9 +172,7 @@
                 return element.Id.valueOf() == self.MealId().valueOf();
             });
             self.Meals()[index].isSelected = true;
-            var tmp = self.DisplayCase();
-            self.DisplayCase(-1);
-            self.DisplayCase(tmp);
+            self.refreshDisplay();
         }
     };
     
@@ -190,10 +194,7 @@
                 return element.Id.valueOf() == self.MealId().valueOf();
             });
             self.Meals()[index].isSelected = false;
-            self.DisplayCase.valueHasMutated();
-            var tmp = self.DisplayCase();
-            self.DisplayCase(-1);
-            self.DisplayCase(tmp);
+            self.refreshDisplay();
         }
     };
 
@@ -204,6 +205,15 @@
     self.onSelectMeal = function () {
         self.MealId($("#MealIngredient").val());
     };
+
+    self.SelectAll = function () {
+        var isChecked = $("#MultipleSelectionButton").prop("checked");
+        self.Meals().forEach(function (meal) {
+            meal.isSelected = isChecked;
+        });
+        self.refreshDisplay();
+        return true;
+    }
 
     // for displaying meals
     self.showAll = function () {
@@ -217,6 +227,16 @@
     self.showUnselected = function () {
         self.DisplayCase(2);
     };
+
+    self.refreshDisplay = function () {
+        var tmp = self.DisplayCase();
+        self.DisplayCase(-1);
+        self.DisplayCase(tmp);
+    };
+
+    self.SearchMeal = ko.computed(function () {
+        self.DisplayCase(self.SearchText());
+    });
 
     // validations
     self.validate = function () {
