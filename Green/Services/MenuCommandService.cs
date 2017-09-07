@@ -14,20 +14,33 @@ namespace Green.Services
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
 
-        public string SaveMenu(Menu menu, List<Meal> meals)
+        public string SaveMenu(Menu menu, List<MenuMealDisplay> allMeals)
         {
             try
             {
+                var meals = allMeals.Where(m => m.isSelected == true).Select(m => new Meal
+                {
+                    Id = m.Id,
+                    Description = m.Description,
+                    ImageName = m.ImageName,
+                    Name = m.Name,
+                    Type = m.Type
+                }).ToList();
+
                 var oldMenu = ctx.Menus.FirstOrDefault(f => f.Id == menu.Id);
                 if (oldMenu == null)
                 {
                     menu.Id = Guid.NewGuid().ToString();
+                    menu.StartDate = DateTime.Now;
+                    menu.EndDate = DateTime.Now;
                     ctx.Menus.Add(menu);
                 }
                 else
                 {
-                    oldMenu.StartDate = menu.StartDate;
-                    oldMenu.EndDate = menu.EndDate;
+                    //oldMenu.StartDate = menu.StartDate;
+                    //oldMenu.EndDate = menu.EndDate;
+                    oldMenu.StartDate = DateTime.Now;
+                    oldMenu.EndDate = DateTime.Now;
                     DeleteAllMeals(menu.Id);
                 }
 

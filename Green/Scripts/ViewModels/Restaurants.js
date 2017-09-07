@@ -69,7 +69,6 @@
         self.showWarningNameEmpty("");
         self.showWarningAddressEmpty("");
         self.showWarningTypeEmpty("");
-        self.showWarningMaxPriceEmpty("");
         self.showWarningSeatsEmpty("");
         self.id(0);
         self.Name("");

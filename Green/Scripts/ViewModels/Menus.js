@@ -39,7 +39,6 @@
         });
         return tmp;
     });
-    self.RestaurantMeals = ko.observableArray();
     //self.RestaurantMealsName = ko.computed(function () {
     //    var tmp = "";
     //    if (self.RestaurantMeals() == null)
@@ -52,6 +51,25 @@
     //    return tmp;
     //});
 
+    // 0: all, 1: selected, 2: unselected
+    self.DisplayCase = ko.observable(0);
+    self.DisplayedMeals = ko.computed(function () {
+        switch (self.DisplayCase()) {
+            case 0:
+                return self.Meals();
+            case 1:
+                return self.Meals().filter(function (meal) {
+                    return meal.isSelected == true;
+                });
+            case 2:
+                return self.Meals().filter(function (meal) {
+                    return meal.isSelected == false;
+                });
+            default:
+                return null;
+        }
+    });
+
     // validation warning
     self.warningStartDate = ko.observable();
     self.warningEndDate = ko.observable();
@@ -61,19 +79,29 @@
         self.RestaurantId(data.id);
         self.RestaurantName(data.Name);
         self.refresh();
-        self.details();
+
+        self.warningStartDate(null);
+        self.warningEndDate(null);
+        self.warningMeal(null);
     };
 
     self.refresh = function () {
         var url = '/Menus/ListRefresh';
+        var restaurant = JSON.stringify({
+            restaurantId: self.RestaurantId(),
+        });
         self.loadingPanel.show();
         $.ajax(url, {
-            async: false,
-            type: "get",
+            type: "post",
+            dataType: "json",
             contentType: "application/json; charset=utf-8",
+            data: restaurant, 
             success: function (data) {
                 self.loadingPanel.hide();
                 console.log(data);
+                self.Id(data.Id);
+                self.StartDate(new Date(data.StartDate));
+                self.EndDate(new Date(data.EndDate));
                 self.Meals(data.Meals);
                 self.MealTypes(data.MealTypes);
             },
@@ -81,41 +109,8 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-    };
-
-    self.details = function (data) {
-        self.getMenu();
-
-        self.warningStartDate(null);
-        self.warningEndDate(null);
-    };
-
-    self.getMenu = function () {
-        var url = '/Menus/GetMenu';
-
-        var restaurant = JSON.stringify({
-            restaurantId: self.RestaurantId(),
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: restaurant,
-            success: function (data) {
-                console.log(data);
-                self.Id(data.Id);
-                self.StartDate(new Date(data.StartDate));
-                self.EndDate(new Date(data.EndDate));
-                self.RestaurantMeals(data.RestaurantMeals);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-        if (self.Id() == null) {
+        if (self.Id() == null)
             self.Id(0);
-            self.RestaurantMeals(null);
-        }
     };
 
     self.save = function () {
@@ -128,7 +123,7 @@
             RestaurantId: self.RestaurantId(),
             StartDate: self.StartDate(),
             EndDate: self.EndDate(),
-            meals: self.RestaurantMeals()
+            meals: self.Meals()
         });
         $.ajax(url, {
             type: "post",
@@ -138,7 +133,7 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
-                $("#menuItem").modal("hide");
+                $("#menuList").modal("hide");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -147,36 +142,83 @@
     };
 
     self.delete = function () {
-
     };
 
-    self.addMeal = function () {
+    self.onMealClicked = function (data) {
+        // it it is in menu, delete. otherwise, add
+        if (self.isMealInMenu(data.Id))
+            self.deleteMeal(data);
+        else
+            self.addMeal(data);
+    }
+
+    self.addMeal = function (data) {
+        self.MealId(data.Id);
         if (!self.validateMealId())
             return;
 
-        if (self.RestaurantMeals()) {
-            var index = self.RestaurantMeals().findIndex(function (element) {
-                return element.Id.valueOf() == self.MealId().valueOf();
-            });
-            if (index != -1) {
+        if (self.Meals()) {
+            if (self.isMealInMenu(self.MealId())) {
                 self.warningMeal("Selected meal already exists in this menu!");
                 return;
             }
-            self.RestaurantMeals.push(self.Meal());
+            var index = self.Meals().findIndex(function (element) {
+                return element.Id.valueOf() == self.MealId().valueOf();
+            });
+            self.Meals()[index].isSelected = true;
+            var tmp = self.DisplayCase();
+            self.DisplayCase(-1);
+            self.DisplayCase(tmp);
         }
-        else
-            self.RestaurantMeals(new Array(self.Meal()));
+    };
+    
+    self.addMealFromList = function () {
+        self.addMeal(data = { Id: $('select[id=MenuMeals]').val() });
     };
 
     self.deleteMeal = function (data) {
-        id = data.MealId;
+        self.MealId(data.Id);
+        if (!self.validateMealId())
+            return;
 
+        if (self.Meals()) {
+            if (self.isMealInMenu(self.MealId()) == false) {
+                self.warningMeal("Selected meal does not exist in this menu!");
+                return;
+            }
+            var index = self.Meals().findIndex(function (element) {
+                return element.Id.valueOf() == self.MealId().valueOf();
+            });
+            self.Meals()[index].isSelected = false;
+            self.DisplayCase.valueHasMutated();
+            var tmp = self.DisplayCase();
+            self.DisplayCase(-1);
+            self.DisplayCase(tmp);
+        }
+    };
+
+    self.deleteMealFromList = function () {
+        self.deleteMeal(data = { Id: $('select[id=MenuMeals]').val() });
     };
 
     self.onSelectMeal = function () {
         self.MealId($("#MealIngredient").val());
-    }
+    };
 
+    // for displaying meals
+    self.showAll = function () {
+        self.DisplayCase(0);
+    };
+
+    self.showSelected = function () {
+        self.DisplayCase(1);
+    };
+
+    self.showUnselected = function () {
+        self.DisplayCase(2);
+    };
+
+    // validations
     self.validate = function () {
         var valid = true;
 
@@ -200,13 +242,21 @@
     };
 
     self.validateMealId = function () {
-        self.MealId($('select[id=MenuMeals]').val());
         if (self.MealId() != 0 && self.nullOrEmpty(self.MealId())) {
             self.warningMeal("No meal choosen!");
             return false;
         }
         self.warningMeal(null);
         return true;
+    };
+
+    self.isMealInMenu = function (mealId) {
+        var index = self.Meals().findIndex(function (element) {
+            return element.Id.valueOf() == mealId.valueOf();
+        });
+        if (self.Meals()[index].isSelected == true)
+            return true;
+        return false;
     };
 
     self.nullOrEmpty = function (data) {

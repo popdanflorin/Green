@@ -29,26 +29,45 @@ namespace Green.Services
             return menu;
         }
 
-        public List<Meal> GetAllMeals()
+        // returns all meals and set isSelected to false for all
+        public List<MenuMealDisplay> GetAllMeals()
         {
-            var menuMeals = ctx.MenuMeals.ToList();
-            if (!menuMeals.Any())
-                return null;
-            var meals = menuMeals.Select(m => m.Meal).ToList();
-            if (!meals.Any())
-                return null;
-            return meals;
+            //var menuMeals = ctx.MenuMeals.ToList();
+            //if (!menuMeals.Any())
+            //    return null;
+            //var meals = menuMeals.Select(m => m.Meal).ToList();
+            //if (!meals.Any())
+            //    return null;
+            //var tmp = meals.Select(m => new MenuMealDisplay {
+            //    Id = m.Id,
+            //    Description = m.Description,
+            //    ImageName = m.ImageName, 
+            //    Name = m.Name,
+            //    Type = m.Type,
+            //    isSelected = false
+            //}).ToList();
+            //return tmp;
+            var tmp = ctx.Meals.Select(m => new MenuMealDisplay {
+                Id = m.Id,
+                Description = m.Description,
+                ImageName = m.ImageName,
+                Name = m.Name,
+                Type = m.Type,
+                isSelected = false
+            }).ToList();
+            tmp.OrderBy(m => m.Name);
+            return tmp;
         }
 
-        public List<Meal> GetMealsForMenu(string menuId)
+        // returns all meals and set isSelected to true if the meal is in the current menu, otherwise it is set to false
+        public List<MenuMealDisplay> GetMealsForMenu(string menuId)
         {
+            var allMeals = GetAllMeals();
             var menuMeals = ctx.MenuMeals.Where(m => m.MenuId == menuId).ToList();
             if (!menuMeals.Any())
-                return null;
-            var meals = menuMeals.Select(m => m.Meal).ToList();
-            if (!meals.Any())
-                return null;
-            return meals;
+                return allMeals;
+            menuMeals.ForEach(m => allMeals.FirstOrDefault(meal => meal.Id == m.MealId).isSelected = true);
+            return allMeals;
         }
     }
 }

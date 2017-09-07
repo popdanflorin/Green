@@ -55,7 +55,7 @@ namespace Green.Services
             }
             return 0;
         }
-  public Image GetRestaurantCover(string restaurantId)
+        public Image GetRestaurantCover(string restaurantId)
         {
             var images = ctx.Images.Where(i => i.RestaurantId == restaurantId);
             if (!images.Any())
@@ -64,7 +64,8 @@ namespace Green.Services
             if (cover != null)
                 return cover;
             return images.First();
-        }        public List<UserRestaurant> GetUserRestaurants()
+        }
+        public List<UserRestaurant> GetUserRestaurants()
         {
             List<Restaurant> listRestaurants = GetRestaurants();
             List<Image> listImages = GetImages();
