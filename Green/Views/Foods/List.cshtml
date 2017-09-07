@@ -79,7 +79,12 @@
 <div id="foods">
     <h2>Foods</h2>
     <div class="form-group">
-        <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
+        <div class="form-inline btn-group">
+            <input type="button" value="New" class="btn btn-primary" data-toggle="modal" data-target="#foodItem" data-bind="click:add" />
+            <button type="button" class="btn btn-info" data-toggle="tooltip" data-trigger="focus" data-placement="right" title="You can add new foods or edit existing ones.">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </button>
+        </div>
     </div>
 
     <div id="Categories" class="container container-fluid" data-bind="foreach: Types" style="padding-left:25%; padding-right:25%; align-content:center; align-items:center">

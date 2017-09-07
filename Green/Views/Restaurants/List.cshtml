@@ -9,7 +9,7 @@
     <h2>Restaurants List</h2>
     <div class="form-inline btn-group">
         <input type="button" value="Add new restaurant" class="btn btn-primary" data-toggle="modal" data-trigger="focus" data-target="#restaurantItem" data-bind="click:add" />
-        <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You can add new restaurants or edit existing ones." aria-describedby="popover354581">
+        <button type="button" class="btn btn-info" data-toggle="tooltip" data-trigger="focus" data-placement="right" title="You can add new restaurants or edit existing ones.">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
         </button>
     </div>
@@ -102,9 +102,6 @@
 
         //$("#ShowMenuButton").bind("onclick", vm.getRestaurantId);
         //$("#ShowMenuButton").bind("onclick", vm.id, vmMenus.details);
-    });
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
     });
 
     function MenuButtonClicked(data) {
