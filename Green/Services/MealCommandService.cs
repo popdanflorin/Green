@@ -19,6 +19,8 @@ namespace Green.Services
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
 
+        MenuCommandService cMenuService = new MenuCommandService();
+
         public string SaveMeal(Meal meal, List<Food> ingredients)
         {
             try
@@ -55,7 +57,10 @@ namespace Green.Services
                 var meal = ctx.Meals.FirstOrDefault(f => f.Id == mealId);
                 if (meal != null)
                 {
+                    // delete meal ingredients
                     DeleteAllIngredients(mealId);
+                    // delete meal from menus
+                    cMenuService.DeleteMealFromMenus(mealId);
                     ctx.Meals.Remove(meal);
                     ctx.SaveChanges();
                     return SuccessMessage;

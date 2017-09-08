@@ -56,6 +56,7 @@ namespace Green.Controllers
         [HttpPost]
         public JsonResult Delete(string mealId)
         {
+            // delete image
             var image = cMealService.DeleteImage(mealId);
             if (image != null)
             {

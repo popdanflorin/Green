@@ -100,6 +100,19 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
+
+        public string DeleteMealFromMenus(string mealId)
+        {
+            try
+            {
+                ctx.MenuMeals.Where(m => m.MealId == mealId).ToList().ForEach(mb => ctx.MenuMeals.Remove(m));
+                return SuccessMessage;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage;
+            }
+        }
     }
 
 }
