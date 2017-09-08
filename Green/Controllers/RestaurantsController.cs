@@ -87,6 +87,11 @@ namespace Green.Controllers
             var userRestaurants = qService.GetUserRestaurants(restaurantName);
             return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult UserRestaurantsSearchByType(RestaurantType restaurantType)
+        {
+            var userRestaurants = qService.GetUserRestaurants(restaurantType);
+            return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         //upload images
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file, string rid)

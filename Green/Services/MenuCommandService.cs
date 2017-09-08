@@ -105,7 +105,7 @@ namespace Green.Services
         {
             try
             {
-                ctx.MenuMeals.Where(m => m.MealId == mealId).ToList().ForEach(mb => ctx.MenuMeals.Remove(m));
+                ctx.MenuMeals.Where(m => m.MealId == mealId).ToList().ForEach(m => ctx.MenuMeals.Remove(m));
                 return SuccessMessage;
             }
             catch (Exception)

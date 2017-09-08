@@ -204,6 +204,7 @@
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
+    <Compile Include="Controllers\UserFavoritesController.cs" />
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
     <Compile Include="Entities\Enums\EnumItem.cs" />
     <Compile Include="Entities\Enums\MealType.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Restaurant.cs" />
     <Compile Include="Entities\Reservation.cs" />
+    <Compile Include="Entities\UserFavorites.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,6 +243,8 @@
     <Compile Include="Services\ReservationCommandService.cs" />
     <Compile Include="Services\RestaurantCommandService.cs" />
     <Compile Include="Services\RestaurantQueryService.cs" />
+    <Compile Include="Services\UserFavoritesCommandService.cs" />
+    <Compile Include="Services\UserFavoritesQueryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +361,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UserFavorites\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

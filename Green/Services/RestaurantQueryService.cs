@@ -78,10 +78,16 @@ namespace Green.Services
                 userRestaurant.Name = item.Name;
                 userRestaurant.Address = item.Address;
                 userRestaurant.Type = item.Type;
-                //   var rating = listRatings.FirstOrDefault(x => x.RestaurantId == item.id);                
+                var ratings = ctx.Ratings.Where(r => r.RestaurantId == item.id);
+                if (ratings.Any())
+                    userRestaurant.Rating = ratings.Sum(r => r.Value) / ratings.Count();
+                else
+                    userRestaurant.Rating = 0;
                 var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
                 if (image != null)
                     userRestaurant.ImageName = image.Name;
+                else
+                    userRestaurant.ImageName = "noimage.jpg";
                 listUserRestaurants.Add(userRestaurant);
 
             }
@@ -101,11 +107,36 @@ namespace Green.Services
                 userRestaurant.Name = item.Name;
                 userRestaurant.Address = item.Address;
                 userRestaurant.Type = item.Type;
+                var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
+                if (image != null)
+                    userRestaurant.ImageName = image.Name;
+                else
+                    userRestaurant.ImageName = "noimage.jpg";
+                listUserRestaurants.Add(userRestaurant);
+
+            }
+            return listUserRestaurants;
+
+        }
+        public List<UserRestaurant> GetUserRestaurants(RestaurantType type)
+        {
+            List<Restaurant> listRestaurants = GetRestaurants();
+            List<Image> listImages = GetImages();
+            List<UserRestaurant> listUserRestaurants = new List<UserRestaurant>();
+            var listNew = listRestaurants.Where(x => x.Type == type);
+            foreach (var item in listNew)
+            {
+                var userRestaurant = new UserRestaurant();
+                userRestaurant.id = item.id;
+                userRestaurant.Name = item.Name;
+                userRestaurant.Address = item.Address;
+                userRestaurant.Type = item.Type;
 
                 var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
                 if (image != null)
                     userRestaurant.ImageName = image.Name;
-
+                else
+                    userRestaurant.ImageName = "noimage.jpg";
                 listUserRestaurants.Add(userRestaurant);
 
             }

@@ -34,6 +34,7 @@ namespace Green.Models
         public DbSet<Image> Images { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuMeal> MenuMeals { get; set; }
+        public DbSet<UserFavorites> UserFavorites { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
