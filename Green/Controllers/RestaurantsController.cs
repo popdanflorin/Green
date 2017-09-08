@@ -14,9 +14,13 @@ namespace Green.Controllers
 {
     public class RestaurantsController : Controller
     {
+        private const string ErrorMessage = "An application exception occured performing action.";
+
         private RestaurantQueryService qService = new RestaurantQueryService();
         private RestaurantCommandService cService = new RestaurantCommandService();
-        private const string ErrorMessage = "An application exception occured performing action.";
+
+        private MenuQueryService qMenuService = new MenuQueryService();
+        private MenuCommandService cMenuService = new MenuCommandService();
         // GET: Restaurants
 
         [Authorize(Roles = "AppAdmin")]

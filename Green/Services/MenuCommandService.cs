@@ -86,6 +86,20 @@ namespace Green.Services
             var pairs = ctx.MenuMeals.Where(e => e.MenuId == menuId).ToList();
             pairs.ForEach(p => ctx.MenuMeals.Remove(p));
         }
+
+        public string DeleteRestaurantMenus(string restaurantId)
+        {
+            try
+            {
+                var menus = ctx.Menus.Where(m => m.RestaurantId == restaurantId).ToList();
+                menus.ForEach(m => DeleteMenu(m.Id));
+                return SuccessMessage;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage;
+            }
+        }
     }
 
 }

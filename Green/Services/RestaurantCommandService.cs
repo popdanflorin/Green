@@ -15,6 +15,10 @@ namespace Green.Services
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
         private const string EmptyInputMessage = "The inputs are empty";
+
+        private MenuQueryService qMenuService = new MenuQueryService();
+        private MenuCommandService cMenuService = new MenuCommandService();
+
         /* public string UploadImage(Image image)
          {
              try
@@ -104,6 +108,9 @@ namespace Green.Services
                 var restaurant = ctx.Restaurants.FirstOrDefault(f => f.id == id);
                 if (restaurant != null)
                 {
+                    // delete menu(s)
+                    var message = cMenuService.DeleteRestaurantMenus(id);
+
                     ctx.Restaurants.Remove(restaurant);
                     ctx.SaveChanges();
                     return SuccessMessage;
@@ -115,7 +122,7 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
-
+        
         public List<String> DeleteImages(string restaurantId)
         {
             var images = ctx.Images.Where(i => i.RestaurantId == restaurantId).ToList();
