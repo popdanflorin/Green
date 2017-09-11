@@ -55,7 +55,7 @@ namespace Green.Services
                 Type = m.Type,
                 isSelected = false
             }).ToList();
-            tmp.OrderBy(m => m.Name);
+            tmp.OrderBy(m => m.Type);
             return tmp;
         }
 

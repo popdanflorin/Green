@@ -42,6 +42,7 @@
     //    return image;
     //});
 
+    // for ingredients
     self.IngredientId = ko.observable();
     self.Ingredient = ko.computed(function () {
         if (!self.IngredientId())
@@ -56,22 +57,39 @@
         });
         return tmp;
     });
-    self.Ingredients = ko.observableArray();
-    self.IngredientsName = ko.computed(function () {
-        var tmp = "";
-        if (self.Ingredients == null)
-            return;
-        ko.utils.arrayForEach(self.Ingredients(), function (i) {
-            tmp += i.Name + ", ";
-        });
-        if (tmp)
-            tmp = tmp.slice(0, tmp.length - 2);
-        return tmp;
+    // 0: all, 1: selected, 2: unselected
+    self.DisplayCase = ko.observable(0);
+    self.DisplayedFoods = ko.computed(function () {
+        switch (self.DisplayCase()) {
+            case -1:
+                return null;
+            case 0:
+                return self.Foods();
+            case 1:
+                return self.Foods().filter(function (food) {
+                    return food.isSelected == true;
+                });
+            case 2:
+                return self.Foods().filter(function (food) {
+                    return food.isSelected == false;
+                });
+            default:
+                return self.Foods().filter(function (food) {
+                    return food.Name.search(new RegExp(self.DisplayCase(), "i")) != -1;
+                });
+        }
     });
+    self.SearchText = ko.observable();
 
     //for search
     self.SearchName = ko.observable(false);
     self.SearchIngredient = ko.observable(false);
+    self.SearchMealsText = ko.observable("");
+    self.DisplayedMeals = ko.computed(function () {
+        return self.Meals().filter(function (meal) {
+            return meal.Name.search(new RegExp(self.SearchMealsText(), "i")) != -1;
+        });
+    });
 
     //validation warnings
     self.warningName = ko.observable(null);
@@ -128,7 +146,7 @@
             Description: self.Description(),
             Type: self.Type(),
             ImageName: self.ImageName(),
-            ingredients: self.Ingredients()
+            ingredients: self.Foods()
         });
         $.ajax(url, {
             type: "post",
@@ -192,57 +210,6 @@
         });
     };
 
-    self.addIngredient = function () {
-        if (!self.validateIngredientId())
-            return;
-
-        if (self.Ingredients()) {
-            var index = self.Ingredients().findIndex(function (element) {
-                return element.Id.valueOf() == self.IngredientId().valueOf();
-            });
-            if (index != -1) {
-                self.warningIngredient("Selected ingredient already exists in this meal!");
-                return;
-            }
-        }
-        self.Ingredients.push(self.Ingredient());
-    };
-
-    self.deleteIngredient = function () {
-        if (!self.validateIngredientId())
-            return;
-
-        var index = self.Ingredients().findIndex(function (element) {
-            return element.Id.valueOf() == self.IngredientId().valueOf();
-        });
-        if (index == -1) {
-            self.warningIngredient("Selected ingredient does not exist in this meal!");
-            return;
-        }
-
-        self.Ingredients.splice(index, 1);
-    }
-
-    self.getIngredients = function () {
-        var url = '/Meals/GetIngredients';
-        var meal = JSON.stringify({
-            mealId: self.Id()
-        });
-        $.ajax(url, {
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: meal,
-            success: function (data) {
-                self.Ingredients(data);
-                console.log(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-    }
-
     self.search = function () {
         alert("Searching...");
     };
@@ -267,6 +234,113 @@
     //    }
     //};
 
+    // for ingredients list
+    self.addIngredient = function (data) {
+        self.IngredientId(data.Id);
+        if (!self.validateIngredientId())
+            return;
+
+        if (self.Foods()) {
+            if (self.isIngredientInMeal(self.IngredientId())) {
+                self.warningIngredient("Selected ingredient already exists in this meal!");
+                return;
+            }
+            var index = self.Foods().findIndex(function (element) {
+                return element.Id.valueOf() == self.IngredientId().valueOf();
+            });
+            self.Foods()[index].isSelected = true;
+            self.refreshDisplay();
+        }
+    };
+
+    self.deleteIngredient = function (data) {
+        self.IngredientId(data.Id);
+        if (!self.validateIngredientId())
+            return;
+
+        if (self.Foods()) {
+            if (self.isIngredientInMeal(self.IngredientId()) == false) {
+                self.warningIngredient("Selected ingredient does not exist in this meal!");
+                return;
+            }
+            var index = self.Foods().findIndex(function (element) {
+                return element.Id.valueOf() == self.IngredientId().valueOf();
+            });
+            self.Foods()[index].isSelected = false;
+            self.refreshDisplay();
+        }
+    };
+
+    self.getIngredients = function () {
+        var url = '/Meals/GetIngredients';
+        var meal = JSON.stringify({
+            mealId: self.Id()
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: meal,
+            success: function (data) {
+                self.Foods(data);
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    };
+
+    self.onIngredientClicked = function (data) {
+        // it it is in meal, delete. otherwise, add
+        if (self.isIngredientInMeal(data.Id))
+            self.deleteIngredient(data);
+        else
+            self.addIngredient(data);
+    };
+
+    self.isIngredientInMeal = function (ingredientId) {
+        var index = self.Foods().findIndex(function (element) {
+            return element.Id.valueOf() == ingredientId.valueOf();
+        });
+        if (self.Foods()[index].isSelected == true)
+            return true;
+        return false;
+    };
+
+    self.SelectAll = function () {
+        var isChecked = $("#MultipleSelectionButton").prop("checked");
+        self.Foods().forEach(function (food) {
+            food.isSelected = isChecked;
+        });
+        self.refreshDisplay();
+        return true;
+    };
+
+    // for displaying ingredients
+    self.showAll = function () {
+        self.DisplayCase(0);
+    };
+
+    self.showSelected = function () {
+        self.DisplayCase(1);
+    };
+
+    self.showUnselected = function () {
+        self.DisplayCase(2);
+    };
+
+    self.refreshDisplay = function () {
+        var tmp = self.DisplayCase();
+        self.DisplayCase(-1);
+        self.DisplayCase(tmp);
+    };
+
+    self.SearchIngredient = ko.computed(function () {
+        self.DisplayCase(self.SearchText());
+    });
+
+    // validations
     self.validate = function () {
         var valid = true;
         if (self.nullOrEmpty(self.Name._latestValue)) {
@@ -297,7 +371,6 @@
     };
 
     self.validateIngredientId = function () {
-        self.IngredientId($('select[id=MealIngredient]').val());
         if (self.IngredientId() != 0 && self.nullOrEmpty(self.IngredientId())) {
             self.warningIngredient("No ingredient choosen!");
             return false;

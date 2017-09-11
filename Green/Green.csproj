@@ -228,6 +228,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MealIngredientDisplay.cs" />
     <Compile Include="Models\MenuMealDisplay.cs" />
     <Compile Include="Models\UserRestaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

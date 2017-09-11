@@ -20,6 +20,161 @@
         position: relative;
         left: 90px;
     }
+
+    /*ingredients display*/
+    #MealIngredient option:hover {
+        cursor: pointer;
+    }
+
+    #MealIngredient {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        align-self: center;
+    }
+
+    #NewIngredientButton {
+        margin-top: 10px;
+    }
+
+    #DisplayCaseButtons .btn {
+        width: auto;
+    }
+
+    #MealIngredientsDisplay {
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        border-color: none;
+    }
+
+        #MealIngredientsDisplay a:focus,
+        #MealIngredientsDisplay a:hover,
+        #MealIngredientsDisplay a:active {
+            outline: 0;
+            text-decoration: none;
+        }
+
+        #MealIngredientsDisplay .panel {
+            border-width: 0 0 1px 0;
+            border-style: solid;
+            /*border-color: #fff;*/
+            border-radius: 0;
+            border-color: none;
+            border: none;
+            background: none;
+            box-shadow: none;
+        }
+
+            #MealIngredientsDisplay .panel:last-child {
+                border-bottom: none;
+            }
+
+        #MealIngredientsDisplay > .panel:first-child .panel-heading {
+            border-radius: 4px 4px 0 0;
+        }
+
+        #MealIngredientsDisplay .panel + .panel {
+            margin-top: 0;
+            border: none;
+        }
+
+        #MealIngredientsDisplay .panel-heading {
+            background-color: #fed136;
+            border: none;
+            padding: 0;
+            border-radius: 0 0 4px 4px;
+            transition: border-radius 0.3s linear 0.2s;
+            height: auto;
+        }
+
+        #MealIngredientsDisplay .panel-title a {
+            font-weight: 700;
+            color: white;
+            border-color: #fed136;
+            background-color: #fed136;
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            display: block;
+            padding: 5px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        #MealIngredientsDisplay .panel-collapse {
+            background: #fff;
+            border-color: none;
+            height: auto;
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        #MealIngredientsDisplay .panel:last-child .panel-collapse {
+            border-radius: 0 0 4px 4px;
+        }
+
+        #MealIngredientsDisplay .list-group-item:hover {
+            cursor: pointer;
+        }
+
+        #MealIngredientsDisplay #IngredientsList .list-group-item-heading {
+            font-weight: 600;
+            margin-bottom: 0;
+            border: none;
+            background-color: orange;
+            border-color: none;
+            color: white;
+        }
+
+            #MealIngredientsDisplay #IngredientsList .list-group-item-heading:not(:first-child) {
+                margin-top: 10px;
+            }
+
+            #MealIngredientsDisplay #IngredientsList .list-group-item-heading:hover {
+                cursor: default;
+            }
+
+    /*scrollbar*/
+    #MealIngredientsDisplay ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    #MealIngredientsDisplay ::-webkit-scrollbar-button {
+        width: 1px;
+        height: 1px;
+    }
+
+    #MealIngredientsDisplay ::-webkit-scrollbar-thumb {
+        background: #d2d2d2;
+        border: 55px none #ffffff;
+        border-radius: 16px;
+    }
+
+        #MealIngredientsDisplay ::-webkit-scrollbar-thumb:hover {
+            background: #e1e1e1;
+        }
+
+        #MealIngredientsDisplay ::-webkit-scrollbar-thumb:active {
+            background: #ffffff;
+        }
+
+    #MealIngredientsDisplay ::-webkit-scrollbar-track {
+        background: #666666;
+        border: 41px none #ffffff;
+        border-radius: 16px;
+    }
+
+        #MealIngredientsDisplay ::-webkit-scrollbar-track:hover {
+            background: #666666;
+        }
+
+        #MealIngredientsDisplay ::-webkit-scrollbar-track:active {
+            background: #666666;
+        }
+
+    #MealIngredientsDisplay ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
 </style>
 
 <div id="mealItem" class="modal fade" role="dialog">
@@ -33,6 +188,7 @@
             </div>
 
             <div class="modal-body">
+                <!-- Meal Info -->
                 <label for="MealType">Type</label>
                 <div class="form-horizontal">
                     <select id="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
@@ -51,25 +207,55 @@
                     <label class="text-danger pull-right" data-bind="text:warningDescription"></label>
                 </div>
 
-                <label for="MealIngredient">Ingredients</label>
-                <div class="form-horizontal">
-                    <select id="MealIngredient" class="form-control pull-left" size="5" data-bind="foreach: FoodTypes()">
-                        <optgroup data-bind="attr: {label: Description}, foreach: $parent.Foods">
-                            <!-- ko if: TypeDisplay == $parent.Description -->
-                            <option data-bind="text: Name, value: Id"></option>
-                            <!-- /ko -->
-                        </optgroup>
-                    </select>
-                    <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
-                    <button id="AddIngredientButton" class="btn btn-default" data-bind="click: addIngredient">Add</button>
-                    <button id="DeleteIngredientButton" class="btn btn-default" data-bind="click: deleteIngredient">Delete</button>
+                <hr />
+                <!-- Ingredients -->
+                <!-- Search Ingredient -->
+                <div class="form-inline pull-right" style="width: 100%">
+                    <div class="inner-addon left-addon">
+                        <input id="IngredientSearchBox" type="text" class="form-control" role="search" placeholder="Search ingredient..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
+                    </div>
                 </div>
-                <input id="MealIngredientsList" type="text" placeholder="Ingredients list" data-bind="value: IngredientsName" readonly />
-                <button id="NewIngredientButton" class="btn btn-default" data-toggle="modal" data-target="#foodItem">Add new ingredient</button>
+                <br />
 
+                <!-- Ingredients List Display -->
+                <div id="DisplayCaseButtons" class="btn-group">
+                    <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" />
+                    <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" />
+                    <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" />
+                </div>
+                <br />
+                <br />
+
+                <div id="MealIngredientsDisplay" class="panel-group wrap" role="tablist">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a id="IngredientsVisibilityButton" role="button" data-toggle="collapse" href="#IngredientsList" onclick="ToggleIngredientsVisibility()">Show Ingredients</a>
+                            </h4>
+                        </div>
+                        <div id="IngredientsList" role="tabpanel" class="panel-collapse collapse" data-bind="foreach: $root.DisplayedFoods">
+                            <ul class="list-group">
+                                <!-- ko if: $index() == 0 || TypeDisplay != $root.DisplayedFoods()[$index() - 1].TypeDisplay -->
+                                <li class="list-group-item-heading list-group-item">
+                                    <text data-bind="text: TypeDisplay"></text>
+                                </li>
+                                <!-- /ko -->
+                                <li class="list-group-item" data-bind="style: { 'background-color': $data.isSelected ? 'yellowgreen' : 'white' }, click: $root.onIngredientClicked">
+                                    <text data-bind="text: Name"></text>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <label style="display: inline-block"><input id="MultipleSelectionButton" type="checkbox" class="pull-left left" data-bind="click: $root.SelectAll" value="" style="display: inline-block" />Select all</label>
+                    <button id="NewIngredientButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#foodItem" style="display: inline-block">Add new ingredient</button>
+                </div>
+
+                <!-- Image -->
                 @using (Html.BeginForm("Upload", "Meals", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    <div>
+                    <div class="form-horizontal">
                         <label for="file">Image</label>
                         <br />
                         <input name="mealId" hidden="hidden" data-bind="value:Id" />
@@ -83,6 +269,25 @@
                 }
 
                 @Html.Partial("../Foods/Item")
+
+                @*<label for="MealIngredient">Ingredients</label>
+                    <div class="form-horizontal">
+                        <select id="MealIngredient" class="form-control pull-left col-md-6 col-lg-6" size="5" data-bind="foreach: FoodTypes()">
+                            <optgroup data-bind="attr: {label: Description}, foreach: $parent.DisplayedFoods">
+                                <!-- ko if: TypeDisplay == $parent.Description -->
+                                <option data-bind="text: Name, style: { 'background-color': $data.isSelected ? 'mediumseagreen' : 'white' }, click: $root.onIngredientClicked"></option>
+                                <!-- /ko -->
+                            </optgroup>
+                        </select>
+
+                        <div id="DisplayCaseButtons" class="btn-group">
+                            <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" />
+                            <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" />
+                            <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" />
+                        </div>
+
+                        <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
+                    </div>*@
             </div>
 
             <div class="modal-footer">
@@ -93,3 +298,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    function ToggleIngredientsVisibility() {
+        var button = $("#IngredientsVisibilityButton");
+        button.text(button.text() == "Show Ingredients" ? "Hide Ingredients" : "Show Ingredients");
+    };
+</script>

@@ -47,7 +47,7 @@ namespace Green.Controllers
         }
 
         [HttpPost]
-        public JsonResult Save(Meal meal, List<Food> ingredients)
+        public JsonResult Save(Meal meal, List<MealIngredientDisplay> ingredients)
         {
             var message = cMealService.SaveMeal(meal, ingredients);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
