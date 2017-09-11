@@ -14,7 +14,7 @@ namespace Green.Services
         public List<Food> GetFoods()
         {
             var tmp = ctx.Foods.ToList();
-            tmp.Sort((e1, e2) => e1.Name.CompareTo(e2.Name));
+            tmp.Sort((e1, e2) => e1.TypeDisplay.CompareTo(e2.TypeDisplay));
             return tmp;
         }
 

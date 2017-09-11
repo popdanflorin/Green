@@ -96,7 +96,7 @@ namespace Green.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file, string rid)
         {
-            if (file != null)
+            if (file != null && rid != null && rid.Length != 0)
             {
                 ApplicationDbContext db = new ApplicationDbContext();
                 string ImageName = System.IO.Path.GetFileName(file.FileName);
@@ -116,7 +116,7 @@ namespace Green.Controllers
 
             }
             //Display records
-            return RedirectToAction("List");
+            return RedirectToAction("");
         }
     }
 
