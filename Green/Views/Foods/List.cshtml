@@ -109,28 +109,6 @@
         </div>
     </div>
 
-    @*<table class="table table-hover table-responsive">
-            <thead>
-                <tr>
-                    <th data-bind="click: sort('Name')">Name</th>
-                    <th data-bind="click: sort('Type')">Type</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach:Foods">
-                <tr>
-                    <td class="col-xs-5" data-bind="text:Name"></td>
-                    <td class="col-xs-5" data-bind="text:TypeDisplay"></td>
-                    <td class="col-xs-1">
-                        <input type="button" value="Edit" class="btn btn-info" data-toggle="modal" data-target="#foodItem" data-bind="click:$parent.details" />
-                    </td>
-                    <td class="col-xs-1">
-                        <input type="button" value="Delete" class="btn btn-danger" data-bind="click:$parent.delete" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>*@
     @Html.Partial("Item")
 </div>
 

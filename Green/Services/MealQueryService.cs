@@ -41,11 +41,29 @@ namespace Green.Services
             return GetMealIngredients().Where(e => e.MealId == mealId).ToList();
         }
 
-        public List<Food> GetIngredientsForMeal(string mealId)
+        // returns all ingredients and set isSelected to false for all
+        public List<MealIngredientDisplay> GetAllIngredients()
         {
-            var tmp = GetMealIngredientsForMeal(mealId).Select(e => e.Food).ToList();
-            tmp.Sort((e1, e2) => e1.Name.CompareTo(e2.Name));
+            var tmp = ctx.Foods.Select(m => new MealIngredientDisplay
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Type = m.Type,
+                isSelected = false
+            }).ToList();
+            tmp.OrderBy(m => m.TypeDisplay);
             return tmp;
+        }
+
+        // returns all ingredients and set isSelected to true if the ingredient is in the current meal, otherwise it is set to false
+        public List<MealIngredientDisplay> GetIngredientsForMeal(string mealId)
+        {
+            var allIngredients = GetAllIngredients();
+            var mealIngredients = ctx.MealIngredients.Where(m => m.MealId == mealId).ToList();
+            if (!mealIngredients.Any())
+                return allIngredients;
+            mealIngredients.ForEach(m => allIngredients.FirstOrDefault(ingredient => ingredient.Id == m.FoodId).isSelected = true);
+            return allIngredients;
         }
     }
 }

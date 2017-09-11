@@ -21,10 +21,17 @@ namespace Green.Services
 
         MenuCommandService cMenuService = new MenuCommandService();
 
-        public string SaveMeal(Meal meal, List<Food> ingredients)
+        public string SaveMeal(Meal meal, List<MealIngredientDisplay> allIngredients)
         {
             try
             {
+                var ingredients = allIngredients.Where(i => i.isSelected == true).Select(i => new Food
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Type = i.Type
+                }).ToList();
+
                 var oldMeal = ctx.Meals.FirstOrDefault(f => f.Id == meal.Id);
                 if (oldMeal == null)
                 {
@@ -35,7 +42,7 @@ namespace Green.Services
                 {
                     oldMeal.Description = meal.Description;
                     oldMeal.Type = meal.Type;
-                    oldMeal.ImageName = meal.ImageName;
+                    oldMeal.ImageName = meal.ImageName == null || meal.ImageName.Length == 0 ? "noimage.jpg" : meal.ImageName;
                     DeleteAllIngredients(meal.Id);
                 }
 
@@ -72,7 +79,7 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
-        
+
         private void SaveIngredients(string mealId, List<Food> ingredients)
         {
             var pairs = ingredients.Select(i => new MealIngredient(Guid.NewGuid().ToString(), mealId, i.Id)).ToList();
@@ -92,11 +99,13 @@ namespace Green.Services
             //newRecord.Name = ImageName;
 
             var meal = ctx.Meals.FirstOrDefault(m => m.Id == mealId);
-            meal.ImageName = ImageName;
-
+            if (meal != null)
+            {
+                meal.ImageName = ImageName;
+                ctx.SaveChanges();
+            }
             //newRecord.MealId = mealId;
             //ctx.Images.Add(newRecord);
-            ctx.SaveChanges();
         }
 
         public string DeleteImage(string mealId)
@@ -111,7 +120,7 @@ namespace Green.Services
             //return null;
 
             var meal = ctx.Meals.FirstOrDefault(m => m.Id == mealId);
-            if (meal.ImageName != null)
+            if (meal != null && meal.ImageName != null)
             {
                 var imageName = meal.ImageName;
                 meal.ImageName = null;

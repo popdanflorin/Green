@@ -6,6 +6,7 @@
     #RestaurantMenuDisplay {
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         border-radius: 4px;
+        border-color: none;
     }
 
         #RestaurantMenuDisplay a:focus,
@@ -18,7 +19,10 @@
         #RestaurantMenuDisplay .panel {
             border-width: 0 0 1px 0;
             border-style: solid;
-            border-color: #fff;
+            /*border-color: #fff;*/
+            border-radius: 0;
+            border-color: none;
+            border: none;
             background: none;
             box-shadow: none;
         }
@@ -31,13 +35,10 @@
             border-radius: 4px 4px 0 0;
         }
 
-        #RestaurantMenuDisplay .panel {
-            border-radius: 0;
+        #RestaurantMenuDisplay .panel + .panel {
+            margin-top: 0;
+            border: none;
         }
-
-            #RestaurantMenuDisplay .panel + .panel {
-                /*margin-top: 0;*/
-            }
 
         #RestaurantMenuDisplay .panel-heading {
             background-color: #fed136;
@@ -61,17 +62,38 @@
             font-size: 16px;
         }
 
-        #RestaurantMenuDisplay .panel-body {
+        #RestaurantMenuDisplay .panel-collapse {
             background: #fff;
+            border-color: none;
+            height: auto;
+            max-height: 300px;
+            overflow-y: scroll;
         }
 
-        #RestaurantMenuDisplay .panel:last-child .panel-body {
+        #RestaurantMenuDisplay .panel:last-child .panel-collapse {
             border-radius: 0 0 4px 4px;
         }
 
         #RestaurantMenuDisplay .list-group-item:hover {
             cursor: pointer;
         }
+
+        #RestaurantMenuDisplay #MealsList .list-group-item-heading {
+            font-weight: 600;
+            margin-bottom: 0;
+            border: none;
+            background-color: orange;
+            border-color: none;
+            color: white;
+        }
+
+            #RestaurantMenuDisplay #MealsList .list-group-item-heading:not(:first-child) {
+                margin-top: 10px;
+            }
+
+            #RestaurantMenuDisplay #MealsList .list-group-item-heading:hover {
+                cursor: default;
+            }
 
     #DisplayCaseButtons .btn {
         width: auto;
@@ -107,6 +129,49 @@
             padding: 10px 12px;
             pointer-events: none;
         }
+
+        /*scrollbar*/
+    #RestaurantMenuDisplay ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-button {
+        width: 1px;
+        height: 1px;
+    }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-thumb {
+        background: #d2d2d2;
+        border: 55px none #ffffff;
+        border-radius: 16px;
+    }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-thumb:hover {
+            background: #e1e1e1;
+        }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-thumb:active {
+            background: #ffffff;
+        }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-track {
+        background: #666666;
+        border: 41px none #ffffff;
+        border-radius: 16px;
+    }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-track:hover {
+            background: #666666;
+        }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-track:active {
+            background: #666666;
+        }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
 </style>
 
 <div id="menus">
@@ -150,6 +215,7 @@
                         </div>
                         <br />*@
 
+                    <hr />
                     <!-- Search Meal -->
                     <div class="form-inline">
                         <div class="inner-addon left-addon pull-left" style="width: 100%">
@@ -157,16 +223,16 @@
                             <input id="MealSearchBox" type="text" class="form-control" role="search" placeholder="Search meal..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
                         </div>
                         @*<div class="dropdown pull-right">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                Search by:
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Name</a></li>
-                                <li><a href="#">Type</a></li>
-                                <li><a href="#">Ingredient</a></li>
-                            </ul>
-                        </div>*@
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    Search by:
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Name</a></li>
+                                    <li><a href="#">Type</a></li>
+                                    <li><a href="#">Ingredient</a></li>
+                                </ul>
+                            </div>*@
                     </div>
                     <br />
 
@@ -188,7 +254,12 @@
                             </div>
                             <div id="MealsList" role="tabpanel" class="panel-collapse collapse">
                                 <ul class="list-group" data-bind="foreach: $root.DisplayedMeals">
-                                    <li class="list-group-item" data-bind="style: { 'background-color': isSelected ? 'mediumseagreen' : 'white' }, click: $root.onMealClicked">
+                                    <!-- ko if: $index() == 0 || TypeDisplay != $root.DisplayedMeals()[$index() - 1].TypeDisplay -->
+                                    <li class="list-group-item-heading list-group-item">
+                                        <text data-bind="text: TypeDisplay"></text>
+                                    </li>
+                                    <!-- /ko -->
+                                    <li class="list-group-item" data-bind="style: { 'background-color': isSelected ? 'yellowgreen' : 'white' }, click: $root.onMealClicked">
                                         <text data-bind="text: Name"></text>
                                     </li>
                                 </ul>
@@ -196,6 +267,7 @@
                         </div>
                     </div>
                     <label><input id="MultipleSelectionButton" type="checkbox" class="pull-right right" data-bind="click: $root.SelectAll" value="" />Select all</label>
+
                 </div>
 
                 <div class="modal-footer">

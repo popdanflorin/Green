@@ -69,7 +69,7 @@
                 });
             default:
                 return self.Meals().filter(function (meal) {
-                    return meal.Name.search(self.DisplayCase()) != -1;
+                    return meal.Name.search(new RegExp(self.DisplayCase(), "i")) != -1;
                 });
         }
     });
