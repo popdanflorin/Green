@@ -29,9 +29,29 @@ namespace Green.Migrations
               f => f.Name,
               new Food { Id = Guid.NewGuid().ToString(), Name = "Paine", Type = FoodType.Cereals },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Mar", Type = FoodType.Fruits },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Banana", Type = FoodType.Fruits },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Portocala", Type = FoodType.Fruits },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Castravete", Type = FoodType.Vegetables },
-              new Food { Id = Guid.NewGuid().ToString(), Name = "Bere", Type = FoodType.Alcohol }
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Cartof", Type = FoodType.Vegetables },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Rosie", Type = FoodType.Vegetables },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Varza", Type = FoodType.Vegetables },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Salata", Type = FoodType.Vegetables },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Ciuperci", Type = FoodType.Vegetables },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Ardei iute", Type = FoodType.Vegetables },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Bere", Type = FoodType.Alcohol },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Vin", Type = FoodType.Alcohol },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Cod", Type = FoodType.Meats },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Pastrav", Type = FoodType.Meats },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Piept de pui", Type = FoodType.Meats },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Sunca de pui", Type = FoodType.Meats },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Pepperoni", Type = FoodType.Meats },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Telemea", Type = FoodType.Milk },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Mozzarela", Type = FoodType.Milk },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Nutella", Type = FoodType.Sweets },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Gem caise", Type = FoodType.Sweets },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Gem capsuni", Type = FoodType.Sweets }
             );
+
             context.Restaurants.AddOrUpdate(
               f=>f.Name,
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, ClosingHour = 22 },
