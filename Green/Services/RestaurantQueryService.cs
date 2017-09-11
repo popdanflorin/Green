@@ -98,8 +98,15 @@ namespace Green.Services
             List<Restaurant> listRestaurants = GetRestaurants();
             List<Image> listImages = GetImages();
             List<UserRestaurant> listUserRestaurants = new List<UserRestaurant>();
-            var listNew = listRestaurants.Where(x => x.Name == name);
-
+            //var listNew = listRestaurants.Where(x => name.Any(y => x.Name.ToLower().StartsWith(name.ToLower())));
+            var listNew = listRestaurants.Where(x => x.Name.ToLower().StartsWith(name.ToLower()));
+            
+            /*
+            for (int i = 0; i < name.Length; i++)
+            {
+                listNew = listRestaurants.Where(x => name.Any(y => x.Name.ToLower().StartsWith(name.ToLower().Substring(0, i))));
+            }
+            */
             foreach (var item in listNew)
             {
                 var userRestaurant = new UserRestaurant();

@@ -10,8 +10,11 @@
 
     self.UserId = ko.observable();
     self.Id = ko.observable();
-
-  
+    self.Message = ko.observable();
+    self.details = function (data) {
+        self.RestaurantId(data.id);
+        self.Id(null);
+    };
 
     self.refresh = function () {
         var url = '/Restaurants/UserRestaurantsRefresh';
@@ -24,15 +27,15 @@
                 console.log(data);
                 self.UserRestaurants(data.UserRestaurants);
                 self.Types(data.Types);
-
+                self.UserId(data.UserId);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
     };
- 
-  
+
+
     self.search = function () {
         var isValid = true;
         if (!$.trim($('#Name').val())) {
@@ -60,8 +63,8 @@
     self.searchByType = function () {
         var isValid = true;
         var currentOption = $('#selectMenu').val();
-        if (currentOption =='') {
-  
+        if (currentOption == '') {
+
             isValid = false;
         }
         if (isValid == true) {
@@ -102,22 +105,35 @@
         }
 
     };
-    self.getUserId = function () {
-        var url = '/UserFavorites/GetUserId';
+  
+   self.save= function (data) {
+     
+        self.details(data);
+       
+        var url = '/UserFavorites/Save';
         self.loadingPanel.show();
+        var favorite = JSON.stringify({
+            Id:self.Id,
+            RestaurantId: self.RestaurantId(),
+            ClientId: self.UserId(),
+        });
 
         $.ajax(url, {
-            type: "get",
+            type: "post",
+            dataType: "json",
             contentType: "application/json; charset=utf-8",
+            data: favorite, 
             success: function (data) {
-                self.loadingPanel.hide();
                 console.log(data);
-                self.UserId(data.UserId);
+                self.loadingPanel.hide();
+                self.Message(data);
+                $("#succes").modal('show');
+             
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
     };
-  
+
 }

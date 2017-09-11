@@ -145,6 +145,7 @@
                             <img data-bind="attr: {src: '../Content/images/'+ ImageName}" style="width:500px;height:300px">
                             <div class="caption">
                                 <h2 data-bind="text:Name" style="color:cornflowerblue"></h2>
+                               
                                 <hr />
                                 <div style="margin-right:20px;margin-bottom:10px">
                                     <text style="text-align:left;color:black;font-weight:bold;">Address:</text>
@@ -163,8 +164,14 @@
                                 </div>
                                
                                 <div style="display:inline-block;margin-bottom:5px">
+                                    
                                     <button class="btn btn-info" style="margin-right:135px;" data-toggle="modal" data-target="#detailsItem">Details</button>
-                                    <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-heart-empty" ></span> Add to favorites</a>
+                                    
+                                    <button id="addFav" class="btn btn-danger btn-sm" type="button" data-bind="click:$parent.save">
+                                            <span class="glyphicon glyphicon-heart-empty"></span>
+                                        Add to favorites
+                                    </button>
+                                    
 
                                 </div>
                             </div>
@@ -177,13 +184,14 @@
         </div>
     </div>
     @Html.Partial("Details")
-
+    @Html.Partial("SuccesModal")
 </div>
 <script>
     $(function () {
         var vm = new UserRestaurants();
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
+       
         var vmRatings = new Ratings();
         vmRatings.set();
         ko.applyBindings(vmRatings, $("#ratings").get(0));

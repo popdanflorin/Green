@@ -9,6 +9,7 @@ using Green.Services;
 using System.Text;
 using Green.Models;
 using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace Green.Controllers
 {
@@ -73,7 +74,8 @@ namespace Green.Controllers
         {
             var userRestaurants = qService.GetUserRestaurants();
             var types = qService.GetRestaurantTypesString();
-            return new JsonResult() { Data = new { UserRestaurants = userRestaurants,Types=types}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var userId = User.Identity.GetUserId();
+            return new JsonResult() { Data = new { UserRestaurants = userRestaurants, Types = types, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
         [HttpPost]
@@ -118,6 +120,7 @@ namespace Green.Controllers
             //Display records
             return RedirectToAction("List");
         }
+
     }
 
 }

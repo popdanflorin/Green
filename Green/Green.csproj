@@ -358,6 +358,7 @@
     <Content Include="Views\Shared\Image.cshtml" />
     <Content Include="Views\Restaurants\Details.cshtml" />
     <Content Include="Views\Menus\MenuList.cshtml" />
+    <Content Include="Views\Restaurants\SuccesModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
