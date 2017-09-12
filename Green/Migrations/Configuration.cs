@@ -53,7 +53,7 @@ namespace Green.Migrations
             );
 
             context.Restaurants.AddOrUpdate(
-              f=>f.Name,
+              f => f.Name,
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, ClosingHour = 22 },
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Indigo", Address = "Observatorului,21,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 10, ClosingHour = 22 },
                 new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 10, ClosingHour = 22 },
@@ -72,7 +72,7 @@ namespace Green.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "founder@gmail.com", Email = "a@b.com" };
+                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "founder@gmail.com", Email = "a@b.com" };
 
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "AppAdmin");
@@ -92,7 +92,7 @@ namespace Green.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "client@gmail.com", Email = "aa@b.com" };
+                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "client@gmail.com", Email = "aa@b.com" };
 
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "NormalUser");
