@@ -97,14 +97,14 @@
             <div class="col-md-4">
 
                 <div id="custom-search-input" style="position: relative">
-                    <div class="input-group ">
+                    <div class="input-group">
 
                         <input name="Name" id="Name" type="text" class="search-query form-control" placeholder="Search..." data-bind="value:RestaurantName" />
 
 
                         <span class="input-group-btn col-md-offset-2">
                             <button id="search" class="btn btn-danger" type="button" data-bind="click:search">
-                                <span class="glyphicon glyphicon-search"></span>
+                                <i class="glyphicon glyphicon-search"></i>
                             </button>
                         </span>
 
@@ -145,7 +145,7 @@
                             <img data-bind="attr: {src: '../Content/images/'+ ImageName}" style="width:500px;height:300px">
                             <div class="caption">
                                 <h2 data-bind="text:Name" style="color:cornflowerblue"></h2>
-                               
+
                                 <hr />
                                 <div style="margin-right:20px;margin-bottom:10px">
                                     <text style="text-align:left;color:black;font-weight:bold;">Address:</text>
@@ -158,20 +158,23 @@
                                     <text data-bind="text:TypeDisplay"></text>
                                 </div>
                                 <div>
-                                   
-                                        <div class="rateit" data-rateit-step="1" data-rateit-resetable="false"></div>
-                                      
+
+                                    <div data-bind="attr:{id:Name}">
+
+                                    </div>
+
+
                                 </div>
-                               
-                                <div style="display:inline-block;margin-bottom:5px">
-                                    
-                                    <button class="btn btn-info" style="margin-right:135px;" data-toggle="modal" data-target="#detailsItem">Details</button>
-                                    
+                                
+                                <div style="display:inline-block;margin-bottom:10px;margin-top:10px">
+
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailsItem">Details</button>
+                            
                                     <button id="addFav" class="btn btn-danger btn-sm" type="button" data-bind="click:$parent.save">
-                                            <span class="glyphicon glyphicon-heart-empty"></span>
+                                        <span class="glyphicon glyphicon-heart-empty"></span>
                                         Add to favorites
                                     </button>
-                                    
+                                    <button class="btn btn-info btn-sm" data-bind="click:$parent.showRating">Show rating</button>
 
                                 </div>
                             </div>
@@ -179,7 +182,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -191,12 +194,6 @@
         var vm = new UserRestaurants();
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
-       
-        var vmRatings = new Ratings();
-        vmRatings.set();
-        ko.applyBindings(vmRatings, $("#ratings").get(0));
-      
-      
     });
     $('#search').click(function () {
         if (!$('#Name').val()) {

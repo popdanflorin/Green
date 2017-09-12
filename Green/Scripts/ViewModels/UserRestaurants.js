@@ -7,10 +7,12 @@
     self.RestaurantName = ko.observable();
     self.RestaurantType = ko.observable();
     self.RestaurantId = ko.observable();
+    self.Rating = ko.observable();
 
     self.UserId = ko.observable();
     self.Id = ko.observable();
     self.Message = ko.observable();
+
     self.details = function (data) {
         self.RestaurantId(data.id);
         self.Id(null);
@@ -28,11 +30,14 @@
                 self.UserRestaurants(data.UserRestaurants);
                 self.Types(data.Types);
                 self.UserId(data.UserId);
+                //  self.Rating(data.Rating);
+                //  $('#ratingRestaurant').rateit('value', self.Rating());
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
     };
 
 
@@ -105,15 +110,15 @@
         }
 
     };
-  
-   self.save= function (data) {
-     
+
+    self.save = function (data) {
+
         self.details(data);
-       
+
         var url = '/UserFavorites/Save';
         self.loadingPanel.show();
         var favorite = JSON.stringify({
-            Id:self.Id,
+            Id: self.Id,
             RestaurantId: self.RestaurantId(),
             ClientId: self.UserId(),
         });
@@ -122,13 +127,13 @@
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: favorite, 
+            data: favorite,
             success: function (data) {
                 console.log(data);
                 self.loadingPanel.hide();
                 self.Message(data);
                 $("#succes").modal('show');
-             
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -136,4 +141,15 @@
         });
     };
 
+    self.showRating = function (data) {
+        self.Rating(data.Rating);
+        var rate = $('#' + data.Name).rateit();
+        rate.rateit('value', self.Rating());
+        rate.rateit('readonly', true);
+
+
+        rate.rateit('resetable', false);
+        // $(".rateit").rateit('min', self.Rating());
+        //  $(".rateit").bind('rated', function () { $(this).rateit(self.Rating) });
+    };
 }

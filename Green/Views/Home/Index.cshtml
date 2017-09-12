@@ -1,6 +1,31 @@
 ﻿@{
     ViewBag.Title = "El Bacalao";
 }
+<style>
+ section#contact ::-webkit-input-placeholder {
+    font-weight: 700;
+    color: dimgrey;
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase; }
+  section#contact :-moz-placeholder {
+    font-weight: 700;
+    color:dimgrey;
+    /* Firefox 18- */
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase; }
+  section#contact ::-moz-placeholder {
+    font-weight: 700;
+    color:dimgrey;
+    /* Firefox 19+ */
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase; }
+  section#contact :-ms-input-placeholder {
+    font-weight: 700;
+    color: dimgrey;
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase; }
+} 
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,17 +53,19 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Our services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                 
+                    <p class="section-subheading text-muted" style="font-style:italic">We offer some services regarding restaurants. As a normal user, you can search for a desired meal or a restaurant. For restaurant managers, we offer a special plan, including managing your restaurants,menus or available meals</p>
                 </div>
             </div>
+        
             <div class="row text-center">
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Plan your meal</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">Search for a meal</h4>
+                    <p class="text-muted">On the "Meals" page you can search for a meal in the available meals list.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -46,7 +73,7 @@
                         <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Search for a restaurant</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">If you need a good local restaurant, you can search for the perfect one on the "Restaurants" page.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -54,7 +81,7 @@
                         <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Make a reservation</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">You found the desired restaurant? Now you are able to make a reservation in the "Reservations" page.</p>
                 </div>
             </div>
         </div>
@@ -66,7 +93,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Contact Us</h2>
-                    <h3 class="section-subheading" style="color:aliceblue">For ant inquiries you can send a message to the developing team.</h3>
+                    <h3 class="section-subheading" style="color:aliceblue;font-size:large">For ant inquiries you can send a message to the developing team.</h3>
                 </div>
             </div>
             <div class="row">
@@ -122,12 +149,12 @@
                     <p style="color:#fff;">
                         <strong><i class="fa fa-envelope"></i>  Email Address</strong><br>
                         <text style="color:white;text-align:left match-parent">
-                            adriana.moisil@tecknoworks.com
-                            raluca.brasoveanu@tecknoworks.com
+                            info.elbacalabo@gmail.com
+                            
                         </text>
                     </p>
-                  
-                   
+
+
                 </div>
 
             </div>
