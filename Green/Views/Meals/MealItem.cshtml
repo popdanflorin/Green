@@ -79,8 +79,8 @@
         }
 
         #MealIngredientsDisplay .panel-heading {
-            background-color: #fed136;
             border: none;
+            border-color: none;
             padding: 0;
             border-radius: 0 0 4px 4px;
             transition: border-radius 0.3s linear 0.2s;
@@ -90,14 +90,20 @@
         #MealIngredientsDisplay .panel-title a {
             font-weight: 700;
             color: white;
-            border-color: #fed136;
-            background-color: #fed136;
+            border-color: none;
+            background-color: #999999;
+            /*background-color: #fed136;*/
             font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             display: block;
             padding: 5px;
             position: relative;
             font-size: 16px;
+        }
+
+        #MealIngredientsDisplay .panel-title :hover {
+            color: #ffffff;
+            background-color: #808080;
         }
 
         #MealIngredientsDisplay .panel-collapse {
@@ -119,57 +125,66 @@
         #MealIngredientsDisplay #IngredientsList .list-group-item-heading {
             font-weight: 600;
             margin-bottom: 0;
-            border: none;
-            background-color: orange;
+            border: 1px solid white;
+            background-color: #999999;
             border-color: none;
             color: white;
+            /*text-transform: uppercase;*/
+            height: 40px;
         }
 
             #MealIngredientsDisplay #IngredientsList .list-group-item-heading:not(:first-child) {
-                margin-top: 10px;
+                /*margin-top: 10px;*/
             }
 
             #MealIngredientsDisplay #IngredientsList .list-group-item-heading:hover {
                 cursor: default;
             }
 
-    /*scrollbar*/
+    #DisplayCaseButtons {
+        margin-top: 11px;
+        margin-bottom: 6px;
+        width: 100%;
+        border: none;
+    }
+
+    /* scrollbar */
     #MealIngredientsDisplay ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
+        width: 11px;
+        height: 11px;
     }
 
     #MealIngredientsDisplay ::-webkit-scrollbar-button {
-        width: 1px;
-        height: 1px;
+        width: 0px;
+        height: 0px;
     }
 
     #MealIngredientsDisplay ::-webkit-scrollbar-thumb {
-        background: #d2d2d2;
-        border: 55px none #ffffff;
-        border-radius: 16px;
+        background: #999999;
+        border: 48px none #ffffff;
+        border-radius: 4px;
     }
 
         #MealIngredientsDisplay ::-webkit-scrollbar-thumb:hover {
-            background: #e1e1e1;
+            background: #808080;
         }
 
         #MealIngredientsDisplay ::-webkit-scrollbar-thumb:active {
-            background: #ffffff;
+            background: #999999;
         }
 
     #MealIngredientsDisplay ::-webkit-scrollbar-track {
-        background: #666666;
-        border: 41px none #ffffff;
-        border-radius: 16px;
+        background: #e9e9e9;
+        border: 0px none #ffffff;
+        border-radius: 4px;
     }
 
         #MealIngredientsDisplay ::-webkit-scrollbar-track:hover {
-            background: #666666;
+            background: #e9e9e9;
         }
 
         #MealIngredientsDisplay ::-webkit-scrollbar-track:active {
-            background: #666666;
+            background: #e9e9e9;
         }
 
     #MealIngredientsDisplay ::-webkit-scrollbar-corner {
@@ -215,16 +230,13 @@
                         <input id="IngredientSearchBox" type="text" class="form-control" role="search" placeholder="Search ingredient..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
                     </div>
                 </div>
-                <br />
 
                 <!-- Ingredients List Display -->
                 <div id="DisplayCaseButtons" class="btn-group">
-                    <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" />
-                    <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" />
-                    <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" />
+                    <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" style="width:33.3%; border: none;" />
+                    <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" style="width:33.4%; border-bottom: none; border-top:none; border-right: 6px solid white; border-left: 6px solid white;" />
+                    <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" style="width:33.3%; border: none;" />
                 </div>
-                <br />
-                <br />
 
                 <div id="MealIngredientsDisplay" class="panel-group wrap" role="tablist">
                     <div class="panel panel-default">
@@ -233,43 +245,43 @@
                                 <a id="IngredientsVisibilityButton" role="button" data-toggle="collapse" href="#IngredientsList" onclick="ToggleIngredientsVisibility()">Show Ingredients</a>
                             </h4>
                         </div>
-                        <div id="IngredientsList" role="tabpanel" class="panel-collapse collapse" data-bind="foreach: $root.DisplayedFoods">
+                        <div id="IngredientsList" role="tabpanel" class="panel-collapse collapse in" data-bind="foreach: $root.DisplayedFoods">
                             <ul class="list-group">
                                 <!-- ko if: $index() == 0 || TypeDisplay != $root.DisplayedFoods()[$index() - 1].TypeDisplay -->
                                 <li class="list-group-item-heading list-group-item">
-                                    <text data-bind="text: TypeDisplay"></text>
+                                    <text class="pull-left" data-bind="text: TypeDisplay"></text>
                                 </li>
                                 <!-- /ko -->
-                                <li class="list-group-item" data-bind="style: { 'background-color': $data.isSelected ? 'yellowgreen' : 'white' }, click: $root.onIngredientClicked">
+                                <li class="list-group-item" data-bind="style: { 'background-color': $data.isSelected ? '#fed136' : 'white' }, click: $root.onIngredientClicked">
                                     <text data-bind="text: Name"></text>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <button id="NewIngredientButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#foodItem">Add new ingredient</button>
                 </div>
-                <div class="form-horizontal">
-                    <label style="display: inline-block"><input id="MultipleSelectionButton" type="checkbox" class="pull-left left" data-bind="click: $root.SelectAll" value="" style="display: inline-block" />Select all</label>
-                    <button id="NewIngredientButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#foodItem" style="display: inline-block">Add new ingredient</button>
+                <div class="pull-left">
+                    <label><input id="MultipleSelectionButton" type="checkbox" data-bind="click: $root.SelectAll" value="" />Select All</label>
+                    
                 </div>
+                @Html.Partial("../Foods/Item")
 
                 <!-- Image -->
+                <!-- ko if: Id() != 0 -->
                 @using (Html.BeginForm("Upload", "Meals", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="form-horizontal">
-                        <label for="file">Image</label>
+                        <label class="text-danger pull-right" data-bind="text: $root.warningImage"></label>
                         <br />
                         <input name="mealId" hidden="hidden" data-bind="value:Id" />
-                        <input type="file" align="center" name="file" id="file" style="width: 100%;" />
+                        <input type="file" align="center" name="file" id="file" style="width: 100%;" data-bind="value: $root.ChoosenImage" />
                         <div class="form-inline pull-left">
                             <input type="submit" value="Upload" class="btn btn-success pull-left" style="position: fixed;" />
-                            @*<img data-bind="style: {'background-image': ImageUrl}; opacity: 0.5" />*@
                             <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName()}" alt="Image Not Found!">
                         </div>
                     </div>
                 }
-
-                @Html.Partial("../Foods/Item")
-
+                <!-- /ko -->
                 @*<label for="MealIngredient">Ingredients</label>
                     <div class="form-horizontal">
                         <select id="MealIngredient" class="form-control pull-left col-md-6 col-lg-6" size="5" data-bind="foreach: FoodTypes()">

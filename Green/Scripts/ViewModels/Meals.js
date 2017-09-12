@@ -13,6 +13,7 @@
     self.ImageName = ko.observable();
     self.Foods = ko.observableArray();
     self.FoodTypes = ko.observableArray();
+    self.ChoosenImage = ko.observable();
 
     self.ImageUrl = ko.computed(function () {
         return "url('../Content/images/" + self.ImageName() + "')";
@@ -96,6 +97,7 @@
     self.warningDescription = ko.observable(null);
     self.warningType = ko.observable(null);
     self.warningIngredient = ko.observable(null);
+    self.warningImage = ko.observable(null);
 
     self.loadingPanel = new LoadingOverlay();
 
@@ -113,23 +115,26 @@
         self.warningDescription(null);
         self.warningType(null);
         self.warningIngredient(null);
+        self.warningImage(null);
 
         $("#MealDeleteButton").show();
     };
 
     self.add = function () {
+        self.refresh();
         self.Id(0);
         self.Type(null);
         self.Name(null);
         self.Description(null);
         self.ImageName(null);
         self.IngredientId(null);
-        self.Ingredients([]);
+        self.ChoosenImage(null);
 
         self.warningName(null);
         self.warningDescription(null);
         self.warningType(null);
         self.warningIngredient(null);
+        self.warningImage(null);
 
         $("#MealDeleteButton").hide();
     };
@@ -139,6 +144,7 @@
             return;
         }
 
+        // save meal
         var url = '/Meals/Save';
         var meal = JSON.stringify({
             Id: self.Id(),
@@ -154,7 +160,7 @@
             contentType: "application/json; charset=utf-8",
             data: meal,
             success: function (data) {
-                console.log(data);
+                console.log(data.message);
                 self.refresh();
                 $("#mealItem").modal("hide");
             },
@@ -187,7 +193,7 @@
     self.deleteModal = function () {
         var data = { Id: self.Id() };
         self.delete(data);
-        $("#foodItem").modal("hide");
+        $('#mealItem').modal('hide');
     };
 
     self.refresh = function () {
@@ -365,6 +371,14 @@
         }
         else {
             self.warningType(null);
+        }
+
+        if (self.Id() && self.nullOrEmpty(self.ImageName) && self.nullOrEmpty(self.ChoosenImage())) {
+            self.warningImage("Please select an image!");
+            valid = false;
+        }
+        else {
+            self.warningImage(null);
         }
 
         return valid;

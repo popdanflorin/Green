@@ -117,7 +117,6 @@
             </button>
         </div>
     }
-    <input id="MealsSearchBox" type="search" role="search" placeholder="Search meal..." data-bind="value: $root.SearchMealsText, valueUpdate: 'afterkeydown'" />
 
     <div class="container-fluid" style="padding-left:8%; padding-right:8%;">
         <div class="row" data-bind="foreach:DisplayedMeals">
@@ -145,7 +144,7 @@
             {
                 <div class="thumbnail col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="wrapper">
-                        <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: Name()}" />
+                        <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: Name.toUpperCase()}" />
                         <div class="overlay">
                             <h5 data-bind="text:Name"></h5>
                             <div class="text" data-bind="text:Description"></div>
