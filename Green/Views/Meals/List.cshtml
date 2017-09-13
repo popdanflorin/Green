@@ -171,7 +171,15 @@
         ko.applyBindings(vmFoods, $("#foodItem").get(0));
 
         $('#foodItem').on('hidden.bs.modal', function () {
-            vmMeals.refresh();
+            vmMeals.getIngredients();
+        });
+
+        $('#foodItem').on('hide.bs.modal', function () {
+            document.getElementById("mealItem").style.webkitFilter = 'blur(0)';
+        });
+
+        $('#foodItem').on('show.bs.modal', function () {
+            document.getElementById("mealItem").style.webkitFilter = 'blur(5px)';
         });
     });
 </script>

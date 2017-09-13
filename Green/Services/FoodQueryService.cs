@@ -13,16 +13,12 @@ namespace Green.Services
 
         public List<Food> GetFoods()
         {
-            var tmp = ctx.Foods.ToList();
-            tmp.Sort((e1, e2) => e1.TypeDisplay.CompareTo(e2.TypeDisplay));
-            return tmp;
+            return ctx.Foods.OrderBy(f => f.Type).ThenBy(m => m.Name).ToList();
         }
 
         public List<EnumItem> GetFoodTypes()
         {
-            var tmp = Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
-            tmp.Sort((e1, e2) => e1.Description.CompareTo(e2.Description));
-            return tmp;
+            return Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).OrderBy(x => x.Description).ToList();
         }
     }
 }

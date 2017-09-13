@@ -1,6 +1,7 @@
 ﻿function Menus() {
     var self = this;
 
+    self.Menus = ko.observableArray(null);
     self.loadingPanel = new LoadingOverlay();
     self.Meals = ko.observableArray(null);
     self.MealTypes = ko.observableArray(null);
@@ -15,13 +16,23 @@
     self.RestaurantNameDisplay = ko.computed(function () {
         if (!self.RestaurantName())
             return "Error";
-        return self.RestaurantName() + "'s Menu";
+        return self.RestaurantName() + "'s Menus";
     });
 
     self.StartDateDisplay = ko.computed(function () {
         if (!self.StartDate())
-            return moment(Date(), "MM/DD/YYYY", false).format();
+            return null;
         return moment(self.StartDate(), "MM/DD/YYYY", false).format();
+    });
+
+    self.EndDateDisplay = ko.computed(function () {
+        if (!self.EndDate())
+            return null;
+        return moment(self.EndDate(), "MM/DD/YYYY", false).format();
+    });
+
+    self.MenuTitleDisplay = ko.computed(function () {
+        return self.RestaurantName() + "'s Menu\n"; //+ moment(self.StartDate(), "MM/DD/YYYY", false).format() + " - " + moment(self.EndDate(), "MM/DD/YYYY", false).format();
     });
 
     // for meals
@@ -54,24 +65,26 @@
     // 0: all, 1: selected, 2: unselected
     self.DisplayCase = ko.observable(0);
     self.DisplayedMeals = ko.computed(function () {
-        switch (self.DisplayCase()) {
-            case -1:
-                return null;
-            case 0:
-                return self.Meals();
-            case 1:
-                return self.Meals().filter(function (meal) {
-                    return meal.isSelected == true;
-                });
-            case 2:
-                return self.Meals().filter(function (meal) {
-                    return meal.isSelected == false;
-                });
-            default:
-                return self.Meals().filter(function (meal) {
-                    return meal.Name.search(new RegExp(self.DisplayCase(), "i")) != -1;
-                });
-        }
+        if (self.Meals() != null)
+            switch (self.DisplayCase()) {
+                case -1:
+                    return null;
+                case 0:
+                    return self.Meals();
+                case 1:
+                    return self.Meals().filter(function (meal) {
+                        return meal.isSelected == true;
+                    });
+                case 2:
+                    return self.Meals().filter(function (meal) {
+                        return meal.isSelected == false;
+                    });
+                default:
+                    return self.Meals().filter(function (meal) {
+                        return meal.Name.search(new RegExp(self.DisplayCase(), "i")) != -1;
+                    });
+            }
+        return null;
     });
     self.SearchText = ko.observable();
 
@@ -85,10 +98,6 @@
         self.RestaurantId(data.id);
         self.RestaurantName(data.Name);
         self.refresh();
-
-        self.warningStartDate(null);
-        self.warningEndDate(null);
-        self.warningMeal(null);
     };
 
     self.refresh = function () {
@@ -101,14 +110,11 @@
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: restaurant, 
+            data: restaurant,
             success: function (data) {
                 self.loadingPanel.hide();
                 console.log(data);
-                self.Id(data.Id);
-                self.StartDate(new Date(data.StartDate));
-                self.EndDate(new Date(data.EndDate));
-                self.Meals(data.Meals);
+                self.Menus(data.Menus);
                 self.MealTypes(data.MealTypes);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -117,6 +123,66 @@
         });
         if (self.Id() == null)
             self.Id(0);
+    };
+
+    self.refreshMenu = function (data) {
+        self.Id(data.Id);
+        self.StartDate(data.StartDate);
+        self.EndDate(data.EndDate);
+        
+        var url = '/Menus/GetMealsForMenu';
+        var menu = JSON.stringify({
+            menuId: data.Id,
+        });
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: menu,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Meals(data.Meals);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        self.warningStartDate(null);
+        self.warningEndDate(null);
+        self.warningMeal(null);
+
+        $("#MenuDeleteButton").show();
+    };
+
+    self.add = function () {
+        self.Id(0);
+        self.StartDate(null);
+        self.EndDate(null);
+        
+        var url = '/Menus/GetMeals';
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "get",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Meals(data.Meals);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        self.warningStartDate(null);
+        self.warningEndDate(null);
+        self.warningMeal(null);
+
+        $("#MenuDeleteButton").hide();
     };
 
     self.save = function () {
@@ -138,8 +204,8 @@
             data: menu,
             success: function (data) {
                 console.log(data);
+                $("#menuItem").modal("hide");
                 self.refresh();
-                $("#menuList").modal("hide");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -148,6 +214,10 @@
     };
 
     self.delete = function () {
+    };
+
+    self.deleteModal = function () {
+
     };
 
     self.onMealClicked = function (data) {
@@ -175,7 +245,7 @@
             self.refreshDisplay();
         }
     };
-    
+
     self.addMealFromList = function () {
         self.addMeal(data = { Id: $('select[id=MenuMeals]').val() });
     };

@@ -62,7 +62,7 @@ namespace Green.Services
             if (!mealIngredients.Any())
                 return allIngredients;
             mealIngredients.ForEach(m => allIngredients.FirstOrDefault(ingredient => ingredient.Id == m.FoodId).isSelected = true);
-            return allIngredients;
+            return allIngredients.OrderBy(m => m.Type).ThenBy(m => m.Name).ToList();
         }
     }
 }

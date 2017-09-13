@@ -160,7 +160,7 @@
             contentType: "application/json; charset=utf-8",
             data: meal,
             success: function (data) {
-                console.log(data.message);
+                console.log(data);
                 self.refresh();
                 $("#mealItem").modal("hide");
             },

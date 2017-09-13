@@ -1,4 +1,8 @@
 ﻿<style>
+    #mealItem {
+        overflow: scroll;
+    }
+
     .modal-body {
         background-position: 50% 50%;
         background-repeat: no-repeat;
@@ -7,11 +11,11 @@
         width: inherit;
         object-fit: cover;
         border-radius: inherit;
-        overflow: hidden;
+        overflow: auto;
     }
 
     .modal-dialog {
-        overflow: hidden;
+        overflow: auto;
     }
 
     .modal-body .image {
@@ -262,12 +266,11 @@
                 </div>
                 <div class="pull-left">
                     <label><input id="MultipleSelectionButton" type="checkbox" data-bind="click: $root.SelectAll" value="" />Select All</label>
-                    
+
                 </div>
-                @Html.Partial("../Foods/Item")
 
                 <!-- Image -->
-                <!-- ko if: Id() != 0 -->
+                <!-- ko if: Id() != 0 && Id() != null -->
                 @using (Html.BeginForm("Upload", "Meals", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="form-horizontal">
@@ -282,6 +285,7 @@
                     </div>
                 }
                 <!-- /ko -->
+
                 @*<label for="MealIngredient">Ingredients</label>
                     <div class="form-horizontal">
                         <select id="MealIngredient" class="form-control pull-left col-md-6 col-lg-6" size="5" data-bind="foreach: FoodTypes()">
@@ -310,10 +314,26 @@
         </div>
     </div>
 </div>
+@Html.Partial("../Foods/Item")
 
 <script>
     function ToggleIngredientsVisibility() {
         var button = $("#IngredientsVisibilityButton");
         button.text(button.text() == "Show Ingredients" ? "Hide Ingredients" : "Show Ingredients");
     };
+
+    $(function () {
+        $('#foodItem').on('hidden.bs.modal', function () {
+            vmMeals.refresh();
+        });
+
+        $('#foodItem').on('hide.bs.modal', function () {
+            document.getElementById("mealItem").style.webkitFilter = 'blur(0)';
+        });
+
+        $('#foodItem').on('show.bs.modal', function () {
+            document.getElementById("mealItem").style.webkitFilter = 'blur(5px)';
+        });
+    });
+
 </script>

@@ -1,8 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Manage Restaurants";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 <div id="restaurants">
@@ -90,7 +88,7 @@
 </div>
 <script>
     $(function () {
-    //    ko.cleanNode($("#restaurants")[0]);
+        //    ko.cleanNode($("#restaurants")[0]);
         vm = new Restaurants();
         vm.refresh();
         ko.applyBindings(vm, $("#restaurants").get(0));

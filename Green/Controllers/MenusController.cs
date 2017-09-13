@@ -25,10 +25,9 @@ namespace Green.Controllers
         }
         public JsonResult ListRefresh(string restaurantId)
         {
-            var menu = qMenuService.GetMenu(restaurantId);
-            var meals = qMenuService.GetMealsForMenu(menu.Id);
+            var menus = qMenuService.GetMenus(restaurantId);
             var mealTypes = qMealService.GetMealTypes();
-            return new JsonResult() { Data = new { Id = menu.Id, StartDate = menu.StartDate.Date, EndDate = menu.EndDate.Date, Meals = meals, MealTypes = mealTypes}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = new { Menus = menus, MealTypes = mealTypes}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
