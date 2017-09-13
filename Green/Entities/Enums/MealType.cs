@@ -7,9 +7,10 @@ namespace Green.Entities.Enums
 {
     public enum MealType
     {
-        Breakfast,
-        Lunch,
-        Dinner,
-        Snack
+        Soup,
+        Salad,
+        Pizza,
+        Pasta,
+        Dessert        
     }
 }

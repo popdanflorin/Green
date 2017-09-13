@@ -7,13 +7,15 @@ namespace Green.Entities.Enums
 {
     public enum FoodType
     {
+        Alcohol,
         Cereals,
         Fruits,
         Vegetables,
         Meats,
-        Milk, //lactate
+        Dairy, //lactate
         Fats, //grasimi
         Sweets, //dulciuri
-        Alcohol
+        Spices,
+        Sauces
     }
 }

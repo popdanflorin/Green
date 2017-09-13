@@ -1,0 +1,12 @@
+﻿delete from MealIngredients
+delete from MenuMeals
+delete from Ratings
+delete from Reservations
+delete from AspNetUserRoles
+delete from AspNetUsers
+delete from Foods
+delete from Images
+delete from Menus
+delete from Meals
+delete from UserFavorites
+delete from Restaurants

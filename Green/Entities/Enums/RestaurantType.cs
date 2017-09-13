@@ -12,6 +12,8 @@ namespace Green.Entities.Enums
         Traditional,
         Backery,
         Pastry,
-        FastFood
+        FastFood,
+        Indian,
+        Italian
     }
 }
