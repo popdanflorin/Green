@@ -16,17 +16,14 @@ namespace Green.Services
             return ctx.Menus.ToList();
         }
 
-        public Menu GetMenu(string restaurantId)
+        public List<Menu> GetMenus(string restaurantId)
         {
-            Menu menu = ctx.Menus.FirstOrDefault(m => m.RestaurantId == restaurantId);
-            if (menu == null)
-            {
-                menu = new Menu();
-                menu.Id = null;
-                menu.StartDate = new DateTime();
-                menu.EndDate = new DateTime();
-            }
-            return menu;
+            return ctx.Menus.Where(m => m.RestaurantId == restaurantId).ToList();
+        }
+
+        public Menu GetMenuDetails(string menuId)
+        {
+            return ctx.Menus.FirstOrDefault(m => m.Id == menuId);
         }
 
         // returns all meals and set isSelected to false for all
@@ -47,7 +44,8 @@ namespace Green.Services
             //    isSelected = false
             //}).ToList();
             //return tmp;
-            var tmp = ctx.Meals.Select(m => new MenuMealDisplay {
+            var tmp = ctx.Meals.Select(m => new MenuMealDisplay
+            {
                 Id = m.Id,
                 Description = m.Description,
                 ImageName = m.ImageName,

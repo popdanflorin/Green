@@ -1,24 +1,286 @@
-﻿@{
-    ViewBag.Title = "Manage Menu";
-}
+﻿<style>
+    #menuItem {
+        overflow: scroll;
+    }
+
+    #RestaurantMenuDisplay {
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        border-color: none;
+    }
+
+        #RestaurantMenuDisplay a:focus,
+        #RestaurantMenuDisplay a:hover,
+        #RestaurantMenuDisplay a:active {
+            outline: 0;
+            text-decoration: none;
+        }
+
+        #RestaurantMenuDisplay .panel {
+            border-width: 0 0 1px 0;
+            border-style: solid;
+            /*border-color: #fff;*/
+            border-radius: 0;
+            border-color: none;
+            border: none;
+            background: none;
+            box-shadow: none;
+        }
+
+            #RestaurantMenuDisplay .panel:last-child {
+                border-bottom: none;
+            }
+
+        #RestaurantMenuDisplay > .panel:first-child .panel-heading {
+            border-radius: 4px 4px 0 0;
+        }
+
+        #RestaurantMenuDisplay .panel + .panel {
+            margin-top: 0;
+            border: none;
+        }
+
+        #RestaurantMenuDisplay .panel-heading {
+            border: none;
+            padding: 0;
+            border-radius: 0 0 4px 4px;
+            transition: border-radius 0.3s linear 0.2s;
+            height: auto;
+        }
+
+        #RestaurantMenuDisplay .panel-title a {
+            font-weight: 700;
+            color: white;
+            /*border-color: #fed136;*/
+            background-color: #999999;
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            display: block;
+            padding: 5px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        #RestaurantMenuDisplay .panel-title :hover {
+            color: #ffffff;
+            background-color: #808080;
+            border-color: #7a7a7a;
+        }
+
+        #RestaurantMenuDisplay .panel-collapse {
+            background: #fff;
+            border-color: none;
+            height: auto;
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        #RestaurantMenuDisplay .panel:last-child .panel-collapse {
+            border-radius: 0 0 4px 4px;
+        }
+
+        #RestaurantMenuDisplay .list-group-item:hover {
+            cursor: pointer;
+        }
+
+        #RestaurantMenuDisplay #MealsList .list-group-item-heading {
+            font-weight: 600;
+            margin-bottom: 0;
+            border: 1px solid white;
+            background-color: #999999;
+            border-color: none;
+            color: white;
+            height: 40px;
+        }
+
+            #RestaurantMenuDisplay #MealsList .list-group-item-heading:not(:first-child) {
+                /*margin-top: 10px;*/
+            }
+
+            #RestaurantMenuDisplay #MealsList .list-group-item-heading:hover {
+                cursor: default;
+            }
+
+    #DisplayCaseButtons {
+        margin-top: 11px;
+        margin-bottom: 6px;
+        width: 100%;
+        border: none;
+        overflow:auto;
+    }
+
+
+    /*#menus #MealSearchBox {
+        width: 130px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+        font-family: "Glyphicons Halflings";
+        content: "\e080";
+    }*/
+
+    #menus .left-inner-addon {
+        position: relative;
+    }
+
+        #menus .left-inner-addon input {
+            padding-left: 30px;
+        }
+
+        #menus .left-inner-addon i {
+            padding-left: 10px;
+            position: absolute;
+            padding: 10px 12px;
+            pointer-events: none;
+        }
+
+    /* scrollbar */
+    #RestaurantMenuDisplay ::-webkit-scrollbar {
+        width: 11px;
+        height: 11px;
+    }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-button {
+        width: 0px;
+        height: 0px;
+    }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-thumb {
+        background: #999999;
+        border: 48px none #ffffff;
+        border-radius: 4px;
+    }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-thumb:hover {
+            background: #808080;
+        }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-thumb:active {
+            background: #999999;
+        }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-track {
+        background: #e9e9e9;
+        border: 0px none #ffffff;
+        border-radius: 4px;
+    }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-track:hover {
+            background: #e9e9e9;
+        }
+
+        #RestaurantMenuDisplay ::-webkit-scrollbar-track:active {
+            background: #e9e9e9;
+        }
+
+    #RestaurantMenuDisplay ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+</style>
 
 <div id="menuItem" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-bind="click: $('#menuItem').modal('hide')">&times;</button>
-                <h4 data-bind="text: $root.RestaurantNameDisplay"></h4>
+                <h4 data-bind="text: MenuTitleDisplay"></h4>
             </div>
 
             <div class="modal-body">
-                
+                <!-- Menu Date -->
+                <label for="MenuStartDate">Start Date</label>
+                <div class="form-horizontal form-group">
+                    <input id="MenuStartDate" type="date" class="form-control" data-bind="value: $root.StartDate">
+                    <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
+                </div>
+
+                <label for="MenuEndDate">End Date</label>
+                <div class="form-group form-horizontal">
+                    <input id="MenuEndDate" type="date" class="form-control" data-bind="value: $root.EndDate">
+                    <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
+                </div>
+
+                <!-- Menu Content Edit -->
+                @*<div class="form-horizontal">
+                        <select id="MenuMeals" class="form-control pull-left" data-bind="foreach: $root.MealTypes">
+                            <optgroup data-bind="attr: {label: $data.Description}, foreach: $parent.Meals">
+                                <!-- ko if: TypeDisplay == $parent.Description -->
+                                <option data-bind="text: Name, value: Id"></option>
+                                <!-- /ko -->
+                            </optgroup>
+                        </select>
+                        <label class="text-danger pull-right" data-bind="text:$root.warningMeal"></label>
+                        <div class="btn-group">
+                            <button id="AddMealButton" class="btn btn-default" data-bind="click: $root.addMealFromList">Add</button>
+                            <button id="DeleteMealButton" class="btn btn-default" data-bind="click: $root.deleteMealFromList">Delete</button>
+                        </div>
+                    </div>
+                    <br />*@
+
+                <hr />
+                <!-- Search Meal -->
+                <div class="form-inline">
+                    <div class="inner-addon left-addon pull-left" style="width: 100%">
+                        @*<i class="glyphicon glyphicon-search"></i>*@
+                        <input id="MealSearchBox" type="text" class="form-control" role="search" placeholder="Search meal..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
+                    </div>
+                    @*<div class="dropdown pull-right">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                Search by:
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Name</a></li>
+                                <li><a href="#">Type</a></li>
+                                <li><a href="#">Ingredient</a></li>
+                            </ul>
+                        </div>*@
+                </div>
+
+                <!-- Menu Content Display -->
+                <div id="DisplayCaseButtons" class="btn-group">
+                    <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" style="width:33.3%; border: none" />
+                    <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" style="width: 33.4%; border-bottom: none; border-top:none; border-right: 6px solid white; border-left: 6px solid white;" />
+                    <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" style="width: 33.3%; border: none" />
+                </div>
+
+                <div id="RestaurantMenuDisplay" class="panel-group wrap" role="tablist">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a id="MenuVisibilityButton" role="button" data-toggle="collapse" href="#MealsList" onclick="ToggleMenuVisibility()">Show Menu</a>
+                            </h4>
+                        </div>
+                        <div id="MealsList" role="tabpanel" class="panel-collapse collapse in">
+                            <ul class="list-group" data-bind="foreach: $root.DisplayedMeals">
+                                <!-- ko if: $index() == 0 || TypeDisplay != $root.DisplayedMeals()[$index() - 1].TypeDisplay -->
+                                <li class="list-group-item-heading list-group-item">
+                                    <text class="pull-left" data-bind="text: TypeDisplay"></text>
+                                </li>
+                                <!-- /ko -->
+                                <li class="list-group-item" data-bind="style: { 'background-color': isSelected ? '#fed136' : 'white' }, click: $root.onMealClicked">
+                                    <text data-bind="text: Name"></text>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button id="NewMealButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#mealItem">Add new meal</button>
+                <label><input id="MultipleSelectionButton" type="checkbox" class="pull-right right" data-bind="click: $root.SelectAll" value="" />Select all</label>
+
             </div>
 
             <div class="modal-footer">
-                <button id="MenuOKButton" class="btn btn-success" data-bind="click:save">Save</button>
-                <button id="MenuDeleteButton" class="btn btn-danger" style="display: none;" data-bind="click:$root.delete">Delete</button>
+                <button id="MenuOKButton" class="btn btn-success" data-bind="click: save">Save</button>
+                <button id="MenuDeleteButton" class="btn btn-danger" style="display: none;" data-bind="click: $root.deleteModal">Delete</button>
                 <button class="btn btn-default" data-bind="click: $('#menuItem').modal('hide')">Close</button>
             </div>
         </div>
@@ -26,19 +288,8 @@
 </div>
 
 <script>
-    ko.bindingHandlers.datePicker = {
-        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            // Register change callbacks to update the model
-            // if the control changes.
-            ko.utils.registerEventHandler(element, "change", function () {
-                var value = valueAccessor();
-                value(moment(element.value).format());
-            });
-        },
-        // Update the control whenever the view model changes
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            var value = valueAccessor();
-            element.value = moment(value).format("YYYY-MM-DDTHH:mm:ss");
-        }
+    function ToggleMenuVisibility() {
+        var button = $("#MenuVisibilityButton");
+        button.text(button.text() == "Show Menu" ? "Hide Menu" : "Show Menu");
     };
 </script>

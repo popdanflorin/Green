@@ -118,7 +118,7 @@ namespace Green.Controllers
 
             }
             //Display records
-            return RedirectToAction("");
+            return RedirectToAction("List");
         }
 
     }
