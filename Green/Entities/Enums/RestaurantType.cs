@@ -11,6 +11,7 @@ namespace Green.Entities.Enums
         Vegan,
         Traditional,
         Backery,
-        Pastry
+        Pastry,
+        FastFood
     }
 }

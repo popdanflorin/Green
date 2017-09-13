@@ -1,19 +1,29 @@
 ﻿@model Green.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 <style>
-    .head {
+    .head2 {
         position: absolute;
-        margin-top: 20px;
+        padding-top:25px;
         margin-bottom:10px;
-        padding-bottom:10px;
+        padding-bottom:0px;
         top: -20px;
         right: 0;
         left: 0;
         bottom:20px;
+         width:350px;
+         background-size: 100%;
+        height: 50px;
+        text-align: left;
+        margin-top:10px;
+     
     }
-  
+   .login2 {
+        width:770px;
+        padding-top: 50px;
+        padding-bottom: 10px;
+    }
 </style>
-<h4 class="head">Use another service to log in.</h4>
+<h4 class="head2">Use another service to log in.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
@@ -28,7 +38,7 @@
     else {
         using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
             @Html.AntiForgeryToken()
-            <div id="socialLoginList">
+            <div class="login2" id="socialLoginList">
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders) {
                         <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>

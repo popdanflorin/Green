@@ -17,7 +17,10 @@
         padding-left: 15px;
         padding-right: 15px;
     }
-
+    input.form-control {
+    max-width: 400px;
+    min-width: 200px;
+}
     .input-group {
         padding-top: 5px;
         padding-bottom: 30px;
@@ -51,12 +54,15 @@
     }
 
     .dropdwn {
-        left: auto;
-        right: auto;
+        left:auto;
+        right:auto;
         padding-top: 5px;
         padding-bottom: 10px;
-        padding-right: 70px;
+        padding-right:10px;
+        width:200px;
+       
         text-align: justify;
+       
     }
 
     span.stars, span.stars span {
@@ -66,9 +72,24 @@
         height: 16px;
     }
 
-        span.stars span {
-            background-position: 0 0;
-        }
+    span.stars span {
+        background-position: 0 0;
+    }
+
+    .rate {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 50px;
+      padding-right:50px;
+       border-bottom: -5px !important;
+    }
+    .thumbnail{
+        height:590px;
+          padding-bottom: 10px;
+        margin-bottom: 40px !important;
+    }
+ 
+ 
 </style>
 
 @{
@@ -144,7 +165,7 @@
                         <div class="thumbnail">
                             <img data-bind="attr: {src: '../Content/images/'+ ImageName}" style="width:500px;height:300px">
                             <div class="caption">
-                                <h2 data-bind="text:Name" style="color:cornflowerblue"></h2>
+                                <h1 data-bind="text:Name" style="color:cornflowerblue"></h1>
 
                                 <hr />
                                 <div style="margin-right:20px;margin-bottom:10px">
@@ -159,23 +180,23 @@
                                 </div>
                                 <div>
 
-                                    <div data-bind="attr:{id:Name}">
+                                    <div class="rate" data-bind="attr:{id:Name}">
 
                                     </div>
 
 
                                 </div>
-                                
+
                                 <div style="display:inline-block;margin-bottom:10px;margin-top:10px">
 
-                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailsItem">Details</button>
-                            
+                                    <button class="btn btn-success btn-sm" onclick="@("window.location.href='" +@Url.Action("List","Reservations") + "'");">Make a reservation</button>
+
+                                
+                                    <button class="btn btn-info btn-sm" data-bind="click:$parent.showRating">Show rating</button>
                                     <button id="addFav" class="btn btn-danger btn-sm" type="button" data-bind="click:$parent.save">
                                         <span class="glyphicon glyphicon-heart-empty"></span>
                                         Add to favorites
                                     </button>
-                                    <button class="btn btn-info btn-sm" data-bind="click:$parent.showRating">Show rating</button>
-
                                 </div>
                             </div>
                         </div>
@@ -186,7 +207,7 @@
             </div>
         </div>
     </div>
-    @Html.Partial("Details")
+   
     @Html.Partial("SuccesModal")
 </div>
 <script>
