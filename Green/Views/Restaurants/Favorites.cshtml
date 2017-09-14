@@ -1,0 +1,48 @@
+﻿<div id="favoritesItem" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Favorites</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12" style="height:650px;overflow-y:scroll">
+                        <hr />
+                        <div class="row" data-bind="foreach:UserFavorites">
+                            <div class="col-md-12">
+                                <div class="thumbnail" style="height:520px;">
+                                    <img data-bind="attr: {src: '../Content/images/'+ ImageName}" style="width:500px;height:300px">
+                                    <div class="caption">
+                                        <h4 data-bind="text:Name" style="color:cornflowerblue;margin-top:-10px;margin-bottom:-25px"></h4>
+
+                                        <hr />
+                                        <div style="margin-right:20px;margin-bottom:10px">
+                                            <text style="text-align:left;color:black;font-weight:bold;">Address:</text>
+                                            <text data-bind="text:Address"></text>
+                                        </div>
+
+
+                                        <div style="margin-right:20px;margin-bottom:10px">
+                                            <text style="text-align:left;color:black;font-weight:bold;">Type:</text>
+                                            <text data-bind="text:TypeDisplay"></text>
+                                        </div>
+                                        <input id="idFavorite" hidden="hidden" data-bind="value:id">
+                                        <button type="button" class="btn btn-danger" data-bind="click:$parent.deleteFavorite" style="margin-top:10px;">Delete from favorites</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

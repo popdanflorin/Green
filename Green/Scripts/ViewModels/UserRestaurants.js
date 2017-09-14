@@ -1,6 +1,7 @@
 ﻿function UserRestaurants() {
     var self = this;
     self.UserRestaurants = ko.observableArray();
+    self.UserFavorites = ko.observableArray();
     self.Types = ko.observableArray();
 
     self.loadingPanel = new LoadingOverlay();
@@ -39,7 +40,24 @@
         });
 
     };
+    self.getFavorites = function () {
+        var url = '/UserFavorites/UserFavoritesGet';
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "get",
+            contentType: "application/json; charset=utf-8",
+            data: {UserId: self.UserId},
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.UserFavorites(data.UserFavorites);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
 
+    };
 
     self.search = function () {
         var isValid = true;
@@ -140,7 +158,26 @@
             }
         });
     };
+    self.deleteFavorite = function () {
 
+        var url = '/UserFavorites/Delete';
+        var restaurant = JSON.stringify({
+            restaurantId: $('#idFavorite').val()
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: restaurant,
+            success: function (data) {
+                console.log(data);
+                self.getFavorites()
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    }
     self.showRating = function (data) {
         self.Rating(data.Rating);
         var rate = $('#' + data.Name).rateit();
