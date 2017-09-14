@@ -62,6 +62,7 @@ namespace Green.Services
                 }
                 else
                 {
+                    oldRestaurant.OwnerId = restaurant.OwnerId;
                     oldRestaurant.Name = restaurant.Name;
                     oldRestaurant.Type = restaurant.Type;
                     oldRestaurant.Address = restaurant.Address;

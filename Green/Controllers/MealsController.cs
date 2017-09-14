@@ -18,6 +18,7 @@ namespace Green.Controllers
         private FoodQueryService qFoodService = new FoodQueryService();
         private FoodCommandService cFoodService = new FoodCommandService();
 
+        [Authorize(Roles = "AppAdmin")]
         public ActionResult List()
         {
             return View();

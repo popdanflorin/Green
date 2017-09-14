@@ -32,7 +32,7 @@
     });
 
     self.MenuTitleDisplay = ko.computed(function () {
-        return self.RestaurantName() + "'s Menu\n"; //+ moment(self.StartDate(), "MM/DD/YYYY", false).format() + " - " + moment(self.EndDate(), "MM/DD/YYYY", false).format();
+        return self.RestaurantName() + "'s Menu\n" + self.StartDateDisplay() + " - " + self.EndDateDisplay();
     });
 
     // for meals
@@ -123,16 +123,30 @@
         });
         if (self.Id() == null)
             self.Id(0);
+        self.TemporaryMeals = [];
     };
 
     self.refreshMenu = function (data) {
         self.Id(data.Id);
         self.StartDate(data.StartDate);
         self.EndDate(data.EndDate);
-        
-        var url = '/Menus/GetMealsForMenu';
+        self.refreshMeals();
+
+        self.warningStartDate(null);
+        self.warningEndDate(null);
+        self.warningMeal(null);
+
+        if (self.nullOrEmpty(self.Id()))
+            $("#MenuDeleteButton").hide();
+        else
+            $("#MenuDeleteButton").show();
+    };
+
+    self.ingredientsModalClose = function () {
+        var url = '/Menus/GetNewMealsForMenu';
         var menu = JSON.stringify({
-            menuId: data.Id,
+            menuId: self.Id(),
+            selectedMeals: self.Meals()
         });
         self.loadingPanel.show();
         $.ajax(url, {
@@ -150,18 +164,38 @@
             }
         });
 
-        self.warningStartDate(null);
-        self.warningEndDate(null);
-        self.warningMeal(null);
+        $("#MultipleSelectionButton").prop("checked", false);
+    }
 
-        $("#MenuDeleteButton").show();
+    self.refreshMeals = function () {
+        var url = '/Menus/GetMealsForMenu';
+        var menu = JSON.stringify({
+            menuId: self.Id(),
+        });
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: menu,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Meals(data.Meals);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $("#MultipleSelectionButton").prop("checked", false);
     };
 
     self.add = function () {
         self.Id(0);
         self.StartDate(null);
         self.EndDate(null);
-        
+
         var url = '/Menus/GetMeals';
         self.loadingPanel.show();
         $.ajax(url, {
@@ -182,6 +216,7 @@
         self.warningEndDate(null);
         self.warningMeal(null);
 
+        $("#MultipleSelectionButton").prop("checked", false);
         $("#MenuDeleteButton").hide();
     };
 
@@ -213,11 +248,30 @@
         });
     };
 
-    self.delete = function () {
+    self.delete = function (data) {
+        var url = '/Menus/Delete';
+        var menu = JSON.stringify({
+            menuId: data.Id
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: menu,
+            success: function (data) {
+                console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
     };
 
     self.deleteModal = function () {
-
+        var data = { Id: self.Id() };
+        self.delete(data);
+        $('#menuItem').modal('hide');
     };
 
     self.onMealClicked = function (data) {

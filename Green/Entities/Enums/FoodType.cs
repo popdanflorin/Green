@@ -16,6 +16,6 @@ namespace Green.Entities.Enums
         Fats, //grasimi
         Sweets, //dulciuri
         Spices,
-        Sauces
+        SaucesAndToppings
     }
 }

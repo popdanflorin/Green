@@ -20,7 +20,7 @@ namespace Green.Entities.Enums
                 case FoodType.Sweets: return "Sweets";
                 case FoodType.Vegetables: return "Vegetables";
                 case FoodType.Spices: return "Spices";
-                case FoodType.Sauces: return "Sauces";
+                case FoodType.SaucesAndToppings: return "Sauces and Toppings";
                 default: return String.Empty;
             }
         }
@@ -32,8 +32,12 @@ namespace Green.Entities.Enums
                 case MealType.Soup: return "Soup";
                 case MealType.Pizza: return "Pizza";
                 case MealType.Pasta: return "Pasta";
-                case MealType.Dessert: return "Dessert";
                 case MealType.Salad: return "Salad";
+                case MealType.ChickenDishes: return "Chicken Dishes";
+                case MealType.PorkDishes: return "Pork Dishes";
+                case MealType.SideDishes: return "Side Dishes";
+                case MealType.VegetarianDishes: return "Vegetarian Dishes";
+                case MealType.Dessert: return "Dessert";
                 default: return String.Empty;
             }
         }
@@ -47,7 +51,7 @@ namespace Green.Entities.Enums
                 case RestaurantType.Traditional: return "Traditional";
                 case RestaurantType.Vegan: return "Vegan";
                 case RestaurantType.Vegetarian: return "Vegetarian";
-                case RestaurantType.FastFood: return "FastFood";
+                case RestaurantType.FastFood: return "Fast Food";
                 case RestaurantType.Indian: return "Indian";
                 case RestaurantType.Italian: return "Italian";
                 default: return String.Empty;

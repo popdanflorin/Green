@@ -120,38 +120,22 @@
 
     <div class="container-fluid" style="padding-left:8%; padding-right:8%;">
         <div class="row" data-bind="foreach:DisplayedMeals">
-            @if (User.IsInRole("AppAdmin"))
-            {
-                <div id="thumbnail" class="thumbnail col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                    <div class="wrapper">
-                        <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: Name.toUpperCase()}">
-                        <div class="overlay">
-                            <button id="deleteMealFromList" type="button" class="close" data-bind="click: $root.delete">&times;</button>
-                            <div class="wrapper" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details">
-                                <h5 data-bind="text:Name"></h5>
-                                <div class="text" data-bind="text:Description"></div>
-                                @*<div class="form-horizontal" style="position:absolute; bottom: 5%; width:100%;">
-                                        <buttod id="detailsButton" class="btn btn-success" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details" style="width:40%;">Details</buttod>
-                                        <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Delete." data-bind="click:$root.delete" style="width:40%;">Delete</button>
-                                    </div>*@
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            }
-            else
-            {
-                <div class="thumbnail col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="wrapper">
-                        <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: Name.toUpperCase()}" />
-                        <div class="overlay">
+            <div id="thumbnail" class="thumbnail col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="wrapper">
+                    <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: Name.toUpperCase()}">
+                    <div class="overlay">
+                        <button id="deleteMealFromList" type="button" class="close" data-bind="click: $root.delete">&times;</button>
+                        <div class="wrapper" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details">
                             <h5 data-bind="text:Name"></h5>
                             <div class="text" data-bind="text:Description"></div>
+                            @*<div class="form-horizontal" style="position:absolute; bottom: 5%; width:100%;">
+                                    <buttod id="detailsButton" class="btn btn-success" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details" style="width:40%;">Details</buttod>
+                                    <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Delete." data-bind="click:$root.delete" style="width:40%;">Delete</button>
+                                </div>*@
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
 
         @Html.Partial("MealItem")

@@ -11,6 +11,10 @@ namespace Green.Entities.Enums
         Salad,
         Pizza,
         Pasta,
-        Dessert        
+        ChickenDishes,
+        PorkDishes,
+        SideDishes,
+        VegetarianDishes,
+        Dessert,      
     }
 }

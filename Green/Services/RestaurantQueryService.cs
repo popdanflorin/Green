@@ -5,6 +5,11 @@ using System.Web;
 using Green.Entities;
 using Green.Entities.Enums;
 using Green.Models;
+using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
+using Green.Services;
+
+using System.Text;
 
 namespace Green.Services
 {

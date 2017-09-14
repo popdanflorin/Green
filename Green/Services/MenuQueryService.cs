@@ -66,5 +66,15 @@ namespace Green.Services
             menuMeals.ForEach(m => allMeals.FirstOrDefault(meal => meal.Id == m.MealId).isSelected = true);
             return allMeals;
         }
+
+        public List<MenuMealDisplay> GetNewMealsForMenu(string menuId, List<MenuMealDisplay> selectedMeals)
+        {
+            var allMeals = GetAllMeals();
+            var menuMeals = selectedMeals.Where(m => m.isSelected == true).ToList();
+            if (!menuMeals.Any())
+                return allMeals;
+            menuMeals.ForEach(m => allMeals.FirstOrDefault(meal => meal.Id == m.Id).isSelected = true);
+            return allMeals;
+        }
     }
 }

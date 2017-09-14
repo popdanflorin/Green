@@ -37,7 +37,7 @@
                                     </button>
                                 </td>
                                 <td class="col-xs-1">
-                                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-bind="click:$parent.delete">
+                                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-bind="click: $root.delete">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                 </td>
@@ -76,7 +76,7 @@
 
         // refresh
         $('#mealItem').on('hidden.bs.modal', function () {
-            vmMenus.refreshMenu({ Id: vmMenus.Id });
+            vmMenus.ingredientModalClose({ Id: vmMenus.Id() });
         });
 
         $('#menuItem').on('hidden.bs.modal', function () {

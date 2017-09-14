@@ -11,6 +11,7 @@ namespace Green.Controllers
         private FoodCommandService cService = new FoodCommandService();
 
         // GET: Foods
+        [Authorize(Roles = "AppAdmin")]
         public ActionResult List()
         {
             return View();

@@ -27,7 +27,7 @@ namespace Green.Controllers
         {
             var menus = qMenuService.GetMenus(restaurantId);
             var mealTypes = qMealService.GetMealTypes();
-            return new JsonResult() { Data = new { Menus = menus, MealTypes = mealTypes}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = new { Menus = menus, MealTypes = mealTypes }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
@@ -43,7 +43,7 @@ namespace Green.Controllers
             var message = cMenuService.DeleteMenu(menuId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
-        
+
         public JsonResult GetMeals()
         {
             var meals = qMenuService.GetAllMeals();
@@ -52,6 +52,12 @@ namespace Green.Controllers
         public JsonResult GetMealsForMenu(string menuId)
         {
             var meals = qMenuService.GetMealsForMenu(menuId);
+            return new JsonResult() { Data = new { Meals = meals }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public JsonResult GetNewMealsForMenu(string menuId, List<MenuMealDisplay> selectedMeals)
+        {
+            var meals = qMenuService.GetNewMealsForMenu(menuId, selectedMeals);
             return new JsonResult() { Data = new { Meals = meals }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }

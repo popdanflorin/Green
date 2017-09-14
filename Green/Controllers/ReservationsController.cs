@@ -33,6 +33,8 @@ namespace Green.Controllers
             var userId = User.Identity.GetUserId();
             if (!isAdmin)
                 reservations = reservations.Where(r => r.ClientId == userId).ToList();
+            else
+                reservations = reservations.Where(r => r.Restaurant.OwnerId == userId).ToList();
             return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
