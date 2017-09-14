@@ -262,11 +262,10 @@
                             </ul>
                         </div>
                     </div>
-                    <button id="NewIngredientButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#foodItem">Add new ingredient</button>
-                </div>
+                      </div>
                 <div class="pull-left">
                     <label><input id="MultipleSelectionButton" type="checkbox" data-bind="click: $root.SelectAll" value="" />Select All</label>
-
+                    @*<button id="NewIngredientButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#foodItem">Add new ingredient</button>*@
                 </div>
 
                 <!-- Image -->
@@ -285,25 +284,6 @@
                     </div>
                 }
                 <!-- /ko -->
-
-                @*<label for="MealIngredient">Ingredients</label>
-                    <div class="form-horizontal">
-                        <select id="MealIngredient" class="form-control pull-left col-md-6 col-lg-6" size="5" data-bind="foreach: FoodTypes()">
-                            <optgroup data-bind="attr: {label: Description}, foreach: $parent.DisplayedFoods">
-                                <!-- ko if: TypeDisplay == $parent.Description -->
-                                <option data-bind="text: Name, style: { 'background-color': $data.isSelected ? 'mediumseagreen' : 'white' }, click: $root.onIngredientClicked"></option>
-                                <!-- /ko -->
-                            </optgroup>
-                        </select>
-
-                        <div id="DisplayCaseButtons" class="btn-group">
-                            <input type="button" role="group" class="btn btn-default" value="Show all" data-bind="click: $root.showAll" />
-                            <input type="button" role="group" class="btn btn-default" value="Show selected" data-bind="click: $root.showSelected" />
-                            <input type="button" role="group" class="btn btn-default" value="Show unselected" data-bind="click: $root.showUnselected" />
-                        </div>
-
-                        <label class="text-danger pull-right" data-bind="text:warningIngredient"></label>
-                    </div>*@
             </div>
 
             <div class="modal-footer">

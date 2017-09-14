@@ -42,6 +42,7 @@ namespace Green.Controllers
         }
         public JsonResult Save(Restaurant restaurant)
         {
+            restaurant.OwnerId = User.Identity.GetUserId();
             var message = cService.SaveRestaurant(restaurant);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
