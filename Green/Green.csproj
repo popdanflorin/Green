@@ -357,7 +357,7 @@
     <Content Include="Views\Restaurants\UserRestaurants.cshtml" />
     <Content Include="Views\Ratings\Rating.cshtml" />
     <Content Include="Views\Shared\Image.cshtml" />
-    <Content Include="Views\Restaurants\Details.cshtml" />
+    <Content Include="Views\Restaurants\Favorites.cshtml" />
     <Content Include="Views\Menus\MenuList.cshtml" />
     <Content Include="Views\Restaurants\SuccesModal.cshtml" />
   </ItemGroup>

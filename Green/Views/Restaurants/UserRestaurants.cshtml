@@ -1,6 +1,6 @@
 ﻿<style>
     .jumbotron {
-        background-color: #F6BB42;
+        background-color: #af351c;
     }
 
         .jumbotron h1 {
@@ -107,7 +107,7 @@
                     <h2>
                         Search the perfect restaurant for you!
                     </h2>
-                    <p style="color: brown; font-weight:bold; font-style:italic; font-size: medium">
+                    <p style="color: antiquewhite; font-weight:bold; font-style:italic; font-size: medium">
                         “One cannot think well, love well, sleep well, if one has not dined well.”
                     </p>
 
@@ -138,7 +138,7 @@
                     <p style="padding-left: 110px;text-align:left"><span class="glyphicon" style="color: dodgerblue;font-size: 20px ">&#xe086;</span> Here you can search for your favorite restaurant. You can search for a restaurant by its name or by its type.</p>
                 </div>
                 <br />
-                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#favoritesItem"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
+                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#favoritesItem" data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
                 <br/>
                 <p>
                     <select class="dropdwn" id="selectMenu" name="" data-theme="c"
@@ -209,7 +209,7 @@
             </div>
         </div>
     </div>
-    @Html.Partial("Details")
+    @Html.Partial("Favorites")
     @Html.Partial("SuccesModal")
 </div>
 <script>

@@ -15,6 +15,7 @@ namespace Green.Controllers
 
         private UserFavoritesQueryService qService = new UserFavoritesQueryService();
         private UserFavoritesCommandService cService = new UserFavoritesCommandService();
+
         // GET: UserFavorites
         public ActionResult List()
         {
@@ -25,10 +26,21 @@ namespace Green.Controllers
             var userId = User.Identity.GetUserId();
             return new JsonResult { Data = new { UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult UserFavoritesGet(string UserId)
+        {
+            var userFavorites = qService.GetUserFavorites(UserId);
+            return new JsonResult() { Data = new { UserFavorites = userFavorites }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         [HttpPost]
         public JsonResult Save(UserFavorites favorite)
         {
             var message = cService.SaveFavorite(favorite);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+        public JsonResult Delete(string restaurantId)
+        {
+            var message = cService.DeleteFavorite(restaurantId);
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
     }
