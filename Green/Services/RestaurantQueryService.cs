@@ -23,7 +23,7 @@ namespace Green.Services
         }
         public List<EnumItem> GetRestaurantTypes()  //transform the enum into a list of restaurants types
         {
-            return Enum.GetValues(typeof(RestaurantType)).Cast<RestaurantType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
+            return Enum.GetValues(typeof(RestaurantType)).Cast<RestaurantType>().Select(x => new EnumItem() { Id = (int)x, Description = EnumExtensions.ToString(x) }).ToList();
         }
         public List<Image> GetImages()
         {
@@ -32,7 +32,7 @@ namespace Green.Services
         public List<string> GetRestaurantTypesString()
         {
             List<string> StringTypes = new List<string>();
-            List<EnumItem> Types = Enum.GetValues(typeof(RestaurantType)).Cast<RestaurantType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).ToList();
+            List<EnumItem> Types = Enum.GetValues(typeof(RestaurantType)).Cast<RestaurantType>().Select(x => new EnumItem() { Id = (int)x, Description = EnumExtensions.ToString(x) }).ToList();
             foreach (var item in Types)
             {
                 StringTypes.Add(item.Description);

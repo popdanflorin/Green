@@ -18,7 +18,7 @@ namespace Green.Services
 
         public List<EnumItem> GetFoodTypes()
         {
-            return Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = x.ToString() }).OrderBy(x => x.Description).ToList();
+            return Enum.GetValues(typeof(FoodType)).Cast<FoodType>().Select(x => new EnumItem() { Id = (int)x, Description = EnumExtensions.ToString(x) }).OrderBy(x => x.Description).ToList();
         }
     }
 }
