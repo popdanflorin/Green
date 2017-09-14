@@ -95,18 +95,48 @@ namespace Green.Migrations
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mozzarella") == 0).Id }
                 );
 
+            /* Add AppAdmins (Restaurants Managers) */
+            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "AppAdmin" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.Email == "founder@gmail.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "founder@gmail.com", Email = "founder@gmail.com" };
+
+                manager.Create(user, "1Tecknoworker!");
+                manager.AddToRole(user.Id, "AppAdmin");
+            }
+
+            if (!context.Users.Any(u => u.Email == "founder2@gmail.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "founder2@gmail.com", Email = "founder2@gmail.com" };
+
+                manager.Create(user, "1Tecknoworker!");
+                manager.AddToRole(user.Id, "AppAdmin");
+            }
+
             /* Add restaurants */
             context.Restaurants.AddOrUpdate(
               f => f.Name,
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, OpeningHour = 10, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Samsara", Address = "Str.Roth Stephan Ludwig,nr 5,Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 20, OpeningHour = 15, ClosingHour = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Tokyo", Address = "Str.Marinescu Gheorghe,nr 5,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 15, OpeningHour = 8, ClosingHour = 21 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "KFC", Address = " Strada Iuliu Maniu,nr 1,Cluj-Napoca", Type = RestaurantType.FastFood, SeatsAvailable = 30, OpeningHour = 11, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Baracca", Address = "Strada Napoca 8A,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 29, OpeningHour = 12, ClosingHour = 23 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Nuka Bistro", Address = " Strada Episcop Ioan Bob,9,Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 40, OpeningHour = 13, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Indigo", Address = "Strada Piezisa,nr 10-12,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 50, OpeningHour = 9, ClosingHour = 23 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 12, OpeningHour = 8, ClosingHour = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, SeatsAvailable = 22, OpeningHour = 7, ClosingHour = 22 }
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, OpeningHour = 10, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Samsara", Address = "Str.Roth Stephan Ludwig,nr 5,Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 20, OpeningHour = 15, ClosingHour = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Tokyo", Address = "Str.Marinescu Gheorghe,nr 5,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 15, OpeningHour = 8, ClosingHour = 21 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "KFC", Address = " Strada Iuliu Maniu,nr 1,Cluj-Napoca", Type = RestaurantType.FastFood, SeatsAvailable = 30, OpeningHour = 11, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Baracca", Address = "Strada Napoca 8A,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 29, OpeningHour = 12, ClosingHour = 23 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Nuka Bistro", Address = " Strada Episcop Ioan Bob,9,Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 40, OpeningHour = 13, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Indigo", Address = "Strada Piezisa,nr 10-12,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 50, OpeningHour = 9, ClosingHour = 23 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 12, OpeningHour = 8, ClosingHour = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, SeatsAvailable = 22, OpeningHour = 7, ClosingHour = 22 }
             );
             context.SaveChanges();
 
@@ -124,26 +154,8 @@ namespace Green.Migrations
                 new Image { Id = Guid.NewGuid().ToString(), Name = "verde1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id },
                 new Image { Id = Guid.NewGuid().ToString(), Name = "indigo1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id }
             );
-            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "AppAdmin" };
 
-                manager.Create(role);
-            }
-
-            if (!context.Users.Any(u => u.UserName == "founder"))
-            {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "founder@gmail.com", Email = "a@b.com" };
-
-                manager.Create(user, "1Tecknoworker!");
-                manager.AddToRole(user.Id, "AppAdmin");
-            }
-
-
+            /* Add Normal Users*/
             if (!context.Roles.Any(r => r.Name == "NormalUser"))
             {
                 var store = new RoleStore<IdentityRole>(context);
@@ -153,11 +165,11 @@ namespace Green.Migrations
                 manager.Create(role);
             }
 
-            if (!context.Users.Any(u => u.UserName == "client"))
+            if (!context.Users.Any(u => u.Email == "client@gmail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "client@gmail.com", Email = "aa@b.com" };
+                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "client", Email = "client@gmail.com" };
 
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "NormalUser");

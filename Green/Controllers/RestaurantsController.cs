@@ -35,7 +35,7 @@ namespace Green.Controllers
         }
         public JsonResult ListRefresh()
         {
-            var restaurants = qService.GetRestaurants();
+            var restaurants = qService.GetRestaurants().Where(r => r.OwnerId == User.Identity.GetUserId()).ToList();
             var restaurantTypes = qService.GetRestaurantTypes();
             var images = qService.GetImages();
             return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes, Images = images }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
