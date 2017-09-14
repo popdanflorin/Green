@@ -13,11 +13,15 @@ namespace Green.Services
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
+        private const string InvalidTimeIntervalMessage = "Selected time interval is not available! Another menu is already set.";
 
         public string SaveMenu(Menu menu, List<MenuMealDisplay> allMeals)
         {
             try
             {
+                if (!ValidateMenuDate(menu))
+                    return InvalidTimeIntervalMessage;
+
                 var meals = allMeals.Where(m => m.isSelected == true).Select(m => new Meal
                 {
                     Id = m.Id,
@@ -131,6 +135,19 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
+
+
+        public bool ValidateMenuDate(Menu menu)
+        {
+            var allMenus = ctx.Menus.Where(m => m.RestaurantId == menu.RestaurantId && m.Id != menu.Id).ToList();
+            var result = allMenus.FirstOrDefault(m =>
+                m.StartDate == menu.StartDate || m.EndDate == menu.EndDate || m.StartDate == menu.EndDate || m.EndDate == menu.StartDate ||
+                (m.StartDate > menu.StartDate && m.StartDate < menu.StartDate) || (m.EndDate > menu.StartDate && m.EndDate < menu.StartDate) ||
+                (menu.StartDate > m.StartDate && menu.StartDate < m.StartDate) || (menu.EndDate > m.StartDate && menu.EndDate < m.StartDate)
+            );
+            return result == null ? true : false;
+        }
+
     }
 
 }

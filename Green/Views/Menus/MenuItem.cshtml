@@ -106,7 +106,7 @@
         margin-bottom: 6px;
         width: 100%;
         border: none;
-        overflow:auto;
+        overflow: auto;
     }
 
 
@@ -198,17 +198,27 @@
                 <!-- Menu Date -->
                 <label for="MenuStartDate">Start Date</label>
                 <div class="form-horizontal form-group">
-                    <input id="MenuStartDate" type="date" class="form-control" data-bind="datePicker: $root.StartDate">
+                    <div class="input-group" style="display: inline;">
+                        <input id="MenuStartDate" type="date" class="form-control" data-bind="datePicker: $root.StartDate">
+                        <button id="StartDateRevertButton" class="btn input-group btn-default" aria-label="Left Align" data-bind="click: $root.resetStartDate" style="display: none;">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
                     <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
                 </div>
 
                 <label for="MenuEndDate">End Date</label>
-                <div class="form-group form-horizontal">
-                    <input id="MenuEndDate" type="date" class="form-control" data-bind="datePicker: $root.EndDate">
+                <div class="form-horizontal form-group">
+                    <div class="input-group" style="display: inline;">
+                        <input id="MenuEndDate" type="date" class="form-control" data-bind="datePicker: $root.EndDate">
+                        <button id="EndDateRevertButton" class="btn input-group btn-default" aria-label="Left Align" data-bind="click: $root.resetEndDate">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
                     <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
                 </div>
+                <label class="text-danger pull-right" data-bind="text: $root.warningTimeInterval"></label>
 
-                <hr />
                 <!-- Search Meal -->
                 <div class="form-inline">
                     <div class="inner-addon left-addon pull-left" style="width: 100%">

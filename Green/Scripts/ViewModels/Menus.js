@@ -11,6 +11,10 @@
     self.RestaurantName = ko.observable(null);
     self.StartDate = ko.observable(null);
     self.EndDate = ko.observable(null);
+    self.InitialStartDate = new Date();
+    self.InitialEndDate = new Date();
+
+    self.ActualDate = ko.observable(Date());
 
     // displays
     self.RestaurantNameDisplay = ko.computed(function () {
@@ -22,17 +26,17 @@
     self.StartDateDisplay = ko.computed(function () {
         if (!self.StartDate())
             return null;
-        return moment(self.StartDate(), "MM/DD/YYYY", false).format();
+        return moment(self.StartDate()).format('DD MMM YYYY');
     });
 
     self.EndDateDisplay = ko.computed(function () {
         if (!self.EndDate())
             return null;
-        return moment(self.EndDate(), "MM/DD/YYYY", false).format();
+        return moment(self.EndDate()).format('DD MMM YYYY');
     });
 
     self.MenuTitleDisplay = ko.computed(function () {
-        return self.RestaurantName() + "'s Menu\n" + self.StartDateDisplay() + " - " + self.EndDateDisplay();
+        return self.RestaurantName() + "'s Menu for " + self.StartDateDisplay() + " - " + self.EndDateDisplay();
     });
 
     // for meals
@@ -91,6 +95,7 @@
     // validation warning
     self.warningStartDate = ko.observable();
     self.warningEndDate = ko.observable();
+    self.warningTimeInterval = ko.observable();
     self.warningMeal = ko.observable();
 
     // functions
@@ -123,23 +128,31 @@
         });
         if (self.Id() == null)
             self.Id(0);
-        self.TemporaryMeals = [];
     };
 
     self.refreshMenu = function (data) {
         self.Id(data.Id);
         self.StartDate(data.StartDate);
         self.EndDate(data.EndDate);
+        self.InitialStartDate = data.StartDate;
+        self.InitialEndDate = data.EndDate;
         self.refreshMeals();
 
         self.warningStartDate(null);
         self.warningEndDate(null);
+        self.warningTimeInterval(null);
         self.warningMeal(null);
 
-        if (self.nullOrEmpty(self.Id()))
+        if (self.nullOrEmpty(self.Id())) {
             $("#MenuDeleteButton").hide();
-        else
+            $("#StartDateRevertButton").hide();
+            $("#EndDateRevertButton").hide();
+        }
+        else {
             $("#MenuDeleteButton").show();
+            $("#StartDateRevertButton").show();
+            $("#EndDateRevertButton").show();
+        }
     };
 
     self.ingredientsModalClose = function () {
@@ -214,10 +227,13 @@
 
         self.warningStartDate(null);
         self.warningEndDate(null);
+        self.warningTimeInterval(null);
         self.warningMeal(null);
 
         $("#MultipleSelectionButton").prop("checked", false);
         $("#MenuDeleteButton").hide();
+        $("#StartDateRevertButton").hide();
+        $("#EndDateRevertButton").hide();
     };
 
     self.save = function () {
@@ -239,8 +255,12 @@
             data: menu,
             success: function (data) {
                 console.log(data);
-                $("#menuItem").modal("hide");
-                self.refresh();
+                if (data.search("interval") >= 0)
+                    self.warningTimeInterval(data);
+                else {
+                    $("#menuItem").modal("hide");
+                    self.refresh();
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -339,6 +359,17 @@
         return true;
     }
 
+    // for date
+    self.resetStartDate = function () {
+        if (self.InitialStartDate != null)
+            self.StartDate(self.InitialStartDate);
+    };
+
+    self.resetEndDate = function () {
+        if (self.InitialEndDate != null)
+            self.EndDate(self.InitialEndDate);
+    };
+
     // for displaying meals
     self.showAll = function () {
         self.DisplayCase(0);
@@ -380,6 +411,14 @@
         }
         else {
             self.warningEndDate(null);
+        }
+
+        if (self.StartDate() > self.EndDate()) {
+            self.warningTimeInterval("Selected time interval is not valid!");
+            valid = false;
+        }
+        else {
+            self.warningTimeInterval(null);
         }
 
         return valid;

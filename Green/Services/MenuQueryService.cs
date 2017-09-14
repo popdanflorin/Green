@@ -18,7 +18,7 @@ namespace Green.Services
 
         public List<Menu> GetMenus(string restaurantId)
         {
-            return ctx.Menus.Where(m => m.RestaurantId == restaurantId).ToList();
+            return ctx.Menus.Where(m => m.RestaurantId == restaurantId).OrderBy(m => m.StartDate).ToList();
         }
 
         public Menu GetMenuDetails(string menuId)

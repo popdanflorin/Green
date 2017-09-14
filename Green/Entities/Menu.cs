@@ -21,14 +21,14 @@ namespace Green.Entities
         {
             get
             {
-                return StartDate.ToString("dd-MMM-yyyy");
+                return StartDate.ToString("dd MMM yyyy");
             }
         }
         public string EndDateDisplay
         {
             get
             {
-                return EndDate.ToString("dd-MMM-yyyy");
+                return EndDate.ToString("dd MMM yyyy");
             }
         }
 
