@@ -29,11 +29,14 @@ namespace Green.Migrations
               f => f.Name,
               new Food { Id = Guid.NewGuid().ToString(), Name = "Bread", Type = FoodType.Cereals },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Pasta", Type = FoodType.Cereals },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Wholegrain Pasta", Type = FoodType.Cereals },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Flour", Type = FoodType.Cereals },
 
               new Food { Id = Guid.NewGuid().ToString(), Name = "Apple", Type = FoodType.Fruits },
-              new Food { Id = Guid.NewGuid().ToString(), Name = "Banana", Type = FoodType.Fruits },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Bananas", Type = FoodType.Fruits },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Orange", Type = FoodType.Fruits },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Pineapple", Type = FoodType.Fruits },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Strawberry", Type = FoodType.Fruits },
 
               new Food { Id = Guid.NewGuid().ToString(), Name = "Pepper", Type = FoodType.Vegetables },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Potatoes", Type = FoodType.Vegetables },
@@ -53,19 +56,29 @@ namespace Green.Migrations
               
               new Food { Id = Guid.NewGuid().ToString(), Name = "Mozzarella", Type = FoodType.Dairy },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Parmesan", Type = FoodType.Dairy },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Mascarpone", Type = FoodType.Dairy },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Cheese cream", Type = FoodType.Dairy },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Milk", Type = FoodType.Dairy },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Eggs", Type = FoodType.Dairy },
 
               new Food { Id = Guid.NewGuid().ToString(), Name = "Nutella", Type = FoodType.Sweets },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Strawberry jam", Type = FoodType.Sweets },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Cacao Biscuits", Type = FoodType.Sweets },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Plain Biscuits", Type = FoodType.Sweets },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Oreo", Type = FoodType.Sweets },
 
               new Food { Id = Guid.NewGuid().ToString(), Name = "Basil", Type = FoodType.Spices },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Oregano", Type = FoodType.Spices },
 
-              new Food { Id = Guid.NewGuid().ToString(), Name = "Tomato Sauce", Type = FoodType.Sauces }
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Tomato Sauce", Type = FoodType.SaucesAndToppings },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "TChocolate Topping", Type = FoodType.SaucesAndToppings }
             );
             context.SaveChanges();
 
             /* Add Meals and Ingredients to them */
-            string mealId = Guid.NewGuid().ToString();
+            string mealId;
+
+            mealId = Guid.NewGuid().ToString();
             context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Hawaii Pizza", Description = "...", ImageName = "hawaiiPizza.jpg", Type = MealType.Pizza });
             context.SaveChanges();
             context.MealIngredients.AddOrUpdate(
@@ -88,11 +101,79 @@ namespace Green.Migrations
                 );
 
             mealId = Guid.NewGuid().ToString();
-            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Cheese Spaghetti", Description = "...", Type = MealType.Pasta });
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Cheese Spaghetti", ImageName = "cheeseSpaghetti.jpeg", Description = "...", Type = MealType.Pasta });
             context.SaveChanges();
             context.MealIngredients.AddOrUpdate(
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Parmesan") == 0).Id },
-                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mozzarella") == 0).Id }
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mozzarella") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Cheese cream") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Meat Lasagna", ImageName = "meatLasagna.jpg", Description = "...", Type = MealType.Pasta });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mozzarella") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Tomato Sauce") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Wholegrain Pasta") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Mushrooms Lasagna", ImageName = "mushroomsLasagna.jpg", Description = "...", Type = MealType.Pasta });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mushrooms") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mozzarella") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Tomato Sauce") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Stuffed Mushrooms", ImageName = "stuffedMushrooms.jpg", Description = "...", Type = MealType.VegetarianDishes });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mushrooms") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mozzarella") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Onions") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Oreo Cheesecake", ImageName = "oreoCheesecake.jpg", Description = "...", Type = MealType.Dessert });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Oreo") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Cacao Biscuits") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Cheese cream") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Nutella Bananas Pancakes", ImageName = "nutellaBananasPancakes.jpg", Description = "...", Type = MealType.Dessert });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Nutella") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Bananas") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Milk") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Flour") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Strawberry Jam Pancakes", ImageName = "strawberryJamPancakes.jpg", Description = "...", Type = MealType.Dessert });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Strawberry jam") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Strawberry") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Milk") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Flour") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id }
+                );
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Tiramisu", ImageName = "tiramisu.jpeg", Description = "...", Type = MealType.Dessert });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Plain Biscuits") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Mascarpone") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id }
                 );
 
             /* Add AppAdmins (Restaurants Managers) */
