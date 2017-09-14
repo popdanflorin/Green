@@ -123,6 +123,7 @@
         });
         if (self.Id() == null)
             self.Id(0);
+        self.TemporaryMeals = [];
     };
 
     self.refreshMenu = function (data) {
@@ -140,6 +141,31 @@
         else
             $("#MenuDeleteButton").show();
     };
+
+    self.ingredientsModalClose = function () {
+        var url = '/Menus/GetNewMealsForMenu';
+        var menu = JSON.stringify({
+            menuId: self.Id(),
+            selectedMeals: self.Meals()
+        });
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: menu,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Meals(data.Meals);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $("#MultipleSelectionButton").prop("checked", false);
+    }
 
     self.refreshMeals = function () {
         var url = '/Menus/GetMealsForMenu';

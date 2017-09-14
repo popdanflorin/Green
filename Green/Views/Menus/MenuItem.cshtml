@@ -198,32 +198,15 @@
                 <!-- Menu Date -->
                 <label for="MenuStartDate">Start Date</label>
                 <div class="form-horizontal form-group">
-                    <input id="MenuStartDate" type="date" class="form-control" data-bind="value: $root.StartDate">
+                    <input id="MenuStartDate" type="date" class="form-control" data-bind="datePicker: $root.StartDate">
                     <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
                 </div>
 
                 <label for="MenuEndDate">End Date</label>
                 <div class="form-group form-horizontal">
-                    <input id="MenuEndDate" type="date" class="form-control" data-bind="value: $root.EndDate">
+                    <input id="MenuEndDate" type="date" class="form-control" data-bind="datePicker: $root.EndDate">
                     <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
                 </div>
-
-                <!-- Menu Content Edit -->
-                @*<div class="form-horizontal">
-                        <select id="MenuMeals" class="form-control pull-left" data-bind="foreach: $root.MealTypes">
-                            <optgroup data-bind="attr: {label: $data.Description}, foreach: $parent.Meals">
-                                <!-- ko if: TypeDisplay == $parent.Description -->
-                                <option data-bind="text: Name, value: Id"></option>
-                                <!-- /ko -->
-                            </optgroup>
-                        </select>
-                        <label class="text-danger pull-right" data-bind="text:$root.warningMeal"></label>
-                        <div class="btn-group">
-                            <button id="AddMealButton" class="btn btn-default" data-bind="click: $root.addMealFromList">Add</button>
-                            <button id="DeleteMealButton" class="btn btn-default" data-bind="click: $root.deleteMealFromList">Delete</button>
-                        </div>
-                    </div>
-                    <br />*@
 
                 <hr />
                 <!-- Search Meal -->
@@ -280,5 +263,21 @@
     function ToggleMenuVisibility() {
         var button = $("#MenuVisibilityButton");
         button.text(button.text() == "Show Menu" ? "Hide Menu" : "Show Menu");
+    };
+
+    ko.bindingHandlers.datePicker = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            // Register change callbacks to update the model
+            // if the control changes.
+            ko.utils.registerEventHandler(element, "change", function () {
+                var value = valueAccessor();
+                value(moment(element.value).format());
+            });
+        },
+        // Update the control whenever the view model changes
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var value = valueAccessor();
+            element.value = moment(value()).format("YYYY-MM-DD");
+        }
     };
 </script>

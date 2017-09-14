@@ -76,7 +76,7 @@
 
         // refresh
         $('#mealItem').on('hidden.bs.modal', function () {
-            vmMenus.refreshMeals({ Id: vmMenus.Id() });
+            vmMenus.ingredientModalClose({ Id: vmMenus.Id() });
         });
 
         $('#menuItem').on('hidden.bs.modal', function () {

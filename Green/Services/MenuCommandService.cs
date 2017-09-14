@@ -31,16 +31,34 @@ namespace Green.Services
                 if (oldMenu == null)
                 {
                     menu.Id = Guid.NewGuid().ToString();
-                    menu.StartDate = DateTime.Now;
-                    menu.EndDate = DateTime.Now;
                     ctx.Menus.Add(menu);
                 }
                 else
                 {
-                    //oldMenu.StartDate = menu.StartDate;
-                    //oldMenu.EndDate = menu.EndDate;
-                    oldMenu.StartDate = DateTime.Now;
-                    oldMenu.EndDate = DateTime.Now;
+                    DateTime tmp = new DateTime();
+                    try
+                    {
+                        tmp = oldMenu.StartDate;
+                        oldMenu.StartDate = new DateTime(menu.StartDate.Year, menu.StartDate.Month, menu.StartDate.Day);
+                        ctx.SaveChanges();
+                    }
+                    catch
+                    {
+                        oldMenu.StartDate = tmp;
+                    }
+
+                    try
+                    {
+                        tmp = oldMenu.EndDate;
+                        oldMenu.EndDate = new DateTime(menu.EndDate.Year, menu.EndDate.Month, menu.EndDate.Day);
+                        ctx.SaveChanges();
+                    }
+                    catch
+                    {
+                        oldMenu.EndDate = tmp;
+                    }
+                    //oldMenu.StartDate = DateTime.Now;
+                    //oldMenu.EndDate = DateTime.Now;
                     DeleteAllMeals(menu.Id);
                 }
 
@@ -49,7 +67,7 @@ namespace Green.Services
                 ctx.SaveChanges();
                 return SuccessMessage;
             }
-            catch
+            catch (Exception e)
             {
                 return ErrorMessage;
             }

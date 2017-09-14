@@ -39,10 +39,21 @@ namespace Green.Services
                 }
                 else
                 {
+                    DateTime tmp = new DateTime();
+                    try
+                    {
+                        tmp = oldReservation.ReservationDate;
+                        oldReservation.ReservationDate = new DateTime(reservation.ReservationDate.Year, reservation.ReservationDate.Month, reservation.ReservationDate.Day);
+                        ctx.SaveChanges();
+                    }
+                    catch
+                    {
+                        oldReservation.ReservationDate = tmp;
+                    }
                     oldReservation.RestaurantId = reservation.RestaurantId;
                     oldReservation.ClientId = reservation.ClientId;
-                    oldReservation.ReservationDate = reservation.ReservationDate;
                     oldReservation.Seats = reservation.Seats;
+
                 }
 
                 ctx.SaveChanges();
