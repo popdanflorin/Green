@@ -200,7 +200,7 @@ namespace Green.Migrations
                 manager.Create(role);
             }
 
-            if (!context.Users.Any(u => u.Email == "founder@gmail.com"))
+            if (!context.Users.Any(u => u.UserName == "founder@gmail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
@@ -210,7 +210,7 @@ namespace Green.Migrations
                 manager.AddToRole(user.Id, "AppAdmin");
             }
 
-            if (!context.Users.Any(u => u.Email == "founder2@gmail.com"))
+            if (!context.Users.Any(u => u.UserName == "founder2@gmail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
@@ -223,15 +223,15 @@ namespace Green.Migrations
             /* Add restaurants */
             context.Restaurants.AddOrUpdate(
               f => f.Name,
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Panemar", Address = "Dorobantilor Street, Nr. 30, Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, OpeningHour = 10, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Samsara", Address = "Roth Stephan Ludwig Street, Nr. 5, Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 20, OpeningHour = 15, ClosingHour = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Tokyo", Address = "Marinescu Gheorghe Street, Nr. 5, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 15, OpeningHour = 8, ClosingHour = 21 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "KFC", Address = "Iuliu Maniu Street, Nr. 1, Cluj-Napoca", Type = RestaurantType.FastFood, SeatsAvailable = 30, OpeningHour = 11, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Baracca", Address = "Napoca Street, Nr. 8A, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 29, OpeningHour = 12, ClosingHour = 23 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Nuka Bistro", Address = "Episcop Ioan Bob Street, Nr. 9, Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 40, OpeningHour = 13, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Indigo", Address = "Piezisa Street, Nr. 10-12, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 50, OpeningHour = 9, ClosingHour = 23 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Pralina", Address = "Mihai Viteazul Street, Nr. 104, Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 12, OpeningHour = 8, ClosingHour = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Verde", Address = "George Cosbuc Street, Nr. 9, Cluj-Napoca", Type = RestaurantType.Vegetarian, SeatsAvailable = 22, OpeningHour = 7, ClosingHour = 22 }
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder@gmail.com") == 0).Id, Name = "Panemar", Address = "Dorobantilor Street, Nr. 30, Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, OpeningHour = 10, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder@gmail.com") == 0).Id, Name = "Samsara", Address = "Roth Stephan Ludwig Street, Nr. 5, Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 20, OpeningHour = 15, ClosingHour = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder2@gmail.com") == 0).Id, Name = "Tokyo", Address = "Marinescu Gheorghe Street, Nr. 5, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 15, OpeningHour = 8, ClosingHour = 21 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder@gmail.com") == 0).Id, Name = "KFC", Address = "Iuliu Maniu Street, Nr. 1, Cluj-Napoca", Type = RestaurantType.FastFood, SeatsAvailable = 30, OpeningHour = 11, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder2@gmail.com") == 0).Id, Name = "Baracca", Address = "Napoca Street, Nr. 8A, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 29, OpeningHour = 12, ClosingHour = 23 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder2@gmail.com") == 0).Id, Name = "Nuka Bistro", Address = "Episcop Ioan Bob Street, Nr. 9, Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 40, OpeningHour = 13, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder@gmail.com") == 0).Id, Name = "Indigo", Address = "Piezisa Street, Nr. 10-12, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 50, OpeningHour = 9, ClosingHour = 23 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder@gmail.com") == 0).Id, Name = "Pralina", Address = "Mihai Viteazul Street, Nr. 104, Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 12, OpeningHour = 8, ClosingHour = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("founder2@gmail.com") == 0).Id, Name = "Verde", Address = "George Cosbuc Street, Nr. 9, Cluj-Napoca", Type = RestaurantType.Vegetarian, SeatsAvailable = 22, OpeningHour = 7, ClosingHour = 22 }
             );
             context.SaveChanges();
 
@@ -282,7 +282,7 @@ namespace Green.Migrations
                 manager.Create(role);
             }
 
-            if (!context.Users.Any(u => u.Email == "client@gmail.com"))
+            if (!context.Users.Any(u => u.UserName == "client@gmail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
