@@ -43,7 +43,7 @@ namespace Green.Services
                     try
                     {
                         tmp = oldMenu.StartDate;
-                        oldMenu.StartDate = new DateTime(menu.StartDate.Year, menu.StartDate.Month, menu.StartDate.Day);
+                        oldMenu.StartDate = new DateTime(menu.StartDate.Year, menu.StartDate.Month, menu.StartDate.Day, 0, 0, 0);
                         ctx.SaveChanges();
                     }
                     catch
@@ -54,7 +54,7 @@ namespace Green.Services
                     try
                     {
                         tmp = oldMenu.EndDate;
-                        oldMenu.EndDate = new DateTime(menu.EndDate.Year, menu.EndDate.Month, menu.EndDate.Day);
+                        oldMenu.EndDate = new DateTime(menu.EndDate.Year, menu.EndDate.Month, menu.EndDate.Day, 0, 0, 0);
                         ctx.SaveChanges();
                     }
                     catch

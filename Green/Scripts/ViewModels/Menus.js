@@ -206,8 +206,13 @@
 
     self.add = function () {
         self.Id(0);
-        self.StartDate(null);
-        self.EndDate(null);
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        self.StartDate(today);
+        self.EndDate(today);
 
         var url = '/Menus/GetMeals';
         self.loadingPanel.show();
@@ -368,6 +373,27 @@
     self.resetEndDate = function () {
         if (self.InitialEndDate != null)
             self.EndDate(self.InitialEndDate);
+    };
+
+    self.isExpired = function (data) {
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        var date = new Date(data.EndDateDisplay);
+        return date < today;
+    };
+
+    self.isActive = function (data) {
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        var startDate = new Date(data.StartDateDisplay);
+        var endDate = new Date(data.EndDateDisplay);
+        return startDate <= today && today <= endDate;
     };
 
     // for displaying meals

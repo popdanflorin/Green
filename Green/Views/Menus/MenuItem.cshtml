@@ -101,7 +101,7 @@
                 cursor: default;
             }
 
-    #DisplayCaseButtons {
+    #menuItem #DisplayCaseButtons {
         margin-top: 11px;
         margin-bottom: 6px;
         width: 100%;
@@ -126,15 +126,15 @@
         content: "\e080";
     }*/
 
-    #menus .left-inner-addon {
+    #menus #menuItem .left-inner-addon {
         position: relative;
     }
 
-        #menus .left-inner-addon input {
+        #menus #menuItem .left-inner-addon input {
             padding-left: 30px;
         }
 
-        #menus .left-inner-addon i {
+        #menus #menuItem .left-inner-addon i {
             padding-left: 10px;
             position: absolute;
             padding: 10px 12px;
@@ -190,7 +190,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-bind="click: $('#menuItem').modal('hide')">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" @*data-bind="click: $('#menuItem').modal('hide')"*@>&times;</button>
                 <h4 data-bind="text: MenuTitleDisplay"></h4>
             </div>
 
@@ -200,7 +200,7 @@
                 <div class="form-horizontal form-group">
                     <div class="input-group" style="display: inline;">
                         <input id="MenuStartDate" type="date" class="form-control" data-bind="datePicker: $root.StartDate">
-                        <button id="StartDateRevertButton" class="btn input-group btn-default" aria-label="Left Align" data-bind="click: $root.resetStartDate" style="display: none;">
+                        <button id="StartDateRevertButton" class="btn input-group btn-default" aria-label="Left Align" data-bind="click: $root.resetStartDate" style="display: none;" data-toggle="tooltip" title="Revert">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -211,17 +211,17 @@
                 <div class="form-horizontal form-group">
                     <div class="input-group" style="display: inline;">
                         <input id="MenuEndDate" type="date" class="form-control" data-bind="datePicker: $root.EndDate">
-                        <button id="EndDateRevertButton" class="btn input-group btn-default" aria-label="Left Align" data-bind="click: $root.resetEndDate">
+                        <button id="EndDateRevertButton" class="btn input-group btn-default" aria-label="Left Align" data-bind="click: $root.resetEndDate" style="display: none;" data-toggle="tooltip" title="Revert">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                     </div>
                     <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
                 </div>
-                <label class="text-danger pull-right" data-bind="text: $root.warningTimeInterval"></label>
+                <label id="WarningTimeInterval" class="text-danger pull-right" data-bind="text: $root.warningTimeInterval"></label>
 
                 <!-- Search Meal -->
                 <div class="form-inline">
-                    <div class="inner-addon left-addon pull-left" style="width: 100%">
+                    <div class="inner-addon left-addon pull-left" style="width: 100%; margin-top: 20px;">
                         @*<i class="glyphicon glyphicon-search"></i>*@
                         <input id="MealSearchBox" type="text" class="form-control" role="search" placeholder="Search meal..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
                     </div>
@@ -263,7 +263,7 @@
             <div class="modal-footer">
                 <button id="MenuOKButton" class="btn btn-success" data-bind="click: save">Save</button>
                 <button id="MenuDeleteButton" class="btn btn-danger" style="display: none;" data-bind="click: $root.deleteModal">Delete</button>
-                <button class="btn btn-default" data-bind="click: $('#menuItem').modal('hide')">Close</button>
+                <button class="btn btn-default" data-dismiss="modal" @*data-bind="click: $('#menuItem').modal('hide')"*@>Close</button>
             </div>
         </div>
     </div>
@@ -273,6 +273,11 @@
     function ToggleMenuVisibility() {
         var button = $("#MenuVisibilityButton");
         button.text(button.text() == "Show Menu" ? "Hide Menu" : "Show Menu");
+    };
+
+    function ToggleIngredientsVisibility() {
+        var button = $("#IngredientsVisibilityButton");
+        button.text(button.text() == "Show Ingredients" ? "Hide Ingredients" : "Show Ingredients");
     };
 
     ko.bindingHandlers.datePicker = {

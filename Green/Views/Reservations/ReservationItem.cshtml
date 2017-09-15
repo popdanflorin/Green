@@ -11,26 +11,28 @@
                 <div class="form-group">
                     <label for="RestaurantId">Restaurant:</label>
                     <div class="form-horizontal">
-                        <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId, optionsCaption: 'Choose...'"></select>
-                        <button id="RestaurantInfo" class="btn btn-default" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId" data-content="Waiting..." data-html="true">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                        </button>
+                        <div class="input-group" style="display: inline;">
+                            <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId, optionsCaption: 'Choose...'"></select>
+                            <button id="RestaurantInfo" class="btn btn-default input-group" aria-label="Left Align" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId" data-content="Waiting..." data-html="true">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            </button>
+                        </div>
                         <label class="text-danger pull-right" data-bind="text:warningRestaurantId"></label>
                     </div>
 
                     <label for="ClientName" data-bind="allowAccess:$root.isAdmin">Client:</label>
-                    <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="visible:isAdmin, value:UserName" readonly/>
-                    
+                    <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="visible:isAdmin, value:UserName" readonly />
+
                     <label for="DateTime">Date and Time:</label>
                     <div class="form-horizontal">
-                        <input id="DateTime" type="datetime-local" class="form-control" data-bind="datePicker : ReservationDate"/>
+                        <input id="DateTime" type="datetime-local" class="form-control" data-bind="datePicker : ReservationDate" step="3600" />
                         <label class="text-danger pull-right" data-bind="text:warningReservationDate"></label>
                     </div>
 
                     <label for="Seats">Number of Seats:</label>
                     <div class="form-horizontal">
                         <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="onKeyPressSeats()" data-bind="value:Seats" />
-                        <label id ="WarningSeats" class="text-danger pull-right" data-bind="text:warningSeats"></label>
+                        <label id="WarningSeats" class="text-danger pull-right" data-bind="text:warningSeats"></label>
                     </div>
 
                     <hr />
@@ -39,8 +41,8 @@
             </div>
 
             <div class="modal-footer">
-                <input id="OKButton" type="button" class="btn btn-success" value="Save" data-dismiss="modal" data-toggle="tooltip" title="Apply changes." data-bind="click:save "/>
-                <input type="button" class="btn btn-danger" value="Cancel" data-dismiss="modal" data-toggle="tooltip" title="Revert changes."/>
+                <input id="OKButton" type="button" class="btn btn-success" value="Save" data-dismiss="modal" data-toggle="tooltip" title="Apply changes." data-bind="click:save " />
+                <input type="button" class="btn btn-danger" value="Cancel" data-dismiss="modal" data-toggle="tooltip" title="Revert changes." />
             </div>
         </div>
     </div>
