@@ -291,6 +291,7 @@ namespace Green.Migrations
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "NormalUser");
             }
+            context.SaveChanges();
         }
     }
 }
