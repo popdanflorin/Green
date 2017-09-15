@@ -37,6 +37,7 @@ namespace Green.Migrations
               new Food { Id = Guid.NewGuid().ToString(), Name = "Orange", Type = FoodType.Fruits },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Pineapple", Type = FoodType.Fruits },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Strawberry", Type = FoodType.Fruits },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Pomegranate", Type = FoodType.Fruits },
 
               new Food { Id = Guid.NewGuid().ToString(), Name = "Pepper", Type = FoodType.Vegetables },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Potatoes", Type = FoodType.Vegetables },
@@ -71,7 +72,8 @@ namespace Green.Migrations
               new Food { Id = Guid.NewGuid().ToString(), Name = "Oregano", Type = FoodType.Spices },
 
               new Food { Id = Guid.NewGuid().ToString(), Name = "Tomato Sauce", Type = FoodType.SaucesAndToppings },
-              new Food { Id = Guid.NewGuid().ToString(), Name = "TChocolate Topping", Type = FoodType.SaucesAndToppings }
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Chocolate Topping", Type = FoodType.SaucesAndToppings },
+              new Food { Id = Guid.NewGuid().ToString(), Name = "Strawberry Topping", Type = FoodType.SaucesAndToppings }
             );
             context.SaveChanges();
 
@@ -145,6 +147,16 @@ namespace Green.Migrations
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Cheese cream") == 0).Id }
                 );
 
+
+            mealId = Guid.NewGuid().ToString();
+            context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Pomegranate Cheesecake", ImageName = "pomegranateCheesecake.jpeg", Description = "...", Type = MealType.Dessert });
+            context.SaveChanges();
+            context.MealIngredients.AddOrUpdate(
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Pomegranate") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Plain Biscuits") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Cheese cream") == 0).Id }
+                );
+
             mealId = Guid.NewGuid().ToString();
             context.Meals.AddOrUpdate(new Meal { Id = mealId, Name = "Nutella Bananas Pancakes", ImageName = "nutellaBananasPancakes.jpg", Description = "...", Type = MealType.Dessert });
             context.SaveChanges();
@@ -153,7 +165,8 @@ namespace Green.Migrations
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Bananas") == 0).Id },
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Milk") == 0).Id },
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Flour") == 0).Id },
-                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id }
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Chocolate Topping") == 0).Id }
                 );
 
             mealId = Guid.NewGuid().ToString();
@@ -164,7 +177,8 @@ namespace Green.Migrations
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Strawberry") == 0).Id },
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Milk") == 0).Id },
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Flour") == 0).Id },
-                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id }
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Eggs") == 0).Id },
+                new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Strawberry Topping") == 0).Id }
                 );
 
             mealId = Guid.NewGuid().ToString();
@@ -209,15 +223,15 @@ namespace Green.Migrations
             /* Add restaurants */
             context.Restaurants.AddOrUpdate(
               f => f.Name,
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Panemar", Address = "Dorobantilor,30,Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, OpeningHour = 10, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Samsara", Address = "Str.Roth Stephan Ludwig,nr 5,Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 20, OpeningHour = 15, ClosingHour = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Tokyo", Address = "Str.Marinescu Gheorghe,nr 5,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 15, OpeningHour = 8, ClosingHour = 21 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "KFC", Address = " Strada Iuliu Maniu,nr 1,Cluj-Napoca", Type = RestaurantType.FastFood, SeatsAvailable = 30, OpeningHour = 11, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Baracca", Address = "Strada Napoca 8A,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 29, OpeningHour = 12, ClosingHour = 23 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Nuka Bistro", Address = " Strada Episcop Ioan Bob,9,Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 40, OpeningHour = 13, ClosingHour = 22 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Indigo", Address = "Strada Piezisa,nr 10-12,Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 50, OpeningHour = 9, ClosingHour = 23 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Pralina", Address = "Mihai Viteazul,104,Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 12, OpeningHour = 8, ClosingHour = 20 },
-                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Verde", Address = "George Cosbuc,9,Cluj-Napoca", Type = RestaurantType.Vegetarian, SeatsAvailable = 22, OpeningHour = 7, ClosingHour = 22 }
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Panemar", Address = "Dorobantilor Street, Nr. 30, Cluj-Napoca", Type = RestaurantType.Backery, SeatsAvailable = 10, OpeningHour = 10, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Samsara", Address = "Roth Stephan Ludwig Street, Nr. 5, Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 20, OpeningHour = 15, ClosingHour = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Tokyo", Address = "Marinescu Gheorghe Street, Nr. 5, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 15, OpeningHour = 8, ClosingHour = 21 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "KFC", Address = "Iuliu Maniu Street, Nr. 1, Cluj-Napoca", Type = RestaurantType.FastFood, SeatsAvailable = 30, OpeningHour = 11, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Baracca", Address = "Napoca Street, Nr. 8A, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 29, OpeningHour = 12, ClosingHour = 23 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Nuka Bistro", Address = "Episcop Ioan Bob Street, Nr. 9, Cluj-Napoca", Type = RestaurantType.Vegan, SeatsAvailable = 40, OpeningHour = 13, ClosingHour = 22 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Indigo", Address = "Piezisa Street, Nr. 10-12, Cluj-Napoca", Type = RestaurantType.Traditional, SeatsAvailable = 50, OpeningHour = 9, ClosingHour = 23 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder@gmail.com") == 0).Id, Name = "Pralina", Address = "Mihai Viteazul Street, Nr. 104, Cluj-Napoca", Type = RestaurantType.Pastry, SeatsAvailable = 12, OpeningHour = 8, ClosingHour = 20 },
+                new Restaurant { id = Guid.NewGuid().ToString(), OwnerId = context.Users.FirstOrDefault(u => u.Email.CompareTo("founder2@gmail.com") == 0).Id, Name = "Verde", Address = "George Cosbuc Street, Nr. 9, Cluj-Napoca", Type = RestaurantType.Vegetarian, SeatsAvailable = 22, OpeningHour = 7, ClosingHour = 22 }
             );
             context.SaveChanges();
 
@@ -235,6 +249,28 @@ namespace Green.Migrations
                 new Image { Id = Guid.NewGuid().ToString(), Name = "verde1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id },
                 new Image { Id = Guid.NewGuid().ToString(), Name = "indigo1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id }
             );
+
+            /* Add menus to restaurants */
+            string menuId;
+            DateTime date;
+            
+            date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            menuId = Guid.NewGuid().ToString();
+            context.Menus.AddOrUpdate(new Menu { Id = menuId, StartDate = date, EndDate = date, RestaurantId = context.Restaurants.FirstOrDefault(r => r.Name.CompareTo("Pralina") == 0).id });
+            context.SaveChanges();
+            context.MenuMeals.AddOrUpdate(
+                new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Tiramisu") == 0).Id },
+                new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Pomegranate Cheesecake") == 0).Id },
+                new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Oreo Cheesecake") == 0).Id }
+                );
+
+            date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.AddDays(1).Day, 0, 0, 0);
+            menuId = Guid.NewGuid().ToString();
+            context.Menus.AddOrUpdate(new Menu { Id = menuId, StartDate = date, EndDate = date.AddDays(7), RestaurantId = context.Restaurants.FirstOrDefault(r => r.Name.CompareTo("Pralina") == 0).id });
+            context.SaveChanges();
+            context.MenuMeals.AddOrUpdate(
+                new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Tiramisu") == 0).Id }
+                );
 
             /* Add Normal Users*/
             if (!context.Roles.Any(r => r.Name == "NormalUser"))
