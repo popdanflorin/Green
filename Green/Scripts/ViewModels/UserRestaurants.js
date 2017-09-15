@@ -158,11 +158,11 @@
             }
         });
     };
-    self.deleteFavorite = function () {
+    self.deleteFavorite = function (data) {
 
         var url = '/UserFavorites/Delete';
         var restaurant = JSON.stringify({
-            restaurantId: $('#idFavorite').val()
+            restaurantId:data.id
         });
         $.ajax(url, {
             type: "post",
@@ -180,7 +180,8 @@
     }
     self.showRating = function (data) {
         self.Rating(data.Rating);
-        var rate = $('#' + data.Name).rateit();
+        var nameRestaurant = data.Name.replace(/\s+/g,'');
+        var rate = $('#' + data.id).rateit();
         rate.rateit('value', self.Rating());
         rate.rateit('readonly', true);
 

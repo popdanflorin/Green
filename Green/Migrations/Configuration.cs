@@ -250,7 +250,7 @@ namespace Green.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "client", Email = "client@gmail.com" };
+                var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "client@gmail.com", Email = "client@gmail.com" };
 
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "NormalUser");

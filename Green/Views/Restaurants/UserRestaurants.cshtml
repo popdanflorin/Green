@@ -1,6 +1,7 @@
 ﻿<style>
     .jumbotron {
         background-color: #af351c;
+        background-image: url("../img/userrestaurants.jpg");
     }
 
         .jumbotron h1 {
@@ -17,12 +18,14 @@
         padding-left: 15px;
         padding-right: 15px;
     }
+
     input.form-control {
-    max-width: 400px;
-    min-width: 200px;
-}
+        max-width: 400px;
+        min-width: 200px;
+    }
+
     .input-group {
-        padding-top: 5px;
+        padding-top: 13px;
         padding-bottom: 30px;
         padding-left: 100px;
         border-top: 1px;
@@ -32,9 +35,9 @@
     }
 
     .dropdown {
-        padding-top: 5px;
-        padding-bottom: 35px;
-        padding-left: 108px;
+        padding-top: 2px;
+        padding-bottom: 0px;
+        padding-left: 41px;
         border-top: 1px;
         border-bottom: 200px;
         border-left: 100px;
@@ -54,16 +57,14 @@
     }
 
     .dropdwn {
-        left:auto;
-        right:auto;
+        left: auto;
+        right: auto;
         padding-top: 5px;
-        margin-top:20px;
+        margin-top: 20px;
         padding-bottom: 10px;
-        padding-right:10px;
-        width:200px;
-       
+        padding-right: 10px;
+        width: 200px;
         text-align: justify;
-       
     }
 
     span.stars, span.stars span {
@@ -73,24 +74,69 @@
         height: 16px;
     }
 
-    span.stars span {
-        background-position: 0 0;
-    }
+        span.stars span {
+            background-position: 0 0;
+        }
 
     .rate {
         padding-top: 2px;
         padding-bottom: 2px;
         padding-left: 50px;
-      padding-right:50px;
-       border-bottom: -5px !important;
+        padding-right: 50px;
+        border-bottom: -5px !important;
     }
-    .thumbnail{
-        height:590px;
-          padding-bottom: 10px;
+
+    .thumbnail {
+        height: 590px;
+        padding-bottom: 10px;
         margin-bottom: 40px !important;
     }
-   
- 
+
+    body {
+        padding-top: 50px;
+    }
+
+    .dropdown.dropdown-lg .dropdown-menu {
+        margin-top: -1px;
+        padding: 6px 20px;
+    }
+
+    .btn1 {
+        margin-top: 10px;
+        margin-right: 70px;
+        margin-left: 80px;
+        margin-bottom: 40px;
+    }
+    .btn.btn-default.dropdown-toggle.btn1{
+         margin-top: 10px;
+        margin-right: 70px;
+        margin-left: 4px;
+        margin-bottom: 40px;
+        background-color: forestgreen;
+      
+    }
+
+
+    .btn-group .btn:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .btn-group .form-horizontal .btn[type="submit"] {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .form-group .form-control:last-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        margin-left: 3px;
+    }
 </style>
 
 @{
@@ -104,7 +150,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron">
-                    <h2>
+                    <h2 style="text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;">
                         Search the perfect restaurant for you!
                     </h2>
                     <p style="color: antiquewhite; font-weight:bold; font-style:italic; font-size: medium">
@@ -117,11 +163,16 @@
         <hr />
         <div class="row-fluid">
             <div class="col-md-4">
+                <button class="btn btn-info btn1" data-toggle="modal" style="margin-left:101px" data-target="#favoritesItem" data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
+                <div class="text">
+                    <p style="padding-left: 110px;text-align:left"><span class="glyphicon" style="color: dodgerblue;font-size: 20px ">&#xe086;</span> Here you can search for your favorite restaurant. You can search for a restaurant by its name or by its type.</p>
+                </div>
 
+                <br />
                 <div id="custom-search-input" style="position: relative">
                     <div class="input-group">
 
-                        <input name="Name" id="Name" type="text" class="search-query form-control" placeholder="Search..." data-bind="value:RestaurantName" />
+                        <input name="Name" id="Name" type="text" class="search-query form-control" placeholder="Search by name..." data-bind="value:RestaurantName" />
 
 
                         <span class="input-group-btn col-md-offset-2">
@@ -134,18 +185,55 @@
 
                     </div>
                 </div>
-                <div class="text">
-                    <p style="padding-left: 110px;text-align:left"><span class="glyphicon" style="color: dodgerblue;font-size: 20px ">&#xe086;</span> Here you can search for your favorite restaurant. You can search for a restaurant by its name or by its type.</p>
+                <div>
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default dropdown-toggle btn1" data-toggle="dropdown" aria-expanded="false">Advanced search <span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" style="left:331px;top:12px;position:absolute;padding-bottom:13px" role="menu">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <p>
+                                        <select class="dropdwn" id="selectMenu"
+                                                data-bind="options: Types,
+                                                           optionsCaption: 'Choose type...',
+                                                           value:RestaurantType,click:searchByType"></select>
+                                    </p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contain">Contains the meal</label>
+                                    <input class="form-control" type="text" />
+                                </div>
+                                <button type="submit" class="btn btn-danger">Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <br />
-                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#favoritesItem" data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
-                <br/>
-                <p>
-                    <select class="dropdwn" id="selectMenu" name="" data-theme="c"
-                            data-bind="options: Types,
-                            optionsCaption: 'Choose type...',
-                            value:RestaurantType,click:searchByType"></select>
-                </p>
+                @*<div id="custom-search-input" style="position: relative">
+                        <div class="input-group">
+
+                            <input name="Name" id="Name" type="text" class="search-query form-control" placeholder="Search..." data-bind="value:RestaurantName" />
+
+
+                            <span class="input-group-btn col-md-offset-2">
+                                <button id="search" class="btn btn-danger" type="button" data-bind="click:search">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+
+
+
+                        </div>
+                    </div>*@
+
+
+                @*<br />
+                    <p>
+                        <select class="dropdwn" id="selectMenu"
+                                data-bind="options: Types,
+                                optionsCaption: 'Choose type...',
+                                value:RestaurantType,click:searchByType"></select>
+                    </p>*@
 
 
             </div>
@@ -182,7 +270,7 @@
                                 </div>
                                 <div>
 
-                                    <div class="rate" data-bind="attr:{id:Name}">
+                                    <div class="rate" data-bind="attr:{id:id}">
 
                                     </div>
 
@@ -193,7 +281,7 @@
 
                                     <button class="btn btn-success btn-sm" onclick="@("window.location.href='" +@Url.Action("List","Reservations") + "'");">Make a reservation</button>
 
-                                
+
                                     <button class="btn btn-info btn-sm" data-bind="click:$parent.showRating">Show rating</button>
                                     <button id="addFav" class="btn btn-danger btn-sm" type="button" data-bind="click:$parent.save">
                                         <span class="glyphicon glyphicon-heart-empty"></span>

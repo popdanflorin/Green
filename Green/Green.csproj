@@ -265,6 +265,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\coffee.jpg" />
+    <Content Include="img\cover.jpg" />
     <Content Include="img\food.jpg" />
     <Content Include="img\Salad.ico" />
     <Content Include="Scripts\agency.js" />
