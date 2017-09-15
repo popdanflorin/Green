@@ -3,27 +3,27 @@
         overflow: scroll;
     }
 
-    .modal-body {
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: auto;
-        width: inherit;
-        object-fit: cover;
-        border-radius: inherit;
-        overflow: auto;
-    }
+        #mealItem .modal-body {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: auto;
+            width: inherit;
+            object-fit: cover;
+            border-radius: inherit;
+            overflow: auto;
+        }
 
-    .modal-dialog {
-        overflow: auto;
-    }
+        #mealItem .modal-dialog {
+            overflow: auto;
+        }
 
-    .modal-body .image {
-        height: 50px;
-        width: auto;
-        position: relative;
-        left: 90px;
-    }
+        #mealItem .modal-body .image {
+            height: 50px;
+            width: auto;
+            position: relative;
+            left: 90px;
+        }
 
     /*ingredients display*/
     #MealIngredient option:hover {
@@ -41,7 +41,7 @@
         margin-top: 10px;
     }
 
-    #DisplayCaseButtons .btn {
+    #mealItem #DisplayCaseButtons .btn {
         width: auto;
     }
 
@@ -145,7 +145,7 @@
                 cursor: default;
             }
 
-    #DisplayCaseButtons {
+    #mealItem #DisplayCaseButtons {
         margin-top: 11px;
         margin-bottom: 6px;
         width: 100%;
@@ -262,7 +262,7 @@
                             </ul>
                         </div>
                     </div>
-                      </div>
+                </div>
                 <div class="pull-left">
                     <label><input id="MultipleSelectionButton" type="checkbox" data-bind="click: $root.SelectAll" value="" />Select All</label>
                     @*<button id="NewIngredientButton" class="btn btn-default pull-right right" data-toggle="modal" data-target="#foodItem">Add new ingredient</button>*@

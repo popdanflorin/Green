@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Manage Menu";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -23,15 +22,21 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Start date</th>
                                 <th>End date</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:Menus">
                             <tr>
-                                <td class="col col-xs-5 col-sm-5 col-md-5 col-lg-5" data-bind="text:StartDateDisplay"></td>
-                                <td class="col col-xs-5 col-sm-5 col-md-5 col-lg-5" data-bind="text:EndDateDisplay"></td>
+                                <td class="col-xs-1">
+                                    @*<div data-bind="visible: $root.isExpired($data)"><span class="glyphicon glyphicon-exclamation-sign" style="color: red" data-toggle="tooltip" title="Expired menu"></span></div>*@
+                                    <div data-bind="visible: $root.isActive($data)"><span class="glyphicon glyphicon-ok" style="color: green" data-toggle="tooltip" title="Active menu"></span></div>
+                                </td>
+                                <td class="col col-xs-4 col-sm-4 col-md-4 col-lg-4" data-bind="text:StartDateDisplay"></td>
+                                <td class="col col-xs-4 col-sm-4 col-md-4 col-lg-4" data-bind="text:EndDateDisplay"></td>
                                 <td class="col-xs-1">
                                     <button id="ShowMenuDetailsButton" type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#menuItem" data-bind="click: $parent.refreshMenu">
                                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
@@ -42,6 +47,7 @@
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                 </td>
+                                <td class="col-xs-1"></td>
                             </tr>
                         </tbody>
                     </table>
