@@ -43,8 +43,15 @@ namespace Green
 
             bundles.Add(new ScriptBundle("~/bundles/rateit").Include(
                       "~/Scripts/jquery.rateit.js",
-                      "~/Scripts/jquery.rateit..min.js",
+                      "~/Scripts/jquery.rateit.min.js",
                       "~/Scripts/jquery.rateit.min.js.map"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/charts").Include(
+                      "~/Scripts/Chart.bundle.js",
+                      "~/Scripts/Chart.bundle.min.js",
+                      "~/Scripts/Chart.js",
+                      "~/Scripts/Chart.min.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

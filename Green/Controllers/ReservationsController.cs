@@ -31,15 +31,10 @@ namespace Green.Controllers
 
         public JsonResult ListRefresh()
         {
-            var reservations = qReservationService.GetReservations();
-            var restaurants = qRestaurantService.GetRestaurants();
-            var isAdmin = User.IsInRole("AppAdmin");
+            var reservations = qReservationService.GetReservations().Where(r => r.Restaurant.OwnerId == User.Identity.GetUserId()).ToList();
+            var restaurants = qRestaurantService.GetRestaurants().Where(r => r.OwnerId == User.Identity.GetUserId()).ToList();
             var userId = User.Identity.GetUserId();
-            if (!isAdmin)
-                reservations = reservations.Where(r => r.ClientId == userId).ToList();
-            else
-                reservations = reservations.Where(r => r.Restaurant.OwnerId == userId).ToList();
-            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, isAdmin = isAdmin, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
