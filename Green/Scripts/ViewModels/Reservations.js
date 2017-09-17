@@ -13,6 +13,10 @@
     self.isAdmin = ko.observable(false);
     self.loadingPanel = new LoadingOverlay();
 
+    // for chart
+    self.Months = ["January", "February", "March", "April", "May", "June", "Jully", "August", "September", "October", "November", "December"];
+    self.Years = [];
+
     // validation warnings
     self.warningRestaurantId = ko.observable();
     self.warningReservationDate = ko.observable();
@@ -136,7 +140,7 @@
         });
     };
 
-    self.setOKButton = function(value) {
+    self.setOKButton = function (value) {
         try {
             if (value) {
                 var attrDataDismiss = document.createAttribute("data-dismiss");
@@ -155,6 +159,7 @@
         var url = '/Reservations/ListRefresh';
         self.loadingPanel.show();
         $.ajax(url, {
+            async: false,
             type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
@@ -162,12 +167,72 @@
                 console.log(data);
                 self.Reservations(data.Reservations);
                 self.Restaurants(data.Restaurants);
-                self.isAdmin(data.isAdmin);
                 self.UserId(data.UserId);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
+        });
+
+        self.refreshChart();
+    };
+
+    self.refreshChart = function () {
+        var date = new Date().getFullYear();
+        for (var i = 0; i <= 10; ++i)
+            self.Years.push(date - i);
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: self.Months,
+                datasets: []
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        self.Restaurants().forEach(function (restaurant) {
+            var r = Math.floor(Math.random() * 255) % 256;
+            var g = Math.floor(Math.random() * 255) % 256;
+            var b = Math.floor(Math.random() * 255) % 256;
+            var newDataset = {
+                label: restaurant.Name,
+                data: [12, 1, 19, 5, 3, 5, 4, 2, 3],
+                backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
+                borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
+                borderWidth: 1
+            };
+            //var newDataset = {
+            //    label: restaurant.Name,
+            //    data: [12, 1, 19, 5, 3, 5, 4, 2, 3],
+            //    backgroundColor: [
+            //        'rgba(255, 99, 132, 0.2)',
+            //        'rgba(54, 162, 235, 0.2)',
+            //        'rgba(255, 206, 86, 0.2)',
+            //        'rgba(75, 192, 192, 0.2)',
+            //        'rgba(153, 102, 255, 0.2)',
+            //        'rgba(255, 159, 64, 0.2)',
+            //    ],
+            //    borderColor: [
+            //        'rgba(255,99,132,1)',
+            //        'rgba(54, 162, 235, 1)',
+            //        'rgba(255, 206, 86, 1)',
+            //        'rgba(75, 192, 192, 1)',
+            //        'rgba(153, 102, 255, 1)',
+            //        'rgba(255, 159, 64, 1)'
+            //    ],
+            //    borderWidth: 1
+            //};
+            myChart.data.datasets.push(newDataset);
         });
     };
 
@@ -209,7 +274,7 @@
 
     self.restaurantInfo = function () {
         var url = '/Reservations/RestaurantInfo';
-        var restaurant = JSON.stringify({ restaurantId: self.RestaurantId()});
+        var restaurant = JSON.stringify({ restaurantId: self.RestaurantId() });
         var openingHour, closingHour;
         $.ajax(url, {
             async: false,

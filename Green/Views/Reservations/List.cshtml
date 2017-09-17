@@ -5,7 +5,13 @@
 
 <div id="reservations">
     <h2>Reservations</h2>
-    <input id="reserveButton" type="button" class="btn btn-primary" value="Make Reservation" data-toggle="modal" data-target="#reservationItem" data-bind="click:add" autofocus/>
+    <input id="reserveButton" type="button" class="btn btn-primary" value="Make Reservation" data-toggle="modal" data-target="#reservationItem" data-bind="click:add" autofocus />
+
+    <div id="Chart">
+        <select id="ChartYear" data-bind="options: Years"></select>
+        <canvas id="myChart"></canvas>
+    </div>
+
     <table class="table table-striped" align="right">
         <thead>
             <tr>
@@ -15,9 +21,9 @@
                 <th>Seats</th>
             </tr>
         </thead>
-        <tbody data-bind="foreach:Reservations"> 
-            <tr>                                
-                <td class="col-md-3" data-bind="text:Restaurant.Name"></td>       
+        <tbody data-bind="foreach:Reservations">
+            <tr>
+                <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
                 <td class="col-md-3" data-bind="text:User.UserName, visible: $root.isAdmin"></td>
                 <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
                 <td class="col-md-1" data-bind="text:Seats"></td>
@@ -30,11 +36,10 @@
                             <span class="glyphicon glyphicon-remove-sign"></span> Cancel
                         </button>
                     </div>
-                </td>            
-            </tr>          
+                </td>
+            </tr>
         </tbody>
     </table>
-    @Html.Partial("ReservationItem")
 </div>
 
 <script>
@@ -47,10 +52,6 @@
         var vmRatings = new Ratings();
         vmRatings.set();
         ko.applyBindings(vmRatings, $("#ratings").get(0));
-
-        $("#RestaurantId").bind("change", vm.RestaurantId, vmRatings.changeRestaurantId);
-        $("#RestaurantId").bind("change", vm.restaurantInfo);
-        vmRatings.changeRestaurantId(vm.RestaurantId);
     });
 
     //hides the element for non-admin users
