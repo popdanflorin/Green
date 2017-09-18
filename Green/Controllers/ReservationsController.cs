@@ -37,6 +37,13 @@ namespace Green.Controllers
             return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult ReservationsPercentageRefresh(int year)
+        {
+            var restaurants = qRestaurantService.GetRestaurants().Where(r => r.OwnerId == User.Identity.GetUserId()).ToList();
+            var reservationsPercentage = qReservationService.GetSeatsPercetageForAllPerYear(restaurants, year);
+            return new JsonResult { Data = reservationsPercentage, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         [HttpPost]
         public JsonResult RestaurantInfo(string restaurantId)
         {

@@ -7,8 +7,8 @@
     <h2>Reservations</h2>
     <input id="reserveButton" type="button" class="btn btn-primary" value="Make Reservation" data-toggle="modal" data-target="#reservationItem" data-bind="click:add" autofocus />
 
-    <div id="Chart">
-        <select id="ChartYear" data-bind="options: Years"></select>
+    <div id="Chart" style="margin-top: 20px">
+        <select id="ChartYear" data-bind="options: Years, selectedOptions: SelectedYear"></select>
         <canvas id="myChart"></canvas>
     </div>
 
