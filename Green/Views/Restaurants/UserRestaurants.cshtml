@@ -187,8 +187,8 @@
                 </div>
                 <div>
                     <div class="dropdown dropdown-lg">
-                        <button type="button" class="btn btn-default dropdown-toggle btn1" data-toggle="dropdown" aria-expanded="false">Advanced search <span class="caret"></span></button>
-                        <div class="dropdown-menu dropdown-menu-right" style="left:331px;top:12px;position:absolute;padding-bottom:13px" role="menu">
+                        <button id="buttondropdown" type="button" class="btn btn-default dropdown-toggle btn1" data-toggle="dropdown" aria-expanded="false">Advanced search <span class="caret"></span></button>
+                        <div id="dropdown" class="dropdown-menu dropdown-menu-right" data-toggle="dropdown"  style="left:331px;top:12px;position:absolute;padding-bottom:13px" role="menu">
                             <form class="form-horizontal" role="form">
                                 <div class="form-group">
                                     <label for="filter">Filter by</label>
@@ -202,9 +202,9 @@
 
                                 <div class="form-group">
                                     <label for="contain">Contains the meal</label>
-                                    <input class="form-control" type="text" />
+                                    <input id="Meal" class="form-control" type="text" data-bind="value:MealName"/>
                                 </div>
-                                <button type="submit" class="btn btn-danger">Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                <button id="search2" type="button" data-bind="click:searchByAll"  class="btn btn-danger">Search <span class="glyphicon glyphicon-search" aria-hidden="true" ></span></button>
                             </form>
                         </div>
                     </div>
@@ -306,7 +306,17 @@
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
     });
-    $('#search').click(function () {
+    $('document').ready(function () {
+        $("#dropdown").click(function () {
+            $(this).dropdown("toggle");
+            return false;
+        });
+        $("#search2").click(function () {
+            $("#dropdown").dropdown("toggle");
+            return false;
+        });
+    });
+   /* $('#search').click(function () {
         if (!$('#Name').val()) {
             $('#Name').popover({
                 title: 'Warning!',
@@ -316,7 +326,7 @@
         } else {
             $('#Name').popover('destroy');
         }
-    });
+    });*/
 
 </script>
 

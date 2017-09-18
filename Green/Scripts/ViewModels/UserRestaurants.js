@@ -9,7 +9,7 @@
     self.RestaurantType = ko.observable();
     self.RestaurantId = ko.observable();
     self.Rating = ko.observable();
-
+    self.MealName = ko.observable();
     self.UserId = ko.observable();
     self.Id = ko.observable();
     self.Message = ko.observable();
@@ -46,7 +46,7 @@
         $.ajax(url, {
             type: "get",
             contentType: "application/json; charset=utf-8",
-            data: {UserId: self.UserId},
+            data: { UserId: self.UserId },
             success: function (data) {
                 self.loadingPanel.hide();
                 console.log(data);
@@ -60,28 +60,51 @@
     };
 
     self.search = function () {
-        var isValid = true;
-        if (!$.trim($('#Name').val())) {
-            isValid = false;
-        }
-        if (isValid == true) {
-            var url = '/Restaurants/UserRestaurantsSearch';
-            self.loadingPanel.show();
-            $.ajax(url, {
-                type: "get",
-                contentType: "application/json; charset=utf-8",
-                data: { restaurantName: self.RestaurantName },
-                success: function (data) {
-                    self.loadingPanel.hide();
-                    console.log(data);
-                    self.UserRestaurants(data.UserRestaurants);
+        
+        var url = '/Restaurants/UserRestaurantsSearch';
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "get",
+            async:false,
+            contentType: "application/json; charset=utf-8",
+            data: {
+                restaurantName: self.RestaurantName,
+                mealName: self.MealName
+            },
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.UserRestaurants(data.UserRestaurants);
 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus + ': ' + errorThrown);
-                }
-            });
-        }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+         
+    };
+    self.searchByAll = function () {
+        var url = '/Restaurants/UserRestaurantsSearch';
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "get",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            data: {
+                restaurantName: self.RestaurantName,
+                mealName: self.MealName
+            },
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.UserRestaurants(data.UserRestaurants);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+        
     };
     self.searchByType = function () {
         var isValid = true;
@@ -162,7 +185,7 @@
 
         var url = '/UserFavorites/Delete';
         var restaurant = JSON.stringify({
-            restaurantId:data.id
+            restaurantId: data.id
         });
         $.ajax(url, {
             type: "post",
@@ -180,7 +203,7 @@
     }
     self.showRating = function (data) {
         self.Rating(data.Rating);
-        var nameRestaurant = data.Name.replace(/\s+/g,'');
+        var nameRestaurant = data.Name.replace(/\s+/g, '');
         var rate = $('#' + data.id).rateit();
         rate.rateit('value', self.Rating());
         rate.rateit('readonly', true);

@@ -51,7 +51,7 @@ namespace Green.Entities.Enums
                 case RestaurantType.Traditional: return "Traditional";
                 case RestaurantType.Vegan: return "Vegan";
                 case RestaurantType.Vegetarian: return "Vegetarian";
-                case RestaurantType.FastFood: return "Fast Food";
+                case RestaurantType.FastFood: return "FastFood";
                 case RestaurantType.Indian: return "Indian";
                 case RestaurantType.Italian: return "Italian";
                 default: return String.Empty;

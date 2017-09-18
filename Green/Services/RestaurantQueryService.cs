@@ -116,7 +116,7 @@ namespace Green.Services
             List<Image> listImages = GetImages();
             List<UserRestaurant> listUserRestaurants = new List<UserRestaurant>();
             var listNew = listRestaurants.Where(x => x.Name.ToLower().StartsWith(name.ToLower()));
-          
+
             foreach (var item in listNew)
             {
                 var userRestaurant = new UserRestaurant();
@@ -135,55 +135,80 @@ namespace Green.Services
             return listUserRestaurants;
 
         }
-      /*  public List<UserRestaurant> GetUserRestaurantsByMeal(string menuName)
+        public List<UserRestaurant> GetUserRestaurantsByAll(string restaurantName, string mealName)
         {
             List<Restaurant> listRestaurants = GetRestaurants();
             List<Image> listImages = GetImages();
             List<Menu> listMenus = GetMenus();
             List<MenuMeal> listMenuMeals = GetMenuMeals();
             List<Meal> listMeals = GetMeals();
-            var listNewMeals = listMeals.Where(x=>x.Name.Contains(menuName));
+            List<UserRestaurant> finalUserRestaurants = new List<UserRestaurant>();
             List<UserRestaurant> listUserRestaurants = new List<UserRestaurant>();
-            List<MenuMeal> listNewMenuMeals = new List<MenuMeal>();
-            List<Menu> listNewMenus = new List<Menu>();
-            List<Restaurant> listNewRestaurants = new List<Restaurant>();
-            foreach (var item in listNewMeals)
+            if (restaurantName == "" && mealName == "")
+                finalUserRestaurants = GetUserRestaurants();
+            else
             {
-                var list = listMenuMeals.Where(x => x.MealId == item.Id);
-                listNewMenuMeals.AddRange(list);
-            }
-            foreach(var item in listNewMenuMeals)
-            {
-                var list = listMenus.Where(x => x.Id == item.MenuId);
-                listNewMenus.AddRange(list);
-            }
-            foreach(var item in listNewMenus)
-            {
-                var list = listRestaurants.Where(x => x.id == item.RestaurantId);
-                listNewRestaurants.AddRange(list);
-            }
-            foreach (var item in listNewRestaurants)
-            {
-                var userRestaurant = new UserRestaurant();
-                userRestaurant.id = item.id;
-                userRestaurant.Name = item.Name;
-                userRestaurant.Address = item.Address;
-                userRestaurant.Type = item.Type;
-                var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
-                if (image != null)
-                    userRestaurant.ImageName = image.Name;
+                if (restaurantName != "" && mealName == "")
+                    finalUserRestaurants = GetUserRestaurants(restaurantName);
                 else
-                    userRestaurant.ImageName = "noimage.jpg";
-                listUserRestaurants.Add(userRestaurant);
+                {
+                    var mealId = listMeals.FirstOrDefault(x => x.Name.ToLower().Contains(mealName.ToLower()));
+                    var listRestaurantMeals = listMenuMeals
+                        .Join(
+                             listMenus,
+                             menuMeal => menuMeal.MenuId,
+                             menu => menu.Id,
+                             (menuMeal, menu) => new { MenuMeal = menuMeal, Menu = menu })
+                       .Join(
+                            listRestaurants,
+                            mm => mm.Menu.RestaurantId,
+                            r => r.id,
+                            (mm, r) => new { mm.MenuMeal, mm.Menu, Restaurant = r })
+                       .Select(c => new
+                       {
+                           c.MenuMeal.MealId,
+                           c.Restaurant.id,
+                           c.Restaurant.Name,
+                           c.Restaurant.Address,
+                           c.Restaurant.Type
+                       });
 
+                    if (mealId == null)
+                        return finalUserRestaurants;
+                    else
+                    {
+                        var newRestaurantsList = listRestaurantMeals.Where(x => x.MealId == mealId.Id);
+                        foreach (var item in newRestaurantsList)
+                        {
+                            var userRestaurant = new UserRestaurant();
+                            userRestaurant.id = item.id;
+                            userRestaurant.Name = item.Name;
+                            userRestaurant.Address = item.Address;
+                            userRestaurant.Type = item.Type;
+                            var ratings = ctx.Ratings.Where(r => r.RestaurantId == item.id);
+                            if (ratings.Any())
+                                userRestaurant.Rating = ratings.Sum(r => r.Value) / ratings.Count();
+                            else
+                                userRestaurant.Rating = 0;
+                            var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
+                            if (image != null)
+                                userRestaurant.ImageName = image.Name;
+                            else
+                                userRestaurant.ImageName = "noimage.jpg";
+                            listUserRestaurants.Add(userRestaurant);
+
+                        }
+                        if (restaurantName != "")
+                            finalUserRestaurants = listUserRestaurants.Where(x => x.Name.ToLower().Contains(restaurantName)).ToList();
+                        else
+                            finalUserRestaurants = listUserRestaurants;
+                    }
+                }
             }
-            return listUserRestaurants;
-            var all=listMeals.Join(listMenuMeals,x=>x.Id,y=>y.MealId, (x,y)=>new {x,y}) 
-                .Where
-                .Join(listMenus,z=>z.MenuId,w=>w.Id,(z,w)=>new {z,w})                
-               
+            return finalUserRestaurants;
 
-        }*/
+
+        }
         public List<UserRestaurant> GetUserRestaurants(RestaurantType type)
         {
             List<Restaurant> listRestaurants = GetRestaurants();
@@ -209,14 +234,7 @@ namespace Green.Services
             return listUserRestaurants;
 
         }
-        public List<UserRestaurant> SearchUserRestaurants(string restaurantName,string menuName,RestaurantType restaurantType)
-        {
-            List<UserRestaurant> finalUserRestaurants = new List<UserRestaurant>();
-            if (restaurantName == null && menuName == null)
-                finalUserRestaurants = GetUserRestaurants();
-            
-            return finalUserRestaurants;
-        }
+
 
     }
 }
