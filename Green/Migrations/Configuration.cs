@@ -54,7 +54,7 @@ namespace Green.Migrations
               new Food { Id = Guid.NewGuid().ToString(), Name = "Ham", Type = FoodType.Meats },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Bacon", Type = FoodType.Meats },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Pepperoni", Type = FoodType.Meats },
-              
+
               new Food { Id = Guid.NewGuid().ToString(), Name = "Mozzarella", Type = FoodType.Dairy },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Parmesan", Type = FoodType.Dairy },
               new Food { Id = Guid.NewGuid().ToString(), Name = "Gorgonzola", Type = FoodType.Dairy },
@@ -217,7 +217,7 @@ namespace Green.Migrations
             context.MealIngredients.AddOrUpdate(
                 new MealIngredient { Id = Guid.NewGuid().ToString(), MealId = mealId, FoodId = context.Foods.FirstOrDefault(f => f.Name.CompareTo("Tomato") == 0).Id }
                 );
-            
+
             /* Add AppAdmins (Restaurants Managers) */
             if (!context.Roles.Any(r => r.Name == "AppAdmin"))
             {
@@ -341,9 +341,9 @@ namespace Green.Migrations
                 new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Stuffed Mushrooms") == 0).Id },
                 new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Vegetarian Pizza") == 0).Id },
                 new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Mushrooms Lasagna") == 0).Id },
-                new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Pomegranate Cheesecake") == 0).Id }          
+                new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Pomegranate Cheesecake") == 0).Id }
                 );
-            
+
             /* Add Normal Users*/
             if (!context.Roles.Any(r => r.Name == "NormalUser"))
             {
@@ -363,6 +363,31 @@ namespace Green.Migrations
                 manager.Create(user, "1Tecknoworker!");
                 manager.AddToRole(user.Id, "NormalUser");
             }
+            context.SaveChanges();
+
+            /* Add Reservations */
+            string clientId, restaurantId, seatsAvailable;
+            int openingHour, closingHour;
+            Restaurant restaurant;
+
+            /* Samsara */
+            clientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id;
+            restaurant = context.Restaurants.FirstOrDefault(r => r.Name.CompareTo("Samsara") == 0);
+            restaurantId = restaurant.id;
+            seatsAvailable = restaurant.SeatsAvailable.ToString();
+            openingHour = restaurant.OpeningHour;
+            closingHour = restaurant.ClosingHour;
+
+            //for (int year = new DateTime().Year - 3; year <= new DateTime().Year + 4; ++year)
+            for (int month = 2; month < 11; ++month)
+                for (int day = 5; day < 26; day += 2)
+                {
+                    date = new DateTime(2017, month, day, openingHour, 00, 00);
+                    context.Reservations.AddOrUpdate(
+                            new Reservation { Id = Guid.NewGuid().ToString(), ClientId = clientId, RestaurantId = restaurantId, Seats = seatsAvailable, ReservationDate = date }
+                        );
+                }
+
             context.SaveChanges();
         }
     }
