@@ -12,6 +12,11 @@
         <canvas id="myChart"></canvas>
     </div>
 
+    <div style="margin-top: 20px">
+        <canvas id="RestaurantMonthlyChart"></canvas>
+    </div>
+
+
     @*<table class="table table-striped" align="right">
         <thead>
             <tr>
@@ -50,6 +55,8 @@
         ko.applyBindings(vm, $("#reservations").get(0));
 
         $("#ChartYear").val("2017").change();
+
+      
     });
 
     //hides the element for non-admin users

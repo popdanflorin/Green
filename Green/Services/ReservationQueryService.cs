@@ -62,7 +62,7 @@ namespace Green.Services
             return percentages;
         }
 
-        public int GetSeatsPercentageForRestaurantPerMonth(string restaurantId, int year, int month)
+        public List<int> GetSeatsPercentageForRestaurantPerMonth(string restaurantId, int year, int month)
         {
             Restaurant restaurant = ctx.Restaurants.FirstOrDefault(r => r.id == restaurantId);
             int hours = restaurant.ClosingHour - restaurant.OpeningHour;
@@ -87,13 +87,20 @@ namespace Green.Services
                     days = 30;
                     break;
             }
-            int max = days * hours * restaurant.SeatsAvailable;
+            List<int> percentages = new List<int>();
             var reservations = ctx.Reservations.Where(r => r.RestaurantId == restaurantId && r.ReservationDate.Year == year && r.ReservationDate.Month == month).ToList();
 
-            int current = 0;
-            reservations.ForEach(r => current += Int32.Parse(r.Seats));
-            int percentage = current * 100 / max;
-            return percentage;
+            int max = hours * restaurant.SeatsAvailable, current;
+            for (var i = 1; i <= days; ++i)
+            {
+                current = 0;
+                var todays = reservations.Where(r => r.ReservationDate.Day == i).ToList();
+                if (todays.Any())
+                    todays.ForEach(r => current += Int32.Parse(r.Seats));
+                percentages.Add(current * 100 / max);
+            }
+            
+            return percentages;
         }
     }
 }

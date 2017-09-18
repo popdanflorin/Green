@@ -15,9 +15,12 @@
 
     // for chart
     self.myChart;
+    self.monthlyChart = null;
     self.Months = ["January", "February", "March", "April", "May", "June", "Jully", "August", "September", "October", "November", "December"];
     self.Years = [];
+    self.Days = [];
     self.Percentages = ko.observableArray();
+    self.RestaurantPercentages = ko.observableArray();
     self.SelectedYear = ko.observable();
     self.SelectedYearChanged = ko.computed(function () {
         if (self.SelectedYear == null || self.SelectedYear == undefined)
@@ -30,7 +33,7 @@
             });
             self.myChart.update();
         }
-        catch (e) {}
+        catch (e) { }
         //var object = document.getElementById("ChartYear");
         //try
         //{
@@ -248,11 +251,12 @@
                         ticks: {
                             beginAtZero: true,
                             min: 0,
-                            //max: 100
+                            max: 100
                         },
                         stacked: true
                     }],
-                }
+                },
+                onClick: self.refreshMonthlyChart
             }
         });
 
@@ -262,6 +266,7 @@
             var b = Math.floor(Math.random() * 255) % 256;
             var usedDataset = {
                 label: item.Restaurant.Name,
+                restaurant: item.Restaurant,
                 data: item.Percentages,
                 backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
                 borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
@@ -294,40 +299,137 @@
         self.myChart.update();
     };
 
-    self.validate = function () {
-        var valid = true;
-        if (self.nullOrEmpty(self.RestaurantId._latestValue)) {
-            self.warningRestaurantId("Please select a restaurant!");
-            valid = false;
+    self.refreshMonthlyChart = function (event, data) {
+        var activeElement = self.myChart.getElementAtEvent(event)[0];
+        var restaurant = self.myChart.data.datasets[activeElement._datasetIndex].restaurant;
+        var monthName = activeElement._model.label;
+        var days;
+        var year = self.SelectedYear()[0];
+
+        switch (monthName) {
+            case "January":
+                month = 1;
+                break;
+            case "February":
+                month = 2;
+                break;
+            case "March":
+                month = 3;
+                break;
+            case "April":
+                month = 4;
+                break;
+            case "May":
+                month = 5;
+                break;
+            case "June":
+                month = 6;
+                break;
+            case "Jully":
+                month = 7;
+                break;
+            case "August":
+                month = 8;
+                break;
+            case "September":
+                month = 9;
+                break;
+            case "October":
+                month = 10;
+                break;
+            case "November":
+                month = 11;
+                break;
+            case "December":
+                month = 11;
+                break;
         }
+
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                days = 31;
+                break;
+            case 2:
+                days = year % 4 == 0 ? 29 : 28;
+                break;
+            default:
+                days = 30;
+                break;
+        }
+
+        self.Days = [];
+        for (var i = 1; i <= days; ++i)
+            self.Days.push(i.toString());
+
+        var url = '/Reservations/RestaurantPercentageRefresh';
+        var info = JSON.stringify({
+            restaurantId: restaurant.id,
+            year: year,
+            month: month
+        })
+        self.loadingPanel.show();
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            data: info,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.RestaurantPercentages(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        var ctx = document.getElementById("RestaurantMonthlyChart").getContext('2d');
+
+        var r = Math.floor(Math.random() * 255) % 256;
+        var g = Math.floor(Math.random() * 255) % 256;
+        var b = Math.floor(Math.random() * 255) % 256;
+        if (self.monthlyChart == null)
+            self.monthlyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: self.Days,
+                    datasets: [{
+                        label: restaurant.Name,
+                        data: self.RestaurantPercentages(),
+                        backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
+                        borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0,
+                                max: 100
+                            }
+                        }],
+                    }
+                }
+            });
         else {
-            self.warningRestaurantId(null);
+            self.monthlyChart.data.labels = self.Days;
+            self.monthlyChart.data.datasets[0] = {
+                label: restaurant.Name,
+                data: self.RestaurantPercentages(),
+                backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
+                borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
+                borderWidth: 1
+            };
+            self.monthlyChart.update();
         }
-
-        if (self.nullOrEmpty(self.ReservationDate._latestValue) || self.ReservationDate._latestValue == "Invalid date" || self.ReservationDate._latestValue[0] == "/") {
-            self.warningReservationDate("Please select the date!");
-            valid = false;
-        }
-        else {
-            self.warningReservationDate(null);
-        }
-
-        if (self.nullOrEmpty(self.Seats._latestValue) || self.Seats._latestValue <= 0) {
-            self.warningSeats("Please select the number of seats!");
-            valid = false;
-        }
-        else {
-            self.warningSeats(null);
-        }
-
-        return valid;
-    };
-
-    self.nullOrEmpty = function (data) {
-        if (data == null || data == "") {
-            return true;
-        }
-        return false;
     };
 
     self.restaurantInfo = function () {
@@ -350,25 +452,5 @@
         });
         var content = "Opening Hour: " + openingHour + "<br/>Closing Hour: " + closingHour;
         $("#RestaurantInfo").attr('data-content', content);
-    }
-
-    //hides the element for non-admin users
-    ko.bindingHandlers.allowAccess = {
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            try {
-                var value = ko.unwrap(valueAccessor());
-            }
-            catch (e) {
-                var value = valueAccessor();
-            }
-            // admin user
-            if (value) {
-                element.hidden = false;
-            }
-                // normal user
-            else {
-                element.hidden = true;
-            }
-        }
     };
 };
