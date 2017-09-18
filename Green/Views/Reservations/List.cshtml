@@ -12,11 +12,11 @@
         <canvas id="myChart"></canvas>
     </div>
 
-    <table class="table table-striped" align="right">
+    @*<table class="table table-striped" align="right">
         <thead>
             <tr>
                 <th>Restaurant Name</th>
-                <th data-bind="allowAccess: $root.isAdmin">Client Name</th>
+                <th>Client Name</th>
                 <th>Date and Time</th>
                 <th>Seats</th>
             </tr>
@@ -24,7 +24,7 @@
         <tbody data-bind="foreach:Reservations">
             <tr>
                 <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
-                <td class="col-md-3" data-bind="text:User.UserName, visible: $root.isAdmin"></td>
+                <td class="col-md-3" data-bind="text:User.UserName"></td>
                 <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
                 <td class="col-md-1" data-bind="text:Seats"></td>
                 <td class="col-md-3">
@@ -39,7 +39,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table>*@
 </div>
 
 <script>
@@ -49,9 +49,7 @@
         vm.refresh();
         ko.applyBindings(vm, $("#reservations").get(0));
 
-        var vmRatings = new Ratings();
-        vmRatings.set();
-        ko.applyBindings(vmRatings, $("#ratings").get(0));
+        $("#ChartYear").val("2017").change();
     });
 
     //hides the element for non-admin users

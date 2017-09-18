@@ -19,7 +19,7 @@ namespace Green.Services
 
         public List<Restaurant> GetRestaurants()
         {
-            return ctx.Restaurants.OrderBy(r => r.Name).ToList();
+             return ctx.Restaurants.OrderBy(r => r.Name).ToList();
         }
         public List<EnumItem> GetRestaurantTypes()  //transform the enum into a list of restaurants types
         {

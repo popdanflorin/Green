@@ -378,15 +378,55 @@ namespace Green.Migrations
             openingHour = restaurant.OpeningHour;
             closingHour = restaurant.ClosingHour;
 
-            //for (int year = new DateTime().Year - 3; year <= new DateTime().Year + 4; ++year)
+            // for (int year = DateTime.Today.Year - 3; year <= DateTime.Today.Year + 4; ++year)
             for (int month = 2; month < 11; ++month)
+            {
                 for (int day = 5; day < 26; day += 2)
-                {
-                    date = new DateTime(2017, month, day, openingHour, 00, 00);
-                    context.Reservations.AddOrUpdate(
-                            new Reservation { Id = Guid.NewGuid().ToString(), ClientId = clientId, RestaurantId = restaurantId, Seats = seatsAvailable, ReservationDate = date }
-                        );
-                }
+                    for (int hour = openingHour; hour < closingHour - 2; ++hour)
+                    {
+                        date = new DateTime(2017, month, day, hour, 00, 00);
+                        context.Reservations.AddOrUpdate(
+                                new Reservation { Id = Guid.NewGuid().ToString(), ClientId = clientId, RestaurantId = restaurantId, Seats = seatsAvailable, ReservationDate = date }
+                            );
+                    }
+                for (int day = 16; day <= 28; day += 2)
+                    for (int hour = openingHour; hour < closingHour - 1; ++hour)
+                    {
+                        date = new DateTime(2017, month, day, hour, 00, 00);
+                        context.Reservations.AddOrUpdate(
+                                new Reservation { Id = Guid.NewGuid().ToString(), ClientId = clientId, RestaurantId = restaurantId, Seats = (Int32.Parse(seatsAvailable) - 1).ToString(), ReservationDate = date }
+                            );
+                    }
+            }
+
+            /* Pralina */
+            restaurant = context.Restaurants.FirstOrDefault(r => r.Name.CompareTo("Pralina") == 0);
+            restaurantId = restaurant.id;
+            seatsAvailable = restaurant.SeatsAvailable.ToString();
+            openingHour = restaurant.OpeningHour;
+            closingHour = restaurant.ClosingHour;
+
+            //for (int year = DateTime.Today.Year - 1; year <= DateTime.Today.Year + 2; ++year)
+            // {
+            for (int month = 5; month <= 12; ++month)
+                for (int day = 2; day < 16; day += 6)
+                    for (int hour = openingHour + 1; hour < closingHour - 1; ++hour)
+                    {
+                        date = new DateTime(2017, month, day, hour, 00, 00);
+                        context.Reservations.AddOrUpdate(
+                                new Reservation { Id = Guid.NewGuid().ToString(), ClientId = clientId, RestaurantId = restaurantId, Seats = seatsAvailable, ReservationDate = date }
+                            );
+                    }
+            for (int month = 1; month <= 2; ++month)
+                for (int day = 3; day < 26; day += 5)
+                    for (int hour = openingHour; hour < closingHour - 1; hour += 2)
+                    {
+                        date = new DateTime(2017, month, day, hour, 00, 00);
+                        context.Reservations.AddOrUpdate(
+                                new Reservation { Id = Guid.NewGuid().ToString(), ClientId = clientId, RestaurantId = restaurantId, Seats = seatsAvailable, ReservationDate = date }
+                            );
+                    }
+            //  }
 
             context.SaveChanges();
         }
