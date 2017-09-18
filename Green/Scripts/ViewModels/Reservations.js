@@ -16,6 +16,7 @@
     // for chart
     self.Months = ["January", "February", "March", "April", "May", "June", "Jully", "August", "September", "October", "November", "December"];
     self.Years = [];
+    self.Percentages = ko.observableArray();
 
     // validation warnings
     self.warningRestaurantId = ko.observable();
@@ -177,7 +178,29 @@
         self.refreshChart();
     };
 
+    self.refreshPercentages = function () {
+        var url = '/Reservations/ReservationsPercentageRefresh';
+        var year = JSON.stringify({ year : 2017 })
+        self.loadingPanel.show();
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            data: year,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Percentages(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    }
+
     self.refreshChart = function () {
+        self.refreshPercentages();
+
         var date = new Date().getFullYear();
         for (var i = 0; i <= 10; ++i)
             self.Years.push(date - i);
@@ -193,7 +216,9 @@
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100
                         },
                         stacked: true
                     }],
@@ -201,23 +226,15 @@
             }
         });
 
-        self.Restaurants().forEach(function (restaurant, index) {
+        self.Percentages().forEach(function (item, index) {
             var r = Math.floor(Math.random() * 255) % 256;
             var g = Math.floor(Math.random() * 255) % 256;
             var b = Math.floor(Math.random() * 255) % 256;
             var usedDataset = {
-                label: restaurant.Name,
-                data: [12, 1, 19, 5, 3, 5, 4, 2, 3],
+                label: item.Restaurant.Name,
+                data: item.Percentages,
                 backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
                 borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
-                borderWidth: 1,
-                stack: index
-            };
-            var unusedDataset = {
-                label: restaurant.Name + "'s remaining seats",
-                data: [restaurant.SeatsAvailable - usedDataset.data[0], restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable, restaurant.SeatsAvailable],
-                backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.2)',
-                borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.3)',
                 borderWidth: 1,
                 stack: index
             };
@@ -243,7 +260,6 @@
             //    borderWidth: 1
             //};
             myChart.data.datasets.push(usedDataset);
-            myChart.data.datasets.push(unusedDataset);
         });
     };
 
