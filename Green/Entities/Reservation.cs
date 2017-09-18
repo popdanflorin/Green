@@ -15,7 +15,6 @@ namespace Green.Entities
 {
     public class Reservation
     {
-        
         public string Id { get; set; }
         public string RestaurantId { get; set; }
         public string ClientId { get; set; }
