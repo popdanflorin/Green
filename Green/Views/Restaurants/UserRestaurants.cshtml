@@ -60,7 +60,7 @@
         left: auto;
         right: auto;
         padding-top: 5px;
-        margin-top: 20px;
+        margin-top: 2px;
         padding-bottom: 10px;
         padding-right: 10px;
         width: 200px;
@@ -69,7 +69,8 @@
 
     span.stars, span.stars span {
         display: block;
-        background: url(stars.png) 0 -16px repeat-x;
+        background: url(star-gold32.png) 0 -16px repeat-x;
+        
         width: 80px;
         height: 16px;
     }
@@ -107,13 +108,13 @@
         margin-left: 80px;
         margin-bottom: 40px;
     }
-    .btn.btn-default.dropdown-toggle.btn1{
-         margin-top: 10px;
+
+    .btn.btn-default.dropdown-toggle.btn1 {
+        margin-top: 10px;
         margin-right: 70px;
         margin-left: 4px;
         margin-bottom: 40px;
         background-color: forestgreen;
-      
     }
 
 
@@ -136,6 +137,12 @@
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
         margin-left: 3px;
+    }
+
+    .popover-title {
+        height: 45px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 </style>
 
@@ -163,12 +170,17 @@
         <hr />
         <div class="row-fluid">
             <div class="col-md-4">
-                <button class="btn btn-info btn1" data-toggle="modal" style="margin-left:101px" data-target="#favoritesItem" data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
-                <div class="text">
-                    <p style="padding-left: 110px;text-align:left"><span class="glyphicon" style="color: dodgerblue;font-size: 20px ">&#xe086;</span> Here you can search for your favorite restaurant. You can search for a restaurant by its name or by its type.</p>
-                </div>
+                @if (User.IsInRole("NormalUser"))
+                {
+                    <button id="favorites" class="btn btn-info btn1" data-toggle="modal" style="margin-left:101px" data-target="#favoritesItem" data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
+                }
+                else
+                {  <button id="fav" class="btn btn-info btn1" style="margin-left:101px"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
 
-                <br />
+                }
+                <div class="text">
+                    <p style="padding-left: 110px;text-align:left"><span class="glyphicon" style="color: dodgerblue;font-size: 20px ">&#xe086;</span> Search the perfect restaurant for you! You can search for a restaurant by its name, type, city or by a meal available in its menu.</p>
+                </div>
                 <div id="custom-search-input" style="position: relative">
                     <div class="input-group">
 
@@ -188,23 +200,28 @@
                 <div>
                     <div class="dropdown dropdown-lg">
                         <button id="buttondropdown" type="button" class="btn btn-default dropdown-toggle btn1" data-toggle="dropdown" aria-expanded="false">Advanced search <span class="caret"></span></button>
-                        <div id="dropdown" class="dropdown-menu dropdown-menu-right" data-toggle="dropdown"  style="left:331px;top:12px;position:absolute;padding-bottom:13px" role="menu">
+                        <div id="dropdown" class="dropdown-menu dropdown-menu-right" data-toggle="dropdown" style="left:331px;top:12px;position:absolute;padding-bottom:13px" role="menu">
                             <form class="form-horizontal" role="form">
                                 <div class="form-group">
-                                    <label for="filter">Filter by</label>
+                                    <label for="filter">Type:</label>
                                     <p>
-                                        <select class="dropdwn" id="selectMenu"
+                                        <select id="dropdownTypes" class="dropdwn"
                                                 data-bind="options: Types,
-                                                           optionsCaption: 'Choose type...',
-                                                           value:RestaurantType,click:searchByType"></select>
+                                                           value:RestaurantType"></select>
                                     </p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="contain">Contains the meal</label>
-                                    <input id="Meal" class="form-control" type="text" data-bind="value:MealName"/>
+                                    <label for="contain">Contains the meal:</label>
+                                    <input id="Meal" class="form-control" type="text" data-bind="value:MealName" />
                                 </div>
-                                <button id="search2" type="button" data-bind="click:searchByAll"  class="btn btn-danger">Search <span class="glyphicon glyphicon-search" aria-hidden="true" ></span></button>
+                                <div class="form-group">
+                                    <label for="filter">City:</label>
+                                    <p>
+                                        <select id="dropdownTypes" class="dropdwn"></select>
+                                    </p>
+                                </div>
+                                <button id="search2" type="button" data-bind="click:searchByAll" class="btn btn-danger">Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </form>
                         </div>
                     </div>
@@ -307,26 +324,55 @@
         ko.applyBindings(vm, $("#userRestaurants").get(0));
     });
     $('document').ready(function () {
-        $("#dropdown").click(function () {
-            $(this).dropdown("toggle");
-            return false;
-        });
+        /* $("#dropdown").click(function () {
+             $(this).dropdown("toggle");
+             return false;
+         });*/
         $("#search2").click(function () {
             $("#dropdown").dropdown("toggle");
             return false;
         });
+        $('#dropdownTypes').on('click', function (e) {
+            e.stopPropagation();
+        });
+        $('#Meal').on('click', function (e) {
+            e.stopPropagation();
+        });
+
     });
-   /* $('#search').click(function () {
-        if (!$('#Name').val()) {
-            $('#Name').popover({
-                title: 'Warning!',
-                content: 'Please insert a name!',
-                placement: 'top'
-            }).popover('show');
-        } else {
-            $('#Name').popover('destroy');
+    $('#fav').popover({
+        html: true,
+        title: 'Warning<a class="close" href="#");">&times;</a>',
+        content: 'You must be logged in to see your favorite restaurants!'
+    });
+
+    $('#fav').click(function (e) {
+        e.stopPropagation();
+    });
+
+    $(document).click(function (e) {
+        if (($('.popover').has(e.target).length == 0) || $(e.target).is('.close')) {
+            $('#fav').popover('hide');
         }
-    });*/
+    });
+    //$('#fav').click(function () {
+    //    $('#fav').popover({
+    //        title: 'Warning!',
+    //        content: 'You must be logged in to see your favorite restaurants!',
+    //        placement: 'right'
+    //    }).popover('show');
+
+    //})
+    /* $('#search').click(function () {
+         if (!$('#Name').val()) {
+             $('#Name').popover({
+                 title: 'Warning!',
+                 content: 'Please insert a name!',
+                 placement: 'top'
+             }).popover('show');
+         } else {
+             $('#Name').popover('destroy');
+         }
+     });*/
 
 </script>
-

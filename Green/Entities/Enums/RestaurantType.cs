@@ -7,6 +7,7 @@ namespace Green.Entities.Enums
 {
     public enum RestaurantType
     {
+        None,
         Vegetarian,
         Vegan,
         Traditional,

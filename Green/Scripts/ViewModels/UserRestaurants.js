@@ -60,16 +60,15 @@
     };
 
     self.search = function () {
-        
-        var url = '/Restaurants/UserRestaurantsSearch';
+
+        var url = '/Restaurants/UserRestaurantsSearchByName';
         self.loadingPanel.show();
         $.ajax(url, {
             type: "get",
-            async:false,
+            async: false,
             contentType: "application/json; charset=utf-8",
             data: {
-                restaurantName: self.RestaurantName,
-                mealName: self.MealName
+                restaurantName: self.RestaurantName
             },
             success: function (data) {
                 self.loadingPanel.hide();
@@ -81,9 +80,14 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-         
+
     };
     self.searchByAll = function () {
+        var currentOption = $('#dropdownTypes').val().replace(/\s+/g, '');
+        if (currentOption == 'Choosetype')
+            var type = 'None';
+        else
+            var type = self.RestaurantName;
         var url = '/Restaurants/UserRestaurantsSearch';
         self.loadingPanel.show();
         $.ajax(url, {
@@ -92,7 +96,8 @@
             contentType: "application/json; charset=utf-8",
             data: {
                 restaurantName: self.RestaurantName,
-                mealName: self.MealName
+                mealName: self.MealName,
+                restaurantType: type
             },
             success: function (data) {
                 self.loadingPanel.hide();
@@ -104,7 +109,8 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-        
+
+
     };
     self.searchByType = function () {
         var isValid = true;
@@ -207,7 +213,7 @@
         var rate = $('#' + data.id).rateit();
         rate.rateit('value', self.Rating());
         rate.rateit('readonly', true);
-
+        rate.rateit('background', url(star - gold32.png));
 
         rate.rateit('resetable', false);
         // $(".rateit").rateit('min', self.Rating());

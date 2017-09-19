@@ -268,16 +268,16 @@ namespace Green.Migrations
                 f => f.Name,
                 new Image { Id = Guid.NewGuid().ToString(), Name = "kfc1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id },
                 new Image { Id = Guid.NewGuid().ToString(), Name = "kfc2.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "nuka1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Nuka Bistro") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "panemar1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Panemar") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "pralina1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Pralina") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "tokyo1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Tokyo") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "baracca1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Baracca") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "samsara1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Samsara") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "verde1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id },
-                new Image { Id = Guid.NewGuid().ToString(), Name = "indigo1.jpg", isCover = false, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id }
+                new Image { Id = Guid.NewGuid().ToString(), Name = "nuka1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Nuka Bistro") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "panemar1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Panemar") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "pralina1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Pralina") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "tokyo1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Tokyo") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "baracca1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Baracca") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "samsara1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Samsara") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "verde1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id },
+                new Image { Id = Guid.NewGuid().ToString(), Name = "indigo1.jpg", isCover = true, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id }
             );
-
+          
             /* Add menus to restaurants */
             string menuId;
             DateTime date;
@@ -343,7 +343,7 @@ namespace Green.Migrations
                 new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Mushrooms Lasagna") == 0).Id },
                 new MenuMeal { Id = Guid.NewGuid().ToString(), MenuId = menuId, MealId = context.Meals.FirstOrDefault(m => m.Name.CompareTo("Pomegranate Cheesecake") == 0).Id }
                 );
-
+            
             /* Add Normal Users*/
             if (!context.Roles.Any(r => r.Name == "NormalUser"))
             {
@@ -427,6 +427,19 @@ namespace Green.Migrations
                             );
                     }
             //  }
+            /*Add ratings */
+            context.Ratings.AddOrUpdate(
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id, Value = 5 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id, Value = 4 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Nuka Bistro") == 0).id, Value = 4 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Panemar") == 0).id, Value = 3 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Pralina") == 0).id, Value = 2 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Tokyo") == 0).id, Value = 5 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Baracca") == 0).id, Value = 1 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Samsara") == 0).id, Value = 4 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id, Value = 3 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id, Value = 5 }
+                );
 
             context.SaveChanges();
         }

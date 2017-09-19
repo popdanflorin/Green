@@ -19,7 +19,7 @@ namespace Green.Services
 
         public List<Restaurant> GetRestaurants()
         {
-             return ctx.Restaurants.OrderBy(r => r.Name).ToList();
+            return ctx.Restaurants.OrderBy(r => r.Name).ToList();
         }
         public List<EnumItem> GetRestaurantTypes()  //transform the enum into a list of restaurants types
         {
@@ -100,7 +100,7 @@ namespace Green.Services
                     userRestaurant.Rating = ratings.Sum(r => r.Value) / ratings.Count();
                 else
                     userRestaurant.Rating = 0;
-                var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
+                var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id && x.isCover==true);
                 if (image != null)
                     userRestaurant.ImageName = image.Name;
                 else
@@ -135,7 +135,7 @@ namespace Green.Services
             return listUserRestaurants;
 
         }
-        public List<UserRestaurant> GetUserRestaurantsByAll(string restaurantName, string mealName)
+        public List<UserRestaurant> GetUserRestaurantsByAll(string restaurantName, string mealName, RestaurantType type)
         {
             List<Restaurant> listRestaurants = GetRestaurants();
             List<Image> listImages = GetImages();
@@ -145,14 +145,22 @@ namespace Green.Services
             List<UserRestaurant> finalUserRestaurants = new List<UserRestaurant>();
             List<UserRestaurant> listUserRestaurants = new List<UserRestaurant>();
             if (restaurantName == "" && mealName == "")
+            {
                 finalUserRestaurants = GetUserRestaurants();
+                if(type!=RestaurantType.None)
+                finalUserRestaurants = finalUserRestaurants.Where(x => x.Type == type).ToList();
+            }
             else
             {
                 if (restaurantName != "" && mealName == "")
+                {
                     finalUserRestaurants = GetUserRestaurants(restaurantName);
+                    if (type != RestaurantType.None)
+                        finalUserRestaurants = finalUserRestaurants.Where(x => x.Type == type).ToList();
+                }
                 else
                 {
-                    var mealId = listMeals.FirstOrDefault(x => x.Name.ToLower().Contains(mealName.ToLower()));
+                    var listMeal = listMeals.Where(x => x.Name.ToLower().Contains(mealName.ToLower())).ToList();
                     var listRestaurantMeals = listMenuMeals
                         .Join(
                              listMenus,
@@ -173,11 +181,15 @@ namespace Green.Services
                            c.Restaurant.Type
                        });
 
-                    if (mealId == null)
+                    if (!listMeal.Any())
+                    {
+                        if (type != RestaurantType.None)
+                            finalUserRestaurants = finalUserRestaurants.Where(x => x.Type == type).ToList();
                         return finalUserRestaurants;
+                    }
                     else
                     {
-                        var newRestaurantsList = listRestaurantMeals.Where(x => x.MealId == mealId.Id);
+                        var newRestaurantsList = listRestaurantMeals.Where(x => listMeal.FirstOrDefault(y => y.Id == x.MealId) != null).GroupBy(x=>x.id).Select(y=>y.FirstOrDefault());
                         foreach (var item in newRestaurantsList)
                         {
                             var userRestaurant = new UserRestaurant();
@@ -190,7 +202,7 @@ namespace Green.Services
                                 userRestaurant.Rating = ratings.Sum(r => r.Value) / ratings.Count();
                             else
                                 userRestaurant.Rating = 0;
-                            var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
+                            var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id && x.isCover==true);
                             if (image != null)
                                 userRestaurant.ImageName = image.Name;
                             else
@@ -202,9 +214,12 @@ namespace Green.Services
                             finalUserRestaurants = listUserRestaurants.Where(x => x.Name.ToLower().Contains(restaurantName)).ToList();
                         else
                             finalUserRestaurants = listUserRestaurants;
+                        if (type != RestaurantType.None)
+                            finalUserRestaurants = finalUserRestaurants.Where(x => x.Type == type).ToList();
                     }
                 }
             }
+
             return finalUserRestaurants;
 
 
