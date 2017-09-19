@@ -15,6 +15,12 @@ namespace Green.Services
             var reservations = ctx.Reservations.Include("Restaurant").Include("User");
             return reservations.OrderBy(r => r.Restaurant.Name).ToList();
         }
+
+        public List<Reservation> GetReservations(string restaurantId, int year, int month)
+        {
+            return GetReservations().Where(r => r.RestaurantId == restaurantId && r.ReservationDate.Year == year && r.ReservationDate.Month == month).ToList();
+        }
+
         public List<RestaurantPercentages> GetSeatsPercetageForAllPerYear(List<Restaurant> restaurants, int year)
         {
             List<RestaurantPercentages> allPercentages = new List<RestaurantPercentages>();
