@@ -10,7 +10,6 @@
     self.Seats = ko.observable();
     self.UserName = ko.observable();
     self.UserId = ko.observable();
-    self.isAdmin = ko.observable(false);
     self.loadingPanel = new LoadingOverlay();
 
     // validation warnings
@@ -162,7 +161,6 @@
                 console.log(data);
                 self.Reservations(data.Reservations);
                 self.Restaurants(data.Restaurants);
-                self.isAdmin(data.isAdmin);
                 self.UserId(data.UserId);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -228,24 +226,4 @@
         var content = "Opening Hour: " + openingHour + "<br/>Closing Hour: " + closingHour;
         $("#RestaurantInfo").attr('data-content', content);
     }
-
-    //hides the element for non-admin users
-    ko.bindingHandlers.allowAccess = {
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            try {
-                var value = ko.unwrap(valueAccessor());
-            }
-            catch (e) {
-                var value = valueAccessor();
-            }
-            // admin user
-            if (value) {
-                element.hidden = false;
-            }
-                // normal user
-            else {
-                element.hidden = true;
-            }
-        }
-    };
 };

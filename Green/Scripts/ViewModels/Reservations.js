@@ -14,7 +14,7 @@
     self.loadingPanel = new LoadingOverlay();
 
     // for chart
-    self.myChart;
+    self.myChart = null;
     self.monthlyChart = null;
     self.Months = ["January", "February", "March", "April", "May", "June", "Jully", "August", "September", "October", "November", "December"];
     self.Years = [];
@@ -44,6 +44,11 @@
         //}
         //catch (e) {}
     });
+
+    // for table
+    self.TableRestaurantId;
+    self.TableYear;
+    self.TableMonth;
 
     // validation warnings
     self.warningRestaurantId = ko.observable();
@@ -93,7 +98,8 @@
             data: reservation,
             success: function (data) {
                 console.log(data);
-                self.refresh();
+                self.SelectedYear(self.SelectedYear());
+                self.refreshReservations();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -183,25 +189,7 @@
         }
     }
 
-    self.refresh = function () {
-        var url = '/Reservations/ListRefresh';
-        self.loadingPanel.show();
-        $.ajax(url, {
-            async: false,
-            type: "get",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                self.loadingPanel.hide();
-                console.log(data);
-                self.Reservations(data.Reservations);
-                self.Restaurants(data.Restaurants);
-                self.UserId(data.UserId);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-
+    self.open = function () {
         var date = new Date().getFullYear();
         self.Years.push(date);
         for (var i = 1; i <= 5; ++i) {
@@ -210,16 +198,45 @@
         }
         self.Years.sort().reverse();
         document.getElementById("ChartYear").value = date;
-
         self.SelectedYear(date);
 
+        self.refresh();
+    }
+
+    self.refresh = function () {
         self.refreshPercentages(self.SelectedYear());
         self.refreshChart();
     };
 
+    self.refreshReservations = function () {
+        self.loadingPanel.show();
+        var url = '/Reservations/RefreshReservations';
+        var info = JSON.stringify({
+            restaurantId: self.TableRestaurantId,
+            year: self.TableYear,
+            month: self.TableMonth
+        });
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            data: info,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Reservations(data.Reservations);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $("#ReservationsTable").show();
+    }
+
     self.refreshPercentages = function (_year) {
         var url = '/Reservations/ReservationsPercentageRefresh';
-        var year = JSON.stringify({ year: _year })
+        var year = JSON.stringify({ year: _year });
         self.loadingPanel.show();
         $.ajax(url, {
             async: false,
@@ -239,6 +256,7 @@
 
     self.refreshChart = function () {
         var ctx = document.getElementById("myChart").getContext('2d');
+
         self.myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -251,10 +269,23 @@
                         ticks: {
                             beginAtZero: true,
                             min: 0,
-                            max: 100
+                            max: 100,
+                            callback: function (value) {
+                                return value + "%"
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Percentage"
                         },
                         stacked: true
                     }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Month"
+                        }
+                    }]
                 },
                 onClick: self.refreshMonthlyChart
             }
@@ -296,6 +327,7 @@
             //};
             self.myChart.data.datasets.push(usedDataset);
         });
+
         self.myChart.update();
     };
 
@@ -304,6 +336,8 @@
             var activeElement = self.myChart.getElementAtEvent(event)[0];
             var restaurant = self.myChart.data.datasets[activeElement._datasetIndex].restaurant;
             var monthName = activeElement._model.label;
+            var backgroundColor = activeElement._model.backgroundColor;
+            var borderColor = activeElement._model.borderColor;
         }
         catch (e) {
             return false;
@@ -395,46 +429,64 @@
         });
 
         var ctx = document.getElementById("RestaurantMonthlyChart").getContext('2d');
-
-        var r = Math.floor(Math.random() * 255) % 256;
-        var g = Math.floor(Math.random() * 255) % 256;
-        var b = Math.floor(Math.random() * 255) % 256;
         if (self.monthlyChart == null)
             self.monthlyChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: self.Days,
                     datasets: [{
-                        label: restaurant.Name,
+                        //label: restaurant.Name,
                         data: self.RestaurantPercentages(),
-                        backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
-                        borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
+                        backgroundColor: backgroundColor,
+                        borderColor: borderColor,
                         borderWidth: 1
                     }]
                 },
                 options: {
+                    legend: {
+                        display: false
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
                                 min: 0,
-                                max: 100
+                                max: 100,
+                                callback: function (value) {
+                                    return value + "%"
+                                }
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Percentage"
                             }
                         }],
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Day"
+                            }
+                        }]
                     }
                 }
             });
         else {
             self.monthlyChart.data.labels = self.Days;
             self.monthlyChart.data.datasets[0] = {
-                label: restaurant.Name,
+                //label: restaurant.Name,
                 data: self.RestaurantPercentages(),
-                backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ', 0.5)',
-                borderColor: 'rgba(' + r + ',' + g + ',' + b + ', 1)',
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
                 borderWidth: 1
             };
             self.monthlyChart.update();
         }
+        $("#RestaurantMonthlyChartTitle").text(restaurant.Name + "'s reserved seats percentage for " + monthName + " " + year);
+        
+        self.TableRestaurantId = restaurant.id;
+        self.TableYear = year;
+        self.TableMonth = month;
+        self.refreshReservations();
     };
 
     self.restaurantInfo = function () {

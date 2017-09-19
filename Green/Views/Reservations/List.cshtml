@@ -3,21 +3,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="reservations">
-    <h2>Reservations</h2>
-    <input id="reserveButton" type="button" class="btn btn-primary" value="Make Reservation" data-toggle="modal" data-target="#reservationItem" data-bind="click:add" autofocus />
+<style>
+    #Chart, #MonthlyChart {
+        width: 90%;
+        height: auto;
+    }
+</style>
 
-    <div id="Chart" style="margin-top: 20px">
+<div id="reservations">    
+    <div id="Chart" class="center-block">
+         <h3 data-bind="text: 'Restaurants\' reserved seats percentage for ' + SelectedYear()"></h3>
         <select id="ChartYear" data-bind="options: Years, selectedOptions: SelectedYear"></select>
         <canvas id="myChart"></canvas>
     </div>
 
-    <div style="margin-top: 20px">
+    <div id="MonthlyChart" class="center-block">
+        <h3 id="RestaurantMonthlyChartTitle"></h3>
         <canvas id="RestaurantMonthlyChart"></canvas>
     </div>
 
 
-    @*<table class="table table-striped" align="right">
+    <table id="ReservationsTable" class="table table-striped" style="display: none">
         <thead>
             <tr>
                 <th>Restaurant Name</th>
@@ -44,14 +50,14 @@
                 </td>
             </tr>
         </tbody>
-    </table>*@
+    </table>
 </div>
 
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover();
         var vm = new Reservations();
-        vm.refresh();
+        vm.open();
         ko.applyBindings(vm, $("#reservations").get(0));
 
         $("#ChartYear").val("2017").change();
