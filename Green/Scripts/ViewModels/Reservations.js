@@ -55,33 +55,6 @@
     self.warningReservationDate = ko.observable();
     self.warningSeats = ko.observable();
 
-    self.details = function (data) {
-        self.Id(data.Id);
-        self.RestaurantId(data.RestaurantId);
-        self.ClientId(data.ClientId);
-        self.ReservationDate(data.ReservationDate);
-        self.Seats(data.Seats);
-        self.UserName(data.User.UserName);
-
-        self.warningRestaurantId(null);
-        self.warningReservationDate(null);
-        self.warningSeats(null);
-    };
-
-    self.getMenu = function (data) {
-
-    }
-
-    self.add = function () {
-        self.Id(0);
-        self.RestaurantId(null);
-        self.ReservationDate(null);
-        self.Seats(null);
-        self.warningRestaurantId(null);
-        self.warningReservationDate(null);
-        self.warningSeats(null);
-    };
-
     self.delete = function (data) {
         if (!window.confirm("Are you sure you want to cancel the reservation?")) {
             return;
@@ -173,21 +146,6 @@
             }
         });
     };
-
-    self.setOKButton = function (value) {
-        try {
-            if (value) {
-                var attrDataDismiss = document.createAttribute("data-dismiss");
-                attrDataDismiss.value = "modal";
-                document.getElementById("OKButton").attributes.setNamedItem(attrDataDismiss);
-            }
-            else
-                document.getElementById("OKButton").removeAttribute("data-dismiss");
-        }
-        catch (Exception) {
-            console.log(Exception);
-        }
-    }
 
     self.open = function () {
         var date = new Date().getFullYear();
@@ -435,7 +393,7 @@
                 data: {
                     labels: self.Days,
                     datasets: [{
-                        //label: restaurant.Name,
+                        label: "Percentage",
                         data: self.RestaurantPercentages(),
                         backgroundColor: backgroundColor,
                         borderColor: borderColor,
@@ -482,32 +440,11 @@
             self.monthlyChart.update();
         }
         $("#RestaurantMonthlyChartTitle").text(restaurant.Name + "'s reserved seats percentage for " + monthName + " " + year);
-        
+        $("#MonthlyChart").show();
+
         self.TableRestaurantId = restaurant.id;
         self.TableYear = year;
         self.TableMonth = month;
         self.refreshReservations();
-    };
-
-    self.restaurantInfo = function () {
-        var url = '/Reservations/RestaurantInfo';
-        var restaurant = JSON.stringify({ restaurantId: self.RestaurantId() });
-        var openingHour, closingHour;
-        $.ajax(url, {
-            async: false,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: restaurant,
-            success: function (data) {
-                openingHour = data.OpeningHour,
-                closingHour = data.ClosingHour
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-        var content = "Opening Hour: " + openingHour + "<br/>Closing Hour: " + closingHour;
-        $("#RestaurantInfo").attr('data-content', content);
     };
 };
