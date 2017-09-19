@@ -19,13 +19,14 @@
     self.Months = ["January", "February", "March", "April", "May", "June", "Jully", "August", "September", "October", "November", "December"];
     self.Years = [];
     self.Days = [];
-    self.Percentages = ko.observableArray();
+    self.Percentages = ko.observableArray(null);
     self.RestaurantPercentages = ko.observableArray();
-    self.SelectedYear = ko.observable();
+    self.SelectedYear = ko.observable(null);
     self.SelectedYearChanged = ko.computed(function () {
-        if (self.SelectedYear == null || self.SelectedYear == undefined)
+        $("#ReservationsTable").hide();
+        $("#MonthlyChart").hide();
+        if (self.SelectedYear() == null || self.SelectedYear() == undefined || typeof self.SelectedYear() === 'undefined')
             return;
-        //alert(self.SelectedYear());
         try {
             self.refreshPercentages(self.SelectedYear()[0]);
             self.Percentages().forEach(function (item, index) {
@@ -33,7 +34,8 @@
             });
             self.myChart.update();
         }
-        catch (e) { }
+        catch (e) {
+        }
         //var object = document.getElementById("ChartYear");
         //try
         //{
@@ -45,10 +47,11 @@
         //catch (e) {}
     });
 
-    // for table
-    self.TableRestaurantId;
+    // for reservations table
+    self.TableRestaurant;
     self.TableYear;
     self.TableMonth;
+    self.TableMonthName;
 
     // validation warnings
     self.warningRestaurantId = ko.observable();
@@ -72,74 +75,7 @@
             success: function (data) {
                 console.log(data);
                 self.SelectedYear(self.SelectedYear());
-                self.refreshReservations();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-    };
-
-    self.save = function () {
-        if (!self.validate()) {
-            self.setOKButton(false);
-            return;
-        }
-
-        var url = '/Reservations/Save';
-        self.warningRestaurantId(null);
-        self.warningReservationDate(null);
-        self.warningSeats(null);
-        if (self.ClientId()) {
-            var reservation = JSON.stringify({
-                Id: self.Id(),
-                RestaurantId: self.RestaurantId(),
-                ClientId: self.ClientId(),
-                ReservationDate: self.ReservationDate(),
-                Seats: self.Seats()
-            });
-        }
-        else {
-            var reservation = JSON.stringify({
-                Id: self.Id(),
-                RestaurantId: self.RestaurantId(),
-                ClientId: self.UserId(),
-                ReservationDate: self.ReservationDate(),
-                Seats: self.Seats()
-            });
-        }
-        $.ajax(url, {
-            async: false,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: reservation,
-            success: function (data) {
-                if (data.search(new String("The selected time is not available.").valueOf()) >= 0) {
-                    try {
-                        self.warningReservationDate(data);
-                        self.setOKButton(false);
-                    } catch (Exception) {
-                        console.log(Exception);
-                    }
-                }
-                else if (data.search(new String("There are not enough seats available.").valueOf()) >= 0) {
-                    try {
-                        self.warningSeats(data);
-                        self.setOKButton(false);
-                    } catch (Exception) {
-                        console.log(Exception);
-                    }
-                }
-                else {
-                    try {
-                        self.setOKButton(true);
-                        console.log(data);
-                        self.refresh();
-                    } catch (Exception) {
-                        console.log(Exception);
-                    }
-                }
+                self.refreshMonthlyChartAfterDelete();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -162,6 +98,8 @@
     }
 
     self.refresh = function () {
+        if (typeof self.SelectedYear() === 'undefined' || self.SelectedYear() == null)
+            return;
         self.refreshPercentages(self.SelectedYear());
         self.refreshChart();
     };
@@ -170,7 +108,7 @@
         self.loadingPanel.show();
         var url = '/Reservations/RefreshReservations';
         var info = JSON.stringify({
-            restaurantId: self.TableRestaurantId,
+            restaurantId: self.TableRestaurant.id,
             year: self.TableYear,
             month: self.TableMonth
         });
@@ -189,10 +127,13 @@
             }
         });
 
+        $("#ReservationsTableTitle").text(self.TableRestaurant.Name + "'s reservations for " + self.TableMonthName + " " + self.TableYear);
         $("#ReservationsTable").show();
-    }
+    };
 
     self.refreshPercentages = function (_year) {
+        if (typeof _year == "undefined" || _year == null)
+            return;
         var url = '/Reservations/ReservationsPercentageRefresh';
         var year = JSON.stringify({ year: _year });
         self.loadingPanel.show();
@@ -205,6 +146,31 @@
                 self.loadingPanel.hide();
                 console.log(data);
                 self.Percentages(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    };
+
+    self.refreshRestaurantPercentages = function (restaurant, year, month) {
+        self.setDays(month, year);
+        var url = '/Reservations/RestaurantPercentageRefresh';
+        var info = JSON.stringify({
+            restaurantId: restaurant.id,
+            year: year,
+            month: month
+        })
+        self.loadingPanel.show();
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            data: info,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.RestaurantPercentages(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -262,27 +228,6 @@
                 borderWidth: 1,
                 stack: index
             };
-            //var newDataset = {
-            //    label: restaurant.Name,
-            //    data: [12, 1, 19, 5, 3, 5, 4, 2, 3],
-            //    backgroundColor: [
-            //        'rgba(255, 99, 132, 0.2)',
-            //        'rgba(54, 162, 235, 0.2)',
-            //        'rgba(255, 206, 86, 0.2)',
-            //        'rgba(75, 192, 192, 0.2)',
-            //        'rgba(153, 102, 255, 0.2)',
-            //        'rgba(255, 159, 64, 0.2)',
-            //    ],
-            //    borderColor: [
-            //        'rgba(255,99,132,1)',
-            //        'rgba(54, 162, 235, 1)',
-            //        'rgba(255, 206, 86, 1)',
-            //        'rgba(75, 192, 192, 1)',
-            //        'rgba(153, 102, 255, 1)',
-            //        'rgba(255, 159, 64, 1)'
-            //    ],
-            //    borderWidth: 1
-            //};
             self.myChart.data.datasets.push(usedDataset);
         });
 
@@ -300,91 +245,11 @@
         catch (e) {
             return false;
         }
-        var days;
+
         var year = self.SelectedYear()[0];
-
-        switch (monthName) {
-            case "January":
-                month = 1;
-                break;
-            case "February":
-                month = 2;
-                break;
-            case "March":
-                month = 3;
-                break;
-            case "April":
-                month = 4;
-                break;
-            case "May":
-                month = 5;
-                break;
-            case "June":
-                month = 6;
-                break;
-            case "Jully":
-                month = 7;
-                break;
-            case "August":
-                month = 8;
-                break;
-            case "September":
-                month = 9;
-                break;
-            case "October":
-                month = 10;
-                break;
-            case "November":
-                month = 11;
-                break;
-            case "December":
-                month = 11;
-                break;
-        }
-
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                days = 31;
-                break;
-            case 2:
-                days = year % 4 == 0 ? 29 : 28;
-                break;
-            default:
-                days = 30;
-                break;
-        }
-
-        self.Days = [];
-        for (var i = 1; i <= days; ++i)
-            self.Days.push(i.toString());
-
-        var url = '/Reservations/RestaurantPercentageRefresh';
-        var info = JSON.stringify({
-            restaurantId: restaurant.id,
-            year: year,
-            month: month
-        })
-        self.loadingPanel.show();
-        $.ajax(url, {
-            async: false,
-            type: "post",
-            contentType: "application/json; charset=utf-8",
-            data: info,
-            success: function (data) {
-                self.loadingPanel.hide();
-                console.log(data);
-                self.RestaurantPercentages(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
+        var month = self.getMonthByName(monthName);
+        self.setDays(month, year);
+        self.refreshRestaurantPercentages(restaurant, year, month);
 
         var ctx = document.getElementById("RestaurantMonthlyChart").getContext('2d');
         if (self.monthlyChart == null)
@@ -442,9 +307,89 @@
         $("#RestaurantMonthlyChartTitle").text(restaurant.Name + "'s reserved seats percentage for " + monthName + " " + year);
         $("#MonthlyChart").show();
 
-        self.TableRestaurantId = restaurant.id;
+        self.TableRestaurant = restaurant;
         self.TableYear = year;
         self.TableMonth = month;
+        self.TableMonthName = monthName;
         self.refreshReservations();
+    };
+
+    self.refreshMonthlyChartAfterDelete = function () {
+        self.refreshRestaurantPercentages(self.TableRestaurant, self.TableYear, self.TableMonth);
+
+        self.monthlyChart.data.datasets[0].data = self.RestaurantPercentages();
+
+        self.monthlyChart.update();
+
+        self.refreshReservations();
+    };
+
+    // calculate
+    self.getMonthByName = function (monthName) {
+        var month;
+        switch (monthName) {
+            case "January":
+                month = 1;
+                break;
+            case "February":
+                month = 2;
+                break;
+            case "March":
+                month = 3;
+                break;
+            case "April":
+                month = 4;
+                break;
+            case "May":
+                month = 5;
+                break;
+            case "June":
+                month = 6;
+                break;
+            case "Jully":
+                month = 7;
+                break;
+            case "August":
+                month = 8;
+                break;
+            case "September":
+                month = 9;
+                break;
+            case "October":
+                month = 10;
+                break;
+            case "November":
+                month = 11;
+                break;
+            case "December":
+                month = 11;
+                break;
+        }
+        return month;
+    };
+
+    self.setDays = function (month, year) {
+        var days;
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                days = 31;
+                break;
+            case 2:
+                days = year % 4 == 0 ? 29 : 28;
+                break;
+            default:
+                days = 30;
+                break;
+        }
+
+        self.Days = [];
+        for (var i = 1; i <= days; ++i)
+            self.Days.push(i.toString());
     };
 };
