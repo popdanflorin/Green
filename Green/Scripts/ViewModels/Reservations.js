@@ -316,12 +316,11 @@
 
     self.refreshMonthlyChartAfterDelete = function () {
         self.refreshRestaurantPercentages(self.TableRestaurant, self.TableYear, self.TableMonth);
-
-        self.monthlyChart.data.datasets[0].data = self.RestaurantPercentages();
-
-        self.monthlyChart.update();
-
         self.refreshReservations();
+        self.monthlyChart.data.datasets[0].data = self.RestaurantPercentages();
+        self.monthlyChart.update();
+        $("#ReservationsTable").show();
+        $("#MonthlyChart").show();
     };
 
     // calculate
