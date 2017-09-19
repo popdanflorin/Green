@@ -53,6 +53,7 @@
         });
         $.ajax(url, {
             type: "post",
+            async: false,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: restaurant,
@@ -187,8 +188,8 @@
         }
 
     };
-    self.deleteRestaurant = function (data) {
 
+    self.deleteRestaurant = function (data) {
         var url = '/Restaurants/Delete';
         var restaurant = JSON.stringify({
             restaurantId: self.id()
@@ -260,4 +261,34 @@
             }
         return true;
     }
+
+    self.deleteImage = function (data) {
+        if (!window.confirm("Are you sure you want to delete the image?")) {
+            return;
+        }
+
+        var imageId = data.Id;
+        var restaurantId = data.RestaurantId;
+
+        var url = '/Restaurants/DeleteImage';
+        var image = JSON.stringify({
+            imageId: imageId
+        });
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: image,
+            success: function (data) {
+                console.log(data);
+                self.refresh();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $("#imageItem").modal('hide');
+        //self.openShowImage({ id: restaurantId });
+    };
 }

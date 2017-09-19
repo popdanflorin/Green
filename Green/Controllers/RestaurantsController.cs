@@ -15,6 +15,7 @@ namespace Green.Controllers
 {
     public class RestaurantsController : Controller
     {
+        private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
 
         private RestaurantQueryService qService = new RestaurantQueryService();
@@ -59,6 +60,17 @@ namespace Green.Controllers
                 });
 
             var message = cService.DeleteRestaurant(restaurantId);
+            return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
+        }
+        public JsonResult DeleteImage(string imageId)
+        {
+            var imageName = cService.DeleteImage(imageId);
+            string message = ErrorMessage;
+            if (imageName != null)
+            {
+                message = SuccessMessage;
+                System.IO.File.Delete(Server.MapPath("~/Content/images/" + imageName));
+            }
             return new JsonResult() { Data = message, ContentEncoding = Encoding.UTF8 };
         }
         public JsonResult SetCoverImage(string restaurantId, string imageId)

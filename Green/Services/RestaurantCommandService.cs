@@ -134,6 +134,25 @@ namespace Green.Services
             }
             return null;
         }
-     
+
+        public String DeleteImage(string imageId)
+        {
+            try
+            {
+                var image = ctx.Images.FirstOrDefault(i => i.Id == imageId);
+                var imageName = image.Name;
+                if (image != null)
+                {
+                    ctx.Images.Remove(image);
+                    ctx.SaveChanges();
+                    return imageName;
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
