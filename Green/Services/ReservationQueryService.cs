@@ -12,8 +12,7 @@ namespace Green.Services
         private ApplicationDbContext ctx = new ApplicationDbContext();
         public List<Reservation> GetReservations()
         {
-            var reservations = ctx.Reservations.Include("Restaurant").Include("User");
-            return reservations.OrderBy(r => r.Restaurant.Name).ToList();
+            return ctx.Reservations.Include("Restaurant").Include("User").OrderBy(r => r.ReservationDate.Year).ThenBy(r => r.ReservationDate.Month).ThenBy(r => r.ReservationDate.Day).ThenBy(r => r.ReservationDate.Hour).ToList();
         }
 
         public List<Reservation> GetReservations(string restaurantId, int year, int month)

@@ -17,47 +17,47 @@
         <canvas id="myChart"></canvas>
     </div>
 
-    <div id="MonthlyChart" class="center-block">
+    <div id="MonthlyChart" class="center-block" style="display: none">
         <h3 id="RestaurantMonthlyChartTitle"></h3>
         <canvas id="RestaurantMonthlyChart"></canvas>
     </div>
 
-
-    <table class="table table-striped" align="right">
-        <thead>
-            <tr>
-                <th>Restaurant Name</th>
-                <th>Client Name</th>
-                <th>Date and Time</th>
-                <th>Seats</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach:Reservations">
-            <tr>
-                <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
-                <td class="col-md-3" data-bind="text:User.UserName"></td>
-                <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
-                <td class="col-md-1" data-bind="text:Seats"></td>
-                <td class="col-md-3">
-                    <div class="btn-group-md" align="right">
-                        <button id="infoButton" class="btn btn-default" data-toggle="modal" data-target="#reservationItem" data-bind="click:$root.details">
-                            <span class="glyphicon glyphicon-info-sign"></span> Info
-                        </button>
-                        <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." data-bind="click:$root.delete">
-                            <span class="glyphicon glyphicon-remove-sign"></span> Cancel
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="ReservationsTable" style="display: none">
+        <h3 id="ReservationsTableTitle"></h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Restaurant Name</th>
+                    <th>Client Name</th>
+                    <th>Date and Time</th>
+                    <th>Seats</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:Reservations">
+                <tr>
+                    <td class="col-md-3" data-bind="text:Restaurant.Name"></td>
+                    <td class="col-md-3" data-bind="text:User.UserName"></td>
+                    <td class="col-md-2" data-bind="text:ReservationDateDisplay"></td>
+                    <td class="col-md-2" data-bind="text:Seats"></td>
+                    <td class="col-md-2">
+                        <div class="btn-group-md" align="right">
+                            <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." data-bind="click:$root.delete">
+                                <span class="glyphicon glyphicon-remove-sign"></span> Cancel
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover();
         var vm = new Reservations();
-        vm.refresh();
+        vm.open();
         ko.applyBindings(vm, $("#reservations").get(0));
 
         $("#ChartYear").val("2017").change();

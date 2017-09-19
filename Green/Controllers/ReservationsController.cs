@@ -43,6 +43,7 @@ namespace Green.Controllers
             return new JsonResult { Data = new { Reservations = reservations }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        [HttpPost]
         public JsonResult ReservationsPercentageRefresh(int year)
         {
             var restaurants = qRestaurantService.GetRestaurants().Where(r => r.OwnerId.CompareTo(User.Identity.GetUserId()) == 0).ToList();
@@ -67,8 +68,8 @@ namespace Green.Controllers
                 openingHour = restaurant.OpeningHour;
                 closingHour = restaurant.ClosingHour;
             }
-            
-            return new JsonResult { Data = new { OpeningHour = openingHour, ClosingHour = closingHour}, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            return new JsonResult { Data = new { OpeningHour = openingHour, ClosingHour = closingHour }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
