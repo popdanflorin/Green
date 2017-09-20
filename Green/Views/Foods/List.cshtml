@@ -49,11 +49,11 @@
         height: auto;
     }
 
-        #foods .panel-title a:hover {
-            color: #ffffff;
-            background-color: #808080;
-            border-color: #7a7a7a;
-        }
+    #foods .panel-title a:hover {
+        color: #ffffff;
+        background-color: #808080;
+        border-color: #7a7a7a;
+    }
 
     #foods .panel-title a {
         font-weight: 700;
@@ -79,6 +79,30 @@
     #foods .list-group-item:hover {
         cursor: pointer;
     }
+
+    /* snackbar */
+    #FoodSnackbar {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background: rgba(56, 56, 56, 0.9);
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 20px;
+        font-size: 17px;
+            transition: .5s ease-in;
+    }
+
+        #FoodSnackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
 </style>
 
 <div id="foods">
@@ -114,6 +138,7 @@
         </div>
     </div>
 
+    <div id="FoodSnackbar" data-bind="text: $root.Message"></div>
     @Html.Partial("Item")
 </div>
 

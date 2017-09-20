@@ -8,6 +8,7 @@
     self.loadingPanel = new LoadingOverlay();
 
     self.SelectedItems = ko.observableArray();
+    self.Message = ko.observable();
 
     // validation warnings
     self.warningName = ko.observable();
@@ -42,6 +43,8 @@
             return;
         }
 
+        var isNew = (self.Id() == 0 || self.Id() == null);
+
         var url = '/Foods/Save';
         var food = JSON.stringify({
             Id: self.Id(),
@@ -57,12 +60,15 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
                 $("#foodItem").modal("hide");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
+        self.showSnackbar();
     };
 
     self.delete = function (data) {
@@ -82,12 +88,14 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
 
+        self.showSnackbar();
         return true;
     };
 
@@ -122,6 +130,12 @@
         var index = parseInt(category.id.match("[0-9]*$")[0]);
         self.categoriesState[index] = isActive;
     };
+    
+    self.showSnackbar = function() {
+        var x = document.getElementById("FoodSnackbar")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+    }
 
     self.validate = function () {
         var valid = true;
