@@ -274,6 +274,10 @@
     };
 
     self.delete = function (data) {
+        if (!window.confirm("Are you sure you want to delete this menu?")) {
+            return false;
+        }
+
         var url = '/Menus/Delete';
         var menu = JSON.stringify({
             menuId: data.Id
@@ -291,12 +295,14 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
+        return true;
     };
 
     self.deleteModal = function () {
         var data = { Id: self.Id() };
-        self.delete(data);
-        $('#menuItem').modal('hide');
+        if (self.delete(data))
+            $('#menuItem').modal('hide');
     };
 
     self.onMealClicked = function (data) {

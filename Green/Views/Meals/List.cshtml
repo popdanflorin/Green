@@ -73,7 +73,7 @@
     }
 
     .overlay .text {
-        color: #515151;
+        color: #404040;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -81,10 +81,13 @@
         -ms-transform: translate(-50%, -50%);
     }
 
-    .overlay .h5 {
-        color: black;
+    .overlay h4 {
+        color: #404040;
         position: absolute;
-        top: 50%;
+        align-content: center;
+        align-self: center;
+        text-align: center;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -122,12 +125,12 @@
         <div class="row" data-bind="foreach:DisplayedMeals">
             <div id="thumbnail" class="thumbnail col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <div class="wrapper">
-                    <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: Name.toUpperCase()}">
-                    <div class="overlay">
+                    <img class="image" data-bind="attr: {src: '../Content/images/'+ ImageName, alt: 'Image Not Found!'}">
+                    <div id="Overlay" class="overlay">
                         <button id="deleteMealFromList" type="button" class="close" data-bind="click: $root.delete">&times;</button>
                         <div class="wrapper" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details">
-                            <h5 data-bind="text:Name"></h5>
-                            <div class="text" data-bind="text:Description"></div>
+                            <h4 class="center-block" data-bind="text:Name"></h4>
+                            @* <div class="text" data-bind="text:Description"></div>*@
                             @*<div class="form-horizontal" style="position:absolute; bottom: 5%; width:100%;">
                                     <buttod id="detailsButton" class="btn btn-success" data-toggle="modal" data-target="#mealItem" data-bind="click: $root.details" style="width:40%;">Details</buttod>
                                     <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Delete." data-bind="click:$root.delete" style="width:40%;">Delete</button>

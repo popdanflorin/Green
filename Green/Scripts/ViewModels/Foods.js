@@ -66,6 +66,10 @@
     };
 
     self.delete = function (data) {
+        if (!window.confirm("Are you sure you want to delete this food?")) {
+            return false;
+        }
+
         var url = '/Foods/Delete';
         var food = JSON.stringify({
             foodId: data.Id
@@ -83,12 +87,14 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
+        return true;
     };
 
     self.deleteModal = function () {
         var data = { Id: self.Id() };
-        self.delete(data);
-        $("#foodItem").modal("hide");
+        if (self.delete(data))
+            $("#foodItem").modal("hide");
     }
 
     self.refresh = function () {

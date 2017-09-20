@@ -45,7 +45,7 @@
     };
 
     self.delete = function (data) {
-        if (!window.confirm("Are you sure you want to cancel the reservation?")) {
+        if (!window.confirm("Are you sure you want to cancel this reservation?")) {
             return;
         }
 

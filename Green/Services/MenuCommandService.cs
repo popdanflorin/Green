@@ -101,12 +101,14 @@ namespace Green.Services
         {
             var pairs = meals.Select(i => new MenuMeal(Guid.NewGuid().ToString(), menuId, i.Id)).ToList();
             pairs.ForEach(p => ctx.MenuMeals.Add(p));
+            ctx.SaveChanges();
         }
 
         private void DeleteAllMeals(string menuId)
         {
             var pairs = ctx.MenuMeals.Where(e => e.MenuId == menuId).ToList();
             pairs.ForEach(p => ctx.MenuMeals.Remove(p));
+            ctx.SaveChanges();
         }
 
         public string DeleteRestaurantMenus(string restaurantId)
@@ -115,6 +117,7 @@ namespace Green.Services
             {
                 var menus = ctx.Menus.Where(m => m.RestaurantId == restaurantId).ToList();
                 menus.ForEach(m => DeleteMenu(m.Id));
+                ctx.SaveChanges();
                 return SuccessMessage;
             }
             catch (Exception)
@@ -128,6 +131,7 @@ namespace Green.Services
             try
             {
                 ctx.MenuMeals.Where(m => m.MealId == mealId).ToList().ForEach(m => ctx.MenuMeals.Remove(m));
+                ctx.SaveChanges();
                 return SuccessMessage;
             }
             catch (Exception)
