@@ -171,6 +171,10 @@
     };
 
     self.delete = function (data) {
+        if (!window.confirm("Are you sure you want to delete the meal?")) {
+            return false;
+        }
+
         var url = '/Meals/Delete';
         var meal = JSON.stringify({
             mealId: data.Id
@@ -188,12 +192,13 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+        return true;
     };
 
     self.deleteModal = function () {
         var data = { Id: self.Id() };
-        self.delete(data);
-        $('#mealItem').modal('hide');
+        if (self.delete(data))
+            $('#mealItem').modal('hide');
     };
 
     self.refresh = function () {

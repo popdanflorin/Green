@@ -28,7 +28,7 @@ namespace Green.Services
             //var image = ctx.Images.FirstOrDefault(i => i.MealId == mealId);
             if (image != null)
                 return image.Name;
-            return null;
+            return "imageNotFound.png";
         }
 
         public List<MealIngredient> GetMealIngredients()

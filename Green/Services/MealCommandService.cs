@@ -36,13 +36,15 @@ namespace Green.Services
                 if (oldMeal == null)
                 {
                     meal.Id = Guid.NewGuid().ToString();
+                    if (meal.ImageName == null || meal.ImageName.Length == 0)
+                        meal.ImageName = "imageNotFound.png";
                     ctx.Meals.Add(meal);
                 }
                 else
                 {
                     oldMeal.Description = meal.Description;
                     oldMeal.Type = meal.Type;
-                    oldMeal.ImageName = meal.ImageName == null || meal.ImageName.Length == 0 ? "noimage.jpg" : meal.ImageName;
+                    oldMeal.ImageName = meal.ImageName == null || meal.ImageName.Length == 0 ? "imageNotFound.png" : meal.ImageName;
                     DeleteAllIngredients(meal.Id);
                 }
 
