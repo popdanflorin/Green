@@ -171,7 +171,7 @@
     };
 
     self.delete = function (data) {
-        if (!window.confirm("Are you sure you want to delete the meal?")) {
+        if (!window.confirm("Are you sure you want to delete this meal?")) {
             return false;
         }
 

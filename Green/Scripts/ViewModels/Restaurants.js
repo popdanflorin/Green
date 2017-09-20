@@ -239,6 +239,7 @@
         //self.openShowImage({ id: restaurantId });
     };
 
+    // validations
     self.validate = function () {
         var isValid = true;
 
