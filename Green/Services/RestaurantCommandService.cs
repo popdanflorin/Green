@@ -18,6 +18,9 @@ namespace Green.Services
 
         private MenuQueryService qMenuService = new MenuQueryService();
         private MenuCommandService cMenuService = new MenuCommandService();
+        private ReservationCommandService cReservationService = new ReservationCommandService();
+        private RatingCommandService cRatingService = new RatingCommandService();
+        private UserFavoritesCommandService cUserFavoritesService = new UserFavoritesCommandService();
 
         /* public string UploadImage(Image image)
          {
@@ -70,7 +73,6 @@ namespace Green.Services
                     oldRestaurant.SeatsAvailable = restaurant.SeatsAvailable;
                     oldRestaurant.OpeningHour = restaurant.OpeningHour;
                     oldRestaurant.ClosingHour = restaurant.ClosingHour;
-
                 }
 
                 ctx.SaveChanges();
@@ -103,23 +105,30 @@ namespace Green.Services
             }
         }
 
-        public string DeleteRestaurant(string id)
+        public string DeleteRestaurant(string restaurantId)
         {
             try
             {
-                var restaurant = ctx.Restaurants.FirstOrDefault(f => f.id == id);
+                var restaurant = ctx.Restaurants.FirstOrDefault(f => f.id == restaurantId);
                 if (restaurant != null)
                 {
                     // delete menu(s)
-                    var message = cMenuService.DeleteRestaurantMenus(id);
+                    var message1 = cMenuService.DeleteRestaurantMenus(restaurantId);
+                    // delete reservations
+                    var message2 = cReservationService.DeleteReservationForRestaurant(restaurantId);
+                    // delete ratings
+                    var message3 = cRatingService.DeleteRatingsForRestaurant(restaurantId);
+                    // delete userFavories
+                    var message4 = cUserFavoritesService.DeleteFavoritesForRestaurant(restaurantId);
 
+                    //restaurant = ctx.Restaurants.FirstOrDefault(f => f.id == restaurantId);
                     ctx.Restaurants.Remove(restaurant);
                     ctx.SaveChanges();
                     return SuccessMessage;
                 }
                 return ItemNotFoundMessage;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return ErrorMessage;
             }
@@ -133,7 +142,8 @@ namespace Green.Services
                 var imagesName = images.Select(i => i.Name).ToList();
                 return imagesName;
             }
-            return null;
+            List<String> list = new List<String>();
+            return list;
         }
 
         public String DeleteImage(string imageId)

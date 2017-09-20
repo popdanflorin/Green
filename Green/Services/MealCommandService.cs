@@ -76,7 +76,7 @@ namespace Green.Services
                 }
                 return ItemNotFoundMessage;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return ErrorMessage;
             }

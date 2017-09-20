@@ -19,8 +19,8 @@ namespace Green.Services
         {
             try
             {
-             
-                var oldFavorite = ctx.UserFavorites.FirstOrDefault(r => r.ClientId == userFavorite.ClientId && r.RestaurantId==userFavorite.RestaurantId);
+
+                var oldFavorite = ctx.UserFavorites.FirstOrDefault(r => r.ClientId == userFavorite.ClientId && r.RestaurantId == userFavorite.RestaurantId);
                 if (oldFavorite == null)
                 {
                     userFavorite.Id = Guid.NewGuid().ToString();
@@ -30,7 +30,7 @@ namespace Green.Services
                 }
                 else
                     return AlertMessage;
-               
+
             }
             catch (Exception)
             {
@@ -45,6 +45,25 @@ namespace Green.Services
                 if (favorite != null)
                 {
                     ctx.UserFavorites.Remove(favorite);
+                    ctx.SaveChanges();
+                    return SuccessMessage;
+                }
+                return ItemNotFoundMessage;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage;
+            }
+        }
+
+        public string DeleteFavoritesForRestaurant(string restaurantId)
+        {
+            try
+            {
+                var favorites = ctx.UserFavorites.Where(f => f.RestaurantId == restaurantId).ToList();
+                if (favorites.Any())
+                {
+                    ctx.UserFavorites.RemoveRange(favorites);
                     ctx.SaveChanges();
                     return SuccessMessage;
                 }

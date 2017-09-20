@@ -137,9 +137,13 @@
     };
 
     self.deleteRestaurant = function (data) {
+        if (!window.confirm("Are you sure you want to delete this meal?")) {
+            return false;
+        }
+
         var url = '/Restaurants/Delete';
         var restaurant = JSON.stringify({
-            restaurantId: self.id()
+            restaurantId: data.id
         });
         $.ajax(url, {
             type: "post",
@@ -154,7 +158,6 @@
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-
 
     };
     self.openDeleteDialog = function (data) {

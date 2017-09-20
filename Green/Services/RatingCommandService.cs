@@ -50,5 +50,23 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
+
+        public string DeleteRatingsForRestaurant(string restaurantId)
+        {
+            try
+            {
+                var ratings = ctx.Ratings.Where(r => r.RestaurantId == restaurantId).ToList();
+                if (ratings.Any())
+                {
+                    ctx.Ratings.RemoveRange(ratings);
+                    ctx.SaveChanges();
+                }
+                return SuccessMessage;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage;
+            }
+        }
     }
 }

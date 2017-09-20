@@ -82,6 +82,25 @@ namespace Green.Services
                 return ErrorMessage;
             }
         }
+
+        public string DeleteReservationForRestaurant(string restaurantId)
+        {
+            try
+            {
+                var reservations = ctx.Reservations.Where(r => r.RestaurantId == restaurantId).ToList();
+                if (reservations.Any())
+                {
+                    ctx.Reservations.RemoveRange(reservations);
+                    ctx.SaveChanges();
+                    return SuccessMessage;
+                }
+                return ItemNotFoundMessage;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage;
+            }
+        }
         public bool ValidateReservationSeats(Reservation reservation)
         {
             var reservations = reservationQService.GetReservations().Where(r => r.RestaurantId == reservation.RestaurantId && r.ReservationDate == reservation.ReservationDate);
