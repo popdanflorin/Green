@@ -10,6 +10,7 @@
     self.RestaurantId = ko.observable();
     self.Rating = ko.observable();
     self.MealName = ko.observable();
+    self.CityName = ko.observable();
     self.UserId = ko.observable();
     self.Id = ko.observable();
     self.Message = ko.observable();
@@ -87,7 +88,7 @@
         if (currentOption == 'Choosetype')
             var type = 'None';
         else
-            var type = self.RestaurantName;
+            var type = self.RestaurantType;
         var url = '/Restaurants/UserRestaurantsSearch';
         self.loadingPanel.show();
         $.ajax(url, {
@@ -97,7 +98,8 @@
             data: {
                 restaurantName: self.RestaurantName,
                 mealName: self.MealName,
-                restaurantType: type
+                restaurantType: type,
+                cityName: self.CityName
             },
             success: function (data) {
                 self.loadingPanel.hide();
