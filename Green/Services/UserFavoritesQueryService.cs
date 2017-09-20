@@ -41,7 +41,7 @@ namespace Green.Services
                 var userRestaurant = new UserRestaurant();
                 userRestaurant.id = item.id;
                 userRestaurant.Name = item.Name;
-                userRestaurant.Address = item.Address;
+                userRestaurant.Address = item.Address+", "+item.City;
                 userRestaurant.Type = item.Type;
                 var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
                 if (image != null)

@@ -66,7 +66,6 @@
         self.loadingPanel.show();
         $.ajax(url, {
             type: "get",
-            async: false,
             contentType: "application/json; charset=utf-8",
             data: {
                 restaurantName: self.RestaurantName
@@ -93,7 +92,6 @@
         self.loadingPanel.show();
         $.ajax(url, {
             type: "get",
-            async: false,
             contentType: "application/json; charset=utf-8",
             data: {
                 restaurantName: self.RestaurantName,

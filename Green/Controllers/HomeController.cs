@@ -37,6 +37,7 @@ namespace Green.Controllers
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
                 mail.From = new MailAddress(email, name);
                 mail.To.Add("raluca.brasoveanu@tecknoworks.com");
+                mail.To.Add("ioanabianca.puscasu@tecknoworks.com");
                 // mail.To.Add("adriana.moisil@tecknoworks.com");
                 // mail.To.Add("florin.pop@tecknoworks.com");
                 mail.IsBodyHtml = true;

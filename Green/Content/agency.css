@@ -158,6 +158,10 @@ header.masthead {
       font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       text-transform: uppercase; } }
 
+.text-danger.validation-summary-errors{
+    width:335px;
+    margin-left:138px;
+}
 .service-heading {
   margin: 15px 0;
   text-transform: none; }
