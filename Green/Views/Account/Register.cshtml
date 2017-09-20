@@ -10,19 +10,19 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group" style="width:1278px;padding-left:74px">
+    <div class="form-group" style="width:1278px;padding-left:133px">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-offset-2">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group" style="width:1122px;padding-left:86px">
+    <div class="form-group" style="width:1155px;padding-left:158px">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-offset-2">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group" style="width:1060px;padding-left:100px">
+    <div class="form-group" style="width:1134px;padding-left:160px">
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-offset-2">
 
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-5">
-            <input type="submit" class="btn btn-default" value="Register" />
+            <input type="submit" class="btn btn-default" value="Register" style="margin-left:180px" />
         </div>
     </div>
 }
