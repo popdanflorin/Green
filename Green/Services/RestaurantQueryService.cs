@@ -93,7 +93,8 @@ namespace Green.Services
                 var userRestaurant = new UserRestaurant();
                 userRestaurant.id = item.id;
                 userRestaurant.Name = item.Name;
-                userRestaurant.Address = item.Address;
+                userRestaurant.Address = item.Address+", "+item.City;
+                userRestaurant.City=item.City;
                 userRestaurant.Type = item.Type;
                 var ratings = ctx.Ratings.Where(r => r.RestaurantId == item.id);
                 if (ratings.Any())
@@ -135,7 +136,7 @@ namespace Green.Services
             return listUserRestaurants;
 
         }
-        public List<UserRestaurant> GetUserRestaurantsByAll(string restaurantName, string mealName, RestaurantType type)
+        public List<UserRestaurant> GetUserRestaurantsByAll(string restaurantName, string mealName, RestaurantType type,string cityName)
         {
             List<Restaurant> listRestaurants = GetRestaurants();
             List<Image> listImages = GetImages();
@@ -178,6 +179,7 @@ namespace Green.Services
                            c.Restaurant.id,
                            c.Restaurant.Name,
                            c.Restaurant.Address,
+                           c.Restaurant.City,
                            c.Restaurant.Type
                        });
 
@@ -196,6 +198,7 @@ namespace Green.Services
                             userRestaurant.id = item.id;
                             userRestaurant.Name = item.Name;
                             userRestaurant.Address = item.Address;
+                            userRestaurant.City = item.City;
                             userRestaurant.Type = item.Type;
                             var ratings = ctx.Ratings.Where(r => r.RestaurantId == item.id);
                             if (ratings.Any())
@@ -211,7 +214,7 @@ namespace Green.Services
 
                         }
                         if (restaurantName != "")
-                            finalUserRestaurants = listUserRestaurants.Where(x => x.Name.ToLower().Contains(restaurantName)).ToList();
+                            finalUserRestaurants = listUserRestaurants.Where(x => x.Name.ToLower().StartsWith(restaurantName.ToLower())).ToList();
                         else
                             finalUserRestaurants = listUserRestaurants;
                         if (type != RestaurantType.None)
@@ -219,7 +222,8 @@ namespace Green.Services
                     }
                 }
             }
-
+            if (cityName != null)
+                finalUserRestaurants = finalUserRestaurants.Where(x => x.City.ToLower().CompareTo(cityName.ToLower())==0).ToList();
             return finalUserRestaurants;
 
 

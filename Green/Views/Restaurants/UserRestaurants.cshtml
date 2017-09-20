@@ -70,7 +70,6 @@
     span.stars, span.stars span {
         display: block;
         background: url(star-gold32.png) 0 -16px repeat-x;
-        
         width: 80px;
         height: 16px;
     }
@@ -216,43 +215,14 @@
                                     <input id="Meal" class="form-control" type="text" data-bind="value:MealName" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="filter">City:</label>
-                                    <p>
-                                        <select id="dropdownTypes" class="dropdwn"></select>
-                                    </p>
+                                    <label for="contain">City:</label>
+                                    <input id="city" class="form-control" type="text" data-bind="value:CityName" />
                                 </div>
                                 <button id="search2" type="button" data-bind="click:searchByAll" class="btn btn-danger">Search <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </form>
                         </div>
                     </div>
                 </div>
-                @*<div id="custom-search-input" style="position: relative">
-                        <div class="input-group">
-
-                            <input name="Name" id="Name" type="text" class="search-query form-control" placeholder="Search..." data-bind="value:RestaurantName" />
-
-
-                            <span class="input-group-btn col-md-offset-2">
-                                <button id="search" class="btn btn-danger" type="button" data-bind="click:search">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
-
-
-
-                        </div>
-                    </div>*@
-
-
-                @*<br />
-                    <p>
-                        <select class="dropdwn" id="selectMenu"
-                                data-bind="options: Types,
-                                optionsCaption: 'Choose type...',
-                                value:RestaurantType,click:searchByType"></select>
-                    </p>*@
-
-
             </div>
             <div class="col-md-8">
                 <img src="../img/res.png" width="500" height="350" />
@@ -300,10 +270,20 @@
 
 
                                     <button class="btn btn-info btn-sm" data-bind="click:$parent.showRating">Show rating</button>
-                                    <button id="addFav" class="btn btn-danger btn-sm" type="button" data-bind="click:$parent.save">
-                                        <span class="glyphicon glyphicon-heart-empty"></span>
-                                        Add to favorites
-                                    </button>
+                                    @if (User.IsInRole("NormalUser"))
+                                    {
+                                        <button id="addFav" class="btn btn-danger btn-sm" type="button" data-bind="click:$parent.save">
+                                            <span class="glyphicon glyphicon-heart-empty"></span>
+                                            Add to favorites
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button id="addFav" class="btn btn-danger btn-sm" type="button" onclick="@("window.location.href='" +@Url.Action("Login","Account") + "'");">
+                                            <span class="glyphicon glyphicon-heart-empty"></span>
+                                            Add to favorites
+                                        </button>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -336,6 +316,9 @@
             e.stopPropagation();
         });
         $('#Meal').on('click', function (e) {
+            e.stopPropagation();
+        });
+        $('#city').on('click', function (e) {
             e.stopPropagation();
         });
 

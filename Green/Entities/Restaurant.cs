@@ -15,10 +15,12 @@ namespace Green.Entities
         public virtual ApplicationUser User { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
         public Enums.RestaurantType Type { get; set; }
         public int SeatsAvailable { get; set; }
         public int OpeningHour { get; set; }
         public int ClosingHour { get; set; }
+      
         public string TypeDisplay
         {
             get

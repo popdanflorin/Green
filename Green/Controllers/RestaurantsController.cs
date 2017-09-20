@@ -97,9 +97,9 @@ namespace Green.Controllers
             var totalRating = qService.GetTotalRating(restaurantId);
             return new JsonResult() { Data = new { TotalRating = totalRating }, ContentEncoding = Encoding.UTF8 };
         }
-        public JsonResult UserRestaurantsSearch(string restaurantName,string mealName,RestaurantType restaurantType)
+        public JsonResult UserRestaurantsSearch(string restaurantName,string mealName,RestaurantType restaurantType,string cityName)
         {
-            var userRestaurants = qService.GetUserRestaurantsByAll(restaurantName,mealName,restaurantType);
+            var userRestaurants = qService.GetUserRestaurantsByAll(restaurantName,mealName,restaurantType,cityName);
             return new JsonResult() { Data = new { UserRestaurants = userRestaurants }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult UserRestaurantsSearchByName(string restaurantName)
