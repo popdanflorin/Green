@@ -66,6 +66,7 @@ namespace Green.Services
                     oldRestaurant.Name = restaurant.Name;
                     oldRestaurant.Type = restaurant.Type;
                     oldRestaurant.Address = restaurant.Address;
+                    oldRestaurant.City = restaurant.City;
                     oldRestaurant.SeatsAvailable = restaurant.SeatsAvailable;
                     oldRestaurant.OpeningHour = restaurant.OpeningHour;
                     oldRestaurant.ClosingHour = restaurant.ClosingHour;
