@@ -17,13 +17,13 @@ namespace Green.Controllers
 
         private RestaurantQueryService qRestaurantService = new RestaurantQueryService();
         private RestaurantCommandService cRestaurantService = new RestaurantCommandService();
-
+        
         public ActionResult UserReservations()
         {
             return View();
         }
-        // GET: Reservations
-        [Authorize]
+
+        [Authorize(Roles = "AppAdmin")]
         public ActionResult List()
         {
             return View();

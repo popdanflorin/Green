@@ -121,7 +121,7 @@ namespace Green.Services
                     // delete userFavories
                     var message4 = cUserFavoritesService.DeleteFavoritesForRestaurant(restaurantId);
 
-                    //restaurant = ctx.Restaurants.FirstOrDefault(f => f.id == restaurantId);
+                    restaurant = ctx.Restaurants.FirstOrDefault(f => f.id == restaurantId);
                     ctx.Restaurants.Remove(restaurant);
                     ctx.SaveChanges();
                     return SuccessMessage;
