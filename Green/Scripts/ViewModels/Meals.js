@@ -4,6 +4,7 @@
     //for list
     self.Meals = ko.observableArray();
     self.Types = ko.observableArray();
+    self.Message = ko.observable(); // for snackbar
 
     //for item
     self.Id = ko.observable();
@@ -162,12 +163,16 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
                 $("#mealItem").modal("hide");
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                self.Message(textStatus);
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
+        self.showSnackbar();
     };
 
     self.delete = function (data) {
@@ -187,11 +192,15 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                self.Message(textStatus);
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
+        self.showSnackbar();
         return true;
     };
 
@@ -350,6 +359,13 @@
     self.SearchIngredient = ko.computed(function () {
         self.DisplayCase(self.SearchText());
     });
+
+    // snackbar
+    self.showSnackbar = function () {
+        var x = document.getElementById("MealSnackbar")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+    };
 
     // validations
     self.validate = function () {

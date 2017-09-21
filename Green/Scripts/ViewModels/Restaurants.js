@@ -14,6 +14,7 @@
     self.SeatsAvailable = ko.observable();
     self.loadingPanel = new LoadingOverlay();
     self.messageText = ko.observable();
+    self.Message = ko.observable(); // for snackbar
 
     //for Image SlideShow
     self.RestaurantImages = ko.observableArray();
@@ -125,15 +126,19 @@
             contentType: "application/json; charset=utf-8",
             data: restaurant,
             success: function (data) {
+                self.Message(data);
                 console.log(data);
                 self.messageText(data.message);
                 self.refresh();
                 $('#restaurantItem').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                self.Message(textStatus);
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+
+        self.showSnackbar();
     };
 
     self.deleteRestaurant = function (data) {
@@ -153,12 +158,15 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                self.Message(textStatus);
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
 
+        self.showSnackbar();
     };
     self.openDeleteDialog = function (data) {
         self.id(data.id);
@@ -191,12 +199,15 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                self.Message(textStatus);
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
 
+        self.showSnackbar();
         click: $('#imageItem').modal('hide');
     };
 
@@ -232,14 +243,24 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                self.Message(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                self.Message(textStatus);
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
 
         $("#imageItem").modal('hide');
         //self.openShowImage({ id: restaurantId });
+        self.showSnackbar();
+    };
+
+    // snackbar
+    self.showSnackbar = function () {
+        var x = document.getElementById("RestaurantSnackbar")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
     };
 
     // validations
