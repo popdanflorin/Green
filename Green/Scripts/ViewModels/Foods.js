@@ -16,6 +16,23 @@
 
     self.categoriesState = ko.observableArray();
 
+    // initializations for SignalR
+    self.initializeSignalR = function () {
+        $.connection.hub.start()
+            .done(function () {
+                console.log("SignalR initialization succes!");
+                $.connection.dataHub.server.announce("test");
+            })
+            .fail(function () {
+                alert("SignalR initialization error!");
+            });
+    };
+
+    $.connection.dataHub.client.announce = function (data) {
+        alert(data);
+    };
+    // end SignalR related functions
+
     self.details = function (data) {
         self.Id(data.Id);
         self.Name(data.Name);

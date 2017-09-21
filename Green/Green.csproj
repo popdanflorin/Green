@@ -213,7 +213,7 @@
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Controllers\UserFavoritesController.cs" />
-    <Compile Include="ChatHub.cs" />
+    <Compile Include="DataHub.cs" />
     <Compile Include="Entities\Enums\EnumExtensions.cs" />
     <Compile Include="Entities\Enums\EnumItem.cs" />
     <Compile Include="Entities\Enums\MealType.cs" />

@@ -85,7 +85,7 @@
         visibility: hidden;
         min-width: 250px;
         margin-left: -125px;
-        background-color:  #333;
+        background-color: #333;
         color: #fff;
         text-align: center;
         border-radius: 2px;
@@ -152,6 +152,8 @@
     }
 </style>
 
+<script src='/signalr/js'></script>
+
 <div id="foods">
     <h2>Foods</h2>
     <div class="form-group">
@@ -189,22 +191,25 @@
     @Html.Partial("Item")
 </div>
 
-<script>
-    $(function () {
-        ko.cleanNode($("#foods")[0]);
-        vm = new Foods();
-        vm.refresh();
-        ko.applyBindings(vm, $("#foods").get(0));
-    });
+@section scripts {
+    <script>
+        $(function () {
+            ko.cleanNode($("#foods")[0]);
+            vm = new Foods();
+            vm.initializeSignalR();
+            vm.refresh();
+            ko.applyBindings(vm, $("#foods").get(0));
+        });
 
-    function myFunction(data) {
-        var x = document.getElementById('ToggleFoods' + data);
-        if (x == null)
-            return;
-        if (x.style.display === 'none') {
-            x.style.display = 'block';
-        } else {
-            x.style.display = 'none';
+        function myFunction(data) {
+            var x = document.getElementById('ToggleFoods' + data);
+            if (x == null)
+                return;
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
         }
-    }
-</script>
+    </script>
+}

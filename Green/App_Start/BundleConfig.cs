@@ -54,9 +54,10 @@ namespace Green
                       "~/Scripts/Chart.min.js"
                       ));
 
-            bundles.Add(new ScriptBundle("~/bundles/singalr").Include(
+            bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                       "~/Scripts/jquery.signalR-2.2.2.js",
-                      "~/Scripts/jquery.signalR-2.2.2.min.js"
+                      "~/Scripts/jquery.signalR-2.2.2.min.js",
+                      "~/signalr/hubs"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
