@@ -85,7 +85,7 @@
         visibility: hidden;
         min-width: 250px;
         margin-left: -125px;
-        background: rgba(56, 56, 56, 0.9);
+        background-color:  #333;
         color: #fff;
         text-align: center;
         border-radius: 2px;
@@ -95,7 +95,6 @@
         left: 50%;
         bottom: 20px;
         font-size: 17px;
-            transition: .5s ease-in;
     }
 
         #FoodSnackbar.show {
@@ -103,6 +102,54 @@
             -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
             animation: fadein 0.5s, fadeout 0.5s 2.5s;
         }
+
+    @@-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 20px;
+            opacity: 1;
+        }
+    }
+
+    @@keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 20px;
+            opacity: 1;
+        }
+    }
+
+    @@-webkit-keyframes fadeout {
+        from {
+            bottom: 20px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @@keyframes fadeout {
+        from {
+            bottom: 20px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
 </style>
 
 <div id="foods">
