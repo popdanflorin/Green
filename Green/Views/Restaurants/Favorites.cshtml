@@ -11,7 +11,7 @@
                 <div class="row">
 
                     <div class="col-md-12" style="height:650px;overflow-y:scroll">
-                        <hr />
+                        <text class="text-center" data-bind="text:NoFavoritesMessage"></text>
                         <div class="row" data-bind="foreach:UserFavorites">
                             <div class="col-md-12">
                                 <div class="thumbnail" style="height:520px;">
@@ -31,7 +31,7 @@
                                             <text data-bind="text:TypeDisplay"></text>
                                         </div>
                                         <input id="idFavorite" hidden="hidden" data-bind="value:id">
-                                        <button type="button" class="btn btn-danger" data-bind="click:$parent.deleteFavorite" style="margin-top:10px;">Delete from favorites</button>
+                                        <button type="button" class="btn btn-danger" @*data-toggle="modal" data-target="#deleteModal"*@ data-bind="click:$parent.deleteFavorite" style="margin-top:10px;">Delete from favorites</button>
                                     </div>
                                 </div>
                             </div>
@@ -46,3 +46,4 @@
 
     </div>
 </div>
+@Html.Partial("DeleteFavorite")

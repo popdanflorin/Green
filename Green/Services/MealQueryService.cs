@@ -12,6 +12,10 @@ namespace Green.Services
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<EnumItem> GetMealTypes()
         {
             return Enum.GetValues(typeof(MealType)).Cast<MealType>().Select(x => new EnumItem() { Id = (int)x, Description = EnumExtensions.ToString(x) }).ToList();

@@ -14,6 +14,7 @@
     self.UserId = ko.observable();
     self.Id = ko.observable();
     self.Message = ko.observable();
+    self.NoFavoritesMessage = ko.observable();
 
     self.details = function (data) {
         self.RestaurantId(data.id);
@@ -49,9 +50,11 @@
             contentType: "application/json; charset=utf-8",
             data: { UserId: self.UserId },
             success: function (data) {
-                self.loadingPanel.hide();
-                console.log(data);
-                self.UserFavorites(data.UserFavorites);
+                    self.loadingPanel.hide();
+                    console.log(data);
+                    self.NoFavoritesMessage("");
+                    self.UserFavorites(data.UserFavorites);
+                
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -200,7 +203,7 @@
             data: restaurant,
             success: function (data) {
                 console.log(data);
-                self.getFavorites()
+                self.getFavorites();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
