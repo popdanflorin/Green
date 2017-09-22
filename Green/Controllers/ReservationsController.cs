@@ -17,7 +17,7 @@ namespace Green.Controllers
 
         private RestaurantQueryService qRestaurantService = new RestaurantQueryService();
         private RestaurantCommandService cRestaurantService = new RestaurantCommandService();
-        
+
         public ActionResult UserReservations()
         {
             return View();
@@ -33,6 +33,14 @@ namespace Green.Controllers
         {
             var reservations = qReservationService.GetReservations().Where(r => r.Restaurant.OwnerId == User.Identity.GetUserId()).ToList();
             var restaurants = qRestaurantService.GetRestaurants().Where(r => r.OwnerId == User.Identity.GetUserId()).ToList();
+            var userId = User.Identity.GetUserId();
+            return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public JsonResult ListRefreshUser()
+        {
+            var reservations = qReservationService.GetReservations().Where(r => r.ClientId == User.Identity.GetUserId()).ToList();
+            var restaurants = qRestaurantService.GetRestaurants().ToList();
             var userId = User.Identity.GetUserId();
             return new JsonResult { Data = new { Reservations = reservations, Restaurants = restaurants, UserId = userId }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

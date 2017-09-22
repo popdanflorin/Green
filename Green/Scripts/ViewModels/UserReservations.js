@@ -151,7 +151,7 @@
     }
 
     self.refresh = function () {
-        var url = '/Reservations/ListRefresh';
+        var url = '/Reservations/ListRefreshUser';
         self.loadingPanel.show();
         $.ajax(url, {
             type: "get",
