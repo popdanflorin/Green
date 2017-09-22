@@ -75,18 +75,11 @@
             contentType: "application/json; charset=utf-8",
             data: food,
             success: function (data) {
-                $.connection.hub.start()
-                    .done(function () {
-                        console.log("SignalR success!");
-                        $.connection.dataHub.server.refreshFoods();
-                    })
-                .fail(function () {
-                    console.log("SignalR error!");
-                });
                 console.log(data);
                 self.refresh();
                 self.Message(data);
                 $("#foodItem").modal("hide");
+                $.connection.dataHub.server.refreshFoods();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 self.Message(textStatus);
@@ -115,14 +108,7 @@
                 console.log(data);
                 self.refresh();
                 self.Message(data);
-                $.connection.hub.start()
-                    .done(function () {
-                        console.log("SignalR success!");
-                        $.connection.dataHub.server.refreshFoods();
-                    })
-                    .fail(function () {
-                        console.log("SignalR error!");
-                    });
+                $.connection.dataHub.server.refreshFoods();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 self.Message(textStatus);
