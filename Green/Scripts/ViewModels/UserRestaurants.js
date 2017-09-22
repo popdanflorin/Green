@@ -16,6 +16,32 @@
     self.Message = ko.observable();
     self.NoFavoritesMessage = ko.observable();
 
+    // SignalR
+    self.Message = ko.observable();
+
+    self.initSignalR = function () {
+        $.connection.hub.start()
+            .done(function () {
+                console.log("SignalR initialization success!");
+            })
+            .fail(function () {
+                console.log("SignalR initialization error!");
+            })
+    }
+
+    $.connection.dataHub.client.notifyNewReservation = function (restaurantName) {
+        console.log("SignalR notifyNewReservation");
+        self.Message("A new reservation has been made for " + restaurantName + "!");
+        self.showSnackbar();
+    };
+
+    self.showSnackbar = function () {
+        var x = document.getElementById("UserRestaurantsSnackbar");
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+    };
+    // end SignalR related functions
+
     self.details = function (data) {
         self.RestaurantId(data.id);
         self.Id(null);

@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src='/signalr/js'></script>
+
 <div id="userReservations">
     <h2>Reservations</h2>
     <div class="form-group">
@@ -40,6 +42,9 @@
             </tr>
         </tbody>
     </table>
+
+    <div id="UserReservationsSnackbar" data-bind="text: $root.Message"></div>
+
     @Html.Partial("ReservationItem")
 </div>
 
@@ -47,6 +52,7 @@
     $(function () {
         $('[data-toggle="popover"]').popover();
         var vm = new UserReservations();
+        vm.initSignalR();
         vm.refresh();
         ko.applyBindings(vm, $("#userReservations").get(0));
 

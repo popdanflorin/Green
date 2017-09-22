@@ -144,12 +144,14 @@
         padding-bottom: 0px;
     }
 </style>
-
+ 
 @{
     ViewBag.Title = "Restaurants";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+
+<script src='/signalr/js'></script>
 
 <div id="userRestaurants">
     <div class="container-fluid">
@@ -294,12 +296,17 @@
             </div>
         </div>
     </div>
+
+
+    <div id="UserRestaurantsSnackbar" data-bind="text: $root.Message"></div>
+    
     @Html.Partial("Favorites")
     @Html.Partial("SuccesModal") 
 </div>
 <script>
     $(function () {
         var vm = new UserRestaurants();
+        vm.initSignalR();
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
     });
