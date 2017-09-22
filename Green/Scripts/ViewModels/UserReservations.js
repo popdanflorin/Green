@@ -76,6 +76,7 @@
         }
 
         var url = '/Reservations/Delete';
+        var restaurantId = data.RestaurantId;
         var reservation = JSON.stringify({
             reservationId: data.Id
         });
@@ -87,6 +88,7 @@
             success: function (data) {
                 console.log(data);
                 self.refresh();
+                $.connection.dataHub.server.notifyReservationChange(restaurantId, "A reservation has been canceled at ");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
@@ -99,6 +101,8 @@
             self.setOKButton(false);
             return;
         }
+
+        var isNew = self.Id() == 0 || self.Id() == null;
 
         var url = '/Reservations/Save';
         self.warningRestaurantId(null);
@@ -150,7 +154,10 @@
                         self.setOKButton(true);
                         console.log(data);
                         self.refresh();
-                        $.connection.dataHub.server.notifyNewReservation(self.RestaurantId());
+                        if (isNew)
+                            $.connection.dataHub.server.notifyNewReservation(self.RestaurantId());
+                        else
+                            $.connection.dataHub.server.notifyReservationChange(self.RestaurantId(), "Details have been changed for a reservation at ");
                     } catch (Exception) {
                         console.log(Exception);
                     }

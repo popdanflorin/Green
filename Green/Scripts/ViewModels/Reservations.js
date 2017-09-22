@@ -58,6 +58,37 @@
     self.warningReservationDate = ko.observable();
     self.warningSeats = ko.observable();
 
+    // SignalR
+    self.Message = ko.observable();
+
+    self.initSignalR = function () {
+        $.connection.hub.start()
+            .done(function () {
+                console.log("SignalR initialization success!");
+            })
+            .fail(function () {
+                console.log("SignalR initialization error!");
+            })
+    }
+
+    $.connection.dataHub.client.notifyReservationChange = function (message) {
+        console.log("SignalR notifyNewReservation");
+        self.Message(message);
+        self.showSnackbar();
+        var isVisible = $("#MonthlyChart").is(':visible')
+        var temp = self.SelectedYear();
+        self.SelectedYear(temp);
+        if (isVisible)
+            self.refreshMonthlyChartAfterDelete();
+    };
+
+    self.showSnackbar = function () {
+        var x = document.getElementById("ReservationsSnackbar")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+    };
+    // end SignalR related functions
+
     self.delete = function (data) {
         if (!window.confirm("Are you sure you want to cancel this reservation?")) {
             return;

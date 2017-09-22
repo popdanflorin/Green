@@ -10,6 +10,8 @@
     }
 </style>
 
+<script src='/signalr/js'></script>
+
 <div id="reservations">    
     <div id="Chart" class="center-block">
          <h3 data-bind="text: 'Restaurants\' reserved seats percentage for ' + SelectedYear()"></h3>
@@ -47,17 +49,20 @@
             </tbody>
         </table>
     </div>
+
+    <div id="ReservationsSnackbar" data-bind="text: $root.Message"></div>
 </div>
 
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover();
         var vm = new Reservations();
+        vm.initSignalR();
         vm.open();
         ko.applyBindings(vm, $("#reservations").get(0));
 
-        $("#ChartYear").val("2017").change();
-
+        var today = new Date();
+        $("#ChartYear").val(today.getFullYear()).change();
       
     });
 
