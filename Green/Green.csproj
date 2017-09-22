@@ -270,6 +270,7 @@
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\rateit.css" />
     <Content Include="Content\star.gif" />
+    <Content Include="Content\stilizations.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -65,6 +65,7 @@ namespace Green
                        "~/Content/agency.css",
                       "~/Content/site.css",
                       "~/Content/rateit.css",
+                      "~/Content/stilizations.css",
                       "~/Content/delete.gif",
                       "~/Content/star.gif"
                       ));
