@@ -16,20 +16,20 @@
 
     self.categoriesState = ko.observableArray();
 
-    // initializations for SignalR
-    self.initializeSignalR = function () {
+    // SignalR
+    self.initSignalR = function () {
         $.connection.hub.start()
             .done(function () {
-                console.log("SignalR initialization succes!");
-                $.connection.dataHub.server.announce("test");
+                console.log("SignalR initialization success!");
             })
             .fail(function () {
-                alert("SignalR initialization error!");
-            });
-    };
+                console.log("SignalR initialization error!");
+            })
+    }
 
-    $.connection.dataHub.client.announce = function (data) {
-        alert(data);
+    $.connection.dataHub.client.refreshFoods = function (temp) {
+        console.log("SignalR refreshFoods");
+        self.refresh();
     };
     // end SignalR related functions
 
@@ -75,6 +75,14 @@
             contentType: "application/json; charset=utf-8",
             data: food,
             success: function (data) {
+                $.connection.hub.start()
+                    .done(function () {
+                        console.log("SignalR success!");
+                        $.connection.dataHub.server.refreshFoods();
+                    })
+                .fail(function () {
+                    console.log("SignalR error!");
+                });
                 console.log(data);
                 self.refresh();
                 self.Message(data);
@@ -107,6 +115,14 @@
                 console.log(data);
                 self.refresh();
                 self.Message(data);
+                $.connection.hub.start()
+                    .done(function () {
+                        console.log("SignalR success!");
+                        $.connection.dataHub.server.refreshFoods();
+                    })
+                    .fail(function () {
+                        console.log("SignalR error!");
+                    });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 self.Message(textStatus);
@@ -149,7 +165,7 @@
         var index = parseInt(category.id.match("[0-9]*$")[0]);
         self.categoriesState[index] = isActive;
     };
-    
+
     self.showSnackbar = function () {
         var x = document.getElementById("FoodSnackbar")
         x.className = "show";

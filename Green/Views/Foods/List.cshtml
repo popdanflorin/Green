@@ -186,6 +186,8 @@
             </div>
         </div>
     </div>
+    
+    <p id="message"></p>
 
     <div id="FoodSnackbar" data-bind="text: $root.Message"></div>
     @Html.Partial("Item")
@@ -196,7 +198,7 @@
         $(function () {
             ko.cleanNode($("#foods")[0]);
             vm = new Foods();
-            vm.initializeSignalR();
+            vm.initSignalR();
             vm.refresh();
             ko.applyBindings(vm, $("#foods").get(0));
         });

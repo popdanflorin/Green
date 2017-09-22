@@ -8,9 +8,9 @@ namespace Green
 {
     public class DataHub : Hub
     {
-        public void Announce(string message)
+        public void RefreshFoods()
         {
-            Clients.All.Announce(message);
+            Clients.All.RefreshFoods();
         }
     }
 }
