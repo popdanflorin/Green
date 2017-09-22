@@ -180,6 +180,8 @@
     }
 </style>
 
+<script src='/signalr/js'></script>
+
 <div id="meals">
     <h2>Meals</h2>
     <div class="form-inline btn-group">
@@ -218,6 +220,7 @@
     $(function () {
         ko.cleanNode($("#meals")[0]);
         var vmMeals = new Meals();
+        vmMeals.initSignalR();
         vmMeals.refresh();
         ko.applyBindings(vmMeals, $("#meals").get(0));
 

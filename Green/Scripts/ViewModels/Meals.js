@@ -102,6 +102,36 @@
 
     self.loadingPanel = new LoadingOverlay();
 
+    // SignalR
+    self.initSignalR = function () {
+        $.connection.hub.start()
+            .done(function () {
+                console.log("SignalR initialization success!");
+            })
+            .fail(function () {
+                console.log("SignalR initialization error!");
+            })
+    }
+
+    $.connection.dataHub.client.refreshMeals = function (temp) {
+        console.log("SignalR refreshMeals");
+        self.refresh();
+
+    };
+
+    $.connection.dataHub.client.refreshFoodsForMeals = function (temp) {
+        console.log("SignalR refreshFoodsForMeals");
+        var tempFoods = self.Foods();
+        self.getIngredients();
+        tempFoods.forEach(function (food) {
+            var index = self.Foods().findIndex(function (f) { return f.Id == food.Id });
+            if (index != -1)
+                self.Foods()[index].isSelected = food.isSelected;
+        });
+        self.refreshDisplay();
+    };
+    // end SignalR related functions
+
     self.details = function (data) {
         self.Id(0);
         self.Id(data.Id);
@@ -165,6 +195,7 @@
                 self.refresh();
                 self.Message(data);
                 $("#mealItem").modal("hide");
+                $.connection.dataHub.server.refreshMeals();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 self.Message(textStatus);
@@ -193,6 +224,7 @@
                 console.log(data);
                 self.refresh();
                 self.Message(data);
+                $.connection.dataHub.server.refreshMeals();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 self.Message(textStatus);
@@ -297,6 +329,7 @@
             mealId: self.Id()
         });
         $.ajax(url, {
+            async: false,
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",

@@ -11,6 +11,11 @@ namespace Green
         public void RefreshFoods()
         {
             Clients.All.RefreshFoods();
+            Clients.All.RefreshFoodsForMeals();
+        }
+        public void RefreshMeals()
+        {
+            Clients.All.RefreshMeals();
         }
     }
 }
