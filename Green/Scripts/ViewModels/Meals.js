@@ -119,7 +119,7 @@
 
     };
 
-    $.connection.dataHub.client.refreshFoodsForMeals = function (temp) {
+    $.connection.dataHub.client.refreshFoods = function (temp) {
         console.log("SignalR refreshFoodsForMeals");
         var tempFoods = self.Foods();
         self.getIngredients();
