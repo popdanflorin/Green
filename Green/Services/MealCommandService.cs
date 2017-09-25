@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Green.Services
 {
-    public class MealCommandService
+    public class MealCommandService : IMealCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "Action sucessfully performed.";

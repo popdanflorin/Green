@@ -140,10 +140,10 @@
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
-                    <div id="SlideshowController" class="btn-group">
-                        <span id="PlaySlideshow" class="glyphicon glyphicon-play" onclick="startSlideshow()"></span>
-                        <span id="StopSlideshow" class="glyphicon glyphicon-stop" onclick="stopSlideshow()"></span>
-                    </div>
+                    @*<div id="SlideshowController" class="btn-group">*@
+                            <span id="PlaySlideshow" class="glyphicon glyphicon-play" data-bind="click: startSlideshow()" style="display:none"></span>
+                            @*<span id="StopSlideshow" class="glyphicon glyphicon-stop" onclick="stopSlideshow()"></span>
+                        </div>*@
                 </div>
 
                 <!-- Slideshow index -->
@@ -165,31 +165,51 @@
 
 
 <script>
-    var slideIndex = 3;
-    var timeout = setTimeout(plusSlides, 1, 1);
-    var automaticPlay = true;
+    var slideIndex = 0;
+    //var automaticPlay = true;
 
     function startSlideshow() {
-        automaticPlay = true;
-        timeout = setTimeout(plusSlides, 2000, 1);
+        //automaticPlay = true;
+        var slides = document.getElementsByClassName("mySlides");
+        if (slides.length) {
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            var timeout = setTimeout(plusSlides, 1, 0);
+           // slides[1].style.display = "block";
+        //    dots[1].className += " active";
+        }
+        //dots[slideIndex - 1].className += " active";
+        //var timeout1 = setTimeout(showSlides, 2000, 1);
+        //var timeout2 = setTimeout(showSlides, 2000, 2);
+        //var timeout3 = setTimeout(showSlides, 2000, 1);
     }
 
-    function stopSlideshow() {
-        automaticPlay = false;
-        clearTimeout(timeout);
-    }
+    //function stopSlideshow() {
+    //    automaticPlay = false;
+    //    clearTimeout(timeout);
+    //}
 
     function plusSlides(n) {
-        clearTimeout(timeout);
+        //    clearTimeout(timeout);
+        if (n == -1) {
+            clearTimeout(timeout);
+            n = 1;
+        }
         showSlides(slideIndex += n);
     }
 
     function currentSlide(n) {
-        clearTimeout(timeout);
+        //clearTimeout(timeout);
         showSlides(slideIndex = n);
     }
 
     function showSlides(n) {
+        //clearTimeout(timeout);
         var i;
         var slides = document.getElementsByClassName("mySlides");
         if (slides.length) {
@@ -206,7 +226,7 @@
             dots[slideIndex - 1].className += " active";
         }
 
-        if (automaticPlay == true)
-            timeout = setTimeout(plusSlides, 2000, 1);
+       // if (automaticPlay == true)
+          //  timeout = setTimeout(plusSlides, 0, 1);
     }
 </script>

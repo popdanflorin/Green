@@ -8,7 +8,7 @@ using Green.Services;
 
 namespace Green.Services
 {
-    public class RatingCommandService
+    public class RatingCommandService : IRatingCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 

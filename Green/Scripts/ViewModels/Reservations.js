@@ -23,8 +23,10 @@
     self.RestaurantPercentages = ko.observableArray();
     self.SelectedYear = ko.observable(null);
     self.SelectedYearChanged = ko.computed(function () {
-        $("#ReservationsTable").hide();
-        $("#MonthlyChart").hide();
+        if (!self.doNotHide) {
+            $("#ReservationsTable").hide();
+            $("#MonthlyChart").hide();
+        }
         if (self.SelectedYear() == null || self.SelectedYear() == undefined || typeof self.SelectedYear() === 'undefined')
             return;
         try {
@@ -35,6 +37,9 @@
             self.myChart.update();
         }
         catch (e) {
+        }
+        finally {
+            self.doNotHide = (false);
         }
         //var object = document.getElementById("ChartYear");
         //try
@@ -59,6 +64,7 @@
     self.warningSeats = ko.observable();
 
     // SignalR
+    self.doNotHide = false;
     self.Message = ko.observable();
 
     self.initSignalR = function () {
@@ -75,6 +81,7 @@
         console.log("SignalR notifyNewReservation");
         self.Message(message);
         self.showSnackbar();
+        self.doNotHide = true;
         var isVisible = $("#MonthlyChart").is(':visible')
         var temp = self.SelectedYear();
         self.SelectedYear(temp);

@@ -371,7 +371,7 @@ namespace Green.Migrations
             Restaurant restaurant;
 
             /* Samsara */
-            clientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id;
+            clientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id;
             restaurant = context.Restaurants.FirstOrDefault(r => r.Name.CompareTo("Samsara") == 0);
             restaurantId = restaurant.id;
             seatsAvailable = restaurant.SeatsAvailable.ToString();
@@ -429,16 +429,16 @@ namespace Green.Migrations
             //  }
             /*Add ratings */
             context.Ratings.AddOrUpdate(
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id, Value = 5 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id, Value = 4 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Nuka Bistro") == 0).id, Value = 4 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Panemar") == 0).id, Value = 3 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Pralina") == 0).id, Value = 2 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Tokyo") == 0).id, Value = 5 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Baracca") == 0).id, Value = 1 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Samsara") == 0).id, Value = 4 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id, Value = 3 },
-                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.Email.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id, Value = 5 }
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id, Value = 5 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("KFC") == 0).id, Value = 4 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Nuka Bistro") == 0).id, Value = 4 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Panemar") == 0).id, Value = 3 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Pralina") == 0).id, Value = 2 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Tokyo") == 0).id, Value = 5 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Baracca") == 0).id, Value = 1 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Samsara") == 0).id, Value = 4 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Verde") == 0).id, Value = 3 },
+                new Rating { Id = Guid.NewGuid().ToString(), ClientId = context.Users.FirstOrDefault(u => u.UserName.CompareTo("client@gmail.com") == 0).Id, RestaurantId = context.Restaurants.FirstOrDefault(f => f.Name.CompareTo("Indigo") == 0).id, Value = 5 }
                 );
 
             context.SaveChanges();

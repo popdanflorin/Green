@@ -18,9 +18,15 @@ namespace Green.Controllers
         private RestaurantQueryService qRestaurantService = new RestaurantQueryService();
         private RestaurantCommandService cRestaurantService = new RestaurantCommandService();
 
-        private RatingQueryService qRatingService = new RatingQueryService();
-        private RatingCommandService cRatingService = new RatingCommandService();
+        private IRatingQueryService qRatingService = new RatingQueryService();
+        private IRatingCommandService cRatingService = new RatingCommandService();
         
+        public RatingsController(IRatingCommandService _cRatingService, IRatingQueryService _qRatingService)
+        {
+            cRatingService = _cRatingService;
+            qRatingService = _qRatingService;
+        }
+
         // GET: Ratings
         public ActionResult List()
         {

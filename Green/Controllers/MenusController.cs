@@ -15,8 +15,14 @@ namespace Green.Controllers
         private MenuQueryService qMenuService = new MenuQueryService();
         private MenuCommandService cMenuService = new MenuCommandService();
 
-        private MealQueryService qMealService = new MealQueryService();
-        private MealCommandService cMealService = new MealCommandService();
+        private IMealQueryService qMealService;
+        private IMealCommandService cMealService;
+
+        public MenusController(IMealCommandService _cMealService, IMealQueryService _qMealService)
+        {
+            cMealService = _cMealService;
+            qMealService = _qMealService;
+        }
 
         // GET: Menus
         public ActionResult List()

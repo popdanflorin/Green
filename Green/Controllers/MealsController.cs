@@ -12,11 +12,17 @@ namespace Green.Controllers
 {
     public class MealsController : Controller
     {
-        private MealQueryService qMealService = new MealQueryService();
-        private MealCommandService cMealService = new MealCommandService();
+        private IMealQueryService qMealService;
+        private IMealCommandService cMealService;
 
         private FoodQueryService qFoodService = new FoodQueryService();
         private FoodCommandService cFoodService = new FoodCommandService();
+
+        public MealsController(IMealCommandService _cMealService, IMealQueryService _qMealService)
+        {
+            cMealService = _cMealService;
+            qMealService = _qMealService;
+        }
 
         [Authorize(Roles = "AppAdmin")]
         public ActionResult List()
