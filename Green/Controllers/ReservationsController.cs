@@ -6,17 +6,27 @@ using System.Text;
 using System.Web.Mvc;
 using Green.Services;
 using Green.Entities;
+using Green.Interfaces;
 using Microsoft.AspNet.Identity;
 
 namespace Green.Controllers
 {
     public class ReservationsController : Controller
     {
-        private ReservationQueryService qReservationService = new ReservationQueryService();
-        private ReservationCommandService cReservationService = new ReservationCommandService();
+        private IReservationQueryService qReservationService;
+        private IReservationCommandService cReservationService;
 
-        private RestaurantQueryService qRestaurantService = new RestaurantQueryService();
-        private RestaurantCommandService cRestaurantService = new RestaurantCommandService();
+        private IRestaurantQueryService qRestaurantService;
+        private IRestaurantCommandService cRestaurantService;
+
+        public ReservationsController(IReservationCommandService _cReservationService, IReservationQueryService _qReservationService,
+            IRestaurantCommandService _cRestaurantService, IRestaurantQueryService _qRestaurantService)
+        {
+            cReservationService = _cReservationService;
+            qReservationService = _qReservationService;
+            cRestaurantService = _cRestaurantService;
+            qRestaurantService = _qRestaurantService;
+        }
 
         public ActionResult UserReservations()
         {

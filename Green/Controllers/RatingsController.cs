@@ -7,24 +7,30 @@ using Green.Services;
 using Green.Entities;
 using Microsoft.AspNet.Identity;
 using System.Text;
+using Green.Interfaces;
 
 namespace Green.Controllers
 {
     public class RatingsController : Controller
     {
-        private ReservationQueryService qReservationService = new ReservationQueryService();
-        private ReservationCommandService cReservationService = new ReservationCommandService();
+        private IReservationQueryService qReservationService;
+        private IReservationCommandService cReservationService;
 
-        private RestaurantQueryService qRestaurantService = new RestaurantQueryService();
-        private RestaurantCommandService cRestaurantService = new RestaurantCommandService();
+        private IRestaurantQueryService qRestaurantService;
+        private IRestaurantCommandService cRestaurantService;
 
-        private IRatingQueryService qRatingService = new RatingQueryService();
-        private IRatingCommandService cRatingService = new RatingCommandService();
+        private IRatingQueryService qRatingService;
+        private IRatingCommandService cRatingService;
         
-        public RatingsController(IRatingCommandService _cRatingService, IRatingQueryService _qRatingService)
+        public RatingsController(IRatingCommandService _cRatingService, IRatingQueryService _qRatingService, IReservationCommandService _cReservationService, IReservationQueryService _qReservationService,
+            IRestaurantCommandService _cRestaurantService, IRestaurantQueryService _qRestaurantService)
         {
             cRatingService = _cRatingService;
             qRatingService = _qRatingService;
+            cReservationService = _cReservationService;
+            qReservationService = _qReservationService;
+            cRestaurantService = _cRestaurantService;
+            qRestaurantService = _qRestaurantService;
         }
 
         // GET: Ratings

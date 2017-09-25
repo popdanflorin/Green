@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Green.Services;
 using System.Text;
 using System.IO;
+using Green.Interfaces;
 
 namespace Green.Services
 {
@@ -19,7 +20,12 @@ namespace Green.Services
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
 
-        MenuCommandService cMenuService = new MenuCommandService();
+        private IMenuCommandService cMenuService;
+
+        public MealCommandService(IMenuCommandService _cMenuService)
+        {
+            cMenuService = _cMenuService;
+        }
 
         public string SaveMeal(Meal meal, List<MealIngredientDisplay> allIngredients)
         {
@@ -76,7 +82,7 @@ namespace Green.Services
                 }
                 return ItemNotFoundMessage;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return ErrorMessage;
             }

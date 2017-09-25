@@ -263,6 +263,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\GreenDependencyResolver.cs" />
+    <Compile Include="Interfaces\IMenuCommandService.cs" />
+    <Compile Include="Interfaces\IMenuQueryService.cs" />
+    <Compile Include="Interfaces\IReservationCommandService.cs" />
+    <Compile Include="Interfaces\IReservationQueryService.cs" />
+    <Compile Include="Interfaces\IRestaurantCommandService.cs" />
+    <Compile Include="Interfaces\IRestaurantQueryService.cs" />
+    <Compile Include="Interfaces\IUserFavoritesCommandService.cs" />
+    <Compile Include="Interfaces\IUserFavoritesQueryService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -273,12 +281,12 @@
     <Compile Include="Models\UserRestaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FoodCommandService.cs" />
-    <Compile Include="Services\IFoodCommandService.cs" />
-    <Compile Include="Services\IFoodQueryService.cs" />
-    <Compile Include="Services\IMealCommandService.cs" />
-    <Compile Include="Services\IMealQueryService.cs" />
-    <Compile Include="Services\IRatingCommandService.cs" />
-    <Compile Include="Services\IRatingQueryService.cs" />
+    <Compile Include="Interfaces\IFoodCommandService.cs" />
+    <Compile Include="Interfaces\IFoodQueryService.cs" />
+    <Compile Include="Interfaces\IMealCommandService.cs" />
+    <Compile Include="Interfaces\IMealQueryService.cs" />
+    <Compile Include="Interfaces\IRatingCommandService.cs" />
+    <Compile Include="Interfaces\IRatingQueryService.cs" />
     <Compile Include="Services\MealCommandService.cs" />
     <Compile Include="Services\MealQueryService.cs" />
     <Compile Include="Services\FoodQueryService.cs" />

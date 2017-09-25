@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Green.Interfaces;
 
 namespace Green.Services
 {
-    public class UserFavoritesQueryService
+    public class UserFavoritesQueryService : IUserFavoritesQueryService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 

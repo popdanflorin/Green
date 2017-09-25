@@ -7,19 +7,22 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Web.Mvc;
+using Green.Interfaces;
 
 namespace Green.Controllers
 {
     public class MenusController : Controller
     {
-        private MenuQueryService qMenuService = new MenuQueryService();
-        private MenuCommandService cMenuService = new MenuCommandService();
+        private IMenuQueryService qMenuService;
+        private IMenuCommandService cMenuService;
 
         private IMealQueryService qMealService;
         private IMealCommandService cMealService;
 
-        public MenusController(IMealCommandService _cMealService, IMealQueryService _qMealService)
+        public MenusController(IMenuCommandService _cMenuService, IMenuQueryService _qMenuService, IMealCommandService _cMealService, IMealQueryService _qMealService)
         {
+            cMenuService = _cMenuService;
+            qMenuService = _qMenuService;
             cMealService = _cMealService;
             qMealService = _qMealService;
         }
