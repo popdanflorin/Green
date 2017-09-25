@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Green.Services
 {
-    public class RatingQueryService
+    public class RatingQueryService : IRatingQueryService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 

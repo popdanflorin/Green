@@ -8,7 +8,7 @@ using Green.Entities.Enums;
 
 namespace Green.Services
 {
-    public class MealQueryService
+    public class MealQueryService : IMealQueryService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 

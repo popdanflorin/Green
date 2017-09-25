@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Green.Services
 {
-    public class FoodCommandService
+    public class FoodCommandService : IFoodCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 
@@ -59,7 +59,7 @@ namespace Green.Services
             }
         }
 
-        private void DeleteFromMeals(string foodId)
+        public void DeleteFromMeals(string foodId)
         {
             var pairs = ctx.MealIngredients.Where(e => e.FoodId == foodId).ToList();
             pairs.ForEach(p => ctx.MealIngredients.Remove(p));

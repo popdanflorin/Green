@@ -7,8 +7,14 @@ namespace Green.Controllers
 {
     public class FoodsController : Controller
     {
-        private FoodQueryService qService = new FoodQueryService();
-        private FoodCommandService cService = new FoodCommandService();
+        private IFoodQueryService qService;
+        private IFoodCommandService cService;
+
+        public FoodsController(IFoodCommandService _cService, IFoodQueryService _qService)
+        {
+            cService = _cService;
+            qService = _qService;
+        }
 
         // GET: Foods
         [Authorize(Roles = "AppAdmin")]
