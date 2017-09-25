@@ -68,7 +68,8 @@ namespace Green
                       "~/Content/rateit.css",
                       "~/Content/stilizations.css",
                       "~/Content/delete.gif",
-                      "~/Content/star.gif"
+                      "~/Content/star.gif",
+                      "~/Content/zocial.css"
                       ));
         }
     }

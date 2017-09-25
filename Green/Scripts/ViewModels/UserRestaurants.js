@@ -1,4 +1,5 @@
-﻿function UserRestaurants() {
+﻿/// <reference path="../agency.min.js" />
+function UserRestaurants() {
     var self = this;
     self.UserRestaurants = ko.observableArray();
     self.UserFavorites = ko.observableArray();
@@ -78,7 +79,6 @@
             success: function (data) {
                     self.loadingPanel.hide();
                     console.log(data);
-                    self.NoFavoritesMessage("");
                     self.UserFavorites(data.UserFavorites);
                 
             },
