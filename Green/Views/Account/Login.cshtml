@@ -25,7 +25,7 @@
         width: 770px;
         padding-top: 10px;
         padding-bottom: 10px;
-        margin-left:57px;
+        margin-left: 57px;
     }
 
     .sociallog {
@@ -45,6 +45,9 @@
         padding-right: 335px;
         padding-top: 20px;
     }
+    .validation-summary-errors.text-danger{
+        width:198px;
+    }
 </style>
 
 <h2>@ViewBag.Title.</h2>
@@ -56,7 +59,9 @@
                 @Html.AntiForgeryToken()
                 <h4 class="head">Use a local account to log in.</h4>
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
@@ -95,11 +100,11 @@
             }
         </section>
     </div>
-    @*<div class="col-md-4">
-        <section class="sociallog" id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>*@
+   *<div class="col-md-4">
+            <section class="sociallog" id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
 </div>
 
 @section Scripts {

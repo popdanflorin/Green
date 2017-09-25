@@ -54,15 +54,15 @@ namespace Green
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "493032097736559",
+               appSecret: "b5639700003702ecd4a98b86ba1470b5");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1022112640484-o5ec3lrhrib81poccj8pjv20rutou1ol.apps.googleusercontent.com",
+                ClientSecret = "rZs6PZJHS4vytcRLWMPdSLHz"
+            });
         }
     }
 }
