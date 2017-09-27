@@ -77,10 +77,22 @@ function UserRestaurants() {
             contentType: "application/json; charset=utf-8",
             data: { UserId: self.UserId },
             success: function (data) {
+                if (data.UserFavorites.length == 0) {
+                    self.loadingPanel.hide();
+                  //  console.log(data);
+                    $('#favorites').popover({
+                        html: true,
+                        title: 'Warning<a class="close" href="#");">&times;</a>',
+                        content: 'Your favorites list is empty!'
+                    });
+                   
+                }
+                else {
+                    $('#favoritesItem').modal('toggle');
                     self.loadingPanel.hide();
                     console.log(data);
                     self.UserFavorites(data.UserFavorites);
-                
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
