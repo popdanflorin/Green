@@ -54,21 +54,26 @@
 
             <div class="modal-body">
                 <!-- Meal Info -->
-                <label for="MealType">Type</label>
                 <div class="form-horizontal">
+                    <label for="MealType" style="position:fixed; left: 30px">Type</label>
+                    <br />
                     <select id="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
                     <label class="text-danger pull-right" data-bind="text:warningType"></label>
                 </div>
 
-                <label for="MealName">Name</label>
+                <div class="clearfix"></div>
                 <div class="form-horizontal">
-                    <input id="MealName" type="text" class="form-control" data-bind="value: Name"  placeholder="Enter meal's name">
+                    <label for="MealName" style="position:fixed; left: 30px">Name</label>
+                    <br />
+                    <input id="MealName" type="text" class="form-control" data-bind="value: Name" placeholder="Enter meal's name">
                     <label class="text-danger pull-right" data-bind="text:warningName"></label>
                 </div>
 
-                <label for="MealDescription">Description</label>
+                <div class="clearfix"></div>
                 <div class="form-horizontal">
-                    <input id="MealDescription" type="text" class="form-control" data-bind="value: Description"  placeholder="Enter meal's description">
+                    <label for="MealDescription" style="position:fixed; left: 30px">Description</label>
+                    <br />
+                    <input id="MealDescription" type="text" class="form-control" data-bind="value: Description" placeholder="Enter meal's description">
                     <label class="text-danger pull-right" data-bind="text:warningDescription"></label>
                 </div>
 
