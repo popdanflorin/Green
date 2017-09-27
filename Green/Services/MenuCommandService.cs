@@ -146,8 +146,8 @@ namespace Green.Services
             var allMenus = ctx.Menus.Where(m => m.RestaurantId == menu.RestaurantId && m.Id != menu.Id).ToList();
             var result = allMenus.FirstOrDefault(m =>
                 m.StartDate == menu.StartDate || m.EndDate == menu.EndDate || m.StartDate == menu.EndDate || m.EndDate == menu.StartDate ||
-                (m.StartDate > menu.StartDate && m.StartDate < menu.StartDate) || (m.EndDate > menu.StartDate && m.EndDate < menu.StartDate) ||
-                (menu.StartDate > m.StartDate && menu.StartDate < m.StartDate) || (menu.EndDate > m.StartDate && menu.EndDate < m.StartDate)
+                (m.StartDate > menu.StartDate && m.StartDate < menu.EndDate) || (m.EndDate > menu.StartDate && m.EndDate < menu.EndDate) ||
+                (menu.StartDate > m.StartDate && menu.StartDate < m.EndDate) || (menu.EndDate > m.StartDate && menu.EndDate < m.EndDate)
             );
             return result == null ? true : false;
         }
