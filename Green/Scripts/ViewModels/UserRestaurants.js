@@ -9,6 +9,7 @@ function UserRestaurants() {
     self.RestaurantName = ko.observable();
     self.RestaurantType = ko.observable();
     self.RestaurantId = ko.observable();
+    self.FavoriteRestaurantId = ko.observable();
     self.Rating = ko.observable();
     self.MealName = ko.observable();
     self.CityName = ko.observable();
@@ -72,26 +73,30 @@ function UserRestaurants() {
     self.getFavorites = function () {
         var url = '/UserFavorites/UserFavoritesGet';
         self.loadingPanel.show();
+       
         $.ajax(url, {
             type: "get",
             contentType: "application/json; charset=utf-8",
             data: { UserId: self.UserId },
             success: function (data) {
+                console.log(data);
                 if (data.UserFavorites.length == 0) {
                     self.loadingPanel.hide();
-                  //  console.log(data);
+                   
                     $('#favorites').popover({
                         html: true,
                         title: 'Warning<a class="close" href="#");">&times;</a>',
-                        content: 'Your favorites list is empty!'
+                        content: 'Your favorites list is empty!',
                     });
-                   
+
                 }
                 else {
-                    $('#favoritesItem').modal('toggle');
-                    self.loadingPanel.hide();
-                    console.log(data);
-                    self.UserFavorites(data.UserFavorites);
+                   
+                        self.loadingPanel.hide();
+                        $('#favoritesItem').modal('toggle');
+                        console.log(data);
+                        self.UserFavorites(data.UserFavorites);
+                    
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -228,11 +233,15 @@ function UserRestaurants() {
             }
         });
     };
-    self.deleteFavorite = function (data) {
+    self.getFavoriteId = function (data) {
+        var id = data.id;
+        self.FavoriteRestaurantId(id);
+    }
+    self.deleteFavorite = function () {
 
         var url = '/UserFavorites/Delete';
         var restaurant = JSON.stringify({
-            restaurantId: data.id
+            restaurantId: self.FavoriteRestaurantId()
         });
         $.ajax(url, {
             type: "post",
@@ -242,6 +251,8 @@ function UserRestaurants() {
             success: function (data) {
                 console.log(data);
                 self.getFavorites();
+                $('#favoritesItem').modal('hide');
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
