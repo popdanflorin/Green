@@ -46,7 +46,7 @@
 
             <div class="modal-body">
                 <!-- Menu Date -->
-                <label for="MenuStartDate">Start Date</label>
+                <p><label for="MenuStartDate" class="pull-left">Start Date</label></p>
                 <div class="form-horizontal form-group">
                     <div class="input-group" style="display: inline;">
                         <input id="MenuStartDate" type="date" class="form-control" data-bind="datePicker: $root.StartDate">
@@ -54,10 +54,10 @@
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                     </div>
-                    <label class="text-danger pull-right" data-bind="text: $root.warningStartDate"></label>
+                    <p><label class="text-danger pull-left" data-bind="text: $root.warningStartDate"></label></p>
                 </div>
 
-                <label for="MenuEndDate">End Date</label>
+                <p><label for="MenuEndDate" class="pull-left">End Date</label></p>
                 <div class="form-horizontal form-group">
                     <div class="input-group" style="display: inline;">
                         <input id="MenuEndDate" type="date" class="form-control" data-bind="datePicker: $root.EndDate">
@@ -65,9 +65,9 @@
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                     </div>
-                    <label class="text-danger pull-right" data-bind="text: $root.warningEndDate"></label>
+                    <p><label class="text-danger pull-left" data-bind="text: $root.warningEndDate"></label></p>
                 </div>
-                <label id="WarningTimeInterval" class="text-danger pull-right" data-bind="text: $root.warningTimeInterval"></label>
+                <p><label id="WarningTimeInterval" class="text-danger pull-left" data-bind="text: $root.warningTimeInterval"></label></p>
 
                 <!-- Search Meal -->
                 <div class="form-inline">

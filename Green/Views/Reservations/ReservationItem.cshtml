@@ -9,32 +9,30 @@
 
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="RestaurantId">Restaurant:</label>
                     <div class="form-horizontal">
+                        <p><label for="RestaurantId" class="pull-left">Restaurant:</label></p>
                         <div class="input-group" style="display: inline;">
                             <select id="RestaurantId" class="form-control" data-bind="options:Restaurants, optionsText: 'Name', optionsValue: 'id', value: RestaurantId, optionsCaption: 'Choose...'"></select>
                             <button id="RestaurantInfo" class="btn btn-default input-group" aria-label="Left Align" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-bind="visible:RestaurantId" data-content="Waiting..." data-html="true">
                                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                             </button>
                         </div>
-                        <label class="text-danger pull-right" data-bind="text:warningRestaurantId"></label>
+                        <p><label class="text-danger pull-left" data-bind="text:warningRestaurantId"></label></p>
                     </div>
 
                     @*<label for="ClientName" data-bind="allowAccess:$root.isAdmin">Client:</label>
                     <input id="ClientName" type="text" class="form-control" placeholder="Enter Client Name" data-bind="visible:isAdmin, value:UserName" readonly />*@
                     
-                    <div class="clearfix"></div>
                     <div class="form-horizontal">
-                        <label for="DateTime">Date and Time:</label>
+                        <p><label for="DateTime" class="pull-left">Date and Time:</label></p>
                         <input id="DateTime" type="datetime-local" class="form-control" data-bind="datePicker : ReservationDate" step="3600" />
-                        <label class="text-danger pull-right" data-bind="text:warningReservationDate"></label>
+                        <p><label class="text-danger pull-left" data-bind="text:warningReservationDate"></label></p>
                     </div>
 
-                    <div class="clearfix"></div>
-                    <label for="Seats">Number of Seats:</label>
                     <div class="form-horizontal">
+                        <p><label for="Seats" class="pull-left">Number of Seats:</label></p>
                         <input id="Seats" type="text" class="form-control" placeholder="Enter Number of Seats" value="1" onkeypress="onKeyPressSeats()" data-bind="value:Seats" />
-                        <label id="WarningSeats" class="text-danger pull-right" data-bind="text:warningSeats"></label>
+                        <p><label id="WarningSeats" class="text-danger pull-left" data-bind="text:warningSeats"></label></p>
                     </div>
 
                     <hr />
