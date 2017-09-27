@@ -85,6 +85,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -251,6 +263,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\GreenDependencyResolver.cs" />
+    <Compile Include="Interfaces\IMenuCommandService.cs" />
+    <Compile Include="Interfaces\IMenuQueryService.cs" />
+    <Compile Include="Interfaces\IReservationCommandService.cs" />
+    <Compile Include="Interfaces\IReservationQueryService.cs" />
+    <Compile Include="Interfaces\IRestaurantCommandService.cs" />
+    <Compile Include="Interfaces\IRestaurantQueryService.cs" />
+    <Compile Include="Interfaces\IUserFavoritesCommandService.cs" />
+    <Compile Include="Interfaces\IUserFavoritesQueryService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -261,12 +281,12 @@
     <Compile Include="Models\UserRestaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FoodCommandService.cs" />
-    <Compile Include="Services\IFoodCommandService.cs" />
-    <Compile Include="Services\IFoodQueryService.cs" />
-    <Compile Include="Services\IMealCommandService.cs" />
-    <Compile Include="Services\IMealQueryService.cs" />
-    <Compile Include="Services\IRatingCommandService.cs" />
-    <Compile Include="Services\IRatingQueryService.cs" />
+    <Compile Include="Interfaces\IFoodCommandService.cs" />
+    <Compile Include="Interfaces\IFoodQueryService.cs" />
+    <Compile Include="Interfaces\IMealCommandService.cs" />
+    <Compile Include="Interfaces\IMealQueryService.cs" />
+    <Compile Include="Interfaces\IRatingCommandService.cs" />
+    <Compile Include="Interfaces\IRatingQueryService.cs" />
     <Compile Include="Services\MealCommandService.cs" />
     <Compile Include="Services\MealQueryService.cs" />
     <Compile Include="Services\FoodQueryService.cs" />
@@ -286,24 +306,55 @@
     <Content Include="Content\agency.css" />
     <Content Include="Content\agency.min.css" />
     <Content Include="Content\bootstrap-blue.css" />
-    <Content Include="Content\bootstrap-social.css" />
     <Content Include="Content\bootstrap-white.css" />
     <Content Include="Content\bootstrap-white.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\delete.gif" />
+    <Content Include="Content\images\baracca1.jpg" />
+    <Content Include="Content\images\cheeseSpaghetti.jpeg" />
+    <Content Include="Content\images\hawaiiPizza.jpg" />
+    <Content Include="Content\images\indigo1.jpg" />
+    <Content Include="Content\images\kfc1.jpg" />
+    <Content Include="Content\images\kfc2.jpg" />
+    <Content Include="Content\images\meatLasagna.jpg" />
+    <Content Include="Content\images\mushroomsCreamSoup.jpg" />
+    <Content Include="Content\images\mushroomsLasagna.jpg" />
+    <Content Include="Content\images\nuka1.jpg" />
+    <Content Include="Content\images\nutellaBananasPancakes.jpg" />
+    <Content Include="Content\images\oreoCheesecake.jpg" />
+    <Content Include="Content\images\panemar1.jpg" />
+    <Content Include="Content\images\pomegranateCheesecake.jpg" />
+    <Content Include="Content\images\pralina1.jpg" />
+    <Content Include="Content\images\quatroFormaggiPizza.jpg" />
+    <Content Include="Content\images\samsara1.jpg" />
+    <Content Include="Content\images\strawberryJamPancakes.jpg" />
+    <Content Include="Content\images\stuffedMushrooms.jpg" />
+    <Content Include="Content\images\tiramisu.jpeg" />
+    <Content Include="Content\images\tokyo1.jpg" />
+    <Content Include="Content\images\tomatoesCreamSoup.jpg" />
+    <Content Include="Content\images\vegetarianPizza.jpeg" />
+    <Content Include="Content\images\verde1.jpg" />
     <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\rateit.css" />
     <Content Include="Content\star.gif" />
     <Content Include="Content\stilizations.css" />
+    <Content Include="Content\zocial-regular-webfont.svg" />
+    <Content Include="Content\zocial.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\coffee.jpg" />
     <Content Include="img\cover.jpg" />
+    <Content Include="img\fish.ico" />
+    <Content Include="img\food.ico" />
     <Content Include="img\food.jpg" />
+    <Content Include="img\images.png" />
+    <Content Include="img\res.png" />
     <Content Include="img\Salad.ico" />
+    <Content Include="img\services.jpg" />
+    <Content Include="img\userrestaurants.jpg" />
     <Content Include="Scripts\agency.js" />
     <Content Include="Scripts\agency.min.js" />
     <Content Include="Scripts\bootstrap-confirmation.js" />
@@ -312,6 +363,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\zocial-regular-webfont.woff" />
+    <Content Include="Content\zocial-regular-webfont.ttf" />
+    <Content Include="Content\zocial-regular-webfont.eot" />
+    <None Include="Properties\PublishProfiles\ElBacalao - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1-vsdoc.js" />
     <Content Include="Scripts\Chart.bundle.js" />
@@ -357,14 +412,18 @@
     <Content Include="Scripts\ViewModels\UserReservations.js" />
     <Content Include="Scripts\ViewModels\UserRestaurants.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

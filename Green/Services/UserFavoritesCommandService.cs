@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Green.Interfaces;
 
 namespace Green.Services
 {
-    public class UserFavoritesCommandService
+    public class UserFavoritesCommandService : IUserFavoritesCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "The restaurant was added to favorites list!";

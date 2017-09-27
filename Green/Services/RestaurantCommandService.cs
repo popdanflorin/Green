@@ -1,4 +1,5 @@
 ﻿using Green.Entities;
+using Green.Interfaces;
 using Green.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Green.Services
 {
-    public class RestaurantCommandService
+    public class RestaurantCommandService : IRestaurantCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "Action sucessfully performed.";
@@ -16,11 +17,20 @@ namespace Green.Services
         private const string ItemNotFoundMessage = "The item was not found.";
         private const string EmptyInputMessage = "The inputs are empty";
 
-        private MenuQueryService qMenuService = new MenuQueryService();
-        private MenuCommandService cMenuService = new MenuCommandService();
-        private ReservationCommandService cReservationService = new ReservationCommandService();
-        private RatingCommandService cRatingService = new RatingCommandService();
-        private UserFavoritesCommandService cUserFavoritesService = new UserFavoritesCommandService();
+        private IMenuQueryService qMenuService;
+        private IMenuCommandService cMenuService;
+        private IReservationCommandService cReservationService;
+        private IRatingCommandService cRatingService;
+        private IUserFavoritesCommandService cUserFavoritesService;
+
+        public RestaurantCommandService(IMenuCommandService _cMenuService, IMenuQueryService _qMenuService, IReservationCommandService _cReservationService, IRatingCommandService _cRatingService, IUserFavoritesCommandService _cUserFavoritesService)
+        {
+            cMenuService = _cMenuService;
+            qMenuService = _qMenuService;
+            cReservationService = _cReservationService;
+            cRatingService = _cRatingService;
+            cUserFavoritesService = _cUserFavoritesService;
+        }
 
         /* public string UploadImage(Image image)
          {
@@ -128,7 +138,7 @@ namespace Green.Services
                 }
                 return ItemNotFoundMessage;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return ErrorMessage;
             }
