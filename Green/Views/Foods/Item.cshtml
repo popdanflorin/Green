@@ -9,18 +9,15 @@
 
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <label for="Name" style="position:fixed; left: 30px">Name</label>
-                    <br />
+                    <p><label for="Name" class="pull-left">Name</label></p>
                     <input id="Name" type="text" class="form-control" data-bind="value: Name" placeholder="Enter food's name">
-                    <label class="text-danger pull-right" data-bind="text: $root.warningName"></label>
+                    <p><label class="text-danger pull-left" data-bind="text: $root.warningName"></label></p>
                 </div>
 
-                <div class="clearfix"></div>
                 <div class="form-horizontal">
-                    <label for="Type" style="position:fixed; left: 30px">Type</label>
-                    <br />
+                    <p><label for="Type" class="pull-left">Type</label></p>
                     <select id="Type" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
-                    <label class="text-danger pull-right" data-bind="text: $root.warningType"></label>
+                    <p><label class="text-danger pull-left" data-bind="text: $root.warningType"></label></p>
                 </div>
             </div>
 

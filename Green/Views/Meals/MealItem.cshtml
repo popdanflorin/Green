@@ -55,26 +55,21 @@
             <div class="modal-body">
                 <!-- Meal Info -->
                 <div class="form-horizontal">
-                    <label for="MealType" style="position:fixed; left: 30px">Type</label>
-                    <br />
+                    <p><label for="MealType" class="pull-left">Type</label></p>
                     <select id="MealType" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose...'"></select>
-                    <label class="text-danger pull-right" data-bind="text:warningType"></label>
+                    <p><label class="text-danger pull-left" data-bind="text:warningType"></label></p>
                 </div>
 
-                <div class="clearfix"></div>
                 <div class="form-horizontal">
-                    <label for="MealName" style="position:fixed; left: 30px">Name</label>
-                    <br />
+                    <p><label for="MealName" class="pull-left">Name</label></p>
                     <input id="MealName" type="text" class="form-control" data-bind="value: Name" placeholder="Enter meal's name">
-                    <label class="text-danger pull-right" data-bind="text:warningName"></label>
+                    <p><label class="text-danger pull-left" data-bind="text:warningName"></label></p>
                 </div>
 
-                <div class="clearfix"></div>
                 <div class="form-horizontal">
-                    <label for="MealDescription" style="position:fixed; left: 30px">Description</label>
-                    <br />
+                    <p><label for="MealDescription" class="pull-left">Description</label></p>
                     <input id="MealDescription" type="text" class="form-control" data-bind="value: Description" placeholder="Enter meal's description">
-                    <label class="text-danger pull-right" data-bind="text:warningDescription"></label>
+                    <p><label class="text-danger pull-left" data-bind="text:warningDescription"></label></p>
                 </div>
 
                 <hr />

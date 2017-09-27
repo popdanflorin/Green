@@ -11,45 +11,48 @@
 
             <div class="modal-body">
 
-                <label for="Name">Name</label>
+                <p><label for="Name" class="pull-left">Name</label></p>
                 <div class="form-horizontal">
                     <input id="Name" type="text" class="form-control" placeholder="Insert name" data-bind="value: Name" required>
-                    <label id="NameWarning" class="text-danger pull-right" data-bind="text:showWarningNameEmpty"></label>
+                    <p><label id="NameWarning" class="text-danger pull-left" data-bind="text:showWarningNameEmpty"></label></p>
                 </div>
 
-                <label for="Address">Address</label>
+                <p><label for="Address" class="pull-left">Address</label></p>
                 <div class="form-horizontal">
                     <input id="Address" type="text" class="form-control" placeholder="Insert address" data-bind="value: Address" required>
-                    <label id="AddressWarning" class="text-danger pull-right" data-bind="text:showWarningAddressEmpty"></label>
+                    <p><label id="AddressWarning" class="text-danger pull-left" data-bind="text:showWarningAddressEmpty"></label></p>
                 </div>
 
-                <label for="City">City</label>
+                <p><label for="City" class="pull-left">City</label></p>
                 <div class="form-horizontal">
                     <input id="City" type="text" class="form-control" placeholder="Insert city" data-bind="value: City" required>
-                    <label id="CityWarning" class="text-danger pull-right" data-bind="text:showWarningCityEmpty"></label>
+                    <p><label id="CityWarning" class="text-danger pull-left" data-bind="text:showWarningCityEmpty"></label></p>
                 </div>
 
-                <label for="RestaurantTypes">Type</label>
+                <p><label for="RestaurantTypes" class="pull-left">Type</label></p>
                 <div class="form-horizontal">
                     <select id="RestaurantTypes" class="form-control" data-bind="options:Types, optionsText: 'Description', optionsValue: 'Id', value: Type, optionsCaption: 'Choose type...'"></select>
-                    <label id="TypeWarning" class="text-danger pull-right" data-bind="text:showWarningTypeEmpty"></label>
+                    <p><label id="TypeWarning" class="text-danger pull-left" data-bind="text:showWarningTypeEmpty"></label></p>
                 </div>
 
-                <label for="Seats">Seats</label>
+                <p><label for="Seats" class="pull-left">Seats</label></p>
                 <div class="form-horizontal">
                     <input id="Seats" type="number" onkeypress="return event.charCode >=48" min="0" class="form-control" placeholder="Insert the seats available" data-bind="value: SeatsAvailable">
-                    <label id="SeatsWarning" class="text-danger pull-right" data-bind="text:showWarningSeatsEmpty"></label>
+                    <p><label id="SeatsWarning" class="text-danger pull-left" data-bind="text:showWarningSeatsEmpty"></label></p>
                 </div>
-                <label for="OpeningHour">Opening Hour</label>
+
+                <p><label for="OpeningHour" class="pull-left">Opening Hour</label></p>
                 <div class="form-horizontal">
                     <input id="OpeningHour" type="number" onkeypress="return event.charCode >=48" min="0" max="24" placeholder="Insert opening hour" class="form-control" data-bind="value: OpeningHour">
-                    <label id="OpeningHourWarning" class="text-danger pull-right" data-bind="text:showWarningOpeningHourEmpty"></label>
+                    <p><label id="OpeningHourWarning" class="text-danger pull-left" data-bind="text:showWarningOpeningHourEmpty"></label></p>
                 </div>
-                <label for="ClosingHour">Closing Hour</label>
+
+                <p><label for="ClosingHour" class="pull-left">Closing Hour</label></p>
                 <div class="form-horizontal">
                     <input id="ClosingHour" type="number" onkeypress="return event.charCode >=48" min="0" max="24" class="form-control" placeholder="Insert closing hour" data-bind="value: ClosingHour">
-                    <label id="ClosingHourWarning" class="text-danger pull-right" data-bind="text:showWarningClosingHourEmpty"></label>
+                    <p><label id="ClosingHourWarning" class="text-danger pull-left" data-bind="text:showWarningClosingHourEmpty"></label></p>
                 </div>
+
                 @using (Html.BeginForm("Upload", "Restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div>

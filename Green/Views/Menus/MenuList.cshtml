@@ -73,6 +73,7 @@
 
         //ko.cleanNode($("#mealItem")[0]);
         vmMeals = new Meals();
+        vmMeals.initSignalR();
         vmMeals.refresh();
         ko.applyBindings(vmMeals, $("#mealItem").get(0));
 
