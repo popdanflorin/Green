@@ -10,6 +10,7 @@ using System.Text;
 using Green.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
+using Green.Interfaces;
 
 namespace Green.Controllers
 {
@@ -18,11 +19,21 @@ namespace Green.Controllers
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
 
-        private RestaurantQueryService qService = new RestaurantQueryService();
-        private RestaurantCommandService cService = new RestaurantCommandService();
+        private IRestaurantQueryService qService;
+        private IRestaurantCommandService cService;
 
-        private MenuQueryService qMenuService = new MenuQueryService();
-        private MenuCommandService cMenuService = new MenuCommandService();
+        private IMenuQueryService qMenuService;
+        private IMenuCommandService cMenuService;
+
+        public RestaurantsController(IRestaurantCommandService _cService, IRestaurantQueryService _qService,
+            IMenuCommandService _cMenuService, IMenuQueryService _qMenuService)
+        {
+            cService = _cService;
+            qService = _qService;
+            cMenuService = _cMenuService;
+            qMenuService = _qMenuService;
+        }
+
         // GET: Restaurants
 
         [Authorize(Roles = "AppAdmin")]

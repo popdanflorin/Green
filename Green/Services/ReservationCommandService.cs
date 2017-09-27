@@ -1,4 +1,5 @@
 ﻿using Green.Entities;
+using Green.Interfaces;
 using Green.Models;
 using Green.Services;
 using System;
@@ -8,17 +9,25 @@ using System.Web;
 
 namespace Green.Services
 {
-    public class ReservationCommandService
+    public class ReservationCommandService : IReservationCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
-        private ReservationQueryService reservationQService = new ReservationQueryService();
-        private RestaurantQueryService restaurantQService = new RestaurantQueryService();
+
+        private IReservationQueryService reservationQService;
+        private IRestaurantQueryService restaurantQService;
 
         private const string SuccessMessage = "Action sucessfully performed.";
         private const string ErrorMessage = "An application exception occured performing action.";
         private const string ItemNotFoundMessage = "The item was not found.";
         private const string SeatsUnavailableMessage = "There are not enough seats available.";
         private const string TimeUnavailableMessage = "The selected time is not available.";
+
+        public ReservationCommandService(IReservationQueryService _reservationQService, IRestaurantQueryService _restaurantQService)
+        {
+            reservationQService = _reservationQService;
+            restaurantQService = _restaurantQService;
+        }
+
         public string SaveReservation(Reservation reservation)
         {
             string message = "";
@@ -115,7 +124,7 @@ namespace Green.Services
             return true;
         }
 
-        private bool ValidateReservationHour(Reservation reservation)
+        public bool ValidateReservationHour(Reservation reservation)
         {
             var restaurant = restaurantQService.GetRestaurants().FirstOrDefault(r => r.id == reservation.RestaurantId);
 

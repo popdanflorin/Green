@@ -1,4 +1,5 @@
 ﻿using Green.Entities;
+using Green.Interfaces;
 using Green.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace Green.Services
 {
-    public class ReservationQueryService
+    public class ReservationQueryService : IReservationQueryService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         public List<Reservation> GetReservations()

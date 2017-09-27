@@ -1,4 +1,5 @@
 ﻿using Green.Entities;
+using Green.Interfaces;
 using Green.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace Green.Services
 {
-    public class MenuCommandService
+    public class MenuCommandService : IMenuCommandService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
         private const string SuccessMessage = "Action sucessfully performed.";
@@ -71,7 +72,7 @@ namespace Green.Services
                 ctx.SaveChanges();
                 return SuccessMessage;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return ErrorMessage;
             }
@@ -97,14 +98,14 @@ namespace Green.Services
             }
         }
 
-        private void SaveMeals(string menuId, List<Meal> meals)
+        public void SaveMeals(string menuId, List<Meal> meals)
         {
             var pairs = meals.Select(i => new MenuMeal(Guid.NewGuid().ToString(), menuId, i.Id)).ToList();
             pairs.ForEach(p => ctx.MenuMeals.Add(p));
             ctx.SaveChanges();
         }
 
-        private void DeleteAllMeals(string menuId)
+        public void DeleteAllMeals(string menuId)
         {
             var pairs = ctx.MenuMeals.Where(e => e.MenuId == menuId).ToList();
             pairs.ForEach(p => ctx.MenuMeals.Remove(p));
@@ -140,7 +141,6 @@ namespace Green.Services
             }
         }
 
-
         public bool ValidateMenuDate(Menu menu)
         {
             var allMenus = ctx.Menus.Where(m => m.RestaurantId == menu.RestaurantId && m.Id != menu.Id).ToList();
@@ -151,7 +151,5 @@ namespace Green.Services
             );
             return result == null ? true : false;
         }
-
     }
-
 }

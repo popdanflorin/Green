@@ -1,5 +1,6 @@
 ﻿using Green.Entities;
 using Green.Services;
+using Green.Interfaces;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,14 @@ namespace Green.Controllers
 {
     public class UserFavoritesController : Controller
     {
+        private IUserFavoritesQueryService qService;
+        private IUserFavoritesCommandService cService;
 
-        private UserFavoritesQueryService qService = new UserFavoritesQueryService();
-        private UserFavoritesCommandService cService = new UserFavoritesCommandService();
+        public UserFavoritesController(IUserFavoritesCommandService _cService, IUserFavoritesQueryService _qService)
+        {
+            cService = _cService;
+            qService = _qService;
+        }
 
         // GET: UserFavorites
         public ActionResult List()

@@ -10,10 +10,11 @@ using System.Web.Mvc;
 using Green.Services;
 
 using System.Text;
+using Green.Interfaces;
 
 namespace Green.Services
 {
-    public class RestaurantQueryService
+    public class RestaurantQueryService : IRestaurantQueryService
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 
