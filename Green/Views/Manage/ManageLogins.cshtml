@@ -56,7 +56,7 @@
             using (Html.BeginForm("LinkLogin", "Manage"))
             {
                 @Html.AntiForgeryToken()
-                <div id="socialLoginList">
+                <div id="socialLoginList" style="width:695px">
                 <p>
                     @foreach (AuthenticationDescription p in Model.OtherLogins)
                     {
