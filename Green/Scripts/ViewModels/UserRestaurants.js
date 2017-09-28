@@ -69,8 +69,14 @@ function UserRestaurants() {
             }
         });
 
+        $('#favorites').popover({
+            html: true,
+           // title: 'Warning<a class="close" href="#">&times;</a>',
+            title: 'Warning',
+            content: 'Your favorites list is empty!'
+        });
     };
-   
+
 
     self.search = function () {
 
@@ -178,33 +184,26 @@ function UserRestaurants() {
             contentType: "application/json; charset=utf-8",
             data: { UserId: self.UserId },
             success: function (data) {
+                async: false,
                 console.log(data);
+                self.UserFavorites(data.UserFavorites);
                 if (data.UserFavorites.length == 0) {
-                    self.loadingPanel.hide();
-                 
-                    $('#favorites').popover({
-                        html: true,
-                        title: 'Warning<a class="close" href="#");">&times;</a>',
-                        content: 'Your favorites list is empty!',
-                    });
-                   
+                    $(this).closest('.modal').modal('hide');
+                    $('#favoritesItem').modal('hide');
 
+                 //   $('#favorites').popover('toggle');
                 }
                 else {
-
-                    self.loadingPanel.hide();
                     $('#favoritesItem').modal('show');
-                    console.log(data);
-                    self.UserFavorites(data.UserFavorites);
-
                 }
+                self.loadingPanel.hide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
-
     };
+
     self.save = function (data) {
 
         self.details(data);
@@ -244,22 +243,23 @@ function UserRestaurants() {
         var restaurant = JSON.stringify({
             restaurantId: self.FavoriteRestaurantId()
         });
+        var deleteSucces = false;
         $.ajax(url, {
+            async: false,
             type: "post",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: restaurant,
             success: function (data) {
                 console.log(data);
-                $('#favoritesItem').modal('hide');
-                self.getFavorites();
-                
-
+                deleteSucces = true;
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             }
         });
+        if (deleteSucces)
+            self.getFavorites();
     }
     self.showRating = function (data) {
         self.Rating(data.Rating);

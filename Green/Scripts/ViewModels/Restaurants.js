@@ -310,7 +310,7 @@
 
         var openingHour = $('#OpeningHour').val();
         var closingHour = $('#ClosingHour').val();
-        if (isNaN(openingHour) || openingHour > 24 || openingHour < 0) {
+        if (isNaN(openingHour) || Number(openingHour) > 24 || Number(openingHour) < 0) {
             self.showWarningOpeningHourEmpty("Please insert the opening hour!");
             isValid = false;
         }
@@ -319,7 +319,7 @@
 
         }
 
-        if (isNaN(closingHour) || closingHour > 24 || closingHour < 0) {
+        if (isNaN(closingHour) || Number(closingHour) > 24 || Number(closingHour) < 0) {
             self.showWarningClosingHourEmpty("Please insert the closing hour!");
             isValid = false;
         }
@@ -327,7 +327,7 @@
             self.showWarningClosingHourEmpty("");
         }
 
-        if (closingHour < openingHour) {
+        if (Number(closingHour) < Number(openingHour)) {
             self.showWarningClosingHourEmpty("Please review the opening and closing hours!");
             isValid = false;
         }
