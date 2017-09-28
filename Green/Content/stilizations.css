@@ -23,7 +23,7 @@ div[id*="Snackbar"] {
         animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
 
-@@-webkit-keyframes fadein {
+@-webkit-keyframes fadein {
     from {
         bottom: 0;
         opacity: 0;
@@ -35,7 +35,7 @@ div[id*="Snackbar"] {
     }
 }
 
-@@keyframes fadein {
+@keyframes fadein {
     from {
         bottom: 0;
         opacity: 0;
@@ -47,7 +47,7 @@ div[id*="Snackbar"] {
     }
 }
 
-@@-webkit-keyframes fadeout {
+@-webkit-keyframes fadeout {
     from {
         bottom: 20px;
         opacity: 1;
@@ -59,7 +59,7 @@ div[id*="Snackbar"] {
     }
 }
 
-@@keyframes fadeout {
+@keyframes fadeout {
     from {
         bottom: 20px;
         opacity: 1;
@@ -209,7 +209,7 @@ div[id*="PanelDisplay"] {
             /*margin-top: 10px;*/
         }
 
-    div[id*="PanelDisplay"] div[id*="List"]t .list-group-item-heading:hover {
+    div[id*="PanelDisplay"] div[id*="List"] .list-group-item-heading:hover {
         cursor: default;
     }
 

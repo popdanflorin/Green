@@ -223,7 +223,7 @@ namespace Green.Services
                     }
                 }
             }
-            if (cityName != null)
+            if (cityName != "")
                 finalUserRestaurants = finalUserRestaurants.Where(x => x.City.ToLower().CompareTo(cityName.ToLower())==0).ToList();
             return finalUserRestaurants;
 
