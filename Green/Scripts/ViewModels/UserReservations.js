@@ -205,7 +205,7 @@
 
     self.validate = function () {
         var valid = true;
-        if (self.nullOrEmpty(self.RestaurantId._latestValue)) {
+        if (self.nullOrEmpty(self.RestaurantId())) {
             self.warningRestaurantId("Please select a restaurant!");
             valid = false;
         }
@@ -213,7 +213,7 @@
             self.warningRestaurantId(null);
         }
 
-        if (self.nullOrEmpty(self.ReservationDate._latestValue) || self.ReservationDate._latestValue == "Invalid date" || self.ReservationDate._latestValue[0] == "/") {
+        if (self.nullOrEmpty(self.ReservationDate()) || self.ReservationDate() == "Invalid date" || self.ReservationDate()[0] == "/") {
             self.warningReservationDate("Please select the date!");
             valid = false;
         }
@@ -221,7 +221,7 @@
             self.warningReservationDate(null);
         }
 
-        if (self.nullOrEmpty(self.Seats._latestValue) || self.Seats._latestValue <= 0) {
+        if (self.nullOrEmpty(self.Seats()) || self.Seats() <= 0) {
             self.warningSeats("Please select the number of seats!");
             valid = false;
         }
