@@ -140,11 +140,11 @@
 
     .popover-title {
         height: 45px;
-        padding-top: 0px;
+        padding-top: 15px;
         padding-bottom: 0px;
     }
 </style>
- 
+
 @{
     ViewBag.Title = "Restaurants";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -299,9 +299,9 @@
 
 
     <div id="UserRestaurantsSnackbar" data-bind="text: $root.Message"></div>
-    
+
     @Html.Partial("Favorites")
-    @Html.Partial("SuccesModal") 
+    @Html.Partial("SuccesModal")
 </div>
 <script>
     $(function () {
@@ -309,13 +309,13 @@
         vm.initSignalR();
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
-    });
-    $('document').ready(function () {
+
         /* $("#dropdown").click(function () {
              $(this).dropdown("toggle");
              return false;
          });*/
-        $('#favorites').popover();
+        $('[data-toggle="popover"]').popover();
+        //$('#favorites').popover();
         $("#search2").click(function () {
             $("#dropdown").dropdown("toggle");
             return false;
@@ -333,6 +333,7 @@
             e.stopPropagation();
         });
     });
+
     $('#fav').popover({
         html: true,
         title: 'Warning<a class="close" href="#");">&times;</a>',
@@ -342,15 +343,19 @@
     $('#fav').click(function (e) {
         e.stopPropagation();
     });
-    $('#favorites').click(function (e) {
-        e.stopPropagation();
-    });
+
     $(document).click(function (e) {
-        if (($('.popover').has(e.target).length == 0) || $(e.target).is('.close')) {
+        $('#favorites').popover('hide');
+        console.log(e);
+        if (($('.popover').has(e.target).length == 0) && $(e.target).is('.close')) {
             $('#fav').popover('hide');
             $('#favorites').popover('hide');
         }
+        //if (e.target.id == "favorites" && $(e.target).is('.close'))
+          //  $('#favorites').popover('hide');
+      //  return false;
     });
+
     //$('#fav').click(function () {
     //    $('#fav').popover({
     //        title: 'Warning!',
