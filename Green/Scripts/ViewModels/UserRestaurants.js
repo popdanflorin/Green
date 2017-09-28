@@ -70,41 +70,7 @@ function UserRestaurants() {
         });
 
     };
-    self.getFavorites = function () {
-        var url = '/UserFavorites/UserFavoritesGet';
-        self.loadingPanel.show();
-       
-        $.ajax(url, {
-            type: "get",
-            contentType: "application/json; charset=utf-8",
-            data: { UserId: self.UserId },
-            success: function (data) {
-                console.log(data);
-                if (data.UserFavorites.length == 0) {
-                    self.loadingPanel.hide();
-                   
-                    $('#favorites').popover({
-                        html: true,
-                        title: 'Warning<a class="close" href="#");">&times;</a>',
-                        content: 'Your favorites list is empty!',
-                    });
-
-                }
-                else {
-                   
-                        self.loadingPanel.hide();
-                        $('#favoritesItem').modal('toggle');
-                        console.log(data);
-                        self.UserFavorites(data.UserFavorites);
-                    
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus + ': ' + errorThrown);
-            }
-        });
-
-    };
+   
 
     self.search = function () {
 
@@ -203,7 +169,42 @@ function UserRestaurants() {
         }
 
     };
+    self.getFavorites = function () {
+        var url = '/UserFavorites/UserFavoritesGet';
+        self.loadingPanel.show();
 
+        $.ajax(url, {
+            type: "get",
+            contentType: "application/json; charset=utf-8",
+            data: { UserId: self.UserId },
+            success: function (data) {
+                console.log(data);
+                if (data.UserFavorites.length == 0) {
+                    self.loadingPanel.hide();
+                 
+                    $('#favorites').popover({
+                        html: true,
+                        title: 'Warning<a class="close" href="#");">&times;</a>',
+                        content: 'Your favorites list is empty!',
+                    });
+                   
+
+                }
+                else {
+
+                    self.loadingPanel.hide();
+                    $('#favoritesItem').modal('show');
+                    console.log(data);
+                    self.UserFavorites(data.UserFavorites);
+
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+
+    };
     self.save = function (data) {
 
         self.details(data);
@@ -250,8 +251,9 @@ function UserRestaurants() {
             data: restaurant,
             success: function (data) {
                 console.log(data);
-                self.getFavorites();
                 $('#favoritesItem').modal('hide');
+                self.getFavorites();
+                
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
