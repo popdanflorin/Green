@@ -161,7 +161,7 @@
     self.validate = function () {
         var valid = true;
 
-        if (self.Name._latestValue == null || self.Name._latestValue == "") {
+        if (self.Name() == null || self.Name() == "") {
             self.warningName("Please enter a name!");
             valid = false;
         }
@@ -169,7 +169,7 @@
             self.warningName(null);
         }
 
-        if (self.Type._latestValue != 0 && (self.Type._latestValue == null || self.Type._latestValue == "")) {
+        if (self.Type() != 0 && (self.Type() == null || self.Type() == "")) {
             self.warningType("Please select a type!");
             valid = false;
         }

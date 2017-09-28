@@ -403,7 +403,7 @@
     // validations
     self.validate = function () {
         var valid = true;
-        if (self.nullOrEmpty(self.Name._latestValue)) {
+        if (self.nullOrEmpty(self.Name())) {
             self.warningName("Please enter a name!");
             valid = false;
         }
@@ -411,7 +411,7 @@
             self.warningName(null);
         }
 
-        if (self.nullOrEmpty(self.Description._latestValue)) {
+        if (self.nullOrEmpty(self.Description())) {
             self.warningDescription("Please enter a description!");
             valid = false;
         }
@@ -419,7 +419,7 @@
             self.warningDescription(null);
         }
 
-        if (self.Type._latestValue != 0 && self.nullOrEmpty(self.Type._latestValue)) {
+        if (self.Type() != 0 && self.nullOrEmpty(self.Type())) {
             self.warningType("Please select the type!");
             valid = false;
         }
