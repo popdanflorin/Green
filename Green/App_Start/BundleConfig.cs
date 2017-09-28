@@ -61,12 +61,12 @@ namespace Green
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap-white.css",
                       "~/Content/agency.css",
                       "~/Content/site.css",
                       "~/Content/rateit.css",
                       "~/Content/stilizations.css",
                       "~/Content/zocial.css",
-                      "~/Content/bootstrap-white.css",
                       "~/Content/bootstrap-social.css"
                       ));
 
