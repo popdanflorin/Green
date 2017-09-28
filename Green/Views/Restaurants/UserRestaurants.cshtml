@@ -173,7 +173,7 @@
             <div class="col-md-4">
                 @if (User.IsInRole("NormalUser"))
                 {
-                    <button id="favorites" class="btn btn-info btn1" data-toggle="modal" style="margin-left:101px" @*data-target="#favoritesItem"*@ data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
+                    <button id="favorites" class="btn btn-info btn1" @*data-toggle="modal"*@ style="margin-left:101px" @*data-target="#favoritesItem"*@ data-bind="click:getFavorites"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
                 }
                 else
                 {  <button id="fav" class="btn btn-info btn1" style="margin-left:101px"><span class="glyphicon glyphicon-heart-empty"></span> Show favorite restaurants</button>
@@ -328,7 +328,9 @@
         $('#city').on('click', function (e) {
             e.stopPropagation();
         });
-
+        $('#favorites').click(function (e) {
+            e.stopPropagation();
+        });
     });
     $('#fav').popover({
         html: true,

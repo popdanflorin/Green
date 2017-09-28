@@ -30,8 +30,8 @@
                                             <text style="text-align:left;color:black;font-weight:bold;">Type:</text>
                                             <text data-bind="text:TypeDisplay"></text>
                                         </div>
-                                        <input id="idFavorite" hidden="hidden" data-bind="value:id">
-                                        <button type="button" class="btn btn-danger" @*data-toggle="modal" data-target="#deleteModal"*@ data-bind="click:$parent.deleteFavorite" style="margin-top:10px;">Delete from favorites</button>
+                                        @*<input id="idFavorite" hidden="hidden" data-bind="value:id">*@
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-bind="click:$parent.getFavoriteId" style="margin-top:10px;">Delete from favorites</button>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-backdrop="false" data-dismiss="modal">Close</button>
             </div>
         </div>
 
