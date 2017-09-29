@@ -56,7 +56,7 @@ namespace Green.Controllers
 
         public JsonResult GetCurrentMenu(string restaurantId)
         {
-            var menu = qMenuService = qMenuService.GetCurrentMenu(restaurantId);
+            var menu = qMenuService.GetCurrentMenu(restaurantId);
             return new JsonResult() { Data = menu, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult Save(Restaurant restaurant)
