@@ -1,4 +1,4 @@
-﻿function UserReservations() {
+﻿function UserReservations(vmRatings) {
     var self = this;
 
     self.Reservations = ko.observableArray();
@@ -54,6 +54,8 @@
         self.warningRestaurantId(null);
         self.warningReservationDate(null);
         self.warningSeats(null);
+
+        vmRatings.changeRestaurantId(self.RestaurantId());
     };
 
     self.getMenu = function (data) {

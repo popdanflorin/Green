@@ -50,19 +50,19 @@
 
 <script>
     $(function () {
-        $('[data-toggle="popover"]').popover();
-        var vm = new UserReservations();
-        vm.initSignalR();
-        vm.refresh();
-        ko.applyBindings(vm, $("#userReservations").get(0));
-
         var vmRatings = new Ratings();
         vmRatings.set();
         ko.applyBindings(vmRatings, $("#ratings").get(0));
 
-        $("#RestaurantId").bind("change", vm.RestaurantId, vmRatings.changeRestaurantId);
-        $("#RestaurantId").bind("change", vm.restaurantInfo);
-        vmRatings.changeRestaurantId(vm.RestaurantId);
+        $('[data-toggle="popover"]').popover();
+        var vm = new UserReservations(vmRatings);
+        vm.initSignalR();
+        vm.refresh();
+        ko.applyBindings(vm, $("#userReservations").get(0));
+
+        //$("#RestaurantId").bind("change", vm.RestaurantId, vmRatings.changeRestaurantId);
+        //$("#RestaurantId").bind("change", vm.restaurantInfo);
+        //vmRatings.changeRestaurantId(vm.RestaurantId);
 
         // set minimum date to today
         var today = new Date();

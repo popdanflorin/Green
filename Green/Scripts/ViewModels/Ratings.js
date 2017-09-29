@@ -36,7 +36,7 @@
     };
     
     self.changeRestaurantId = function (RestaurantId) {
-        self.RestaurantId = RestaurantId.data;
+        self.RestaurantId = RestaurantId;
         self.refresh();
     };
 
