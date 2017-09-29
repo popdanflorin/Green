@@ -103,6 +103,8 @@ namespace Green.Services
                 else
                     userRestaurant.Rating = 0;
                 var image = listImages.FirstOrDefault(x => x.RestaurantId == item.id && x.isCover==true);
+                if (image == null)
+                    image = listImages.FirstOrDefault(x => x.RestaurantId == item.id);
                 if (image != null)
                     userRestaurant.ImageName = image.Name;
                 else
