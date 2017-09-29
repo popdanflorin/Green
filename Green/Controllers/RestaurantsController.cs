@@ -53,6 +53,12 @@ namespace Green.Controllers
             var images = qService.GetImages();
             return new JsonResult() { Data = new { Restaurants = restaurants, RestaurantTypes = restaurantTypes, Images = images }, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        public JsonResult GetCurrentMenu(string restaurantId)
+        {
+            var menu = qMenuService = qMenuService.GetCurrentMenu(restaurantId);
+            return new JsonResult() { Data = menu, ContentEncoding = Encoding.UTF8, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult Save(Restaurant restaurant)
         {
             restaurant.OwnerId = User.Identity.GetUserId();
