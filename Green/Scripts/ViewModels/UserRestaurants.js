@@ -1,11 +1,16 @@
 ﻿/// <reference path="../agency.min.js" />
 function UserRestaurants() {
     var self = this;
+    self.loadingPanel = new LoadingOverlay();
+
     self.UserRestaurants = ko.observableArray();
     self.UserFavorites = ko.observableArray();
     self.Types = ko.observableArray();
-
-    self.loadingPanel = new LoadingOverlay();
+    self.MealTypes = ko.observableArray(null);
+    self.Menu = ko.observable(null);
+    self.Meals = ko.observableArray(null);
+  
+  
     self.RestaurantName = ko.observable();
     self.RestaurantType = ko.observable();
     self.RestaurantId = ko.observable();
@@ -15,6 +20,12 @@ function UserRestaurants() {
     self.CityName = ko.observable();
     self.UserId = ko.observable();
     self.Id = ko.observable();
+    self.MenuId = ko.observable();
+    self.StartDate = ko.observable(null);
+    self.EndDate = ko.observable(null);
+    self.InitialStartDate = new Date();
+    self.InitialEndDate = new Date();
+    self.ActualDate = ko.observable(Date());
     self.Message = ko.observable();
     self.NoFavoritesMessage = ko.observable();
 
@@ -273,4 +284,128 @@ function UserRestaurants() {
         // $(".rateit").rateit('min', self.Rating());
         //  $(".rateit").bind('rated', function () { $(this).rateit(self.Rating) });
     };
+
+
+    /*Menu Display*/
+
+    self.StartDateDisplay = ko.computed(function () {
+        if (!self.StartDate())
+            return null;
+        return moment(self.StartDate()).format('DD MMM YYYY');
+    });
+
+    self.EndDateDisplay = ko.computed(function () {
+        if (!self.EndDate())
+            return null;
+        return moment(self.EndDate()).format('DD MMM YYYY');
+    });
+
+    self.MenuTitleDisplay = ko.computed(function () {
+        return self.RestaurantName() + "'s Menu for " + self.StartDateDisplay() + " - " + self.EndDateDisplay();
+    });
+
+    self.MealId = ko.observable();
+    self.SearchText = ko.observable();
+
+
+    // functions
+    self.getDetails = function (data) {
+        self.RestaurantId(data.id);
+        self.RestaurantName(data.Name);
+        self.getMenu();
+    };
+    self.getMenu = function () {
+        self.refreshMenu(data.Menu);
+        var url = '/Restaurants/GetCurrentMenu';
+        var restaurant = JSON.stringify({
+            restaurantId: self.RestaurantId(),
+        });
+        self.loadingPanel.show();
+        $.ajax(url, {
+            async: false,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: restaurant,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Menu(data.Menu);
+                self.refreshMenu(self.Menu);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+        if (self.MenuId() == null)
+            self.MenuId(0);
+    };
+    self.DisplayedMeals = ko.computed(function () {
+        if (self.Meals() != null)
+            return self.Meals();
+        return null;
+    });
+
+
+    self.deleteModal = function () {
+        var data = { Id: self.Id() };
+        if (self.delete(data))
+            $('#menuForUser').modal('hide');
+    };
+
+    self.refreshMeals = function () {
+        var url = '/Menus/GetMealsForMenu';
+        var menu = JSON.stringify({
+            menuId: self.MenuId(),
+        });
+        self.loadingPanel.show();
+        $.ajax(url, {
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: menu,
+            success: function (data) {
+                self.loadingPanel.hide();
+                console.log(data);
+                self.Meals(data.Meals);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            }
+        });
+    };
+
+    self.refreshMenu = function (data) {
+        self.MenuId(data.Id);
+        self.StartDate(data.StartDate);
+        self.EndDate(data.EndDate);
+        self.refreshMeals();
+    };
+    self.isActive = function (data) {
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        var startDate = new Date(data.StartDateDisplay);
+        var endDate = new Date(data.EndDateDisplay);
+        return startDate <= today && today <= endDate;
+    };
+
+    self.isExpired = function (data) {
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        var date = new Date(data.EndDateDisplay);
+        return date < today;
+    };
+    self.nullOrEmpty = function (data) {
+        if (data == null || data == "") {
+            return true;
+        }
+        return false;
+    };
 }
+ 

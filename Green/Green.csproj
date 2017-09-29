@@ -465,10 +465,10 @@
     <Content Include="Views\Restaurants\SuccesModal.cshtml" />
     <Content Include="Views\Reservations\UserReservations.cshtml" />
     <Content Include="Views\Restaurants\DeleteFavorite.cshtml" />
+    <Content Include="Views\Restaurants\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Views\UserFavorites\" />
   </ItemGroup>
   <ItemGroup>

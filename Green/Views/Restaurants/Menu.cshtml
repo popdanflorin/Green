@@ -1,0 +1,117 @@
+﻿<style>
+    #menuItem {
+        overflow: scroll;
+    }
+
+    /*#menus #MealSearchBox {
+        width: 130px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+        font-family: "Glyphicons Halflings";
+        content: "\e080";
+    }*/
+
+    #menus #menuItem .left-inner-addon {
+        position: relative;
+    }
+
+        #menus #menuItem .left-inner-addon input {
+            padding-left: 30px;
+        }
+
+        #menus #menuItem .left-inner-addon i {
+            padding-left: 10px;
+            position: absolute;
+            padding: 10px 12px;
+            pointer-events: none;
+        }
+</style>
+
+<div id="menuForUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" @*data-bind="click: $('#menuItem').modal('hide')"*@>&times;</button>
+                <h4 data-bind="text:$root.MenuTitleDisplay"></h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <!-- Search Meal -->
+                <div class="form-inline">
+                    <div class="inner-addon left-addon pull-left" style="width: 100%; margin-top: 20px;">
+                        @*<i class="glyphicon glyphicon-search"></i>*@
+                        <input id="MealSearchBox" type="text" class="form-control" role="search" placeholder="Search meal..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
+                    </div>
+                </div>
+
+                <!-- Menu Content Display -->
+           
+                <div id="RestaurantMenuPanelDisplay" class="panel-group wrap" role="tablist">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a id="MenuVisibilityButton" role="button" data-toggle="collapse" href="#MealsList" onclick="ToggleMenuVisibility()">Show Menu</a>
+                            </h4>
+                        </div>
+                        <div id="MealsList" role="tabpanel" class="panel-collapse collapse in">
+                            <ul class="list-group" data-bind="foreach: $root.DisplayedMeals">
+                                <!-- ko if: $index() == 0 || TypeDisplay != $root.DisplayedMeals()[$index() - 1].TypeDisplay -->
+                                <li class="list-group-item-heading list-group-item">
+                                    <text class="pull-left" data-bind="text: TypeDisplay"></text>
+                                </li>
+                                <!-- /ko -->
+                                <li class="list-group-item" data-bind="style: { 'background-color': isSelected ? '#fed136' : 'white' }, click: $root.onMealClicked">
+                                    <text data-bind="text: Name"></text>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+            
+                <button class="btn btn-default" data-dismiss="modal" @*data-bind="click: $('#menuItem').modal('hide')"*@>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ToggleMenuVisibility() {
+        var button = $("#MenuVisibilityButton");
+        button.text(button.text() == "Show Menu" ? "Hide Menu" : "Show Menu");
+    };
+
+    function ToggleIngredientsVisibility() {
+        var button = $("#IngredientsVisibilityButton");
+        button.text(button.text() == "Show Ingredients" ? "Hide Ingredients" : "Show Ingredients");
+    };
+
+    ko.bindingHandlers.datePicker = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            // Register change callbacks to update the model
+            // if the control changes.
+            ko.utils.registerEventHandler(element, "change", function () {
+                var value = valueAccessor();
+                value(moment(element.value).format());
+            });
+        },
+        // Update the control whenever the view model changes
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var value = valueAccessor();
+            element.value = moment(value()).format("YYYY-MM-DD");
+        }
+    };
+</script>
