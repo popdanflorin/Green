@@ -77,6 +77,8 @@
         self.showWarningCityEmpty("");
         self.showWarningTypeEmpty("");
         self.showWarningSeatsEmpty("");
+        self.showWarningOpeningHourEmpty("");
+        self.showWarningClosingHourEmpty("");
         self.id(0);
         self.Name("");
         self.Type(null);
