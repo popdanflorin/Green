@@ -213,7 +213,8 @@
             self.warningRestaurantId(null);
         }
 
-        if (self.nullOrEmpty(self.ReservationDate()) || self.ReservationDate() == "Invalid date" || self.ReservationDate()[0] == "/") {
+        //if (self.nullOrEmpty(self.ReservationDate()) || self.ReservationDate() == "Invalid date" || self.ReservationDate()[0] == "/") {
+        if (self.nullOrEmpty(self.ReservationDate())) {
             self.warningReservationDate("Please select the date!");
             valid = false;
         }

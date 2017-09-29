@@ -30,19 +30,18 @@ namespace Green.Services
 
         public string SaveReservation(Reservation reservation)
         {
-            string message = "";
-            if (!ValidateReservationHour(reservation))
-                message += TimeUnavailableMessage;
-            if (!ValidateReservationSeats(reservation))
-                message += SeatsUnavailableMessage;
-            if (message != "")
-                return message;
-
             try
             {
                 var oldReservation = ctx.Reservations.FirstOrDefault(r => r.Id == reservation.Id);
                 if (oldReservation == null)
                 {
+                    string message = "";
+                    if (!ValidateReservationHour(reservation))
+                        message += TimeUnavailableMessage;
+                    if (!ValidateReservationSeats(reservation))
+                        message += SeatsUnavailableMessage;
+                    if (message != "")
+                        return message;
                     reservation.Id = Guid.NewGuid().ToString();
                     ctx.Reservations.Add(reservation);
                 }
@@ -58,6 +57,16 @@ namespace Green.Services
                     catch
                     {
                         oldReservation.ReservationDate = tmp;
+                    }
+                    string message = "";
+                    if (!ValidateReservationHour(oldReservation))
+                        message += TimeUnavailableMessage;
+                    if (!ValidateReservationSeats(reservation))
+                        message += SeatsUnavailableMessage;
+                    if (message != "")
+                    {
+                        oldReservation.ReservationDate = tmp;
+                        return message;
                     }
                     oldReservation.RestaurantId = reservation.RestaurantId;
                     oldReservation.ClientId = reservation.ClientId;
