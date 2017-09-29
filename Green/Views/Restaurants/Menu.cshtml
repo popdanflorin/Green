@@ -47,12 +47,12 @@
             <div class="modal-body">
                 
                 <!-- Search Meal -->
-                <div class="form-inline">
+                @*<div class="form-inline">
                     <div class="inner-addon left-addon pull-left" style="width: 100%; margin-top: 20px;">
-                        @*<i class="glyphicon glyphicon-search"></i>*@
+                        @*<i class="glyphicon glyphicon-search"></i>*
                         <input id="MealSearchBox" type="text" class="form-control" role="search" placeholder="Search meal..." data-bind="value: $root.SearchText, valueUpdate: 'afterkeydown'" />
                     </div>
-                </div>
+                </div>*@
 
                 <!-- Menu Content Display -->
            
@@ -60,7 +60,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a id="MenuVisibilityButton" role="button" data-toggle="collapse" href="#MealsList" onclick="ToggleMenuVisibility()">Show Menu</a>
+                                <a id="MenuVisibilityButton" role="button" data-toggle="collapse" href="#MealsList" onclick="ToggleMenuVisibility()" style="height:40px">Show Menu</a>
                             </h4>
                         </div>
                         <div id="MealsList" role="tabpanel" class="panel-collapse collapse in">
