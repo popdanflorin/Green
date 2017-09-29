@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Green.Controllers
 {
+    [Authorize]
     public class ReservationsController : Controller
     {
         private IReservationQueryService qReservationService;

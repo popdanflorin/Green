@@ -12,6 +12,19 @@ namespace Green.Services
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 
+        public Menu GetCurrentMenu(string restaurantId)
+        {
+            var menus = GetMenus(restaurantId);
+            if (!menus.Any())
+                return null;
+            var currentDate = new DateTime();
+            return menus.FirstOrDefault(menu =>
+                menu.StartDate.Year <= currentDate.Year && menu.EndDate.Year >= currentDate.Year &&
+                menu.StartDate.Month <= currentDate.Month && menu.EndDate.Month >= currentDate.Month &&
+                menu.StartDate.Day <= currentDate.Day && menu.EndDate.Day >= currentDate.Day
+            );
+        }
+
         public List<Menu> GetMenus()
         {
             return ctx.Menus.ToList();

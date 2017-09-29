@@ -9,6 +9,7 @@ namespace Green.Interfaces
 {
     public interface IMenuQueryService
     {
+        Menu GetCurrentMenu(string restaurantId);
         List<Menu> GetMenus();
         List<Menu> GetMenus(string restaurantId);
         Menu GetMenuDetails(string menuId);
