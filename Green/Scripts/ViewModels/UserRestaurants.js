@@ -315,7 +315,6 @@ function UserRestaurants() {
         self.getMenu();
     };
     self.getMenu = function () {
-        self.refreshMenu(data.Menu);
         var url = '/Restaurants/GetCurrentMenu';
         var restaurant = JSON.stringify({
             restaurantId: self.RestaurantId(),
@@ -330,8 +329,7 @@ function UserRestaurants() {
             success: function (data) {
                 self.loadingPanel.hide();
                 console.log(data);
-                self.Menu(data.Menu);
-                self.refreshMenu(self.Menu);
+                self.refreshMenu(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
