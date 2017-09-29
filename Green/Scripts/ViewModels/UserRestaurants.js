@@ -315,7 +315,7 @@ function UserRestaurants() {
         self.getMenu();
     };
     self.getMenu = function () {
-        self.refreshMenu(data.Menu);
+     
         var url = '/Restaurants/GetCurrentMenu';
         var restaurant = JSON.stringify({
             restaurantId: self.RestaurantId(),
