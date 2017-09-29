@@ -267,15 +267,8 @@
                                 </div>
 
                                 <div style="display:inline-block;margin-bottom:10px;margin-top:10px">
-                                    @if (User.IsInRole("NormalUser"))
-                                    {
-                                        <button class="btn btn-success btn-sm" onclick="@("window.location.href='" + @Url.Action("List", "Reservations") + "'");">Make a reservation</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-success btn-sm" onclick="@("window.location.href='" + @Url.Action("Login", "Account") + "'");">Make a reservation</button>
-                                    }
-                                   
+
+                                    <button class="btn btn-success btn-sm" onclick="@("window.location.href='" + @Url.Action("List", "Reservations") + "'");">Make a reservation</button>
 
                                     <button class="btn btn-info btn-sm" data-bind="click:$parent.showRating">Show rating</button>
                                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#menuForUser" data-bind="click:MenuButtonClick"><span class="glyphicon glyphicon-list"></span> View menu</button>
@@ -313,7 +306,7 @@
 </div>
 <script>
     $(function () {
-        var vm = new UserRestaurants();
+        vm = new UserRestaurants();
         vm.initSignalR();
         vm.refresh();
         ko.applyBindings(vm, $("#userRestaurants").get(0));
@@ -340,9 +333,11 @@
         $('#favorites').click(function (e) {
             e.stopPropagation();
         });
-        
-    });
 
+    });
+    function MenuButtonClick(data) {
+        vm.getDetails(data);
+    };
     $('#fav').popover({
         html: true,
         title: 'Warning<a class="close" href="#");">&times;</a>',
@@ -384,5 +379,5 @@
              $('#Name').popover('destroy');
          }
      });*/
-    
+
 </script>
