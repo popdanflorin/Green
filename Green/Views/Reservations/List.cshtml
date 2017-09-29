@@ -41,7 +41,7 @@
                     <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4" data-bind="text:ReservationDateDisplay"></td>
                     <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" data-bind="text:Seats"></td>
                     <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." data-bind="click:$root.delete">
+                            <button id="cancelButton" class="btn btn-danger" data-toggle="tooltip" title="Cancel the reservation." data-bind="click:$root.delete, disable: $root.isComplete($data.ReservationDate)">
                                 <span class="glyphicon glyphicon-remove-sign"></span> Cancel
                             </button>
                     </td>

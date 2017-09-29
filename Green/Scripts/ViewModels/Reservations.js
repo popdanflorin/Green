@@ -361,6 +361,13 @@
         $("#MonthlyChart").show();
     };
 
+    self.isComplete = function (data) {
+        var date = new Date(moment(data).format("YYYY-MM-DDTHH:mm:ss"));
+        var today = new Date();
+        console.log(date < today);
+        return date < today;
+    };
+
     // calculate
     self.getMonthByName = function (monthName) {
         var month;

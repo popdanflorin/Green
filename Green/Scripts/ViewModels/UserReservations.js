@@ -205,6 +205,13 @@
         });
     };
 
+    self.isComplete = function (data) {
+        var date = new Date(moment(data).format("YYYY-MM-DDTHH:mm:ss"));
+        var today = new Date();
+        console.log(date < today);
+        return date < today;
+    };
+
     self.validate = function () {
         var valid = true;
         if (self.nullOrEmpty(self.RestaurantId())) {
